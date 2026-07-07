@@ -15,7 +15,12 @@
     font-family:"Segoe UI","Malgun Gothic",system-ui,sans-serif;line-height:1.6;}
   .wrap{max-width:1120px;margin:0 auto;padding:32px 20px 64px;}
   h1{font-size:26px;margin:0 0 4px;}
-  .sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:16px;}
+  .datenav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+  .datenav a{padding:6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);
+    color:var(--muted);font-size:12.5px;text-decoration:none;transition:color .15s,border-color .15s;}
+  .datenav a:hover{color:var(--text);}
+  .datenav a.active{background:rgba(234,179,8,.15);color:var(--neutral);border-color:var(--neutral);font-weight:600;}
   .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:20px;}
   .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
   .up{color:var(--up);} .down{color:var(--down);} .neutral{color:var(--neutral);}
@@ -47,6 +52,12 @@
 <div class="wrap">
   <h1>19종목 추세 비교 리포트</h1>
   <div class="sub">기준일 2026-07-05 · 일봉(1D) · KRX · TradingView Swing Structure + Smart Money Concepts 기반 · 관심종목 캡처 8종목 추가</div>
+
+  <div class="datenav">
+    <a href="stock_comparison_report_2026-06-25.html">2026-06-25</a>
+    <a href="stock_comparison_report_2026-07-05.html" class="active">2026-07-05</a>
+    <a href="stock_comparison_report_2026-07-07.html">2026-07-07 (최신)</a>
+  </div>
 
   <div class="summary">
     <div class="stat"><b class="up">0</b>강세 🟢</div>
