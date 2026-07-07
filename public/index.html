@@ -66,6 +66,10 @@
   .badge.up{background:rgba(10,138,47,.1);color:var(--up);}
   .badge.down{background:rgba(193,53,21,.1);color:var(--down);}
   .badge.neutral{background:rgba(138,106,0,.12);color:var(--neutral);}
+  .filter-row td{padding:6px 8px;border-bottom:1px solid var(--hairline);}
+  .filter-row input,.filter-row select{width:100%;box-sizing:border-box;padding:5px 8px;border:1px solid var(--hairline);
+    border-radius:8px;background:var(--surface-soft);color:var(--ink);font-size:12px;font-family:inherit;}
+  .filter-row input:focus,.filter-row select:focus{outline:none;border-color:var(--ink);background:#fff;}
   .note{font-size:13px;color:var(--muted);}
   .secsum{background:var(--canvas);border:1px solid var(--hairline);border-radius:14px;padding:20px 22px;margin-top:24px;font-size:14px;color:var(--body);}
   .secsum h3{margin:0 0 10px;font-size:16px;font-weight:600;color:var(--ink);}
@@ -107,6 +111,16 @@
       <tr>
         <th>종목</th><th>코드</th><th>종가</th><th>등락</th><th>당일 레인지</th>
         <th>거래량</th><th>방향</th><th>저항 / 지지</th>
+      </tr>
+      <tr class="filter-row">
+        <td><input data-col="0" oninput="applyFilters(this.closest('table'))" placeholder="종목"></td>
+        <td><input data-col="1" oninput="applyFilters(this.closest('table'))" placeholder="코드"></td>
+        <td><input data-col="2" oninput="applyFilters(this.closest('table'))" placeholder="종가"></td>
+        <td><input data-col="3" oninput="applyFilters(this.closest('table'))" placeholder="등락"></td>
+        <td><input data-col="4" oninput="applyFilters(this.closest('table'))" placeholder="레인지"></td>
+        <td><input data-col="5" oninput="applyFilters(this.closest('table'))" placeholder="거래량"></td>
+        <td><select data-col="6" onchange="applyFilters(this.closest('table'))"><option value="">전체</option><option>강세</option><option>중립</option><option>약세</option></select></td>
+        <td><input data-col="7" oninput="applyFilters(this.closest('table'))" placeholder="저항/지지"></td>
       </tr>
     </thead>
     <tbody>
@@ -277,6 +291,16 @@
       <tr>
         <th>종목</th><th>코드</th><th>종가</th><th>주간 등락</th><th>주간 레인지</th>
         <th>거래량</th><th>방향</th><th>저항 / 지지</th>
+      </tr>
+      <tr class="filter-row">
+        <td><input data-col="0" oninput="applyFilters(this.closest('table'))" placeholder="종목"></td>
+        <td><input data-col="1" oninput="applyFilters(this.closest('table'))" placeholder="코드"></td>
+        <td><input data-col="2" oninput="applyFilters(this.closest('table'))" placeholder="종가"></td>
+        <td><input data-col="3" oninput="applyFilters(this.closest('table'))" placeholder="등락"></td>
+        <td><input data-col="4" oninput="applyFilters(this.closest('table'))" placeholder="레인지"></td>
+        <td><input data-col="5" oninput="applyFilters(this.closest('table'))" placeholder="거래량"></td>
+        <td><select data-col="6" onchange="applyFilters(this.closest('table'))"><option value="">전체</option><option>강세</option><option>중립</option><option>약세</option></select></td>
+        <td><input data-col="7" oninput="applyFilters(this.closest('table'))" placeholder="저항/지지"></td>
       </tr>
     </thead>
     <tbody>
@@ -455,6 +479,30 @@ function setTF(tf){
   document.getElementById('cnt-up').textContent = c[0];
   document.getElementById('cnt-neutral').textContent = c[1];
   document.getElementById('cnt-down').textContent = c[2];
+}
+function applyFilters(table){
+  var fr = table.querySelector('.filter-row');
+  if(!fr) return;
+  var filters = [];
+  fr.querySelectorAll('[data-col]').forEach(function(inp){
+    var v = inp.value.trim().toLowerCase();
+    if(v) filters.push({col:parseInt(inp.getAttribute('data-col'),10), val:v});
+  });
+  var rows = table.querySelectorAll('tbody tr'), lastSector=null, vis=false;
+  rows.forEach(function(tr){
+    if(tr.classList.contains('sector')){
+      if(lastSector) lastSector.style.display = vis ? '' : 'none';
+      lastSector=tr; vis=false; return;
+    }
+    var cells=tr.children;
+    var show=filters.every(function(f){
+      var c=cells[f.col];
+      return c && c.textContent.toLowerCase().indexOf(f.val)!==-1;
+    });
+    tr.style.display = show ? '' : 'none';
+    if(show) vis=true;
+  });
+  if(lastSector) lastSector.style.display = vis ? '' : 'none';
 }
 </script>
 </body>
