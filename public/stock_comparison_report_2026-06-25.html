@@ -227,11 +227,15 @@ function sortTable(table, col){
   var stock=allRows.filter(function(r){return !r.classList.contains('sector');});
   allRows.filter(function(r){return r.classList.contains('sector');}).forEach(function(r){r.style.display='none';});
   var mul=dir==='asc'?1:-1;
+  var isDir=stock.length&&/강세|중립|약세/.test(stock[0].children[col].textContent);
+  var isNum=!isDir&&stock.every(function(r){return cellNum(r.children[col].textContent)!==null;});
+  function rank(s){return s.indexOf('강세')>-1?0:(s.indexOf('중립')>-1?1:2);}
   stock.sort(function(a,b){
-    var ta=a.children[col].textContent, tb=b.children[col].textContent;
-    var na=cellNum(ta), nb=cellNum(tb);
-    if(na!==null && nb!==null) return (na-nb)*mul;
-    return ta.localeCompare(tb,'ko')*mul;
+    var ta=a.children[col].textContent, tb=b.children[col].textContent, cmp;
+    if(isDir) cmp=rank(ta)-rank(tb);
+    else if(isNum) cmp=cellNum(ta)-cellNum(tb);
+    else cmp=ta.localeCompare(tb,'ko');
+    return cmp*mul;
   });
   stock.forEach(function(r){r.style.display=''; tbody.appendChild(r);});
   var th=table.querySelectorAll('thead tr:first-child th')[col];
