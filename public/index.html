@@ -28,6 +28,17 @@
     color:var(--ink);font-size:13px;font-weight:500;text-decoration:none;transition:border-color .15s,background .15s;}
   .datenav a:hover{border-color:var(--ink);}
   .datenav a.active{background:var(--rausch-tint);color:var(--rausch);border-color:var(--rausch);font-weight:600;}
+  .toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+  .toolbar .tf-toggle{margin-bottom:0;}
+  .date-select{padding:8px 38px 8px 16px;border-radius:999px;border:1px solid var(--hairline);
+    background-color:var(--canvas);color:var(--ink);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;
+    appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23222222' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat:no-repeat;background-position:right 14px center;}
+  .date-select:hover{border-color:var(--ink);}
+  .summary-inline{display:flex;align-items:center;gap:18px;margin-left:auto;font-size:13px;}
+  .summary-inline span{color:var(--muted);white-space:nowrap;}
+  .summary-inline b{font-size:16px;font-weight:700;margin-right:5px;}
   .tf-toggle{display:inline-flex;margin-bottom:24px;border:1px solid var(--hairline);border-radius:10px;overflow:hidden;}
   .tf-toggle button{padding:9px 26px;background:var(--canvas);border:none;
     color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
@@ -66,23 +77,21 @@
   <h1>19종목 추세 비교 리포트</h1>
   <div class="sub">기준일 2026-07-07 · KRX · TradingView Swing Structure + Smart Money Concepts 기반 · 일봉/주봉 선택 가능</div>
 
-  <div class="datenav">
-    <a href="stock_comparison_report_2026-06-25.html">2026-06-25</a>
-    <a href="stock_comparison_report_2026-07-05.html">2026-07-05</a>
-    <a href="stock_comparison_report_2026-07-07.html" class="active">2026-07-07 (최신)</a>
-  </div>
-
-  <div class="tf-toggle">
-    <button id="tf-btn-D" class="active" onclick="setTF('D')">일봉</button>
-    <button id="tf-btn-W" onclick="setTF('W')">주봉</button>
-  </div>
-
-  <div id="tf-D" class="tf-panel">
-
-  <div class="summary">
-    <div class="stat"><b class="up">4</b>강세 🟢</div>
-    <div class="stat"><b class="neutral">4</b>중립 🟡</div>
-    <div class="stat"><b class="down">11</b>약세 🔴</div>
+  <div class="toolbar">
+    <select class="date-select" onchange="if(this.value)location.href=this.value;" aria-label="날짜 선택">
+      <option value="stock_comparison_report_2026-06-25.html">2026-06-25</option>
+      <option value="stock_comparison_report_2026-07-05.html">2026-07-05</option>
+      <option value="stock_comparison_report_2026-07-07.html" selected>2026-07-07 (최신)</option>
+    </select>
+    <div class="tf-toggle">
+      <button id="tf-btn-D" class="active" onclick="setTF('D')">일봉</button>
+      <button id="tf-btn-W" onclick="setTF('W')">주봉</button>
+    </div>
+    <div class="summary-inline">
+      <span><b class="up" id="cnt-up">4</b>강세</span>
+      <span><b class="neutral" id="cnt-neutral">4</b>중립</span>
+      <span><b class="down" id="cnt-down">11</b>약세</span>
+    </div>
   </div>
 
   <div class="legend">
@@ -90,6 +99,8 @@
     <span><span class="dot bg-neutral"></span>중립 (숨고르기·박스·보합)</span>
     <span><span class="dot bg-down"></span>약세 (하락·조정 지속)</span>
   </div>
+
+  <div id="tf-D" class="tf-panel">
 
   <table>
     <thead>
@@ -260,18 +271,6 @@
   </div>
 
   <div id="tf-W" class="tf-panel" style="display:none;">
-
-  <div class="summary">
-    <div class="stat"><b class="up">5</b>강세 🟢</div>
-    <div class="stat"><b class="neutral">4</b>중립 🟡</div>
-    <div class="stat"><b class="down">10</b>약세 🔴</div>
-  </div>
-
-  <div class="legend">
-    <span><span class="dot bg-up"></span>강세 (상승 추세·반등 주도)</span>
-    <span><span class="dot bg-neutral"></span>중립 (숨고르기·박스·보합)</span>
-    <span><span class="dot bg-down"></span>약세 (하락·조정 지속)</span>
-  </div>
 
   <table>
     <thead>
@@ -446,11 +445,16 @@
   </div>
 </div>
 <script>
+var TF_COUNTS = { D:[4,4,11], W:[5,4,10] };
 function setTF(tf){
   document.getElementById('tf-D').style.display = tf==='D' ? '' : 'none';
   document.getElementById('tf-W').style.display = tf==='W' ? '' : 'none';
   document.getElementById('tf-btn-D').classList.toggle('active', tf==='D');
   document.getElementById('tf-btn-W').classList.toggle('active', tf==='W');
+  var c = TF_COUNTS[tf];
+  document.getElementById('cnt-up').textContent = c[0];
+  document.getElementById('cnt-neutral').textContent = c[1];
+  document.getElementById('cnt-down').textContent = c[2];
 }
 </script>
 </body>
