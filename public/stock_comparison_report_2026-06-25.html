@@ -45,6 +45,9 @@
   .tf-toggle button.active{background:var(--rausch);color:#fff;}
   .tf-toggle button:hover:not(.active){color:var(--ink);background:var(--surface-soft);}
   .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .sumleg{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted);margin-bottom:22px;}
+  .sumleg span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .sumleg b{font-size:16px;font-weight:700;}
   .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
   .up{color:var(--up);} .down{color:var(--down);} .neutral{color:var(--neutral);}
   .bg-up{background:var(--up);} .bg-down{background:var(--down);} .bg-neutral{background:var(--neutral);}
@@ -85,17 +88,12 @@
       <option value="stock_comparison_report_2026-07-05.html">2026-07-05</option>
       <option value="stock_comparison_report_2026-07-07.html">2026-07-07 (최신)</option>
     </select>
-    <div class="summary-inline">
-      <span><b class="up">1</b>강세</span>
-      <span><b class="neutral">5</b>중립</span>
-      <span><b class="down">5</b>약세</span>
-    </div>
   </div>
 
-  <div class="legend">
-    <span><span class="dot bg-up"></span>강세 (상승 추세)</span>
-    <span><span class="dot bg-neutral"></span>중립 (숨고르기·박스·바닥)</span>
-    <span><span class="dot bg-down"></span>약세 (하락·천장 후 급락)</span>
+  <div class="sumleg">
+    <span><span class="dot bg-up"></span><b class="up">1</b> 강세(상승 추세)</span>
+    <span><span class="dot bg-neutral"></span><b class="neutral">5</b> 중립(숨고르기·박스·바닥)</span>
+    <span><span class="dot bg-down"></span><b class="down">5</b> 약세(하락·천장 후 급락)</span>
   </div>
 
   <table>

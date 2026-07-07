@@ -46,6 +46,9 @@
   .tf-toggle button.active{background:var(--rausch);color:#fff;}
   .tf-toggle button:hover:not(.active){color:var(--ink);background:var(--surface-soft);}
   .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .sumleg{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted);margin-bottom:22px;}
+  .sumleg span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .sumleg b{font-size:16px;font-weight:700;}
   .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
   .up{color:var(--up);} .down{color:var(--down);} .neutral{color:var(--neutral);}
   .bg-up{background:var(--up);} .bg-down{background:var(--down);} .bg-neutral{background:var(--neutral);}
@@ -90,17 +93,12 @@
       <button id="tf-btn-D" class="active" onclick="setTF('D')">일봉</button>
       <button id="tf-btn-W" onclick="setTF('W')">주봉</button>
     </div>
-    <div class="summary-inline">
-      <span><b class="up" id="cnt-up">4</b>강세</span>
-      <span><b class="neutral" id="cnt-neutral">4</b>중립</span>
-      <span><b class="down" id="cnt-down">11</b>약세</span>
-    </div>
   </div>
 
-  <div class="legend">
-    <span><span class="dot bg-up"></span>강세 (상승 추세·반등 주도)</span>
-    <span><span class="dot bg-neutral"></span>중립 (숨고르기·박스·보합)</span>
-    <span><span class="dot bg-down"></span>약세 (하락·조정 지속)</span>
+  <div class="sumleg">
+    <span><span class="dot bg-up"></span><b class="up" id="cnt-up">4</b> 강세(상승 추세·반등 주도)</span>
+    <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">4</b> 중립(숨고르기·박스·보합)</span>
+    <span><span class="dot bg-down"></span><b class="down" id="cnt-down">11</b> 약세(하락·조정 지속)</span>
   </div>
 
   <div id="tf-D" class="tf-panel">
