@@ -1,1 +1,7 @@
+# Cloudflare 배포 저장소 — 리포트 사이트(report/)와 배포 설정만 추적한다.
+# 루트의 나머지(프로젝트.env, node_modules, capture 등)는 전부 제외.
+/*
+!/.gitignore
+!/wrangler.toml
+!/report/
 .wrangler/
