@@ -47,6 +47,7 @@
   .tf-toggle button:hover:not(.active){color:var(--ink);background:var(--surface-soft);}
   .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:20px;}
   .sumleg{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted);margin-bottom:22px;}
+  .toolbar .sumleg{margin-left:auto;margin-bottom:0;}
   .sumleg span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
   .sumleg b{font-size:16px;font-weight:700;}
   .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
@@ -57,9 +58,9 @@
   .stat b{font-size:20px;font-weight:700;display:block;}
   table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13.5px;}
   th,td{padding:11px 10px;text-align:right;border-bottom:1px solid var(--hairline-soft);}
-  th{color:var(--muted);font-weight:600;text-align:left;border-bottom:1px solid var(--hairline);
+  th{color:var(--muted);font-weight:600;text-align:center;border-bottom:1px solid var(--hairline);
     font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
-  th:first-child,td:first-child{text-align:left;}
+  td:first-child{text-align:left;}
   td.name{font-weight:600;color:var(--ink);}
   td.name .code{color:var(--muted);font-weight:400;font-size:11px;margin-left:2px;}
   tr.sector td{background:var(--surface-soft);color:var(--muted);font-weight:700;font-size:11px;
@@ -80,7 +81,7 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>19종목 추세 비교 리포트</h1>
+  <h1>트레이딩뷰 분석 리포트</h1>
   <div class="sub">기준일 2026-07-09 · KRX · TradingView Swing Structure + Smart Money Concepts 기반 · 일봉/주봉 선택 가능</div>
 
   <div class="toolbar">
@@ -95,12 +96,11 @@
       <button id="tf-btn-D" class="active" onclick="setTF('D')">일봉</button>
       <button id="tf-btn-W" onclick="setTF('W')">주봉</button>
     </div>
-  </div>
-
-  <div class="sumleg">
-    <span><span class="dot bg-up"></span><b class="up" id="cnt-up">0</b> 강세(상승 추세·반등 주도)</span>
-    <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">6</b> 중립(숨고르기·박스·보합)</span>
-    <span><span class="dot bg-down"></span><b class="down" id="cnt-down">13</b> 약세(하락·조정 지속)</span>
+    <div class="sumleg">
+      <span><span class="dot bg-up"></span><b class="up" id="cnt-up">0</b> 강세(상승 추세·반등 주도)</span>
+      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">6</b> 중립(숨고르기·박스·보합)</span>
+      <span><span class="dot bg-down"></span><b class="down" id="cnt-down">13</b> 약세(하락·조정 지속)</span>
+    </div>
   </div>
 
   <div id="tf-D" class="tf-panel">
