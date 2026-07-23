@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- TradingView 일봉/주봉 분석 기반 25종목 추세 비교 리포트 (2026-07-20 기준, 섹터별 분류) -->
+<!-- TradingView 일봉/주봉 분석 기반 25종목 추세 비교 리포트 (2026-07-23 기준, 섹터별 분류) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>25종목 비교 리포트 · 2026-07-20</title>
+<title>25종목 비교 리포트 · 2026-07-23</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@
 <body>
 <div class="wrap">
   <h1>트레이딩뷰 분석 리포트</h1>
-  <div class="sub">기준일 2026-07-20 · KRX · TradingView Swing Structure + Smart Money Concepts 기반 · 일봉/주봉 선택 가능</div>
+  <div class="sub">기준일 2026-07-23 · KRX · TradingView Swing Structure + Smart Money Concepts 기반 · 일봉/주봉 선택 가능</div>
 
   <div class="toolbar">
     <select class="date-select" onchange="if(this.value)location.href=this.value;" aria-label="날짜 선택">
@@ -95,16 +95,17 @@
       <option value="stock_comparison_report_2026-07-14.html">2026-07-14</option>
       <option value="stock_comparison_report_2026-07-15.html">2026-07-15</option>
       <option value="stock_comparison_report_2026-07-16.html">2026-07-16</option>
-      <option value="stock_comparison_report_2026-07-20.html" selected>2026-07-20 (최신)</option>
+      <option value="stock_comparison_report_2026-07-20.html">2026-07-20</option>
+      <option value="stock_comparison_report_2026-07-23.html" selected>2026-07-23 (최신)</option>
     </select>
     <div class="tf-toggle">
       <button id="tf-btn-D" class="active" onclick="setTF('D')">일봉</button>
       <button id="tf-btn-W" onclick="setTF('W')">주봉</button>
     </div>
     <div class="sumleg">
-      <span><span class="dot bg-up"></span><b class="up" id="cnt-up">1</b> 강세(상승 추세 유지)</span>
-      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">5</b> 중립(반등·박스·보합)</span>
-      <span><span class="dot bg-down"></span><b class="down" id="cnt-down">19</b> 약세(하락·구조 이탈)</span>
+      <span><span class="dot bg-up"></span><b class="up" id="cnt-up">4</b> 강세(당일 고가·거래량 동반)</span>
+      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">21</b> 중립(반등·저항 접근)</span>
+      <span><span class="dot bg-down"></span><b class="down" id="cnt-down">0</b> 약세(하락)</span>
     </div>
   </div>
 
@@ -121,198 +122,198 @@
       <tr class="sector"><td colspan="7">반도체 · 부품</td></tr>
       <tr>
         <td class="name">SK하이닉스 <span class="code">(000660)</span></td>
-        <td>1,764,000</td><td class="down">-4.23%</td><td>1,735,000~1,892,000</td>
-        <td>5.88M</td><td><span class="badge down">약세(반등 시도 무산, 1,855,000 안착 실패)</span></td><td>1,855,000 / 1,690,000</td>
+        <td>1,919,000</td><td class="up">+4.86%</td><td>1,845,000~1,948,000</td>
+        <td>4.12M</td><td><span class="badge neutral">중립(반등 지속, 1,995,000 저항 접근)</span></td><td>1,995,000 / 1,855,000</td>
       </tr>
       <tr>
         <td class="name">삼성전자 <span class="code">(005930)</span></td>
-        <td>244,000</td><td class="down">-4.31%</td><td>240,000~257,500</td>
-        <td>26.80M</td><td><span class="badge down">약세(229,500 지지 시험)</span></td><td>262,000 / 229,500</td>
+        <td>270,000</td><td class="up">+3.65%</td><td>263,000~273,000</td>
+        <td>16.01M</td><td><span class="badge neutral">중립(반등 지속, 281,500 저항 접근)</span></td><td>281,500 / 262,000</td>
       </tr>
       <tr>
         <td class="name">삼성전기 <span class="code">(009150)</span></td>
-        <td>1,275,000</td><td class="neutral">-0.16%</td><td>1,203,000~1,362,000</td>
-        <td>0.97M</td><td><span class="badge neutral">중립(갭하락 후 낙폭 전부 회복)</span></td><td>1,552,000 / 1,133,000</td>
+        <td>1,448,000</td><td class="up">+7.66%</td><td>1,380,000~1,475,000</td>
+        <td>0.66M</td><td><span class="badge neutral">중립(3일 연속 급반등)</span></td><td>1,552,000 / 1,163,000</td>
       </tr>
       <tr>
         <td class="name">삼성전자우 <span class="code">(005935)</span></td>
-        <td>169,200</td><td class="down">-1.63%</td><td>163,900~184,900</td>
-        <td>4.68M</td><td><span class="badge neutral">중립(갭하락 후 반등, 171,000 저항 근접)</span></td><td>171,000 / 135,500</td>
+        <td>191,100</td><td class="up">+3.24%</td><td>187,200~193,800</td>
+        <td>2.37M</td><td><span class="badge neutral">중립(반등 지속)</span></td><td>202,500 / 187,400</td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
-        <td>35,800</td><td class="down">-9.37%</td><td>35,600~40,000</td>
-        <td>5.94만</td><td><span class="badge down">약세(34,350 지지 시험, 신저가 근접)</span></td><td>42,250 / 34,350</td>
+        <td>35,700</td><td class="up">+4.39%</td><td>34,500~36,100</td>
+        <td>6.27만</td><td><span class="badge neutral">중립(34,350 지지 확인 후 반등)</span></td><td>42,250 / 34,350</td>
       </tr>
 
       <tr class="sector"><td colspan="7">2차전지</td></tr>
       <tr>
         <td class="name">삼성SDI <span class="code">(006400)</span></td>
-        <td>401,000</td><td class="down">-7.71%</td><td>400,000~425,000</td>
-        <td>37.16만</td><td><span class="badge down">약세(390,000 지지 초읽기)</span></td><td>442,000 / 390,000</td>
+        <td>467,000</td><td class="up">+11.46%</td><td>418,500~467,000</td>
+        <td>45.07만</td><td><span class="badge up">강세(당일 고가 마감, 481,500 저항 도전)</span></td><td>481,500 / 466,500</td>
       </tr>
 
       <tr class="sector"><td colspan="7">조선</td></tr>
       <tr>
         <td class="name">삼성중공업 <span class="code">(010140)</span></td>
-        <td>20,950</td><td class="down">-6.05%</td><td>20,900~22,100</td>
-        <td>2.60M</td><td><span class="badge down">약세(20,700 지지 시험)</span></td><td>22,200 / 20,700</td>
+        <td>23,650</td><td class="up">+9.49%</td><td>21,600~23,650</td>
+        <td>4.19M</td><td><span class="badge up">강세(당일 고가 마감, 23,900 저항 근접)</span></td><td>23,900 / 22,200</td>
       </tr>
 
       <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
       <tr>
         <td class="name">NAVER <span class="code">(035420)</span></td>
-        <td>185,900</td><td class="down">-2.16%</td><td>183,300~191,300</td>
-        <td>63.01만</td><td><span class="badge down">약세(181,100 지지 시험)</span></td><td>190,300 / 181,100</td>
+        <td>220,000</td><td class="up">+11.73%</td><td>203,000~220,000</td>
+        <td>190.78만</td><td><span class="badge up">강세(당일 고가 마감, 거래량 2.1배, 218,500 돌파)</span></td><td>265,500 / 218,500</td>
       </tr>
       <tr>
         <td class="name">삼성에스디에스 <span class="code">(018260)</span></td>
-        <td>185,800</td><td class="down">-6.77%</td><td>184,200~193,000</td>
-        <td>23.58만</td><td><span class="badge down">약세(183,000 지지 근접)</span></td><td>186,100 / 183,000</td>
+        <td>218,000</td><td class="up">+11.22%</td><td>198,800~218,500</td>
+        <td>40.28만</td><td><span class="badge neutral">중립(급반등, 215,500 돌파)</span></td><td>250,000 / 215,500</td>
       </tr>
 
       <tr class="sector"><td colspan="7">게임</td></tr>
       <tr>
         <td class="name">크래프톤 <span class="code">(259960)</span></td>
-        <td>222,500</td><td class="down">-7.48%</td><td>222,000~242,000</td>
-        <td>7.68만</td><td><span class="badge down">약세(HL 230,000 이탈, 상승 구조 훼손)</span></td><td>230,000 / 221,500</td>
+        <td>237,500</td><td class="up">+2.81%</td><td>230,000~240,500</td>
+        <td>6.81만</td><td><span class="badge neutral">중립(230,000 지지 확인 후 반등)</span></td><td>238,000 / 230,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
       <tr>
         <td class="name">KB금융 <span class="code">(105560)</span></td>
-        <td>168,800</td><td class="down">-6.79%</td><td>165,600~187,500</td>
-        <td>1.83M</td><td><span class="badge down">약세(177,000 지지 붕괴, 상승 추세 이탈)</span></td><td>175,700 / 164,200</td>
+        <td>176,300</td><td class="up">+0.69%</td><td>174,000~180,100</td>
+        <td>1.04M</td><td><span class="badge neutral">중립(177,000 저항 재도전)</span></td><td>177,000 / 175,700</td>
       </tr>
       <tr>
         <td class="name">삼성화재 <span class="code">(000810)</span></td>
-        <td>602,000</td><td class="down">-14.12%</td><td>601,000~679,000</td>
-        <td>18.71만</td><td><span class="badge down">약세(LH 697,000 돌파 실패, 급락 반납)</span></td><td>697,000 / 599,000</td>
+        <td>638,000</td><td class="up">+1.27%</td><td>619,000~645,000</td>
+        <td>7.58만</td><td><span class="badge neutral">중립(급락 후 안정)</span></td><td>697,000 / 599,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
       <tr>
         <td class="name">웨이비스 <span class="code">(289930)</span></td>
-        <td>7,030</td><td class="down">-9.17%</td><td>7,000~7,730</td>
-        <td>11.32만</td><td><span class="badge down">약세(7,000 저점 재시험)</span></td><td>7,450 / 7,000</td>
+        <td>7,200</td><td class="up">+5.11%</td><td>6,850~7,220</td>
+        <td>5.67만</td><td><span class="badge neutral">중립(저점 반등)</span></td><td>7,970 / 6,790</td>
       </tr>
 
       <tr class="sector"><td colspan="7">자동차 부품</td></tr>
       <tr>
         <td class="name">현대모비스 <span class="code">(012330)</span></td>
-        <td>472,500</td><td class="down">-1.97%</td><td>467,000~492,000</td>
-        <td>31.67만</td><td><span class="badge neutral">중립(372,000~499,500 박스권 조정)</span></td><td>499,500 / 372,000</td>
+        <td>524,000</td><td class="up">+2.14%</td><td>506,000~525,000</td>
+        <td>29.88만</td><td><span class="badge neutral">중립(4일 연속 반등)</span></td><td>528,000 / 522,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">건설</td></tr>
       <tr>
         <td class="name">현대건설 <span class="code">(000720)</span></td>
-        <td>91,000</td><td class="down">-8.08%</td><td>90,100~95,800</td>
-        <td>59.05만</td><td><span class="badge down">약세(78,500까지 하락 여력)</span></td><td>122,000 / 78,500</td>
+        <td>108,900</td><td class="up">+10.45%</td><td>97,600~110,000</td>
+        <td>53.83만</td><td><span class="badge neutral">중립(장중 11만 터치 후 상단권 마감)</span></td><td>115,100 / 100,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">통신</td></tr>
       <tr>
         <td class="name">SK텔레콤 <span class="code">(017670)</span></td>
-        <td>84,700</td><td class="down">-5.57%</td><td>80,900~93,300</td>
-        <td>1.09M</td><td><span class="badge down">약세(90,300 저항 돌파 실패)</span></td><td>88,600 / 69,000</td>
+        <td>99,500</td><td class="up">+5.74%</td><td>91,100~100,600</td>
+        <td>2.54M</td><td><span class="badge neutral">중립(거래량 급증 동반 상단권 마감)</span></td><td>108,000 / 97,200</td>
       </tr>
 
       <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
       <tr>
         <td class="name">클래시스 <span class="code">(214150)</span></td>
-        <td>43,800</td><td class="down">-0.68%</td><td>42,400~44,150</td>
-        <td>14.70만</td><td><span class="badge down">약세(5일 연속 하락, 42,850 지지 시험)</span></td><td>44,300 / 42,850</td>
+        <td>44,250</td><td class="up">+1.96%</td><td>43,350~44,800</td>
+        <td>37.47만</td><td><span class="badge neutral">중립(44,300 저항 접근)</span></td><td>44,300 / 42,850</td>
       </tr>
       <tr>
         <td class="name">에이피알 <span class="code">(278470)</span></td>
-        <td>368,000</td><td class="down">-6.36%</td><td>364,000~388,500</td>
-        <td>14.68만</td><td><span class="badge down">약세(342,500 지지 위 조정)</span></td><td>443,000 / 342,500</td>
+        <td>370,000</td><td class="up">+3.50%</td><td>352,500~373,000</td>
+        <td>22.83만</td><td><span class="badge neutral">중립(반등 지속)</span></td><td>374,000 / 360,000</td>
       </tr>
       <tr>
         <td class="name">에스티팜 <span class="code">(237690)</span></td>
-        <td>113,900</td><td class="down">-8.37%</td><td>112,900~127,300</td>
-        <td>9.65만</td><td><span class="badge down">약세(114,000 지지 이탈 임박)</span></td><td>114,000 / 108,500</td>
+        <td>117,900</td><td class="up">+4.34%</td><td>112,800~119,400</td>
+        <td>7.87만</td><td><span class="badge neutral">중립(반등 지속)</span></td><td>121,400 / 117,100</td>
       </tr>
       <tr>
         <td class="name">휴메딕스 <span class="code">(200670)</span></td>
-        <td>24,600</td><td class="down">-5.93%</td><td>24,600~25,850</td>
-        <td>3.20만</td><td><span class="badge down">약세(23,800 신저가 초읽기)</span></td><td>31,600 / 23,800</td>
+        <td>25,250</td><td class="up">+4.55%</td><td>24,200~25,350</td>
+        <td>2.27만</td><td><span class="badge neutral">중립(저점 반등)</span></td><td>27,450 / 25,100</td>
       </tr>
       <tr>
         <td class="name">달바글로벌 <span class="code">(483650)</span></td>
-        <td>217,000</td><td class="up">+4.08%</td><td>202,500~222,500</td>
-        <td>12.56만</td><td><span class="badge up">강세(25종목 중 유일한 상승, 4일 연속 상승)</span></td><td>258,500 / 180,000</td>
+        <td>240,000</td><td class="up">+8.11%</td><td>216,500~250,000</td>
+        <td>15.67만</td><td><span class="badge up">강세(6일 연속 상승, 25종목 중 유일한 일관된 상승세)</span></td><td>258,500 / 237,500</td>
       </tr>
       <tr>
         <td class="name">아모레퍼시픽 <span class="code">(090430)</span></td>
-        <td>117,300</td><td class="down">-5.71%</td><td>116,100~123,600</td>
-        <td>17.36만</td><td><span class="badge down">약세(HH·HL 상승 구조 훼손, 116,700 지지 시험)</span></td><td>122,000 / 116,700</td>
+        <td>119,000</td><td class="up">+1.80%</td><td>115,300~119,000</td>
+        <td>18.16만</td><td><span class="badge neutral">중립(반등 지속)</span></td><td>123,000 / 115,500</td>
       </tr>
       <tr>
         <td class="name">LG생활건강 <span class="code">(051900)</span></td>
-        <td>245,000</td><td class="down">-0.61%</td><td>239,500~251,500</td>
-        <td>5.83만</td><td><span class="badge neutral">중립(240,000 지지 위 보합)</span></td><td>253,500 / 240,000</td>
+        <td>248,000</td><td class="up">+1.64%</td><td>242,500~249,000</td>
+        <td>3.68만</td><td><span class="badge neutral">중립(249,500 저항 접근)</span></td><td>249,500 / 240,500</td>
       </tr>
 
       <tr class="sector"><td colspan="7">음식료</td></tr>
       <tr>
         <td class="name">삼양식품 <span class="code">(003230)</span></td>
-        <td>1,053,000</td><td class="down">-1.50%</td><td>1,029,000~1,072,000</td>
-        <td>2.25만</td><td><span class="badge neutral">중립(1,011,000 지지 위 조정)</span></td><td>1,130,000 / 1,011,000</td>
+        <td>1,127,000</td><td class="up">+1.62%</td><td>1,091,000~1,135,000</td>
+        <td>4.02만</td><td><span class="badge neutral">중립(3일 연속 반등)</span></td><td>1,212,000 / 1,050,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
       <tr>
         <td class="name">배럴 <span class="code">(267790)</span></td>
-        <td>3,155</td><td class="down">-5.96%</td><td>3,095~3,280</td>
-        <td>0.56만</td><td><span class="badge down">약세(2,950 지지 시험, 저점 붕괴 우려)</span></td><td>3,270 / 2,950</td>
+        <td>3,325</td><td class="neutral">0.00%</td><td>3,255~3,380</td>
+        <td>0.41만</td><td><span class="badge neutral">중립(보합)</span></td><td>3,365 / 2,950</td>
       </tr>
     </tbody>
   </table>
-  <div class="note">※ 등락률은 직전 거래일(7/16) 종가 대비 당일(7/20) 종가 기준입니다. TradingView 일봉 데이터상 7/17(금)이 존재하지 않아 지난주는 07/13~07/16 4거래일로 마감됐습니다.<br>
-  ※ 저항/지지는 TradingView Swing Structure 지표가 일봉 차트에 찍은 피벗 중 현재가와 가장 가까운 위·아래 레벨입니다.</div>
+  <div class="note">※ 등락률은 직전 거래일(7/22) 종가 대비 당일(7/23) 종가 기준입니다.<br>
+  ※ 저항/지지는 TradingView Swing Structure 지표가 일봉 차트에 찍은 피벗 중 현재가와 가장 가까운 위·아래 레벨입니다. 웨이비스는 현재가 아래 확인된 피벗이 없어 최근 저점을 지지로 표기했습니다.</div>
 
   <div class="secsum">
     <h3>섹터별 한 줄 요약</h3>
     <ul style="margin:0;padding-left:18px;">
-      <li><b>반도체·부품</b> — 지난주 목요일(7/16)의 부분 반등이 다시 꺾였습니다. <span class="down">넥스틴(-9.37%)</span>이 34,350 신저가에 근접했고 <span class="down">삼성전자(-4.31%)·SK하이닉스(-4.23%)</span>도 재차 하락했습니다. 반면 <span class="neutral">삼성전기(-0.16%)·삼성전자우(-1.63%)</span>는 개장 직후 갭하락(각각 -5.6%·-4.1%)했다가 장중 낙폭을 대부분 되돌려, 같은 섹터 안에서도 뚜렷한 명암이 갈렸습니다.</li>
-      <li><b>2차전지</b> — <span class="down">삼성SDI(-7.71%)</span>는 390,000 지지 바로 위까지 밀렸습니다.</li>
-      <li><b>조선</b> — <span class="down">삼성중공업(-6.05%)</span>은 지난주 이틀 연속 반등분을 반납하며 20,700 지지를 시험 중입니다.</li>
-      <li><b>인터넷·IT서비스</b> — <span class="down">NAVER(-2.16%)</span>는 181,100 지지 근처까지, <span class="down">삼성에스디에스(-6.77%)</span>는 183,000 지지 근처까지 밀렸습니다. 둘 다 지난주까지의 선방이 끊겼습니다.</li>
-      <li><b>게임</b> — <span class="down">크래프톤(-7.48%)</span>은 그동안 유지하던 HL 230,000을 이탈하며 상승 구조가 깨졌습니다.</li>
-      <li><b>금융·보험</b> — 오늘 낙폭이 가장 큰 섹터. <span class="down">삼성화재(-14.12%)</span>가 25종목 중 최대 낙폭으로, 지난주 돌파했던 LH 697,000 위에서 하루도 버티지 못하고 급락 반납했습니다. <span class="down">KB금융(-6.79%)</span>은 177,000 지지가 무너지며 이 리포트 시작 이래 처음으로 '강세' 배지를 잃었습니다.</li>
-      <li><b>방산·전자부품</b> — <span class="down">웨이비스(-9.17%)</span>는 지난주 저점 7,000을 재시험했습니다.</li>
-      <li><b>자동차·건설</b> — <span class="down">현대모비스(-1.97%)</span>는 372,000~499,500 박스권 안에서 상대적으로 선방했지만, <span class="down">현대건설(-8.08%)</span>은 지난주 되찾았던 10만원선을 다시 크게 내줬습니다.</li>
-      <li><b>통신</b> — <span class="down">SK텔레콤(-5.57%)</span>은 지난주 육박했던 90,300 저항을 넘지 못하고 되밀렸습니다.</li>
-      <li><b>제약·바이오·미용</b> — <span class="up">달바글로벌(+4.08%)</span>만 유일하게 상승하며 4거래일 연속 오름세를 이어갔습니다. 나머지 6종목은 전부 하락했는데, 특히 <span class="down">에스티팜(-8.37%)</span>·<span class="down">에이피알(-6.36%)</span>·<span class="down">아모레퍼시픽(-5.71%)</span>의 낙폭이 컸고, <span class="down">클래시스(-0.68%)·LG생활건강(-0.61%)</span>는 상대적으로 선방했습니다.</li>
-      <li><b>음식료</b> — <span class="down">삼양식품(-1.50%)</span>은 1,011,000 지지 위에서 완만한 조정을 이어갔습니다.</li>
-      <li><b>패션·기타</b> — <span class="down">배럴(-5.96%)</span>은 저점권 횡보를 끝내고 2,950 지지 시험까지 밀렸습니다.</li>
+      <li><b>반도체·부품</b> — 5종목 전부 반등을 이어갔습니다. <span class="up">삼성전기(+7.66%)</span>는 3일 연속 반등하며 월요일 급락분을 대부분 만회했고, <span class="up">SK하이닉스(+4.86%)</span>는 1,995,000 저항에, <span class="up">삼성전자(+3.65%)</span>는 281,500 저항에 다가섰습니다.</li>
+      <li><b>2차전지</b> — <span class="up">삼성SDI(+11.46%)</span>가 당일 고가로 마감하며 25종목 중 두 번째로 큰 상승폭을 기록, 481,500 저항을 시험 중입니다.</li>
+      <li><b>조선</b> — <span class="up">삼성중공업(+9.49%)</span>도 당일 고가 마감으로 23,900 저항 코앞까지 올라섰습니다.</li>
+      <li><b>인터넷·IT서비스</b> — 오늘 가장 강한 섹터. <span class="up">NAVER(+11.73%)</span>는 거래량이 전일 대비 2.1배 실리며 당일 고가로 마감, 218,500을 완전히 돌파했습니다. <span class="up">삼성에스디에스(+11.22%)</span>도 215,500을 넘어서며 급반등했습니다.</li>
+      <li><b>게임</b> — <span class="up">크래프톤(+2.81%)</span>은 월요일 이탈했던 230,000을 다시 지지로 확인하며 반등했습니다.</li>
+      <li><b>금융·보험</b> — <span class="up">KB금융(+0.69%)</span>은 176,300까지 올라 무너졌던 177,000 저항을 다시 두드리고 있습니다. <span class="up">삼성화재(+1.27%)</span>는 급락 이후 처음으로 안정된 흐름을 보였습니다.</li>
+      <li><b>방산·전자부품</b> — <span class="up">웨이비스(+5.11%)</span>는 저점권에서 반등했습니다.</li>
+      <li><b>자동차·건설</b> — <span class="up">현대모비스(+2.14%)</span>는 4일 연속 반등, <span class="up">현대건설(+10.45%)</span>은 장중 11만원을 터치한 뒤 상단권에서 마감했습니다.</li>
+      <li><b>통신</b> — <span class="up">SK텔레콤(+5.74%)</span>은 거래량 급증을 동반하며 상단권 마감, 108,000 저항까지 거리를 좁혔습니다.</li>
+      <li><b>제약·바이오·미용</b> — <span class="up">달바글로벌(+8.11%)</span>이 6거래일 연속 상승하며 25종목 중 가장 일관된 흐름을 이어갔고, 나머지 6종목도 전부 상승했습니다.</li>
+      <li><b>음식료</b> — <span class="up">삼양식품(+1.62%)</span>은 3일 연속 반등을 이어갔습니다.</li>
+      <li><b>패션·기타</b> — <span class="neutral">배럴(0.00%)</span>은 유일하게 보합에 머물렀습니다.</li>
     </ul>
   </div>
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트</h3>
-    <p style="margin:0;">오늘(7/20, 월)은 <b>25종목 중 24종목이 하락</b>하며 지난 목요일(7/16)의 부분 반등을 사실상 전부 되돌렸습니다. 무엇보다 이 리포트가 시작된 이래 단 한 번도 흔들리지 않았던 <b class="down">KB금융이 -6.79%로 177,000 지지를 내주며 처음으로 '강세' 배지를 잃었습니다.</b> 위쪽에 저항 피벗이 없어 '신고가 영역'으로 표기해 왔던 구조도 오늘 166,500 LH가 새로 잡히며 사라졌습니다 — 그동안 반복해 온 "유일한 상승 추세 종목"이라는 문구를 이제 KB금융에 쓸 수 없게 됐습니다. 지난주 최고 상승주였던 <b class="down">삼성화재</b>도 -14.12%로 오늘 최대 낙폭을 기록하며, 지난주 목요일 돌파했던 LH 697,000 위에서 버티지 못하고 되돌아왔습니다. <b class="down">넥스틴·삼성중공업·NAVER·웨이비스·배럴</b> 5종목은 Swing Structure가 잡고 있는 최근 피벗을 모두 하회해, 지표상 확인된 지지선이 없는 미확인 구간에 들어섰습니다. 유일한 상승 종목은 <b class="up">달바글로벌(+4.08%)</b>로, 7/16 이후 나흘 연속 오르며 25종목 중 가장 독자적인 흐름을 이어가고 있습니다. 반면 <b class="neutral">삼성전기·삼성전자우</b>는 개장 직후 큰 갭하락 후 낙폭을 대부분 되돌리는 저가 매수세가 확인돼, 전면 급락 속에서도 종목별 온도차가 뚜렷했습니다.</p>
+    <p style="margin:0;">오늘(7/23, 목)은 <b>25종목 중 24종목이 상승하고 1종목(배럴)이 보합</b>에 그쳐, <b>이 리포트 시리즈가 시작된 이래 처음으로 하락 종목이 단 하나도 없었습니다.</b> 월요일(7/20)의 전면 급락(24종목 하락)이 사흘 만에 완전히 뒤집힌 셈입니다. <b class="up">삼성SDI(+11.46%)·삼성중공업(+9.49%)·NAVER(+11.73%)</b>는 나란히 당일 고가로 마감했고, 특히 NAVER는 거래량이 전일 대비 2.1배로 불어나며 218,500 저항을 완전히 돌파했습니다. <b class="up">달바글로벌(+8.11%)</b>은 7/16 이후 6거래일 연속 상승을 이어가며, 이번 리포트 시리즈에서 가장 흔들림 없는 종목으로 자리를 굳혔습니다. 다만 <b class="up">KB금융(+0.69%)</b>은 월요일 무너졌던 177,000 저항을 다시 두드리는 수준에 그쳐, "강세" 배지를 되찾지는 못했습니다 — 반등의 폭이 넓었던 하루였지만 구조적 회복은 아직 완결되지 않은 종목이 남아 있다는 뜻입니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);">
-    <h3>⭐ 투자유망 종목 베스트3 <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-07-20 기준)</span></h3>
+    <h3>⭐ 투자유망 종목 베스트3 <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-07-23 기준)</span></h3>
     <ol style="margin:8px 0 0;padding-left:20px;">
       <li style="margin-bottom:10px;">
-        <b class="up">1. 달바글로벌 (483650)</b> — 종가 217,000 · +4.08%<br>
-        <span style="color:var(--muted);">25종목 중 오늘 유일한 상승 종목이자 7/16 이후 4거래일 연속 상승. 180,000 지지 위에서 258,500을 향해 상승 구조를 이어가는 중.</span>
+        <b class="up">1. 달바글로벌 (483650)</b> — 종가 240,000 · +8.11%<br>
+        <span style="color:var(--muted);">7/16 이후 6거래일 연속 상승. 월요일 전면 급락장에서도 유일하게 오른 종목이었고, 이후로도 흔들림 없이 상승 구조를 이어가는 중. 258,500 저항 돌파가 다음 관건.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="neutral">2. 삼성전기 (009150)</b> — 종가 1,275,000 · -0.16%<br>
-        <span style="color:var(--muted);">개장 직후 1,206,000까지 갭하락(-5.6%)했다가 장중 저가 매수세가 유입되며 낙폭을 거의 전부 되돌려 보합 마감. 25종목 중 가장 뚜렷한 반전 캔들.</span>
+        <b class="up">2. NAVER (035420)</b> — 종가 220,000 · +11.73%<br>
+        <span style="color:var(--muted);">거래량 2.1배를 동반하며 당일 고가로 마감, 218,500 저항을 완전히 돌파. 25종목 중 오늘 가장 확실한 구조적 개선을 보인 종목.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="neutral">3. LG생활건강 (051900)</b> — 종가 245,000 · -0.61%<br>
-        <span style="color:var(--muted);">240,000 지지를 지키며 전면 급락장에서도 낙폭을 한 자릿수 초반으로 제한. 편입 이후 이틀 연속 상대적으로 선방 중.</span>
+        <b class="up">3. 삼성SDI (006400)</b> — 종가 467,000 · +11.46%<br>
+        <span style="color:var(--muted);">당일 고가로 마감하며 25종목 중 상승률 2위. 481,500 저항 돌파에 성공하면 2차전지 섹터의 반등 신호로 볼 수 있음.</span>
       </li>
     </ol>
-    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 위 선정은 당일 등락·거래량·지지선 방어 여부 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다.</p>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 위 선정은 당일 등락·거래량·저항선 돌파 여부 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다.</p>
   </div>
 
   </div>
@@ -330,195 +331,195 @@
       <tr class="sector"><td colspan="7">반도체 · 부품</td></tr>
       <tr>
         <td class="name">SK하이닉스 <span class="code">(000660)</span></td>
-        <td>1,764,000</td><td class="down">-4.23%</td><td>1,735,000~1,892,000</td>
-        <td>587.6만</td><td><span class="badge down">약세(ATH 후 급락 지속, 이번 주 첫날부터 하락)</span></td><td>2,987,000 / 1,099,000</td>
+        <td>1,919,000</td><td class="up">+4.18%</td><td>1,732,000~2,006,000</td>
+        <td>1943.8만</td><td><span class="badge neutral">중립(반등 지속, 1,099,000~2,987,000 박스)</span></td><td>2,987,000 / 1,099,000</td>
       </tr>
       <tr>
         <td class="name">삼성전자 <span class="code">(005930)</span></td>
-        <td>244,000</td><td class="down">-4.31%</td><td>240,000~257,500</td>
-        <td>2680.4만</td><td><span class="badge down">약세(ATH 후 조정 심화)</span></td><td>374,500 / 223,000</td>
+        <td>270,000</td><td class="up">+5.88%</td><td>240,000~276,000</td>
+        <td>8549.5만</td><td><span class="badge neutral">중립(반등 지속)</span></td><td>374,500 / 223,000</td>
       </tr>
       <tr>
         <td class="name">삼성전기 <span class="code">(009150)</span></td>
-        <td>1,275,000</td><td class="neutral">-0.16%</td><td>1,203,000~1,362,000</td>
-        <td>96.6만</td><td><span class="badge neutral">중립(갭하락 후 낙폭 전부 회복하며 이번 주 시작)</span></td><td>2,417,000 / 282,500</td>
+        <td>1,448,000</td><td class="up">+13.39%</td><td>1,203,000~1,479,000</td>
+        <td>308.7만</td><td><span class="badge neutral">중립(급반등, 282,500~2,417,000 박스)</span></td><td>2,417,000 / 282,500</td>
       </tr>
       <tr>
         <td class="name">삼성전자우 <span class="code">(005935)</span></td>
-        <td>169,200</td><td class="down">-1.63%</td><td>163,900~184,900</td>
-        <td>467.7만</td><td><span class="badge neutral">중립(갭하락 후 반등)</span></td><td>243,500 / 150,000</td>
+        <td>191,100</td><td class="up">+11.10%</td><td>163,900~193,800</td>
+        <td>1406.1만</td><td><span class="badge neutral">중립(급반등)</span></td><td>243,500 / 150,000</td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
-        <td>35,800</td><td class="down">-9.37%</td><td>35,600~40,000</td>
-        <td>5.9만</td><td><span class="badge down">약세(주봉 피벗 전부 이탈, 미확인 구간 진입)</span></td><td>55,400 / 34,350</td>
+        <td>35,700</td><td class="down">-9.62%</td><td>33,900~40,000</td>
+        <td>27.3만</td><td><span class="badge down">약세(주간 여전히 마이너스, 주봉 피벗 이탈 유지)</span></td><td>55,400 / 34,350</td>
       </tr>
 
       <tr class="sector"><td colspan="7">2차전지</td></tr>
       <tr>
         <td class="name">삼성SDI <span class="code">(006400)</span></td>
-        <td>401,000</td><td class="down">-7.71%</td><td>400,000~425,000</td>
-        <td>37.2만</td><td><span class="badge down">약세(354,500 지지 위 조정)</span></td><td>473,500 / 354,500</td>
+        <td>467,000</td><td class="up">+7.48%</td><td>392,500~467,000</td>
+        <td>148.7만</td><td><span class="badge neutral">중립(354,500~473,500 박스 상단 접근)</span></td><td>473,500 / 354,500</td>
       </tr>
 
       <tr class="sector"><td colspan="7">조선</td></tr>
       <tr>
         <td class="name">삼성중공업 <span class="code">(010140)</span></td>
-        <td>20,950</td><td class="down">-6.05%</td><td>20,900~22,100</td>
-        <td>259.5만</td><td><span class="badge down">약세(주봉 피벗 전부 이탈)</span></td><td>23,000 / 20,650</td>
+        <td>23,650</td><td class="up">+6.05%</td><td>20,350~23,650</td>
+        <td>1244.3만</td><td><span class="badge neutral">중립(23,000 지지 위 반등, 23,700 저항 근접)</span></td><td>23,700 / 23,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
       <tr>
         <td class="name">NAVER <span class="code">(035420)</span></td>
-        <td>185,900</td><td class="down">-2.16%</td><td>183,300~191,300</td>
-        <td>63.0만</td><td><span class="badge down">약세(주봉 피벗 전부 이탈, 181,100 최후 지지)</span></td><td>190,800 / 181,100</td>
+        <td>220,000</td><td class="up">+15.79%</td><td>183,300~220,000</td>
+        <td>431.1만</td><td><span class="badge neutral">중립(급반등, 226,500 저항 접근)</span></td><td>226,500 / 194,200</td>
       </tr>
       <tr>
         <td class="name">삼성에스디에스 <span class="code">(018260)</span></td>
-        <td>185,800</td><td class="down">-6.77%</td><td>184,200~193,000</td>
-        <td>23.6만</td><td><span class="badge down">약세(182,000 지지 근접)</span></td><td>187,700 / 182,000</td>
+        <td>218,000</td><td class="up">+9.38%</td><td>183,500~218,500</td>
+        <td>110.2만</td><td><span class="badge neutral">중립(급반등)</span></td><td>388,500 / 196,900</td>
       </tr>
 
       <tr class="sector"><td colspan="7">게임</td></tr>
       <tr>
         <td class="name">크래프톤 <span class="code">(259960)</span></td>
-        <td>222,500</td><td class="down">-7.48%</td><td>222,000~242,000</td>
-        <td>7.7만</td><td><span class="badge down">약세(208,500 지지 시험)</span></td><td>268,500 / 208,500</td>
+        <td>237,500</td><td class="down">-1.25%</td><td>221,500~245,000</td>
+        <td>32.6만</td><td><span class="badge down">약세(주간 여전히 마이너스, 208,500 지지 방어)</span></td><td>268,500 / 208,500</td>
       </tr>
 
       <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
       <tr>
         <td class="name">KB금융 <span class="code">(105560)</span></td>
-        <td>168,800</td><td class="down">-6.79%</td><td>165,600~187,500</td>
-        <td>183.1만</td><td><span class="badge down">약세(166,500 저항 신규 형성, 상승 추세 이탈)</span></td><td>172,500 / 166,500</td>
+        <td>176,300</td><td class="down">-2.65%</td><td>164,100~180,100</td>
+        <td>474.7만</td><td><span class="badge down">약세(주간 마이너스, 172,500 회복하며 반등 시도)</span></td><td>194,500 / 172,500</td>
       </tr>
       <tr>
         <td class="name">삼성화재 <span class="code">(000810)</span></td>
-        <td>602,000</td><td class="down">-14.12%</td><td>601,000~679,000</td>
-        <td>18.7만</td><td><span class="badge down">약세(급락 반납, 528,000 지지 위)</span></td><td>630,000 / 528,000</td>
+        <td>638,000</td><td class="down">-8.99%</td><td>584,000~679,000</td>
+        <td>43.9만</td><td><span class="badge down">약세(주간 낙폭 여전히 큼, 630,000~646,000 박스)</span></td><td>646,000 / 630,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
       <tr>
         <td class="name">웨이비스 <span class="code">(289930)</span></td>
-        <td>7,030</td><td class="down">-9.17%</td><td>7,000~7,730</td>
-        <td>11.3만</td><td><span class="badge down">약세(주봉 피벗 전부 이탈, 7,000 사상 최저권)</span></td><td>7,450 / 7,000</td>
+        <td>7,200</td><td class="down">-6.98%</td><td>6,790~7,730</td>
+        <td>42.6만</td><td><span class="badge down">약세(주간 여전히 마이너스, 주봉 피벗 이탈 유지)</span></td><td>7,450 / 6,790</td>
       </tr>
 
       <tr class="sector"><td colspan="7">자동차 부품</td></tr>
       <tr>
         <td class="name">현대모비스 <span class="code">(012330)</span></td>
-        <td>472,500</td><td class="down">-1.97%</td><td>467,000~492,000</td>
-        <td>31.7만</td><td><span class="badge neutral">중립(372,000~499,500 박스권)</span></td><td>499,500 / 372,000</td>
+        <td>524,000</td><td class="up">+8.71%</td><td>456,000~541,000</td>
+        <td>146.8만</td><td><span class="badge neutral">중립(499,500~531,000 박스 상단)</span></td><td>531,000 / 499,500</td>
       </tr>
 
       <tr class="sector"><td colspan="7">건설</td></tr>
       <tr>
         <td class="name">현대건설 <span class="code">(000720)</span></td>
-        <td>91,000</td><td class="down">-8.08%</td><td>90,100~95,800</td>
-        <td>59.1만</td><td><span class="badge down">약세(78,500 지지 위 급락)</span></td><td>122,000 / 78,500</td>
+        <td>108,900</td><td class="up">+10.00%</td><td>88,800~110,000</td>
+        <td>204.1만</td><td><span class="badge neutral">중립(급반등)</span></td><td>122,000 / 78,500</td>
       </tr>
 
       <tr class="sector"><td colspan="7">통신</td></tr>
       <tr>
         <td class="name">SK텔레콤 <span class="code">(017670)</span></td>
-        <td>84,700</td><td class="down">-5.57%</td><td>80,900~93,300</td>
-        <td>109.4만</td><td><span class="badge down">약세(88,600 저항 돌파 실패)</span></td><td>88,600 / 69,000</td>
+        <td>99,500</td><td class="up">+17.47%</td><td>80,900~100,600</td>
+        <td>620.6만</td><td><span class="badge up">강세(25종목 중 주간 상승률 1위, 91,400 지지 회복)</span></td><td>139,500 / 91,400</td>
       </tr>
 
       <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
       <tr>
         <td class="name">클래시스 <span class="code">(214150)</span></td>
-        <td>43,800</td><td class="down">-0.68%</td><td>42,400~44,150</td>
-        <td>14.7만</td><td><span class="badge down">약세(40,150 지지 시험)</span></td><td>45,450 / 40,150</td>
+        <td>44,250</td><td class="up">+1.03%</td><td>42,400~45,100</td>
+        <td>88.0만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>45,450 / 40,150</td>
       </tr>
       <tr>
         <td class="name">에이피알 <span class="code">(278470)</span></td>
-        <td>368,000</td><td class="down">-6.36%</td><td>364,000~388,500</td>
-        <td>14.7만</td><td><span class="badge down">약세(342,500 지지 위 조정)</span></td><td>443,000 / 342,500</td>
+        <td>370,000</td><td class="up">+0.54%</td><td>352,500~388,500</td>
+        <td>71.9만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>443,000 / 342,500</td>
       </tr>
       <tr>
         <td class="name">에스티팜 <span class="code">(237690)</span></td>
-        <td>113,900</td><td class="down">-8.37%</td><td>112,900~127,300</td>
-        <td>9.6만</td><td><span class="badge down">약세(112,200 지지 근접)</span></td><td>130,000 / 112,200</td>
+        <td>117,900</td><td class="up">+3.51%</td><td>110,200~123,900</td>
+        <td>32.1만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>130,000 / 112,200</td>
       </tr>
       <tr>
         <td class="name">휴메딕스 <span class="code">(200670)</span></td>
-        <td>24,600</td><td class="down">-5.93%</td><td>24,600~25,850</td>
-        <td>3.2만</td><td><span class="badge down">약세(23,800 신저가 임박)</span></td><td>31,600 / 23,800</td>
+        <td>25,250</td><td class="up">+2.64%</td><td>23,900~25,850</td>
+        <td>9.7만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>31,600 / 23,800</td>
       </tr>
       <tr>
         <td class="name">달바글로벌 <span class="code">(483650)</span></td>
-        <td>217,000</td><td class="up">+4.08%</td><td>202,500~222,500</td>
-        <td>12.6만</td><td><span class="badge up">강세(이번 주 유일한 상승, 180,000 지지 확인)</span></td><td>258,500 / 180,000</td>
+        <td>240,000</td><td class="up">+10.60%</td><td>202,500~250,000</td>
+        <td>68.7만</td><td><span class="badge up">강세(25종목 중 주간 상승률 4위, 6일 연속 상승)</span></td><td>258,500 / 180,000</td>
       </tr>
       <tr>
         <td class="name">아모레퍼시픽 <span class="code">(090430)</span></td>
-        <td>117,300</td><td class="down">-5.71%</td><td>116,100~123,600</td>
-        <td>17.4만</td><td><span class="badge down">약세(116,700 지지 시험)</span></td><td>122,000 / 116,700</td>
+        <td>119,000</td><td class="up">+1.45%</td><td>115,200~123,600</td>
+        <td>66.2만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>122,000 / 116,700</td>
       </tr>
       <tr>
         <td class="name">LG생활건강 <span class="code">(051900)</span></td>
-        <td>245,000</td><td class="neutral">-0.61%</td><td>239,500~251,500</td>
-        <td>5.8만</td><td><span class="badge neutral">중립(235,000 지지 위 보합으로 시작)</span></td><td>253,500 / 235,000</td>
+        <td>248,000</td><td class="up">+1.22%</td><td>239,500~251,500</td>
+        <td>16.2만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>253,500 / 235,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">음식료</td></tr>
       <tr>
         <td class="name">삼양식품 <span class="code">(003230)</span></td>
-        <td>1,053,000</td><td class="neutral">-1.50%</td><td>1,029,000~1,072,000</td>
-        <td>2.3만</td><td><span class="badge neutral">중립(1,011,000 지지 위 조정)</span></td><td>1,130,000 / 1,011,000</td>
+        <td>1,127,000</td><td class="up">+7.03%</td><td>1,029,000~1,142,000</td>
+        <td>17.6만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>1,130,000 / 1,011,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
       <tr>
         <td class="name">배럴 <span class="code">(267790)</span></td>
-        <td>3,155</td><td class="down">-5.96%</td><td>3,095~3,280</td>
-        <td>0.6만</td><td><span class="badge down">약세(주봉 피벗 전부 이탈, 2,750까지 하락 여력)</span></td><td>3,270 / 2,750</td>
+        <td>3,325</td><td class="up">+5.39%</td><td>3,000~3,465</td>
+        <td>6.0만</td><td><span class="badge neutral">중립(주간 플러스 전환)</span></td><td>3,420 / 3,300</td>
       </tr>
     </tbody>
   </table>
-  <div class="note">※ 오늘(7/20)은 이번 주 첫 거래일이라 주봉 수치(종가·등락률·레인지·거래량)가 일봉과 동일합니다. 등락률은 지난주 마지막 거래일(7/16) 종가 대비입니다.<br>
-  ※ 저항/지지는 <b>주봉 차트에 직접 적용한</b> Swing Structure 피벗입니다. 넥스틴·삼성중공업·NAVER·웨이비스·배럴은 현재가 아래 확인된 주봉 피벗이 없어 최근 저점을 지지로 사용했습니다.</div>
+  <div class="note">※ 주간 등락은 전 주 마지막 거래일(7/16) 종가 대비 이번 주(7/20~7/23, 4거래일 진행 중) 종가 기준입니다. 금요일(7/24) 하루가 남아 있어 거래량이 과소 표시됩니다.<br>
+  ※ 저항/지지는 <b>주봉 차트에 직접 적용한</b> Swing Structure 피벗입니다. 넥스틴·웨이비스는 현재가 아래 확인된 주봉 피벗이 없어 최근 저점을 지지로 사용했습니다.</div>
 
   <div class="secsum">
     <h3>섹터별 한 줄 요약 (주봉)</h3>
     <ul style="margin:0;padding-left:18px;">
-      <li><b>반도체·부품</b> — 이번 주를 하락으로 시작. <span class="down">넥스틴(-9.37%)</span>은 주봉 피벗을 모두 이탈해 미확인 구간에 들어섰고 <span class="down">삼성전자(-4.31%)·SK하이닉스(-4.23%)</span>도 재차 하락. <span class="neutral">삼성전기(-0.16%)</span>는 갭하락을 대부분 되돌리며 보합으로 첫날을 마쳤습니다.</li>
-      <li><b>2차전지</b> — <span class="down">삼성SDI(-7.71%)</span>는 주봉 354,500 지지 위에서 조정 중입니다.</li>
-      <li><b>조선</b> — <span class="down">삼성중공업(-6.05%)</span>은 주봉 피벗을 전부 이탈했습니다.</li>
-      <li><b>인터넷·IT서비스</b> — <span class="down">NAVER(-2.16%)</span>는 주봉 피벗을 전부 이탈해 181,100이 최후 방어선이고, <span class="down">삼성에스디에스(-6.77%)</span>는 182,000 지지 근접까지 밀렸습니다.</li>
-      <li><b>게임</b> — <span class="down">크래프톤(-7.48%)</span>은 주봉 208,500 지지를 시험 중입니다.</li>
-      <li><b>금융·보험</b> — <span class="down">KB금융(-6.79%)</span>은 주봉상에도 새 저항 166,500(LH)이 형성돼, 지난주까지 유지되던 '위쪽 저항 없는 신고가 영역' 서술이 사라졌습니다. <span class="down">삼성화재(-14.12%)</span>는 급락했지만 주봉 528,000 지지 위입니다.</li>
-      <li><b>방산·전자부품</b> — <span class="down">웨이비스(-9.17%)</span>는 주봉 피벗을 전부 이탈해 사상 최저권입니다.</li>
-      <li><b>자동차·건설</b> — <span class="neutral">현대모비스(-1.97%)</span>는 372,000~499,500 박스권, <span class="down">현대건설(-8.08%)</span>은 78,500 지지 위에서 급락했습니다.</li>
-      <li><b>통신</b> — <span class="down">SK텔레콤(-5.57%)</span>은 88,600 저항을 넘지 못했습니다.</li>
-      <li><b>제약·바이오·미용</b> — <span class="up">달바글로벌(+4.08%)</span>만 상승하며 180,000 지지를 재확인했습니다. <span class="neutral">LG생활건강(-0.61%)</span>은 235,000 지지 위 보합, 나머지 5종목은 모두 하락했는데 <span class="down">에스티팜(-8.37%)·에이피알(-6.36%)·아모레퍼시픽(-5.71%)</span>의 낙폭이 컸습니다.</li>
-      <li><b>음식료</b> — <span class="neutral">삼양식품(-1.50%)</span>은 1,011,000 지지 위에서 완만하게 조정했습니다.</li>
-      <li><b>패션·기타</b> — <span class="down">배럴(-5.96%)</span>은 주봉 피벗을 전부 이탈해 2,750까지 하락 여력이 열려 있습니다.</li>
+      <li><b>반도체·부품</b> — 월요일 급락을 딛고 대부분 주간 플러스로 돌아섰습니다. <span class="up">삼성전기(+13.39%)·삼성전자우(+11.10%)</span>가 특히 강했고 <span class="up">삼성전자(+5.88%)·SK하이닉스(+4.18%)</span>도 플러스 전환했습니다. 다만 <span class="down">넥스틴(-9.62%)</span>은 주간으로 여전히 마이너스이고 주봉 피벗도 이탈한 채입니다.</li>
+      <li><b>2차전지</b> — <span class="up">삼성SDI(+7.48%)</span>는 354,500~473,500 박스 상단에 바짝 붙었습니다.</li>
+      <li><b>조선</b> — <span class="up">삼성중공업(+6.05%)</span>은 주봉 저항 23,700 코앞까지 올라섰습니다.</li>
+      <li><b>인터넷·IT서비스</b> — <span class="up">NAVER(+15.79%)</span>가 25종목 중 주간 상승률 2위로 226,500 저항에 근접했고, <span class="up">삼성에스디에스(+9.38%)</span>도 크게 반등했습니다.</li>
+      <li><b>게임</b> — <span class="down">크래프톤(-1.25%)</span>은 오늘 반등에도 불구하고 주간으로는 아직 마이너스입니다.</li>
+      <li><b>금융·보험</b> — <span class="down">KB금융(-2.65%)</span>은 주간 마이너스지만 172,500을 다시 회복하며 반등을 시도 중입니다. <span class="down">삼성화재(-8.99%)</span>는 주간 낙폭이 아직 큽니다.</li>
+      <li><b>방산·전자부품</b> — <span class="down">웨이비스(-6.98%)</span>는 오늘 반등에도 주간으로는 여전히 마이너스입니다.</li>
+      <li><b>자동차·건설</b> — <span class="up">현대모비스(+8.71%)·현대건설(+10.00%)</span> 모두 주간 강한 반등을 보였습니다.</li>
+      <li><b>통신</b> — <span class="up">SK텔레콤(+17.47%)</span>이 25종목 중 주간 상승률 1위를 기록하며 91,400 지지를 되찾았습니다.</li>
+      <li><b>제약·바이오·미용</b> — <span class="up">달바글로벌(+10.60%)</span>이 6거래일 연속 상승과 함께 주간 상승률 4위를 기록했고, 나머지 6종목 모두 주간 플러스로 전환했습니다.</li>
+      <li><b>음식료</b> — <span class="up">삼양식품(+7.03%)</span>은 주간 플러스로 전환했습니다.</li>
+      <li><b>패션·기타</b> — <span class="up">배럴(+5.39%)</span>도 주간 플러스로 전환했습니다.</li>
     </ul>
   </div>
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트 (주봉)</h3>
-    <p style="margin:0;">오늘은 이번 주(7/20~) 첫 거래일입니다. 지난주(7/13~7/16)는 TradingView 데이터상 4거래일로 마감됐고, 이번 주는 아직 오늘 하루만 반영돼 <b>주봉 수치가 일봉과 동일</b>합니다. 다만 저항/지지는 주봉 차트에서 별도로 읽었기 때문에 일봉과 다릅니다 — 특히 <b class="down">KB금융</b>은 주봉에도 166,500 LH가 새로 확인돼, 지난주까지 반복해 온 '위쪽 저항 없는 신고가 영역' 서술이 이번 주부터 사라졌습니다. <b class="down">넥스틴·삼성중공업·NAVER·웨이비스·배럴</b> 5종목은 주봉 피벗도 모두 하회해 장기 지지선까지 흔들리는 모습입니다. <b class="up">달바글로벌</b>만 유일하게 상승하며 주봉 180,000 지지 위에서 이번 주를 시작했습니다. 이번 주 남은 나흘의 흐름에 따라 주봉 색깔은 크게 달라질 수 있습니다.</p>
+    <p style="margin:0;">이번 주(7/20~7/23, 4거래일 진행 중)는 월요일의 전면 급락 이후 사흘째 강한 반등이 이어지며 <b>25종목 중 20종목이 주간 플러스</b>로 돌아섰습니다. <b class="up">SK텔레콤(+17.47%)·NAVER(+15.79%)·삼성전기(+13.39%)</b>가 주간 상승률 상위를 차지했고, <b class="up">달바글로벌(+10.60%)</b>은 6거래일 연속 상승이라는 일관성까지 갖췄습니다. 다만 <b class="down">넥스틴(-9.62%)·삼성화재(-8.99%)·웨이비스(-6.98%)·KB금융(-2.65%)·크래프톤(-1.25%)</b> 5종목은 오늘 하루의 강한 반등에도 불구하고 아직 주간 마이너스를 벗어나지 못했습니다. 특히 <b class="down">KB금융</b>은 172,500을 다시 회복하며 재상승을 시도하고 있지만, 무너진 177,000을 완전히 되찾기 전까지는 "강세" 구조로 돌아왔다고 보기 어렵습니다. 이번 주는 아직 금요일(7/24) 하루가 남아 있어 최종 주봉은 달라질 수 있습니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);">
-    <h3>⭐ 투자유망 종목 베스트3 (주봉) <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-07-20 기준)</span></h3>
+    <h3>⭐ 투자유망 종목 베스트3 (주봉) <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-07-23 기준)</span></h3>
     <ol style="margin:8px 0 0;padding-left:20px;">
       <li style="margin-bottom:10px;">
-        <b class="up">1. 달바글로벌 (483650)</b> — 종가 217,000 · 이번 주 +4.08%<br>
-        <span style="color:var(--muted);">이번 주 유일한 상승 종목으로 주봉 180,000 지지를 재확인. 7/16 이후 나흘 연속 상승 흐름이 이번 주 첫날에도 이어졌습니다.</span>
+        <b class="up">1. SK텔레콤 (017670)</b> — 종가 99,500 · 주간 +17.47%<br>
+        <span style="color:var(--muted);">25종목 중 주간 상승률 1위. 91,400 주봉 지지를 되찾았고 오늘 거래량 급증까지 동반해 108,000 저항을 향하는 흐름이 뚜렷함.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="neutral">2. 삼성전기 (009150)</b> — 종가 1,275,000 · 이번 주 -0.16%<br>
-        <span style="color:var(--muted);">개장 갭하락을 장중에 대부분 되돌리며 보합으로 첫날을 마감. 주봉 저항 2,417,000까지는 거리가 있지만 반등 탄력만큼은 25종목 중 가장 뚜렷했습니다.</span>
+        <b class="up">2. NAVER (035420)</b> — 종가 220,000 · 주간 +15.79%<br>
+        <span style="color:var(--muted);">주간 상승률 2위이자 오늘 거래량 2.1배를 동반한 당일 고가 마감. 226,500 주봉 저항까지 근접해 반도체 밖 자금 이동의 대표 사례로 꼽힘.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="neutral">3. LG생활건강 (051900)</b> — 종가 245,000 · 이번 주 -0.61%<br>
-        <span style="color:var(--muted);">주봉 235,000 지지 위에서 낙폭을 한 자릿수 초반으로 제한하며 이번 주를 시작. 편입 이후 상대적으로 안정적인 흐름을 유지 중입니다.</span>
+        <b class="up">3. 달바글로벌 (483650)</b> — 종가 240,000 · 주간 +10.60%<br>
+        <span style="color:var(--muted);">6거래일 연속 상승이라는 일관성이 최대 강점. 258,500 주봉 저항 돌파 시 신고가 영역 진입.</span>
       </li>
     </ol>
     <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 위 선정은 주봉 흐름·거래량·저항선 근접도 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다.</p>
@@ -528,11 +529,11 @@
 
   <div class="foot">
     ⚠️ 본 리포트는 TradingView 차트의 가격·구조 지표를 기계적으로 요약한 자료이며 투자 권유가 아닙니다.
-    일봉·주봉 수치 모두 2026-07-20(이번 주 첫 거래일) 기준이며, 실제 매매 판단은 본인 책임하에 하시기 바랍니다.
+    일봉 수치는 2026-07-23 기준, 주봉 수치는 2026-07-23이 포함된 진행 중인 주(週) 기준이며, 실제 매매 판단은 본인 책임하에 하시기 바랍니다.
   </div>
 </div>
 <script>
-var TF_COUNTS = { D:[1,5,19], W:[1,5,19] };
+var TF_COUNTS = { D:[4,21,0], W:[2,18,5] };
 function setTF(tf){
   document.getElementById('tf-D').style.display = tf==='D' ? '' : 'none';
   document.getElementById('tf-W').style.display = tf==='W' ? '' : 'none';
