@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- TradingView 일봉/주봉 분석 기반 19종목 추세 비교 리포트 (2026-07-30 기준, 시장 전반 급락 · 섹터별 분류) -->
+<!-- TradingView 일봉/주봉 분석 기반 20종목 추세 비교 리포트 (2026-07-30 기준, 시장 전반 급락 · 섹터별 분류, 에코프로 신규 편입) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>19종목 비교 리포트 · 2026-07-30</title>
+<title>20종목 비교 리포트 · 2026-07-30</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -107,14 +107,14 @@
     </div>
     <div class="sumleg">
       <span><span class="dot bg-up"></span><b class="up" id="cnt-up">2</b> 강세(급락장 속 반등)</span>
-      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">8</b> 중립(보합·소폭 등락)</span>
+      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">9</b> 중립(보합·소폭 등락)</span>
       <span><span class="dot bg-down"></span><b class="down" id="cnt-down">9</b> 약세(급락·피벗 붕괴)</span>
     </div>
   </div>
 
   <div class="secsum" style="margin-top:0;margin-bottom:24px;border-color:rgba(193,53,21,.5);">
     <h3>🚨 시장 전반 급락 경고</h3>
-    <p style="margin:0;"><b>추적 중인 19종목 전체가 이번 주(7/27~7/30) 주간 기준 마이너스</b>입니다. 삼성전기(-33.71%)·효성중공업(-29.36%)·에스티팜(-27.42%)·SK하이닉스(-24.84%)·하이브(-23.11%)·넥스틴(-23.45%)·SK텔레콤(-21.80%) 등 다수 종목이 단 4거래일 만에 20~30%대 낙폭을 기록했습니다. 이 리포트가 추적을 시작한 이래 가장 광범위하고 급격한 하락입니다. 지난 리포트(7/27)에서 신고가 영역에 진입했던 KB금융·달바글로벌도 이번 주 낙폭을 일부 방어했을 뿐 하락을 피하지 못했습니다.</p>
+    <p style="margin:0;"><b>추적 중인 20종목 전체가 이번 주(7/27~7/30) 주간 기준 마이너스</b>입니다(오늘 신규 편입한 에코프로도 -9.60%로 예외 없음). 삼성전기(-33.71%)·효성중공업(-29.36%)·에스티팜(-27.42%)·SK하이닉스(-24.84%)·하이브(-23.11%)·넥스틴(-23.45%)·SK텔레콤(-21.80%) 등 다수 종목이 단 4거래일 만에 20~30%대 낙폭을 기록했습니다. 이 리포트가 추적을 시작한 이래 가장 광범위하고 급격한 하락입니다. 지난 리포트(7/27)에서 신고가 영역에 진입했던 KB금융·달바글로벌도 이번 주 낙폭을 일부 방어했을 뿐 하락을 피하지 못했습니다.</p>
   </div>
 
   <div id="tf-D" class="tf-panel">
@@ -141,7 +141,7 @@
       <tr>
         <td class="name">삼성전기 <span class="code">(009150)</span></td>
         <td>879,000</td><td class="down">-14.58%</td><td>865,000~1,075,000</td>
-        <td>1.40M</td><td><span class="badge down">약세(19종목 중 당일 최대 낙폭)</span></td><td>924,000 / 858,000</td>
+        <td>1.40M</td><td><span class="badge down">약세(20종목 중 당일 최대 낙폭)</span></td><td>924,000 / 858,000</td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
@@ -166,6 +166,13 @@
         <td class="name">KB금융 <span class="code">(105560)</span></td>
         <td>167,400</td><td class="up">+4.56%</td><td>160,000~171,700</td>
         <td>1.68M</td><td><span class="badge up">강세(급락장 속 반등, 175,700 저항 접근)</span></td><td>175,700 / 164,100</td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">2차전지</td></tr>
+      <tr>
+        <td class="name">에코프로 <span class="code">(086520)</span></td>
+        <td>70,600</td><td class="up">+4.75%</td><td>65,000~74,800</td>
+        <td>158.61만</td><td><span class="badge neutral">중립(반등 시도, 확인된 피벗 전부 붕괴 상태)</span></td><td>71,800 / 65,000</td>
       </tr>
 
       <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
@@ -249,9 +256,10 @@
   <div class="secsum">
     <h3>섹터별 한 줄 요약</h3>
     <ul style="margin:0;padding-left:18px;">
-      <li><b>반도체·부품</b> — <span class="down">삼성전기(-14.58%)</span>가 19종목 중 당일 최대 낙폭을 기록하며 확인된 지지를 모두 하회했습니다. <span class="down">SK하이닉스(-5.64%)·넥스틴(-4.17%)</span>도 하락했지만 <span class="neutral">삼성전자(-0.72%)</span>는 상대적으로 선방했습니다.</li>
+      <li><b>반도체·부품</b> — <span class="down">삼성전기(-14.58%)</span>가 20종목 중 당일 최대 낙폭을 기록하며 확인된 지지를 모두 하회했습니다. <span class="down">SK하이닉스(-5.64%)·넥스틴(-4.17%)</span>도 하락했지만 <span class="neutral">삼성전자(-0.72%)</span>는 상대적으로 선방했습니다.</li>
       <li><b>인터넷·IT서비스</b> — <span class="up">삼성에스디에스(+0.71%)·케이아이엔엑스(+0.08%)</span> 모두 급락장 속에서도 소폭 반등했습니다.</li>
-      <li><b>금융·보험</b> — <span class="up">KB금융(+4.56%)</span>이 19종목 중 가장 강한 반등을 보이며 175,700 저항까지 다가섰습니다.</li>
+      <li><b>금융·보험</b> — <span class="up">KB금융(+4.56%)</span>이 20종목 중 가장 강한 반등을 보이며 175,700 저항까지 다가섰습니다.</li>
+      <li><b>2차전지</b> — 오늘 신규 편입한 <span class="up">에코프로(+4.75%)</span>는 시장 급락 이후 반등을 시도했지만 확인된 피벗은 아직 모두 하회한 상태입니다.</li>
       <li><b>조선·중공업</b> — <span class="up">삼성중공업(+5.93%)</span>은 급락장 속에서도 반등했지만, <span class="down">효성중공업(-5.58%)</span>은 확인된 피벗을 모두 하회하며 하락했습니다.</li>
       <li><b>엔터테인먼트</b> — <span class="down">하이브(-4.29%)</span>는 편입 이후 확인된 피벗을 모두 하회한 채 하락이 이어지고 있습니다.</li>
       <li><b>자동차 부품</b> — <span class="neutral">현대모비스</span>는 이틀 연속 정확히 0.00%로 마감했으나, 확인된 지지 피벗은 이미 모두 붕괴된 상태입니다.</li>
@@ -264,7 +272,7 @@
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트</h3>
-    <p style="margin:0;">오늘(7/30, 목)은 19종목 중 9종목이 하락하며 급락 흐름이 이어졌습니다. <b class="down">삼성전기(-14.58%)</b>가 최대 낙폭을 기록했고, <b class="down">달바글로벌(-11.89%)</b>은 7/16 이후 8거래일 연속 상승했던 흐름이 하루 만에 크게 꺾였습니다 — 지난 리포트(7/27)에서 신고가 영역 진입을 확인했던 바로 그 종목입니다. 반면 <b class="up">KB금융(+4.56%)·삼성중공업(+5.93%)</b>은 급락장 속에서도 뚜렷한 반등을 보이며 상대적 강세를 유지했습니다. 다수 종목(SK하이닉스·효성중공업·하이브·에이피알·넥스틴 등)이 Swing Structure 지표상 확인된 지지 피벗을 모두 하회한 상태라, 당분간 뚜렷한 지지선 없이 변동성이 큰 구간이 이어질 수 있습니다.</p>
+    <p style="margin:0;">오늘(7/30, 목)은 20종목 중 9종목이 하락하며 급락 흐름이 이어졌습니다. <b class="down">삼성전기(-14.58%)</b>가 최대 낙폭을 기록했고, <b class="down">달바글로벌(-11.89%)</b>은 7/16 이후 8거래일 연속 상승했던 흐름이 하루 만에 크게 꺾였습니다 — 지난 리포트(7/27)에서 신고가 영역 진입을 확인했던 바로 그 종목입니다. 반면 <b class="up">KB금융(+4.56%)·삼성중공업(+5.93%)</b>은 급락장 속에서도 뚜렷한 반등을 보이며 상대적 강세를 유지했습니다. 다수 종목(SK하이닉스·효성중공업·하이브·에이피알·넥스틴 등)이 Swing Structure 지표상 확인된 지지 피벗을 모두 하회한 상태라, 당분간 뚜렷한 지지선 없이 변동성이 큰 구간이 이어질 수 있습니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);">
@@ -272,7 +280,7 @@
     <ol style="margin:8px 0 0;padding-left:20px;">
       <li style="margin-bottom:10px;">
         <b class="up">1. 삼성중공업 (010140)</b> — 종가 20,550 · +5.93%<br>
-        <span style="color:var(--muted);">시장 전반이 급락하는 날 19종목 중 가장 뚜렷한 반등을 기록. 20,700 저항 돌파 시 구조 개선 가능.</span>
+        <span style="color:var(--muted);">시장 전반이 급락하는 날 20종목 중 가장 뚜렷한 반등을 기록. 20,700 저항 돌파 시 구조 개선 가능.</span>
       </li>
       <li style="margin-bottom:10px;">
         <b class="up">2. KB금융 (105560)</b> — 종가 167,400 · +4.56%<br>
@@ -312,7 +320,7 @@
       <tr>
         <td class="name">삼성전기 <span class="code">(009150)</span></td>
         <td>879,000</td><td class="down">-33.71%</td><td>865,000~1,479,000</td>
-        <td>464.6만</td><td><span class="badge down">약세(19종목 중 주간 최대 낙폭)</span></td><td>2,417,000 / 282,500</td>
+        <td>464.6만</td><td><span class="badge down">약세(20종목 중 주간 최대 낙폭)</span></td><td>2,417,000 / 282,500</td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
@@ -337,6 +345,13 @@
         <td class="name">KB금융 <span class="code">(105560)</span></td>
         <td>167,400</td><td class="neutral">-2.39%</td><td>156,000~180,100</td>
         <td>538.5만</td><td><span class="badge neutral">중립(166,500~172,500 박스, 신고가 영역서 되밀림)</span></td><td>172,500 / 166,500</td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">2차전지</td></tr>
+      <tr>
+        <td class="name">에코프로 <span class="code">(086520)</span></td>
+        <td>70,600</td><td class="neutral">-9.60%</td><td>63,400~84,800</td>
+        <td>400.0만</td><td><span class="badge neutral">중립(45,550~74,100 박스)</span></td><td>74,100 / 45,550</td>
       </tr>
 
       <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
@@ -420,14 +435,15 @@
   <div class="secsum">
     <h3>섹터별 한 줄 요약 (주봉)</h3>
     <ul style="margin:0;padding-left:18px;">
-      <li><b>반도체·부품</b> — <span class="down">삼성전기(-33.71%)</span>가 19종목 중 주간 최대 낙폭. <span class="down">SK하이닉스(-24.84%)·삼성전자(-17.03%)·넥스틴(-23.45%)</span> 모두 주봉 피벗을 하회하거나 크게 이탈했습니다.</li>
+      <li><b>반도체·부품</b> — <span class="down">삼성전기(-33.71%)</span>가 20종목 중 주간 최대 낙폭. <span class="down">SK하이닉스(-24.84%)·삼성전자(-17.03%)·넥스틴(-23.45%)</span> 모두 주봉 피벗을 하회하거나 크게 이탈했습니다.</li>
       <li><b>인터넷·IT서비스</b> — <span class="neutral">삼성에스디에스(-5.15%)·케이아이엔엑스(-8.90%)</span>는 상대적으로 낙폭이 작아 각자의 박스권 안에 머물렀습니다.</li>
-      <li><b>금융·보험</b> — <span class="neutral">KB금융(-2.39%)</span>은 19종목 중 낙폭이 가장 작은 축으로, 지난주 신고가 영역에서 166,500~172,500 박스로 되밀렸습니다.</li>
+      <li><b>금융·보험</b> — <span class="neutral">KB금융(-2.39%)</span>은 20종목 중 낙폭이 가장 작은 축으로, 지난주 신고가 영역에서 166,500~172,500 박스로 되밀렸습니다.</li>
+      <li><b>2차전지</b> — 신규 편입한 <span class="neutral">에코프로(-9.60%)</span>는 45,550~74,100 박스권에서 편입 첫 주를 시작했습니다.</li>
       <li><b>조선·중공업</b> — <span class="down">삼성중공업(-10.26%)·효성중공업(-29.36%)</span> 모두 주봉 피벗을 하회했습니다.</li>
       <li><b>엔터테인먼트</b> — <span class="down">하이브(-23.11%)</span>는 편입 첫 주부터 대폭 하락하며 주봉 피벗을 전부 하회했습니다.</li>
       <li><b>자동차 부품</b> — <span class="neutral">현대모비스(-7.68%)</span>는 372,000~499,500 박스 안에서 상대적으로 선방했습니다.</li>
       <li><b>통신</b> — <span class="down">SK텔레콤(-21.80%)</span>은 69,000까지 밀리며 지난주 상승분을 대부분 반납했습니다.</li>
-      <li><b>제약·바이오·미용</b> — <span class="down">에스티팜(-27.42%)·클래시스(-15.52%)</span>가 주봉 피벗을 전부 하회했고, <span class="down">에이피알(-11.02%)</span>도 279,500을 이탈했습니다. <span class="neutral">달바글로벌(-2.91%)</span>은 주중 275,500 고점 대비로는 크게 밀렸지만 주간 낙폭 자체는 19종목 중 가장 작은 축에 속합니다.</li>
+      <li><b>제약·바이오·미용</b> — <span class="down">에스티팜(-27.42%)·클래시스(-15.52%)</span>가 주봉 피벗을 전부 하회했고, <span class="down">에이피알(-11.02%)</span>도 279,500을 이탈했습니다. <span class="neutral">달바글로벌(-2.91%)</span>은 주중 275,500 고점 대비로는 크게 밀렸지만 주간 낙폭 자체는 20종목 중 가장 작은 축에 속합니다.</li>
       <li><b>방산·전자부품</b> — <span class="down">웨이비스(-16.90%)</span>는 주봉 피벗을 전부 하회했습니다.</li>
       <li><b>패션·기타</b> — <span class="neutral">배럴(-6.50%)</span>은 2,750~3,270 박스권 안에서 상대적으로 선방했습니다.</li>
     </ul>
@@ -435,7 +451,7 @@
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트 (주봉)</h3>
-    <p style="margin:0;">진행 중인 이번 주(7/27~7/30, 4거래일)는 <b>19종목 전체가 마이너스</b>로, 이 리포트가 추적을 시작한 이래 가장 광범위한 하락 주간입니다. <b class="down">삼성전기(-33.71%)·효성중공업(-29.36%)·에스티팜(-27.42%)</b>이 최대 낙폭 상위를 차지했고, 상당수 종목이 주봉 Swing Structure 피벗을 완전히 하회해 장기 지지선이 아직 확인되지 않은 상태입니다. 그나마 낙폭이 작았던 종목은 <b class="neutral">KB금융(-2.39%)·달바글로벌(-2.91%)·삼성에스디에스(-5.15%)</b>인데, 이들 역시 지난주까지의 강세(KB금융·달바글로벌의 신고가 영역 진입)를 이번 주 대부분 반납했습니다. 금요일(7/31) 하루가 남아 있어 최종 주봉 색깔은 달라질 수 있지만, 현재로서는 반등의 기미가 뚜렷하지 않습니다.</p>
+    <p style="margin:0;">진행 중인 이번 주(7/27~7/30, 4거래일)는 <b>20종목 전체가 마이너스</b>로, 이 리포트가 추적을 시작한 이래 가장 광범위한 하락 주간입니다. <b class="down">삼성전기(-33.71%)·효성중공업(-29.36%)·에스티팜(-27.42%)</b>이 최대 낙폭 상위를 차지했고, 상당수 종목이 주봉 Swing Structure 피벗을 완전히 하회해 장기 지지선이 아직 확인되지 않은 상태입니다. 그나마 낙폭이 작았던 종목은 <b class="neutral">KB금융(-2.39%)·달바글로벌(-2.91%)·삼성에스디에스(-5.15%)</b>인데, 이들 역시 지난주까지의 강세(KB금융·달바글로벌의 신고가 영역 진입)를 이번 주 대부분 반납했습니다. 금요일(7/31) 하루가 남아 있어 최종 주봉 색깔은 달라질 수 있지만, 현재로서는 반등의 기미가 뚜렷하지 않습니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);">
@@ -443,18 +459,18 @@
     <ol style="margin:8px 0 0;padding-left:20px;">
       <li style="margin-bottom:10px;">
         <b class="neutral">1. KB금융 (105560)</b> — 종가 167,400 · 주간 -2.39%<br>
-        <span style="color:var(--muted);">19종목 중 주간 낙폭이 가장 작은 축. 지난주 신고가 영역에서 밀렸지만 166,500~172,500 박스 안에서 오늘 강하게 반등하며 저력을 보임.</span>
+        <span style="color:var(--muted);">20종목 중 주간 낙폭이 가장 작은 축. 지난주 신고가 영역에서 밀렸지만 166,500~172,500 박스 안에서 오늘 강하게 반등하며 저력을 보임.</span>
       </li>
       <li style="margin-bottom:10px;">
         <b class="neutral">2. 달바글로벌 (483650)</b> — 종가 233,500 · 주간 -2.91%<br>
-        <span style="color:var(--muted);">주중 275,500까지 올랐다가 크게 되밀렸지만, 주간 낙폭 자체는 19종목 중 두 번째로 작음. 180,000~258,500 박스 안에서 다음 주 방향성 확인 필요.</span>
+        <span style="color:var(--muted);">주중 275,500까지 올랐다가 크게 되밀렸지만, 주간 낙폭 자체는 20종목 중 두 번째로 작음. 180,000~258,500 박스 안에서 다음 주 방향성 확인 필요.</span>
       </li>
       <li style="margin-bottom:10px;">
         <b class="neutral">3. 삼성에스디에스 (018260)</b> — 종가 198,700 · 주간 -5.15%<br>
         <span style="color:var(--muted);">시장 전반 급락 속에서도 196,900~388,500 넓은 박스권 안에 머물며 상대적으로 안정적인 흐름을 유지.</span>
       </li>
     </ol>
-    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 위 선정은 주봉 흐름·거래량·저항선 근접도 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다. 이번 주는 19종목 전체가 마이너스인 만큼 '베스트'는 상대적으로 낙폭이 작았던 종목을 의미합니다.</p>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 위 선정은 주봉 흐름·거래량·저항선 근접도 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다. 이번 주는 20종목 전체가 마이너스인 만큼 '베스트'는 상대적으로 낙폭이 작았던 종목을 의미합니다.</p>
   </div>
 
   </div>
@@ -465,7 +481,7 @@
   </div>
 </div>
 <script>
-var TF_COUNTS = { D:[2,8,9], W:[0,7,12] };
+var TF_COUNTS = { D:[2,9,9], W:[0,8,12] };
 function setTF(tf){
   document.getElementById('tf-D').style.display = tf==='D' ? '' : 'none';
   document.getElementById('tf-W').style.display = tf==='W' ? '' : 'none';
