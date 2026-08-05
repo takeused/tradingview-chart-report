@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- TradingView 일봉 + SMC 매물대 구간 분석 기반 20종목 비교 리포트 (2026-08-05 기준, 일봉 전용) -->
+<!-- TradingView 일봉 + SMC 매물대 존(기본) + 스윙 라인 교차 검증(보조) 기반 20종목 비교 리포트 (2026-08-05 기준, 일봉 전용) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -57,6 +57,9 @@
   .zn b.s{background:rgba(10,138,47,.1);color:var(--up);}
   .zn .na{color:var(--muted);font-style:italic;}
   .zn .inzone{color:var(--rausch);font-size:11px;}
+  .zn .ln{display:inline-block;margin-top:4px;padding-top:4px;border-top:1px dashed var(--line);font-size:11px;color:var(--muted);white-space:normal;max-width:165px;}
+  .zn .ln em{font-style:normal;font-weight:700;color:var(--muted);margin-right:4px;}
+  .zn .dis{display:block;margin-top:3px;font-size:11px;color:var(--rausch);font-weight:600;}
   thead th{cursor:pointer;user-select:none;-webkit-user-select:none;white-space:nowrap;}
   thead th:hover{color:var(--ink);}
   .sort-ind{color:var(--rausch);font-size:10px;}
@@ -108,7 +111,7 @@
     <thead>
       <tr>
         <th>종목</th><th>종가</th><th>등락</th><th>당일 레인지</th>
-        <th>거래량</th><th>방향</th><th>SMC 매물대 (저항/지지)</th>
+        <th>거래량</th><th>방향</th><th>SMC 매물대 (저항/지지) · 라인 교차 검증</th>
       </tr>
     </thead>
     <tbody>
@@ -116,22 +119,22 @@
       <tr>
         <td class="name">SK하이닉스 <span class="code">(000660)</span></td>
         <td>1,668,000</td><td class="up">+5.77%</td><td>1,647,000~1,701,000</td>
-        <td>3.95M</td><td><span class="badge up">강세(이틀 연속 상승, 매물대 공백 구간)</span></td><td class="zn"><b class="r">저</b>2,171,000~2,070,000<br><b class="s">지</b>852,000~806,000</td>
+        <td>3.95M</td><td><span class="badge up">강세(이틀 연속 상승, 고가 1,701,000 되밀림)</span></td><td class="zn"><b class="r">저</b>2,171,000~2,070,000<br><b class="s">지</b>852,000~806,000<br><span class="ln"><em>라인</em>저 1,678,000 · 지 1,246,000</span></td>
       </tr>
       <tr>
         <td class="name">삼성전자 <span class="code">(005930)</span></td>
         <td>246,000</td><td class="up">+2.50%</td><td>244,000~254,500</td>
-        <td>22.58M</td><td><span class="badge neutral">중립(매물대 하단 260,000 아래 5.7%)</span></td><td class="zn"><b class="r">저</b>276,000~260,000<br><b class="s">지</b>174,700~167,000</td>
+        <td>22.58M</td><td><span class="badge neutral">중립(매물대 하단 260,000 아래 5.7%)</span></td><td class="zn"><b class="r">저</b>276,000~260,000<br><b class="s">지</b>174,700~167,000<br><span class="ln"><em>라인</em>저 262,000 · 지 240,000</span></td>
       </tr>
       <tr>
         <td class="name">삼성전기 <span class="code">(009150)</span></td>
         <td>1,356,000</td><td class="up">+14.43%</td><td>1,290,000~1,370,000</td>
-        <td>1.02M</td><td><span class="badge up">강세(20종목 중 최대 상승, 매물대 하단 1.8% 앞)</span></td><td class="zn"><b class="r">저</b>1,475,000~1,380,000<br><b class="s">지</b>438,500~418,000</td>
+        <td>1.02M</td><td><span class="badge up">강세(20종목 중 최대 상승, 매물대 하단 1.8% 앞)</span></td><td class="zn"><b class="r">저</b>1,475,000~1,380,000<br><b class="s">지</b>438,500~418,000<br><span class="ln"><em>라인</em>저 1,479,000 · 지 1,163,000</span><span class="dis">⚠ 두 지표 엇갈림(저항 +1.8% vs +9.1%)</span></td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
         <td>32,400</td><td class="up">+0.31%</td><td>31,950~33,400</td>
-        <td>7.01만</td><td><span class="badge neutral">중립(급등 후 숨 고르기)</span></td><td class="zn"><b class="r">저</b>64,700~59,300<br><b class="s">지</b><span class="na">미확인</span></td>
+        <td>7.01만</td><td><span class="badge neutral">중립(급등 후 숨 고르기)</span></td><td class="zn"><b class="r">저</b>64,700~59,300<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 33,833 · 지 28,633</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
@@ -143,21 +146,21 @@
       <tr>
         <td class="name">케이아이엔엑스 <span class="code">(093320)</span></td>
         <td>140,500</td><td class="up">+4.93%</td><td>130,900~141,700</td>
-        <td>1.21만</td><td><span class="badge up">강세(전 매물대 위, 위쪽 공급 없음)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>130,000~122,400</td>
+        <td>1.21만</td><td><span class="badge up">강세(전 매물대 위, 위쪽 공급 없음)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>130,000~122,400<br><span class="ln"><em>라인</em>저 145,100 · 지 139,900</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
       <tr>
         <td class="name">KB금융 <span class="code">(105560)</span></td>
         <td>170,700</td><td class="up">+1.13%</td><td>170,400~176,800</td>
-        <td>83.48만</td><td><span class="badge up">강세(전 매물대 위, 위쪽 공급 없음)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>153,000~145,000</td>
+        <td>83.48만</td><td><span class="badge up">강세(전 존 위, 고가 176,800 되밀림)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>153,000~145,000<br><span class="ln"><em>라인</em>저 172,500 · 지 166,500</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">2차전지</td></tr>
       <tr>
         <td class="name">에코프로 <span class="code">(086520)</span></td>
         <td>82,300</td><td class="up">+0.37%</td><td>81,300~84,900</td>
-        <td>77.61만</td><td><span class="badge neutral">중립(기존 매물대 소진, 위아래 공백)</span></td><td class="zn"><b class="r">저</b>125,500~121,200<br><b class="s">지</b>49,150~45,550</td>
+        <td>77.61만</td><td><span class="badge neutral">중립(존은 소진, 라인은 위아래 1% 이내)</span></td><td class="zn"><b class="r">저</b>125,500~121,200<br><b class="s">지</b>49,150~45,550<br><span class="ln"><em>라인</em>저 82,900 · 지 81,274</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
@@ -169,14 +172,14 @@
       <tr>
         <td class="name">효성중공업 <span class="code">(298040)</span></td>
         <td>2,985,000</td><td class="up">+12.43%</td><td>2,813,000~3,016,000</td>
-        <td>6.01만</td><td><span class="badge up">강세(이틀 연속 두 자릿수, 매물대 공백 구간)</span></td><td class="zn"><b class="r">저</b>3,873,000~3,538,000<br><b class="s">지</b>1,794,000~1,731,000</td>
+        <td>6.01만</td><td><span class="badge up">강세(이틀 연속 두 자릿수, 라인 3,075,000 앞)</span></td><td class="zn"><b class="r">저</b>3,873,000~3,538,000<br><b class="s">지</b>1,794,000~1,731,000<br><span class="ln"><em>라인</em>저 3,075,000 · 지 2,941,000</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">엔터테인먼트</td></tr>
       <tr>
         <td class="name">하이브 <span class="code">(352820)</span></td>
         <td>181,000</td><td class="neutral">0.00%</td><td>178,800~185,300</td>
-        <td>28.07만</td><td><span class="badge neutral">중립(정확히 보합, 아래 수요존 없음)</span></td><td class="zn"><b class="r">저</b>241,000~222,500<br><b class="s">지</b><span class="na">미확인</span></td>
+        <td>28.07만</td><td><span class="badge neutral">중립(정확히 보합, 라인 밀집대 한복판)</span></td><td class="zn"><b class="r">저</b>241,000~222,500<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 181,100 · 지 180,400</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">자동차 부품</td></tr>
@@ -190,7 +193,7 @@
       <tr>
         <td class="name">SK텔레콤 <span class="code">(017670)</span></td>
         <td>93,000</td><td class="up">+1.75%</td><td>89,300~98,300</td>
-        <td>1.93M</td><td><span class="badge up">강세(95,400~105,600 매물대 소진, 위쪽 112,100까지 공백)</span></td><td class="zn"><b class="r">저</b>139,500~112,100<br><b class="s">지</b>77,700~75,800</td>
+        <td>1.93M</td><td><span class="badge up">강세(존은 소진, 고가 98,300 라인 95,000대에서 되밀림)</span></td><td class="zn"><b class="r">저</b>139,500~112,100<br><b class="s">지</b>77,700~75,800<br><span class="ln"><em>라인</em>저 95,000~95,900 밀집 · 지 91,400</span><span class="dis">⚠ 두 지표 엇갈림(존 공백 vs 라인 +2.2%)</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
@@ -207,37 +210,39 @@
       <tr>
         <td class="name">에스티팜 <span class="code">(237690)</span></td>
         <td>100,800</td><td class="up">+0.10%</td><td>99,700~102,800</td>
-        <td>9.93만</td><td><span class="badge neutral">중립(10만원선 유지, 보합)</span></td><td class="zn"><b class="r">저</b>136,100~130,800<br><b class="s">지</b>85,500~81,900</td>
+        <td>9.93만</td><td><span class="badge neutral">중립(10만원선 유지, 보합)</span></td><td class="zn"><b class="r">저</b>136,100~130,800<br><b class="s">지</b>85,500~81,900<br><span class="ln"><em>라인</em>저 101,100 · 지 100,600</span></td>
       </tr>
       <tr>
         <td class="name">휴메딕스 <span class="code">(200670)</span></td>
         <td>28,350</td><td class="up">+11.61%</td><td>25,800~28,650</td>
-        <td>5.63만</td><td><span class="badge up">강세(거래량 2.5배, 매물대 하단 29,050 코앞)</span></td><td class="zn"><b class="r">저</b>30,950~29,050<br><b class="s">지</b><span class="na">미확인</span></td>
+        <td>5.63만</td><td><span class="badge up">강세(거래량 2.5배, 매물대 하단 29,050 코앞)</span></td><td class="zn"><b class="r">저</b>30,950~29,050<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 28,393 · 지 28,349</span></td>
       </tr>
       <tr>
         <td class="name">달바글로벌 <span class="code">(483650)</span></td>
         <td>232,000</td><td class="down">-3.13%</td><td>230,500~241,500</td>
-        <td>10.35만</td><td><span class="badge neutral">중립(조정, 여전히 전 매물대 위)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>202,000~193,000</td>
+        <td>10.35만</td><td><span class="badge neutral">중립(조정, 여전히 전 매물대 위)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>202,000~193,000<br><span class="ln"><em>라인</em>저 237,500 · 지 230,500</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
       <tr>
         <td class="name">웨이비스 <span class="code">(289930)</span></td>
         <td>7,340</td><td class="up">+4.56%</td><td>7,120~7,430</td>
-        <td>8.79만</td><td><span class="badge up">강세(이틀 연속 상승, 아래 수요존 없음)</span></td><td class="zn"><b class="r">저</b>12,400~11,070<br><b class="s">지</b><span class="na">미확인</span></td>
+        <td>8.79만</td><td><span class="badge up">강세(이틀 연속 상승, 라인 7,420 코앞)</span></td><td class="zn"><b class="r">저</b>12,400~11,070<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 7,420 · 지 6,980</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
       <tr>
         <td class="name">배럴 <span class="code">(267790)</span></td>
         <td>3,100</td><td class="up">+1.14%</td><td>3,045~3,200</td>
-        <td>0.64만</td><td><span class="badge neutral">중립(거래량 6배지만 모든 매물대 아래)</span></td><td class="zn"><b class="r">저</b>3,720~3,480<br><b class="s">지</b><span class="na">미확인</span></td>
+        <td>0.64만</td><td><span class="badge neutral">중립(거래량 6배, 라인 3,000이 발밑)</span></td><td class="zn"><b class="r">저</b>3,720~3,480<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 3,270 · 지 3,000</span></td>
       </tr>
     </tbody>
   </table>
   <div class="note">※ 등락률은 직전 거래일(8/4) 종가 대비 당일(8/5) 종가 기준입니다.<br>
   ※ 저항/지지는 LuxAlgo Smart Money Concepts가 일봉 차트에 그린 오더블록·FVG 존입니다. 현재가보다 위에 있는 최근접 존이 <b class="down">저</b>(저항 구간), 아래에 있는 최근접 존이 <b class="up">지</b>(지지 구간)입니다.<br>
   ※ <span class="na">미확인</span>은 해당 방향에 식별된 존이 없다는 뜻이고, <span class="na">없음(전 존 위)</span>은 현재가가 모든 존 위로 올라서 위쪽 공급이 소진된 상태입니다. <span class="inzone">※ 내부</span>는 현재가가 존 안에 들어와 있는 경우입니다.<br>
+  ※ <span class="ln"><em>라인</em></span>은 Swing Structure 지표가 그린 <b>스윙 고점·저점 수평선</b>에서 뽑은 최근접 단일 가격입니다. 존이 <b>구간</b>이라면 라인은 <b>점</b>이고, 성격이 다릅니다 — 존은 대량 거래가 남긴 물량대라 한 번 소진되면 사라지지만, 라인은 과거 스윙이 남긴 가격 기억이라 소진 개념 없이 남습니다.<br>
+  ※ 라인은 <b>보조 지표로만</b> 병기했습니다. 병기 조건은 세 가지입니다 — ① 존이 해당 방향에 없을 때(<span class="na">미확인</span>·<span class="na">없음</span>), ② 존이 현재가에서 15% 넘게 떨어져 실전 참고가 어려울 때, ③ 두 지표가 서로 다른 벽을 가리킬 때(<span class="dis" style="display:inline">⚠</span> 표시). 나머지 종목은 존만으로 충분해 병기하지 않았습니다.<br>
   ※ 이번 리포트는 요청에 따라 <b>일봉만 분석</b>했습니다. 주봉 분석은 포함되어 있지 않습니다.</div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);">
@@ -246,50 +251,63 @@
     <ul style="margin:0;padding-left:18px;">
       <li><b class="up">삼성중공업 — 문턱을 넘었습니다.</b> 어제 종가 21,650으로 매물대 바닥 21,850의 딱 200원 아래에 막혀 있었고, "21,850을 넘으면 벽을 뚫는 것"이라고 적었습니다. 오늘 <b>+2.54%로 22,200에 마감해 존 안으로 진입</b>했습니다. 이제 위쪽 관문은 존 천장 23,900입니다.</li>
       <li><b class="down">에이피알 — 벽에 정확히 막혔습니다.</b> 매물대 하단이 376,000인데, 오늘 <b>장중 고가가 정확히 376,000</b>이었고 거기서 반락해 357,500에 마감했습니다. 거래량이 2.1배(34.1만→72.4만)로 늘었는데도 못 뚫었습니다. 존이 저항으로 작동한 교과서적 사례입니다.</li>
-      <li><b class="up">SK텔레콤 — 매물대가 아예 사라졌습니다.</b> 어제까지 위쪽에 있던 95,400~105,600 존이 오늘 지표에서 <b>소멸</b>했습니다. 장중 고가 98,300이 존 안으로 들어가며 물량이 소진된 것으로, 이제 위쪽으로 <b>112,100까지 확인된 공급이 없습니다</b>.</li>
+      <li><b class="up">SK텔레콤 — 매물대는 사라졌지만, 벽이 사라진 건 아니었습니다.</b> 어제까지 위쪽에 있던 95,400~105,600 존이 오늘 지표에서 <b>소멸</b>했습니다. 장중 고가 98,300이 존 안으로 들어가며 물량이 소진된 겁니다. 다만 스윙 라인으로 교차 확인해 보니 <b>95,000·95,400·95,600·95,900이 그대로 남아 있고</b>, 오늘 고가 98,300은 이 밀집대를 뚫었다가 <b>93,000까지 되밀려 마감</b>했습니다. 존은 비었어도 라인 기준으로는 <b>불과 +2.2% 위에 저항이 있습니다</b>.</li>
     </ul>
-    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">같은 맥락의 추가 사례가 둘 더 있습니다. <b>현대모비스</b>도 오늘 501,000을 넘어 541,000~501,000 존 안으로 진입했고, <b>클래시스</b>는 존 하단 44,900에 종가가 정확히 맞춰 마감했습니다. 반대로 <b>에코프로</b>는 어제까지 가격을 품고 있던 84,800~76,900 존이 소진돼 사라지면서, 위아래 모두 먼 공백 구간에 놓였습니다.</p>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">같은 맥락의 추가 사례가 둘 더 있습니다. <b>현대모비스</b>도 오늘 501,000을 넘어 541,000~501,000 존 안으로 진입했고, <b>클래시스</b>는 존 하단 44,900에 종가가 정확히 맞춰 마감했습니다. 반대로 <b>에코프로</b>는 어제까지 가격을 품고 있던 84,800~76,900 존이 소진돼 사라지면서, 존 기준으로는 위아래가 모두 먼 공백이 됐습니다. 다만 이 역시 라인으로 보면 저항 82,900·지지 81,274가 <b>위아래 1% 안에</b> 붙어 있습니다.</p>
+  </div>
+
+  <div class="secsum" style="border-color:rgba(255,56,92,.45);">
+    <h3>🔍 오늘부터 라인 지표를 교차 검증에 붙였습니다</h3>
+    <p style="margin:0 0 12px;">어제 도입한 SMC 매물대(존)에는 구조적인 사각지대가 하나 있습니다. 존은 <b>대량 거래가 남긴 물량대</b>라서, 가격이 그 구간을 통과해 물량을 소화하면 지표에서 아예 사라집니다. 그러면 위아래가 텅 빈 것처럼 보이는데, 실제로는 <b>과거 스윙 고점·저점이 남긴 가격 기억</b>이 그 자리에 그대로 남아 있는 경우가 많습니다. 그래서 오늘부터 존이 비거나 너무 먼 종목에 한해 스윙 라인을 병기했고, 그 결과 <b>서술 두 건이 뒤집혔습니다</b>.</p>
+    <ul style="margin:0;padding-left:18px;">
+      <li><b class="down">SK텔레콤 — "112,100까지 공백"은 과장이었습니다.</b> 존만 보면 20% 위까지 비어 있지만, 라인은 95,000~95,900에 네 개가 밀집해 있습니다. 오늘 고가 98,300이 이 구간을 뚫고 올라갔다가 <b>93,000에 마감</b>한 것 자체가 밀집대가 살아 있다는 증거입니다. 아래 <b>베스트3 1위 선정 근거도 이에 맞춰 수정</b>했습니다.</li>
+      <li><b class="down">SK하이닉스 — "매물대 공백 구간"도 위쪽은 공백이 아니었습니다.</b> 존은 저항이 +24%(2,070,000) 위에 있다고 말하지만, 라인은 <b>1,678,000·1,690,000·1,718,000·1,732,000</b>이 모두 +4% 안에 있습니다. 오늘 고가 1,701,000이 앞의 두 개를 뚫었다가 <b>1,668,000으로 되밀려</b> 마감했습니다.</li>
+      <li><b>삼성전기 — 두 지표가 다른 벽을 가리킵니다.</b> 존은 저항 하단이 1,380,000(+1.8%)이라 하고, 라인은 1,479,000(+9.1%)이라 합니다. <b>+14.43%로 오늘 최대 상승</b>한 종목이라 이 차이가 곧 다음 저항까지의 여유를 좌우합니다. 두 값 사이 구간은 신뢰도가 낮다고 보는 게 안전합니다.</li>
+      <li><b>공백처럼 보였던 다섯 종목이 사실은 벽 앞이었습니다.</b> <b>효성중공업</b>(존 +18.5% → 라인 +3.0%), <b>넥스틴</b>(존 +83% → 라인 +4.4%), <b>웨이비스</b>(존 +51% → 라인 +1.1%), <b>에코프로</b>(존 +47% → 라인 +0.7%), <b>하이브</b>(지지 미확인 → 라인 −0.3%). 존만 봤다면 전부 "위가 뻥 뚫렸다"로 읽었을 자리입니다.</li>
+    </ul>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">반대 방향의 확인도 있었습니다. <b>삼성전자</b>는 존 저항 260,000과 라인 저항 262,000이 거의 겹쳤고, <b>달바글로벌</b>은 오늘 저가가 정확히 라인 지지 230,500이었으며, <b>클래시스</b>는 존 하단 44,900에 종가를 맞췄습니다. 두 지표가 같은 자리를 가리킬 때가 가장 신뢰도가 높습니다. 내일부터는 <b>존을 기본, 라인을 보조</b>로 두는 이 방식을 표준으로 씁니다.</p>
   </div>
 
   <div class="secsum">
     <h3>섹터별 한 줄 요약</h3>
     <ul style="margin:0;padding-left:18px;">
-      <li><b>반도체·부품</b> — <span class="up">삼성전기(+14.43%)</span>가 20종목 중 최대 상승률로 매물대 하단 1,380,000까지 1.8%만 남겼습니다. <span class="up">SK하이닉스(+5.77%)</span>는 이틀 연속 올랐지만 여전히 위아래 존 사이 공백에 있고, <span class="up">삼성전자(+2.50%)</span>는 매물대 하단 260,000까지 5.7% 남았습니다. <span class="up">넥스틴(+0.31%)</span>은 어제 급등 후 숨을 골랐습니다.</li>
+      <li><b>반도체·부품</b> — <span class="up">삼성전기(+14.43%)</span>가 20종목 중 최대 상승률로 매물대 하단 1,380,000까지 1.8%만 남겼습니다. 다만 라인은 저항을 1,479,000(+9.1%)으로 보고 있어 두 지표가 엇갈립니다. <span class="up">SK하이닉스(+5.77%)</span>는 이틀 연속 올랐지만 라인 1,678,000이 바로 위에 있고 오늘 고가 1,701,000이 거기서 되밀렸습니다. <span class="up">삼성전자(+2.50%)</span>는 매물대 하단 260,000까지 5.7% 남았고 라인 262,000도 거의 같은 자리를 가리킵니다. <span class="up">넥스틴(+0.31%)</span>은 어제 급등 후 숨을 골랐고, 라인 저항이 33,833으로 4.4% 위에 있습니다.</li>
       <li><b>인터넷·IT서비스</b> — <span class="up">삼성에스디에스(+5.01%)</span>는 이틀 연속 오르며 209,500~197,000 <b>신규 지지존</b>이 새로 생겼습니다. 어제까지는 아래 지지가 193,200~183,500이었는데 한 단 올라온 셈입니다. <span class="up">케이아이엔엑스(+4.93%)</span>는 여전히 모든 매물대 위입니다.</li>
-      <li><b>금융·보험</b> — <span class="up">KB금융(+1.13%)</span>은 소폭 상승에 그쳤지만 위쪽 공급이 없는 구조는 그대로입니다.</li>
-      <li><b>2차전지</b> — <span class="up">에코프로(+0.37%)</span>는 보합에 가까웠는데, 가격을 품고 있던 매물대가 소진되며 위아래가 모두 먼 공백 구간이 됐습니다.</li>
-      <li><b>조선·중공업</b> — <span class="up">삼성중공업(+2.54%)</span>이 어제 막혔던 21,850을 뚫고 매물대에 진입했고, <span class="up">효성중공업(+12.43%)</span>은 이틀 연속 두 자릿수로 뛰었습니다.</li>
-      <li><b>엔터테인먼트</b> — <span class="neutral">하이브(0.00%)</span>는 정확히 보합으로, 아래 수요존이 없는 상태가 이어집니다.</li>
+      <li><b>금융·보험</b> — <span class="up">KB금융(+1.13%)</span>은 존 기준으로는 위쪽 공급이 없지만, 오늘 고가 176,800이 라인 172,500·175,700을 넘었다가 170,700으로 되밀렸습니다. 라인 저항이 1.1% 위에 있습니다.</li>
+      <li><b>2차전지</b> — <span class="up">에코프로(+0.37%)</span>는 보합에 가까웠는데, 가격을 품고 있던 매물대가 소진되며 존 기준으로는 위아래가 모두 먼 공백이 됐습니다. 라인으로 보면 저항 82,900·지지 81,274가 위아래 1% 안에 붙어 있는, 아주 좁은 자리입니다.</li>
+      <li><b>조선·중공업</b> — <span class="up">삼성중공업(+2.54%)</span>이 어제 막혔던 21,850을 뚫고 매물대에 진입했고, <span class="up">효성중공업(+12.43%)</span>은 이틀 연속 두 자릿수로 뛰었습니다. 다만 효성중공업은 종가 2,985,000이 라인 레벨에 정확히 걸쳤고 바로 위 3,075,000이 다음 관문입니다.</li>
+      <li><b>엔터테인먼트</b> — <span class="neutral">하이브(0.00%)</span>는 정확히 보합입니다. 존 기준으로는 아래 수요가 없지만, 라인은 177,881~181,100에 밀집해 있어 사실상 라인 다발 한복판에서 멈춰 선 모습입니다.</li>
       <li><b>자동차 부품</b> — <span class="up">현대모비스(+4.47%)</span>는 501,000을 넘어 매물대 안으로 들어갔습니다.</li>
-      <li><b>통신</b> — <span class="up">SK텔레콤(+1.75%)</span>은 상승폭 자체는 작지만, 머리 위 매물대를 소진시켰다는 점에서 구조 변화가 가장 큰 종목입니다.</li>
-      <li><b>제약·바이오·미용</b> — <span class="up">휴메딕스(+11.61%)</span>가 거래량 2.5배로 급등해 매물대 하단 29,050 코앞까지 왔습니다. 반면 <span class="down">달바글로벌(-3.13%)·클래시스(-1.10%)·에이피알(-0.56%)</span>은 하락해, 어제까지 가장 뜨거웠던 섹터 안에서 온도차가 갈렸습니다. <span class="up">에스티팜(+0.10%)</span>은 10만원선을 지켰습니다.</li>
-      <li><b>방산·전자부품</b> — <span class="up">웨이비스(+4.56%)</span>는 이틀 연속 올랐지만 아래 수요존은 여전히 없습니다.</li>
-      <li><b>패션·기타</b> — <span class="up">배럴(+1.14%)</span>은 거래량이 6배(0.11만→0.64만)로 늘었으나 모든 매물대 아래에 머물러 있습니다.</li>
+      <li><b>통신</b> — <span class="up">SK텔레콤(+1.75%)</span>은 머리 위 매물대를 소진시켜 존 기준 구조는 개선됐습니다. 다만 라인 95,000~95,900 밀집대는 남아 있고 오늘 고가 98,300이 거기서 되밀렸습니다.</li>
+      <li><b>제약·바이오·미용</b> — <span class="up">휴메딕스(+11.61%)</span>가 거래량 2.5배로 급등해 매물대 하단 29,050 코앞까지 왔습니다. 반면 <span class="down">달바글로벌(-3.13%)·클래시스(-1.10%)·에이피알(-0.56%)</span>은 하락해, 어제까지 가장 뜨거웠던 섹터 안에서 온도차가 갈렸습니다. <span class="up">에스티팜(+0.10%)</span>은 10만원선을 지켰는데, 라인 저항 101,100·지지 100,600 사이에 정확히 끼어 있습니다.</li>
+      <li><b>방산·전자부품</b> — <span class="up">웨이비스(+4.56%)</span>는 이틀 연속 올랐습니다. 존 기준 아래 수요는 없지만 라인 지지 6,980이 −4.9%에 있고, 위로는 라인 7,420이 불과 1.1% 위 관문입니다.</li>
+      <li><b>패션·기타</b> — <span class="up">배럴(+1.14%)</span>은 거래량이 6배(0.11만→0.64만)로 늘었으나 모든 매물대 아래에 머물러 있습니다. 라인 지지 3,000이 발밑 −3.2%를 받치고 있습니다.</li>
     </ul>
   </div>
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트</h3>
-    <p style="margin:0;">오늘(8/5, 수)은 <b>20종목 중 16종목이 상승</b>하며 어제의 순환매가 대형주까지 번졌습니다. 어제는 반도체 3종목이 보합권에 머물고 중소형·바이오가 달렸는데, 오늘은 <b class="up">삼성전기(+14.43%)·SK하이닉스(+5.77%)</b>가 앞장서면서 <b>양쪽이 함께 올랐습니다</b>. 매물대 관점에서 오늘의 핵심은 <b>세 종목이 각기 다른 방식으로 벽을 만났다</b>는 점입니다 — 삼성중공업은 뚫었고, 에이피알은 정확히 막혔고, SK텔레콤은 벽 자체를 소진시켰습니다. 특히 SK텔레콤은 상승폭(+1.75%)만 보면 평범하지만, 머리 위 매물대가 사라져 <b>112,100까지 확인된 공급이 없는 상태</b>가 됐다는 점에서 구조 변화가 가장 큽니다. 반대로 <b class="up">삼성전기</b>는 상승폭이 가장 컸지만 매물대 하단 1,380,000이 불과 1.8% 위에 있어, 내일 이 구간에서 어떻게 반응하는지가 관건입니다.</p>
+    <p style="margin:0;">오늘(8/5, 수)은 <b>20종목 중 16종목이 상승</b>하며 어제의 순환매가 대형주까지 번졌습니다. 어제는 반도체 3종목이 보합권에 머물고 중소형·바이오가 달렸는데, 오늘은 <b class="up">삼성전기(+14.43%)·SK하이닉스(+5.77%)</b>가 앞장서면서 <b>양쪽이 함께 올랐습니다</b>. 매물대 관점에서 오늘의 핵심은 <b>세 종목이 각기 다른 방식으로 벽을 만났다</b>는 점입니다 — 삼성중공업은 뚫었고, 에이피알은 정확히 막혔고, SK텔레콤은 벽 자체를 소진시켰습니다. 다만 오늘 새로 붙인 라인 교차 검증은 여기에 단서를 하나 답니다. <b>SK텔레콤·SK하이닉스·KB금융 세 종목 모두 장중 고가가 라인 저항을 뚫었다가 종가에 되밀렸습니다</b>(98,300→93,000 / 1,701,000→1,668,000 / 176,800→170,700). 존이 비었다고 위가 뚫린 게 아니라, <b>오늘 하루 안에서 이미 한 번 막혔던 자리</b>라는 뜻입니다. 지수 전반이 오른 날이라 종가만 보면 잘 드러나지 않는 대목입니다. 한편 <b class="up">삼성전기</b>는 상승폭이 가장 컸지만 존은 저항을 +1.8%, 라인은 +9.1%로 서로 다르게 짚고 있어, 내일 1,380,000 부근 반응이 두 지표 중 어느 쪽이 맞는지를 가릅니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);">
     <h3>⭐ 투자유망 종목 베스트3 <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-08-05 기준)</span></h3>
     <ol style="margin:8px 0 0;padding-left:20px;">
       <li style="margin-bottom:10px;">
-        <b class="up">1. SK텔레콤 (017670)</b> — 종가 93,000 · +1.75%<br>
-        <span style="color:var(--muted);">상승폭은 크지 않지만 머리 위 95,400~105,600 매물대를 소진시켜 <b>112,100까지 확인된 공급이 없는 상태</b>. 20종목 중 오늘 구조가 가장 크게 개선된 종목으로, 위로 20% 가까이 저항이 비어 있음.</span>
+        <b class="up">1. 삼성중공업 (010140)</b> — 종가 22,200 · +2.54%<br>
+        <span style="color:var(--muted);">어제 21,850 문턱에 200원 차로 막혔다가 오늘 돌파해 매물대 진입. 벽 앞에서 멈춘 게 아니라 넘어섰다는 점이 <b>종가로 확인</b>됨(장중에 뚫었다 되밀린 종목들과 구분되는 지점). 다음 관문은 존 천장 23,900.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="up">2. 삼성중공업 (010140)</b> — 종가 22,200 · +2.54%<br>
-        <span style="color:var(--muted);">어제 21,850 문턱에 200원 차로 막혔다가 오늘 돌파해 매물대 진입. 벽 앞에서 멈춘 게 아니라 넘어섰다는 점이 확인됨. 다음 관문은 존 천장 23,900.</span>
+        <b class="up">2. 삼성에스디에스 (018260)</b> — 종가 230,500 · +5.01%<br>
+        <span style="color:var(--muted);">이틀 연속 상승하며 209,500~197,000 신규 지지존이 형성돼 발밑이 한 단 올라옴. 위쪽 238,500까지 3.5% 남아 위아래가 모두 가까운, 판단하기 쉬운 자리. 두 지표가 어긋나지 않아 병기가 필요 없던 몇 안 되는 종목.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="up">3. 삼성에스디에스 (018260)</b> — 종가 230,500 · +5.01%<br>
-        <span style="color:var(--muted);">이틀 연속 상승하며 209,500~197,000 신규 지지존이 형성돼 발밑이 한 단 올라옴. 위쪽 238,500까지 3.5% 남아 위아래가 모두 가까운, 판단하기 쉬운 자리.</span>
+        <b class="up">3. SK텔레콤 (017670)</b> — 종가 93,000 · +1.75%<br>
+        <span style="color:var(--muted);">머리 위 95,400~105,600 매물대를 소진시켜 존 기준 구조는 20종목 중 가장 크게 개선. 다만 라인 교차 검증 결과 <b>95,000~95,900 밀집대가 남아 있고 오늘 고가 98,300이 거기서 되밀렸으므로</b>, 이 구간을 <b>종가로</b> 넘기 전까지는 돌파로 보기 어려움.</span>
       </li>
     </ol>
-    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 위 선정은 당일 등락·거래량·매물대 돌파 여부 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다.</p>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 최초 발행 시에는 SK텔레콤을 1위로, 근거를 "112,100까지 공급 없음"으로 적었습니다. 이후 라인 지표 교차 검증에서 95,000대 저항이 확인돼 <b>순위와 근거를 위와 같이 수정</b>했습니다.<br>
+    ※ 위 선정은 당일 등락·거래량·매물대 돌파 여부 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다.</p>
   </div>
 
   <div class="foot">
