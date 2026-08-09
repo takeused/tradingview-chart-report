@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!-- TradingView 일봉 + SMC 매물대 존(기본) + 스윙 라인 교차 검증(보조) 기반 20종목 비교 리포트 (2026-08-06 종가 기준, 일봉 전용 / 지표는 바 리플레이로 8/6 시점 복원) -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20종목 비교 리포트 · 2026-08-06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#ffffff; --ink:#222222; --body:#3f3f3f; --muted:#6a6a6a;
+    --hairline:#dddddd; --hairline-soft:#ebebeb;
+    --surface-soft:#f7f7f7; --surface-strong:#f2f2f2;
+    --rausch:#ff385c; --rausch-active:#e00b41; --rausch-tint:#fff0f2;
+    --up:#0a8a2f; --down:#c13515; --neutral:#8a6a00;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--canvas);color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,system-ui,"Malgun Gothic","Apple SD Gothic Neo",Roboto,"Helvetica Neue",sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1120px;margin:0 auto;padding:40px 24px 80px;}
+  h1{font-size:28px;font-weight:700;letter-spacing:-0.3px;margin:0 0 6px;text-align:center;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:16px;text-align:center;}
+  .toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+  .date-select{padding:8px 38px 8px 16px;border-radius:999px;border:1px solid var(--hairline);
+    background-color:var(--canvas);color:var(--ink);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;
+    appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23222222' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat:no-repeat;background-position:right 14px center;}
+  .date-select:hover{border-color:var(--ink);}
+  .tfbadge{padding:8px 18px;border-radius:999px;background:var(--rausch);color:#fff;font-size:13px;font-weight:700;}
+  .sumleg{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted);margin-left:auto;}
+  .sumleg span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .sumleg b{font-size:16px;font-weight:700;}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+  .up{color:var(--up);} .down{color:var(--down);} .neutral{color:var(--neutral);}
+  .bg-up{background:var(--up);} .bg-down{background:var(--down);} .bg-neutral{background:var(--neutral);}
+  table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13.5px;}
+  th,td{padding:11px 10px;text-align:right;border-bottom:1px solid var(--hairline-soft);}
+  th{color:var(--muted);font-weight:600;text-align:center;border-bottom:1px solid var(--hairline);
+    font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+  td:first-child{text-align:left;}
+  td.name{font-weight:600;color:var(--ink);}
+  td.name .code{color:var(--muted);font-weight:400;font-size:11px;margin-left:2px;}
+  tr.sector td{background:var(--surface-soft);color:var(--muted);font-weight:700;font-size:11px;
+    text-transform:uppercase;letter-spacing:.06em;text-align:left;border-bottom:1px solid var(--hairline);
+    padding:8px 10px;}
+  .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap;}
+  .badge.up{background:rgba(10,138,47,.1);color:var(--up);}
+  .badge.down{background:rgba(193,53,21,.1);color:var(--down);}
+  .badge.neutral{background:rgba(138,106,0,.12);color:var(--neutral);}
+  .zn{font-size:12.5px;line-height:1.75;white-space:nowrap;}
+  .zn b{font-weight:700;font-size:10px;padding:1px 5px;border-radius:4px;margin-right:5px;}
+  .zn b.r{background:rgba(193,53,21,.1);color:var(--down);}
+  .zn b.s{background:rgba(10,138,47,.1);color:var(--up);}
+  .zn .na{color:var(--muted);font-style:italic;}
+  .zn .inzone{color:var(--rausch);font-size:11px;}
+  .zn .ln{display:inline-block;margin-top:4px;padding-top:4px;border-top:1px dashed var(--hairline);font-size:11px;color:var(--muted);white-space:normal;max-width:165px;}
+  .zn .ln em{font-style:normal;font-weight:700;color:var(--muted);margin-right:4px;}
+  .zn .dis{display:block;margin-top:3px;font-size:11px;color:var(--rausch);font-weight:600;}
+  thead th{cursor:pointer;user-select:none;-webkit-user-select:none;white-space:nowrap;}
+  thead th:hover{color:var(--ink);}
+  .sort-ind{color:var(--rausch);font-size:10px;}
+  .note{font-size:13px;color:var(--muted);}
+  .secsum{background:var(--canvas);border:1px solid var(--hairline);border-radius:14px;padding:20px 22px;margin-top:24px;font-size:14px;color:var(--body);}
+  .secsum h3{margin:0 0 10px;font-size:16px;font-weight:600;color:var(--ink);}
+  .foot{margin-top:32px;color:var(--muted);font-size:12px;border-top:1px solid var(--hairline);padding-top:16px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>트레이딩뷰 분석 리포트</h1>
+  <div class="sub">기준일 2026-08-06(목) · KRX · TradingView Swing Structure + Smart Money Concepts 기반 · <b>일봉 전용 · 존 기본 / 라인 보조</b></div>
+
+  <div class="toolbar">
+    <select class="date-select" onchange="if(this.value)location.href=this.value;" aria-label="날짜 선택">
+      <option value="stock_comparison_report_2026-06-25.html">2026-06-25</option>
+      <option value="stock_comparison_report_2026-07-05.html">2026-07-05</option>
+      <option value="stock_comparison_report_2026-07-07.html">2026-07-07</option>
+      <option value="stock_comparison_report_2026-07-08.html">2026-07-08</option>
+      <option value="stock_comparison_report_2026-07-09.html">2026-07-09</option>
+      <option value="stock_comparison_report_2026-07-10.html">2026-07-10</option>
+      <option value="stock_comparison_report_2026-07-14.html">2026-07-14</option>
+      <option value="stock_comparison_report_2026-07-15.html">2026-07-15</option>
+      <option value="stock_comparison_report_2026-07-16.html">2026-07-16</option>
+      <option value="stock_comparison_report_2026-07-20.html">2026-07-20</option>
+      <option value="stock_comparison_report_2026-07-23.html">2026-07-23</option>
+      <option value="stock_comparison_report_2026-07-24.html">2026-07-24</option>
+      <option value="stock_comparison_report_2026-07-27.html">2026-07-27</option>
+      <option value="stock_comparison_report_2026-07-30.html">2026-07-30</option>
+      <option value="stock_comparison_report_2026-07-31.html">2026-07-31</option>
+      <option value="stock_comparison_report_2026-08-04.html">2026-08-04</option>
+      <option value="stock_comparison_report_2026-08-05.html">2026-08-05</option>
+      <option value="stock_comparison_report_2026-08-06.html" selected>2026-08-06</option>
+      <option value="stock_comparison_report_2026-08-07.html">2026-08-07 (최신)</option>
+    </select>
+    <div class="tfbadge">일봉</div>
+    <div class="sumleg">
+      <span><span class="dot bg-up"></span><b class="up" id="cnt-up">3</b> 강세</span>
+      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">9</b> 중립</span>
+      <span><span class="dot bg-down"></span><b class="down" id="cnt-down">8</b> 약세</span>
+    </div>
+  </div>
+
+  <div class="secsum" style="margin-top:0;margin-bottom:24px;border-color:rgba(193,53,21,.45);">
+    <h3>📉 이틀 연속 상승이 하루 만에 꺾였습니다 — 반도체가 진앙</h3>
+    <p style="margin:0;">어제(8/5) 20종목 중 16종목이 오르며 순환매가 대형주까지 번졌는데, 오늘은 <b>12종목이 하락</b>하며 방향이 뒤집혔습니다. 낙폭은 반도체에 집중됐습니다 — <b class="down">SK하이닉스 −10.37%</b>·<b class="down">삼성전기 −9.37%</b>·<b class="down">삼성전자 −6.30%</b>가 나란히 무너졌고, 어제 +12.43%로 뛰었던 <b class="down">효성중공업도 −9.28%</b>로 되돌렸습니다. 어제 두 자릿수로 급등했던 종목이 오늘 두 자릿수 가까이 빠진 셈입니다. 반대로 <b class="up">달바글로벌 +6.47%</b>·<b class="up">에이피알 +5.73%</b>는 하락장에서 거꾸로 올랐고, 특히 에이피알은 <b>어제 정확히 막혔던 376,000을 오늘 뚫었습니다</b>.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>종목</th><th>종가</th><th>등락</th><th>당일 레인지</th>
+        <th>거래량</th><th>방향</th><th>SMC 매물대 (저항/지지) · 라인 교차 검증</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="sector"><td colspan="7">반도체 · 부품</td></tr>
+      <tr>
+        <td class="name">SK하이닉스 <span class="code">(000660)</span></td>
+        <td>1,495,000</td><td class="down">-10.37%</td><td>1,481,000~1,606,000</td>
+        <td>5.50M</td><td><span class="badge down">약세(20종목 중 낙폭 1위, 라인 1,678,000 이탈)</span></td><td class="zn"><b class="r">저</b>2,171,000~2,070,000<br><b class="s">지</b>852,000~806,000<br><span class="ln"><em>라인</em>저 1,678,000 · 지 1,246,000</span></td>
+      </tr>
+      <tr>
+        <td class="name">삼성전자 <span class="code">(005930)</span></td>
+        <td>230,500</td><td class="down">-6.30%</td><td>228,000~246,000</td>
+        <td>26.10M</td><td><span class="badge down">약세(당일 저가 부근 마감, 라인 229,500 코앞)</span></td><td class="zn"><b class="r">저</b>276,000~260,000<br><b class="s">지</b>174,700~167,000<br><span class="ln"><em>라인</em>저 240,000 · 지 229,500</span><span class="dis">⚠ 두 지표 엇갈림(저항 +12.8% vs +4.1%)</span></td>
+      </tr>
+      <tr>
+        <td class="name">삼성전기 <span class="code">(009150)</span></td>
+        <td>1,229,000</td><td class="down">-9.37%</td><td>1,202,000~1,320,000</td>
+        <td>97.19만</td><td><span class="badge down">약세(어제 +14.43% 급등분 대부분 반납)</span></td><td class="zn"><b class="r">저</b>1,475,000~1,380,000<br><b class="s">지</b>438,500~418,000<br><span class="ln"><em>라인</em>저 1,479,000 · 지 1,163,000</span><span class="dis">⚠ 두 지표 엇갈림(저항 +12.3% vs +20.3%)</span></td>
+      </tr>
+      <tr>
+        <td class="name">넥스틴 <span class="code">(348210)</span></td>
+        <td>31,850</td><td class="down">-1.70%</td><td>30,950~32,500</td>
+        <td>5.28만</td><td><span class="badge down">약세(반도체 중 낙폭은 가장 작음)</span></td><td class="zn"><b class="r">저</b>64,700~59,300<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 33,833 · 지 28,633</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
+      <tr>
+        <td class="name">삼성에스디에스 <span class="code">(018260)</span></td>
+        <td>232,500</td><td class="up">+0.87%</td><td>224,000~236,000</td>
+        <td>36.05만</td><td><span class="badge neutral">중립(사흘째 상승, 존 상단 238,500 앞)</span></td><td class="zn"><b class="r">저</b>250,000~238,500<br><b class="s">지</b>209,500~197,000</td>
+      </tr>
+      <tr>
+        <td class="name">케이아이엔엑스 <span class="code">(093320)</span></td>
+        <td>139,000</td><td class="down">-1.07%</td><td>138,700~144,900</td>
+        <td>1.13만</td><td><span class="badge neutral">중립(고가 144,900이 라인 145,100 앞에서 멈춤)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>130,000~122,400<br><span class="ln"><em>라인</em>저 139,400 · 지 135,000</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
+      <tr>
+        <td class="name">KB금융 <span class="code">(105560)</span></td>
+        <td>171,500</td><td class="up">+0.47%</td><td>169,700~173,200</td>
+        <td>72.94만</td><td><span class="badge neutral">중립(하락장에서 소폭 상승, 172,500 재도전 대기)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>153,000~145,000<br><span class="ln"><em>라인</em>저 172,500 · 지 166,500</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">2차전지</td></tr>
+      <tr>
+        <td class="name">에코프로 <span class="code">(086520)</span></td>
+        <td>83,600</td><td class="up">+1.58%</td><td>80,200~85,700</td>
+        <td>87.41만</td><td><span class="badge up">강세(존 공백 구간에서 라인만 의지)</span></td><td class="zn"><b class="r">저</b>125,500~121,200<br><b class="s">지</b>49,150~45,550<br><span class="ln"><em>라인</em>저 84,800 · 지 83,235</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
+      <tr>
+        <td class="name">삼성중공업 <span class="code">(010140)</span></td>
+        <td>22,100</td><td class="down">-0.45%</td><td>21,500~22,400</td>
+        <td>2.04M</td><td><span class="badge neutral">중립(존 안에서 이틀째 횡보, 낙폭 최소)</span></td><td class="zn"><b class="r">저</b>29,800~28,150<br><b class="s">지</b>18,990~18,210<br><span class="inzone">※ 23,900~21,850 내부</span></td>
+      </tr>
+      <tr>
+        <td class="name">효성중공업 <span class="code">(298040)</span></td>
+        <td>2,708,000</td><td class="down">-9.28%</td><td>2,705,000~3,056,000</td>
+        <td>7.82만</td><td><span class="badge down">약세(고가 3,056,000이 라인 3,075,000 못 넘고 급락)</span></td><td class="zn"><b class="r">저</b>3,873,000~3,538,000<br><b class="s">지</b>1,794,000~1,731,000<br><span class="ln"><em>라인</em>저 2,745,000 · 지 2,688,000</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">엔터테인먼트</td></tr>
+      <tr>
+        <td class="name">하이브 <span class="code">(352820)</span></td>
+        <td>180,700</td><td class="down">-0.17%</td><td>177,200~182,600</td>
+        <td>22.73만</td><td><span class="badge neutral">중립(이틀째 보합권, 라인 밀집대 한복판)</span></td><td class="zn"><b class="r">저</b>241,000~222,500<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 181,100 · 지 180,400</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">자동차 부품</td></tr>
+      <tr>
+        <td class="name">현대모비스 <span class="code">(012330)</span></td>
+        <td>508,000</td><td class="up">+0.99%</td><td>489,000~524,000</td>
+        <td>24.84만</td><td><span class="badge neutral">중립(존 안착 이틀째, 고가 524,000 후 되밀림)</span></td><td class="zn"><b class="r">저</b>651,000~626,000<br><b class="s">지</b>443,000~419,000<br><span class="inzone">※ 541,000~501,000 내부</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">통신</td></tr>
+      <tr>
+        <td class="name">SK텔레콤 <span class="code">(017670)</span></td>
+        <td>91,100</td><td class="down">-2.04%</td><td>88,200~92,500</td>
+        <td>1.41M</td><td><span class="badge down">약세(고가 92,500, 95,000 밀집대 재접근 실패)</span></td><td class="zn"><b class="r">저</b>139,500~112,100<br><b class="s">지</b>77,700~75,800<br><span class="ln"><em>라인</em>저 91,400 · 지 90,300</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
+      <tr>
+        <td class="name">클래시스 <span class="code">(214150)</span></td>
+        <td>45,550</td><td class="up">+1.45%</td><td>44,700~46,300</td>
+        <td>12.61만</td><td><span class="badge neutral">중립(존 하단 44,900에서 반등, 상단 46,300 터치)</span></td><td class="zn"><b class="r">저</b>50,100~46,300<br><b class="s">지</b>37,550~36,250<br><span class="inzone">※ 47,500~44,900 내부</span></td>
+      </tr>
+      <tr>
+        <td class="name">에이피알 <span class="code">(278470)</span></td>
+        <td>378,000</td><td class="up">+5.73%</td><td>355,500~388,500</td>
+        <td>62.02만</td><td><span class="badge up">강세(어제 막혔던 376,000 돌파, 존 진입)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(위 존 없음)</span><br><b class="s">지</b>294,500~281,000<br><span class="inzone">※ 402,500~376,000 내부</span></td>
+      </tr>
+      <tr>
+        <td class="name">에스티팜 <span class="code">(237690)</span></td>
+        <td>101,300</td><td class="up">+0.50%</td><td>97,700~102,400</td>
+        <td>8.49만</td><td><span class="badge neutral">중립(10만원선 이틀째 방어)</span></td><td class="zn"><b class="r">저</b>136,100~130,800<br><b class="s">지</b>85,500~81,900<br><span class="ln"><em>라인</em>저 101,500 · 지 101,200</span></td>
+      </tr>
+      <tr>
+        <td class="name">휴메딕스 <span class="code">(200670)</span></td>
+        <td>27,450</td><td class="down">-3.17%</td><td>27,150~28,600</td>
+        <td>2.08만</td><td><span class="badge down">약세(거래량 63% 급감, 존 하단 29,050 못 닿음)</span></td><td class="zn"><b class="r">저</b>30,950~29,050<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 27,500 · 지 27,414</span></td>
+      </tr>
+      <tr>
+        <td class="name">달바글로벌 <span class="code">(483650)</span></td>
+        <td>247,000</td><td class="up">+6.47%</td><td>233,500~250,000</td>
+        <td>14.15만</td><td><span class="badge up">강세(20종목 중 상승률 1위, 라인 230,500 방어 후 반등)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>202,000~193,000<br><span class="ln"><em>라인</em>저 247,500 · 지 244,500</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
+      <tr>
+        <td class="name">웨이비스 <span class="code">(289930)</span></td>
+        <td>7,020</td><td class="down">-4.36%</td><td>6,970~7,390</td>
+        <td>4.38만</td><td><span class="badge down">약세(저가 6,970으로 라인 6,980 살짝 이탈 후 회복)</span></td><td class="zn"><b class="r">저</b>12,400~11,070<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 7,420 · 지 6,980</span></td>
+      </tr>
+
+      <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
+      <tr>
+        <td class="name">배럴 <span class="code">(267790)</span></td>
+        <td>3,090</td><td class="down">-0.32%</td><td>3,030~3,100</td>
+        <td>0.20만</td><td><span class="badge neutral">중립(거래량 68% 급감, 관심 이탈)</span></td><td class="zn"><b class="r">저</b>3,720~3,480<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 3,270 · 지 3,000</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">※ 등락률은 직전 거래일(8/5) 종가 대비 8/6 종가 기준입니다.<br>
+  ※ 저항/지지는 LuxAlgo Smart Money Concepts가 일봉 차트에 그린 오더블록·FVG 존입니다. 현재가보다 위에 있는 최근접 존이 <b class="down">저</b>(저항 구간), 아래에 있는 최근접 존이 <b class="up">지</b>(지지 구간)입니다.<br>
+  ※ <span class="na">미확인</span>은 해당 방향에 식별된 존이 없다는 뜻이고, <span class="na">없음(전 존 위)</span>은 현재가가 모든 존 위로 올라선 상태입니다. <span class="inzone">※ 내부</span>는 현재가가 존 안에 들어와 있는 경우입니다.<br>
+  ※ <span class="ln" style="border:none;padding:0;margin:0;"><em>라인</em></span>은 Swing Structure 지표가 그린 스윙 고점·저점 수평선에서 뽑은 최근접 단일 가격입니다. 존이 <b>구간</b>이라면 라인은 <b>점</b>이고, 존은 물량이 소진되면 사라지지만 라인은 가격 기억이라 남습니다.<br>
+  ※ 라인은 <b>보조 지표로만</b> 병기했습니다 — ① 존이 해당 방향에 없을 때, ② 존이 15% 넘게 떨어져 있을 때, ③ 두 지표가 다른 벽을 가리킬 때(<span style="color:var(--rausch);font-weight:600;">⚠</span> 표시). 현재가가 존 내부이면 존 경계가 곧 관문이라 병기하지 않았습니다. 오늘은 20종목 중 <b>15종목</b>이 병기 대상이었습니다.</div>
+
+  <div class="secsum" style="border-color:rgba(255,56,92,.45);">
+    <h3>🎯 어제 짚은 라인이 오늘 그대로 벽이 됐습니다</h3>
+    <p style="margin:0 0 12px;">어제(8/5) 리포트에서 스윙 라인을 처음 교차 검증에 붙이며 몇 개 종목의 라인 값을 적었는데, 오늘 그 자리들이 실제로 작동했습니다. 특히 <b>존이 "위쪽에 공급 없음"이라고 말하던 종목 두 개가 라인에서 정확히 막혔다</b>는 점이 눈에 띕니다.</p>
+    <ul style="margin:0;padding-left:18px;">
+      <li><b class="down">효성중공업 — 라인 3,075,000을 못 넘고 무너졌습니다.</b> 오늘 장중 고가가 <b>3,056,000</b>으로 라인을 19,000원 남기고 멈춘 뒤 <b>−9.28%</b>로 2,708,000에 마감했습니다. 어제 −9% 넘게 빠진 게 아니라 <b>어제 +12.43% 오른 것을 오늘 거의 그대로 반납</b>한 모양입니다. 존은 저항을 3,538,000(+18.5%)으로 봤으니, 존만 봤다면 위가 비어 있다고 읽었을 자리입니다.</li>
+      <li><b class="down">케이아이엔엑스 — 라인 145,100에 200원 차로 막혔습니다.</b> 고가 <b>144,900</b>을 찍고 되밀려 139,000에 마감했습니다. 이 종목도 존 기준으로는 <span class="na">없음(전 존 위)</span>, 즉 머리 위에 확인된 공급이 없는 상태였습니다.</li>
+      <li><b class="up">에이피알 — 벽을 뚫었습니다.</b> 어제 "장중 고가가 정확히 376,000에서 막혔다"고 적었던 존 하단을 오늘 <b>거래량 62.0만으로 돌파</b>해 378,000에 마감하고 402,500~376,000 존 안으로 들어갔습니다. 20종목 중 상승률 2위입니다.</li>
+      <li><b class="up">달바글로벌 — 라인 지지가 버텼습니다.</b> 어제 저가가 정확히 라인 지지 230,500이었는데, 오늘 저가는 <b>233,500</b>으로 그 위에서 멈추고 <b>+6.47%</b>로 반등해 20종목 중 상승률 1위가 됐습니다.</li>
+      <li><b>SK텔레콤 — 95,000대 밀집대에 닿지도 못했습니다.</b> 어제 리포트에서 "존은 비었지만 라인 95,000·95,400·95,600·95,900이 남아 있다"고 고쳐 적었는데, 오늘 고가는 <b>92,500</b>에 그쳤고 종가는 91,100으로 밀렸습니다.</li>
+      <li><b>웨이비스 — 라인 지지에서 아슬아슬하게 버텼습니다.</b> 저가가 <b>6,970</b>으로 라인 6,980을 10원 뚫었지만 종가는 7,020으로 되돌아왔습니다.</li>
+    </ul>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">반면 <b>삼성전기</b>는 어제 표시한 <span style="color:var(--rausch);font-weight:600;">⚠ 엇갈림</span>이 오늘도 풀리지 않았습니다. 존은 저항 하단을 1,380,000, 라인은 1,479,000으로 보고 어제 "내일 1,380,000 반응이 관건"이라고 적었는데, 실제로는 <b>그 값을 시험해 보지도 못하고 −9.37% 빠졌습니다</b>(오늘 고가 1,320,000). 저항이 어디냐를 따지는 일이 방향을 알려주지는 않는다는 점을 보여주는 사례로, 두 값 사이 구간은 신뢰도가 낮다고 보는 편이 안전합니다.</p>
+  </div>
+
+  <div class="secsum">
+    <h3>섹터별 한 줄 요약</h3>
+    <ul style="margin:0;padding-left:18px;">
+      <li><b>반도체·부품</b> — 오늘 하락의 진앙입니다. <span class="down">SK하이닉스(−10.37%)</span>가 낙폭 1위로 라인 1,678,000 아래로 내려앉았고, <span class="down">삼성전기(−9.37%)</span>는 어제 +14.43% 급등분을 거의 반납했습니다. <span class="down">삼성전자(−6.30%)</span>는 당일 저가(228,000) 부근에서 마감해 라인 지지 229,500이 코앞이고, 이 선이 깨지면 아래 존까지 −27%가 비어 있습니다. <span class="down">넥스틴(−1.70%)</span>만 한 자릿수 초반으로 버텼습니다.</li>
+      <li><b>인터넷·IT서비스</b> — <span class="up">삼성에스디에스(+0.87%)</span>는 사흘 연속 상승으로, 하락장에서 오른 8종목 중 하나입니다. 존 상단 238,500까지 2.6%를 남겨 두 지표가 어긋나지 않은 몇 안 되는 종목입니다. <span class="down">케이아이엔엑스(−1.07%)</span>는 위 검증 사례대로 145,100에서 막혔습니다.</li>
+      <li><b>금융·보험</b> — <span class="up">KB금융(+0.47%)</span>은 소폭이지만 하락장에서 올랐습니다. 어제 고가 176,800이 라인 172,500·175,700을 넘었다가 되밀렸는데, 오늘은 고가가 173,200에 그쳐 아직 172,500을 종가로 넘지 못한 상태입니다.</li>
+      <li><b>2차전지</b> — <span class="up">에코프로(+1.58%)</span>는 존 기준으로 위 +45%·아래 −45%의 공백 한가운데 있어 사실상 존이 참고가 안 됩니다. 라인으로 보면 저항 84,800·지지 83,235가 위아래 1.5% 안에 붙어 있는 좁은 자리입니다.</li>
+      <li><b>조선·중공업</b> — <span class="down">삼성중공업(−0.45%)</span>은 23,900~21,850 존 안에서 이틀째 좁게 횡보하며 오늘 낙폭이 가장 작았습니다. <span class="down">효성중공업(−9.28%)</span>은 위 검증 사례대로 라인 3,075,000에서 꺾였습니다.</li>
+      <li><b>엔터테인먼트</b> — <span class="down">하이브(−0.17%)</span>는 이틀 연속 보합권입니다. 존 기준 아래 지지가 <span class="na">미확인</span>이고 라인도 위 181,100·아래 180,400으로 0.2% 안에 붙어 있어, 어느 쪽으로든 곧 결론이 나야 하는 자리입니다.</li>
+      <li><b>자동차 부품</b> — <span class="up">현대모비스(+0.99%)</span>는 어제 진입한 541,000~501,000 존에 이틀째 머물렀습니다. 다만 장중 고가 524,000까지 올랐다가 508,000으로 되밀려, 존 안에서도 위쪽이 무거웠습니다.</li>
+      <li><b>통신</b> — <span class="down">SK텔레콤(−2.04%)</span>은 어제 고가 98,300에서 되밀린 뒤 오늘은 92,500까지밖에 못 올랐습니다. 95,000대 라인 밀집대가 여전히 머리 위에 있습니다.</li>
+      <li><b>제약·바이오·미용</b> — 온도가 확실히 갈렸습니다. <span class="up">달바글로벌(+6.47%)·에이피알(+5.73%)</span>이 상승률 1·2위로 시장과 반대로 갔고, <span class="up">클래시스(+1.45%)</span>도 존 하단 44,900에서 반등해 상단 46,300을 터치했습니다. 반면 <span class="down">휴메딕스(−3.17%)</span>는 어제 +11.61% 급등 뒤 거래량이 63% 급감(5.63만→2.08만)하며 되밀렸습니다. <span class="up">에스티팜(+0.50%)</span>은 10만원선을 지켰습니다.</li>
+      <li><b>방산·전자부품</b> — <span class="down">웨이비스(−4.36%)</span>는 저가 6,970으로 라인 지지 6,980을 잠깐 이탈했다가 7,020으로 회복했습니다. 종가 기준으로는 아직 지켜진 상태입니다.</li>
+      <li><b>패션·기타</b> — <span class="down">배럴(−0.32%)</span>은 어제 6배로 늘었던 거래량이 다시 68% 급감(0.64만→0.20만)했습니다. 어제의 관심이 하루짜리였던 셈입니다.</li>
+    </ul>
+  </div>
+
+  <div class="secsum">
+    <h3>오늘의 시장 관전 포인트</h3>
+    <p style="margin:0;">오늘(8/6, 목)의 핵심은 <b>어제 가장 많이 오른 종목이 오늘 가장 많이 빠졌다</b>는 점입니다. 어제 두 자릿수로 뛴 삼성전기(+14.43%)·효성중공업(+12.43%)·휴메딕스(+11.61%)가 오늘 각각 −9.37%·−9.28%·−3.17%로 되돌렸습니다. 순환매가 하루 만에 식은 모양이고, 특히 반도체는 세 종목이 함께 무너져 섹터 단위로 밀렸습니다.</p>
+    <p style="margin:12px 0 0;">반대 방향에서 눈여겨볼 것은 <b>매물대 구조가 바뀐 두 종목</b>입니다. <b class="up">에이피알</b>은 어제 벽으로 확인된 376,000을 오늘 종가로 넘어 존 안에 들어갔고, 그 위로는 확인된 존이 없어 다음 관문이 존 천장 402,500 하나뿐입니다. <b class="up">달바글로벌</b>은 라인 지지 230,500을 지켜낸 뒤 반등해, 모든 존 위에 있는 상태를 유지했습니다. 시장 전체가 내린 날에 이 둘만 5% 넘게 올랐다는 점은 수급이 남아 있다는 뜻으로 읽힙니다.</p>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">내일 볼 자리는 <b>삼성전자 229,500</b>입니다. 오늘 종가가 230,500으로 이 라인 바로 위에 걸쳤는데, 아래쪽 존이 −27%나 떨어져 있어서 이 선이 깨지면 참고할 지지가 사실상 없어집니다. 존만 보면 "아래가 넓게 비어 있다"로 보이지만, 실제로 의미 있는 자리는 코앞의 이 라인 하나입니다.</p>
+  </div>
+
+  <div class="secsum" style="border-color:rgba(255,56,92,.45);">
+    <h3>⭐ 투자유망 종목 베스트3 <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-08-06 기준)</span></h3>
+    <ol style="margin:8px 0 0;padding-left:20px;">
+      <li style="margin-bottom:10px;">
+        <b class="up">1. 에이피알 (278470)</b> — 종가 378,000 · +5.73%<br>
+        <span style="color:var(--muted);">어제 장중 고가가 정확히 376,000에서 막혔던 존 하단을 오늘 <b>거래량 62.0만으로 종가 돌파</b>. 벽 앞에서 되밀린 종목이 여럿인 날에 혼자 넘어섰다는 점이 확인됨. 존 안에 자리 잡았고 위로는 확인된 존이 없어 다음 관문은 존 천장 402,500 하나.</span>
+      </li>
+      <li style="margin-bottom:10px;">
+        <b class="up">2. 달바글로벌 (483650)</b> — 종가 247,000 · +6.47%<br>
+        <span style="color:var(--muted);">20종목 중 상승률 1위. 어제 저가가 정확히 라인 지지 230,500이었는데 오늘 저가 233,500으로 그 위에서 지켜내고 반등. 모든 존 위에 있고, 남은 벽은 라인 247,500 하나로 0.2% 위.</span>
+      </li>
+      <li style="margin-bottom:10px;">
+        <b class="up">3. 클래시스 (214150)</b> — 종가 45,550 · +1.45%<br>
+        <span style="color:var(--muted);">47,500~44,900 존 하단 44,900에서 반등해 장중 상단 46,300을 터치. <b>위아래 관문이 모두 2% 안</b>(위 46,300 · 아래 44,900)이라 판단 기준이 명확하고, 존과 라인이 어긋나지 않아 병기가 필요 없던 종목.</span>
+      </li>
+    </ol>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 오늘은 상승 종목이 8개뿐이고 그중 5% 넘게 오른 것은 위 1·2위 둘뿐이라, 3위와의 상승률 격차(5.73% → 1.45%)가 큽니다. 순위보다 <b>1·2위와 나머지 사이의 간격</b>을 함께 보시기 바랍니다.<br>
+    ※ 위 선정은 당일 등락·거래량·매물대 돌파 여부 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다.</p>
+  </div>
+
+  <div class="foot">
+    ⚠️ 본 리포트는 TradingView 차트의 가격·구조 지표를 기계적으로 요약한 자료이며 투자 권유가 아닙니다.
+    수치는 <b>2026-08-06(목) 마감 기준</b>이며, 주봉 분석은 포함되어 있지 않습니다.
+    매물대 존·스윙 라인은 <b>TradingView 바 리플레이로 차트를 8/6 시점으로 되감아</b> 그날의 지표 상태를 읽은 값입니다(이후 형성된 존·라인은 반영되어 있지 않습니다). 실제 매매 판단은 본인 책임하에 하시기 바랍니다.
+  </div>
+</div>
+<script>
+function cellNum(s){
+  s=s.replace(/,/g,'').trim();
+  var m=s.match(/-?\d+(?:\.\d+)?/);
+  if(!m) return null;
+  var n=parseFloat(m[0]), rest=s.slice(m.index+m[0].length);
+  if(/^\s*조/.test(rest)) n*=1e12;
+  else if(/^\s*억/.test(rest)) n*=1e8;
+  else if(/^\s*만/.test(rest)) n*=1e4;
+  else if(/^\s*[Mm]/.test(rest)) n*=1e6;
+  else if(/^\s*[Kk]/.test(rest)) n*=1e3;
+  return n;
+}
+function sortTable(table, col){
+  var tbody=table.querySelector('tbody');
+  var allRows=[].slice.call(tbody.querySelectorAll('tr'));
+  var dir;
+  if(table.getAttribute('data-sortcol')===String(col)){
+    var cur=table.getAttribute('data-sortdir');
+    dir = cur==='asc' ? 'desc' : (cur==='desc' ? 'none' : 'asc');
+  } else { dir='asc'; }
+  table.querySelectorAll('thead tr:first-child th .sort-ind').forEach(function(s){s.textContent='';});
+  if(dir==='none'){
+    table.setAttribute('data-sortcol',''); table.setAttribute('data-sortdir','');
+    allRows.sort(function(a,b){return (+a.getAttribute('data-ord'))-(+b.getAttribute('data-ord'));});
+    allRows.forEach(function(r){r.style.display=''; tbody.appendChild(r);});
+    return;
+  }
+  table.setAttribute('data-sortcol',String(col)); table.setAttribute('data-sortdir',dir);
+  var stock=allRows.filter(function(r){return !r.classList.contains('sector');});
+  allRows.filter(function(r){return r.classList.contains('sector');}).forEach(function(r){r.style.display='none';});
+  var mul=dir==='asc'?1:-1;
+  var isDir=stock.length&&/강세|중립|약세/.test(stock[0].children[col].textContent);
+  var isNum=!isDir&&stock.every(function(r){var s=r.children[col].textContent;return /\d/.test(s)&&s.replace(/[\d.,\s~%+\/\-만억조MKmk]/g,'')==='';});
+  function rank(s){return s.indexOf('강세')>-1?0:(s.indexOf('중립')>-1?1:2);}
+  stock.sort(function(a,b){
+    var ta=a.children[col].textContent, tb=b.children[col].textContent, cmp;
+    if(isDir) cmp=rank(ta)-rank(tb);
+    else if(isNum) cmp=cellNum(ta)-cellNum(tb);
+    else cmp=ta.localeCompare(tb,'ko');
+    return cmp*mul;
+  });
+  stock.forEach(function(r){r.style.display=''; tbody.appendChild(r);});
+  var th=table.querySelectorAll('thead tr:first-child th')[col];
+  var ind=th && th.querySelector('.sort-ind');
+  if(ind) ind.textContent = dir==='asc'?' ▲':' ▼';
+}
+function initSort(){
+  document.querySelectorAll('table').forEach(function(table){
+    var tbody=table.querySelector('tbody'); if(!tbody) return;
+    [].slice.call(tbody.querySelectorAll('tr')).forEach(function(tr,i){tr.setAttribute('data-ord',i);});
+    table.querySelectorAll('thead tr:first-child th').forEach(function(th,i){
+      if(!th.querySelector('.sort-ind')){var sp=document.createElement('span');sp.className='sort-ind';th.appendChild(sp);}
+      th.addEventListener('click',function(){sortTable(table,i);});
+    });
+  });
+}
+initSort();
+</script>
+</body>
+</html>
