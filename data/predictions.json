@@ -1,0 +1,55 @@
+{
+  "_readme": "다음 거래일 예측을 미리 적어두고 그날 종가로 기계적으로 채점하는 기록. 리포트를 쓸 때 (1) 직전 entry를 채점해 scored에 넣고 (2) 새 entry를 추가한다. 사후에 고르는 편향을 없애려고 20종목 전부를 무조건 기록한다.",
+  "_schema": {
+    "asof": "예측을 세운 기준일(이 날 종가 기준)",
+    "index": "그날 지수 종가 (초과수익 채점용)",
+    "items[].code": "종목코드",
+    "items[].close": "기준일 종가",
+    "items[].market": "KOSPI | KOSDAQ",
+    "items[].resist": "다음 거래일에 시험될 저항. null이면 유효한 저항 없음",
+    "items[].support": "다음 거래일에 시험될 지지. null이면 유효한 지지 없음",
+    "items[].src": "zone | line | zone_edge — 레벨의 출처",
+    "items[].sigma": "[저항까지 σ, 지지까지 σ] — 0.5σ 미만이면 레벨로 안 침",
+    "items[].call": "up_test | down_test | range | breakout_hold | breakdown — 무엇을 예상하는지",
+    "items[].conf": "high | mid | low",
+    "items[].note": "근거 한 줄"
+  },
+  "_scoring": {
+    "up_test": "다음날 고가가 resist에 닿으면 test 성립. 종가가 resist 위면 hit, 닿았다 되밀리면 reject, 못 닿으면 no_test",
+    "down_test": "다음날 저가가 support에 닿으면 test 성립. 종가가 support 위면 hold, 아래면 break, 못 닿으면 no_test",
+    "range": "다음날 종가가 support~resist 안이면 hit",
+    "breakout_hold": "직전에 돌파한 레벨 위에서 종가를 지키면 hit",
+    "breakdown": "종가가 support 아래로 마감하면 hit",
+    "집계": "conf별·src별·sigma구간별로 나눠서 적중률을 낸다. 특히 존/라인이 일치한 경우와 엇갈린 경우를 분리할 것"
+  },
+  "entries": [
+    {
+      "asof": "2026-08-07",
+      "next_session": "2026-08-10",
+      "index": { "KOSPI": 6258.77, "KOSDAQ": 798.81 },
+      "scored": null,
+      "items": [
+        { "code": "000660", "name": "SK하이닉스", "market": "KOSPI", "close": 1422000, "resist": 1678000, "support": 1246000, "src": "line", "sigma": [1.73, 1.19], "call": "range", "conf": "mid", "note": "위아래 모두 1σ 이상 떨어져 당일 시험 가능성 낮음" },
+        { "code": "005930", "name": "삼성전자", "market": "KOSPI", "close": 231000, "resist": 240000, "support": 229500, "src": "line", "sigma": [0.61, 0.10], "call": "down_test", "conf": "high", "note": "지지 229,500이 0.10σ로 코앞. 깨지면 아래 존까지 −27% 공백" },
+        { "code": "009150", "name": "삼성전기", "market": "KOSPI", "close": 1278000, "resist": 1380000, "support": 1163000, "src": "zone", "sigma": [0.70, 0.79], "call": "up_test", "conf": "mid", "note": "존 1,380,000 vs 라인 1,479,000 엇갈림 미해소. 존 쪽 먼저 시험" },
+        { "code": "348210", "name": "넥스틴", "market": "KOSDAQ", "close": 31050, "resist": 33833, "support": 28633, "src": "line", "sigma": [1.24, 1.07], "call": "range", "conf": "mid", "note": "양쪽 1σ 이상. 8/7 고가 33,500이 저항 근처까지 갔던 점은 주의" },
+        { "code": "018260", "name": "삼성에스디에스", "market": "KOSPI", "close": 221500, "resist": 238500, "support": 209500, "src": "zone", "sigma": [1.06, 0.75], "call": "down_test", "conf": "mid", "note": "존 사이 중간대. 초과수익 −4.13%p로 약세라 아래쪽 먼저" },
+        { "code": "093320", "name": "케이아이엔엑스", "market": "KOSDAQ", "close": 133600, "resist": null, "support": 130500, "src": "line", "sigma": [0.14, 0.31], "call": "down_test", "conf": "low", "note": "저항 0.14σ는 레벨로 안 침. 지지 130,500도 0.31σ로 약함" },
+        { "code": "105560", "name": "KB금융", "market": "KOSPI", "close": 175800, "resist": null, "support": null, "src": "line", "sigma": [0.20, 0.02], "call": "breakout_hold", "conf": "mid", "note": "유효 레벨 없음. 넘어선 175,700 위 종가 유지 여부만 본다" },
+        { "code": "086520", "name": "에코프로", "market": "KOSDAQ", "close": 86000, "resist": null, "support": 75900, "src": "zone", "sigma": [0.08, 1.54], "call": "range", "conf": "low", "note": "라인은 양쪽 노이즈. 유일하게 거래량 1.60배로 실린 종목이라 변동 주의" },
+        { "code": "010140", "name": "삼성중공업", "market": "KOSPI", "close": 22050, "resist": 23900, "support": 21850, "src": "zone_edge", "sigma": [2.39, 0.26], "call": "down_test", "conf": "mid", "note": "존 바닥 21,850이 0.26σ. 사흘째 횡보라 곧 한쪽으로 결론" },
+        { "code": "298040", "name": "효성중공업", "market": "KOSPI", "close": 2832000, "resist": 3075000, "support": null, "src": "line", "sigma": [0.90, 0.32], "call": "up_test", "conf": "mid", "note": "8/6에 막힌 3,075,000 재시험 여부. 최근접 라인 2,886,000은 0.20σ라 제외" },
+        { "code": "352820", "name": "하이브", "market": "KOSPI", "close": 185000, "resist": 222500, "support": null, "src": "zone", "sigma": [5.34, 0.10], "call": "range", "conf": "low", "note": "유효 지지 전무. 라인 양쪽 0.10σ로 발밑이 비어 있음" },
+        { "code": "012330", "name": "현대모비스", "market": "KOSPI", "close": 496500, "resist": 501000, "support": 443000, "src": "zone_edge", "sigma": [0.15, 1.83], "call": "up_test", "conf": "low", "note": "존 하단 501,000이 0.15σ. 이탈이라 부르기엔 붙어 있어 재진입 가능" },
+        { "code": "017670", "name": "SK텔레콤", "market": "KOSPI", "close": 88200, "resist": 95000, "support": 82300, "src": "line", "sigma": [0.86, 0.75], "call": "range", "conf": "mid", "note": "95,000 밀집대가 유효 저항. 최근접 88,600은 0.05σ라 제외" },
+        { "code": "214150", "name": "클래시스", "market": "KOSDAQ", "close": 45900, "resist": 47500, "support": 44900, "src": "zone_edge", "sigma": [0.74, 0.46], "call": "range", "conf": "high", "note": "존 내부, 위아래 모두 σ 기준으로도 유효. 20종목 중 가장 명확" },
+        { "code": "278470", "name": "에이피알", "market": "KOSPI", "close": 384500, "resist": 402500, "support": 376000, "src": "zone_edge", "sigma": [0.56, 0.26], "call": "breakout_hold", "conf": "mid", "note": "돌파한 376,000 위 유지 여부. 0.26σ라 되밀림 위험 상존" },
+        { "code": "237690", "name": "에스티팜", "market": "KOSDAQ", "close": 100100, "resist": null, "support": null, "src": "line", "sigma": [0.09, 0.15], "call": "range", "conf": "low", "note": "양쪽 모두 노이즈. 10만원선 심리 수준만 참고" },
+        { "code": "200670", "name": "휴메딕스", "market": "KOSDAQ", "close": 26650, "resist": 29050, "support": null, "src": "zone", "sigma": [1.20, 0.01], "call": "range", "conf": "low", "note": "라인 저항 0.00σ·지지 0.01σ로 둘 다 무의미. 존 29,050만 유효" },
+        { "code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 246000, "resist": null, "support": 202000, "src": "zone", "sigma": [0.08, 2.20], "call": "range", "conf": "low", "note": "라인 양쪽 0.08σ. 전 존 위라 위쪽 참고 레벨 없음" },
+        { "code": "289930", "name": "웨이비스", "market": "KOSDAQ", "close": 6980, "resist": 7420, "support": null, "src": "line", "sigma": [1.04, 0.21], "call": "up_test", "conf": "mid", "note": "저항 7,420이 1.04σ로 유효. 지지 6,890은 0.21σ라 제외" },
+        { "code": "267790", "name": "배럴", "market": "KOSDAQ", "close": 3075, "resist": 3270, "support": 3000, "src": "line", "sigma": [1.32, 0.51], "call": "range", "conf": "low", "note": "양쪽 유효하나 거래량 0.40배로 관심 이탈 상태" }
+      ]
+    }
+  ]
+}
