@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- TradingView 일봉 + SMC 존(기본) + 스윙 라인(0.5σ 필터) + 초과수익·거래량배수·ATR 기반 21종목 비교 리포트 (2026-08-10 종가 기준) -->
+<!-- TradingView 일봉 + SMC 존(3σ 규칙) + 스윙 라인(0.5σ 필터·밀집도) + 위험조정 초과수익·거래량배수·ATR(14) 기반 21종목 비교 리포트 (2026-08-10 종가 기준, v2 재계산) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -77,13 +77,14 @@
   .score th{font-size:10.5px;}
   .score td:first-child{text-align:left;font-weight:600;}
   .ok{color:var(--up);font-weight:700;} .ng{color:var(--down);font-weight:700;} .nt{color:var(--muted);font-weight:600;}
+  .flip{display:inline-block;padding:0 5px;border-radius:4px;background:var(--rausch-tint);color:var(--rausch-active);font-size:11px;font-weight:700;}
   .foot{margin-top:32px;color:var(--muted);font-size:12px;border-top:1px solid var(--hairline);padding-top:16px;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>트레이딩뷰 분석 리포트</h1>
-  <div class="sub">기준일 2026-08-10(월) · KRX · <b>21종목</b>(지엔씨에너지 신규) · 존 기본 / 라인 보조(0.5σ 필터) · 초과수익 · 거래량 배수 · ATR</div>
+  <div class="sub">기준일 2026-08-10(월) · KRX · <b>21종목</b>(지엔씨에너지 신규) · <b style="color:var(--rausch);">v2 재계산 — ATR(14) · 존 3σ 규칙 · 위험조정 배지 · 라인 밀집도</b></div>
 
   <div class="toolbar">
     <select class="date-select" onchange="if(this.value)location.href=this.value;" aria-label="날짜 선택">
@@ -110,15 +111,16 @@
     </select>
     <div class="tfbadge">일봉</div>
     <div class="sumleg">
-      <span><span class="dot bg-up"></span><b class="up" id="cnt-up">10</b> 강세</span>
-      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">8</b> 중립</span>
+      <span><span class="dot bg-up"></span><b class="up" id="cnt-up">1</b> 강세</span>
+      <span><span class="dot bg-neutral"></span><b class="neutral" id="cnt-neutral">17</b> 중립</span>
       <span><span class="dot bg-down"></span><b class="down" id="cnt-down">3</b> 약세</span>
     </div>
   </div>
 
   <div class="secsum" style="margin-top:0;margin-bottom:24px;border-color:rgba(255,56,92,.45);">
-    <h3>📈 코스닥이 +6.97% 폭등 — 15종목이 올랐지만 시장을 이긴 건 7종목뿐입니다</h3>
-    <p style="margin:0;">오늘 <b class="up">KOSDAQ이 798.81 → 854.47로 +6.97%</b> 뛰었습니다. KOSPI는 +0.65%로 조용했으니 <b>코스닥 단독 급등</b>입니다. 21종목 중 15종목이 올라 겉보기엔 좋은 날이지만, <b>지수를 빼면 시장을 이긴 종목은 7개뿐</b>입니다. 코스닥 종목은 <b>+6.97%를 넘겨야 본전</b>이었기 때문입니다 — <b class="down">클래시스(+0.87%)·지엔씨에너지(+0.96%)·배럴(+1.63%)</b>은 상승 마감했는데도 초과수익이 −5~−6%p로, 사실상 이날 가장 부진했던 축입니다. 반대로 <b class="up">케이아이엔엑스(+11.75%)·넥스틴(+10.47%)</b>은 급등의 폭이 지수를 넘어 실제로 강했습니다. <b>절대 등락만 보면 정반대로 읽게 되는 날</b>이라, 초과수익 지표를 붙인 효과가 가장 뚜렷하게 드러난 회차입니다.</p>
+    <h3>📈 코스닥이 +6.97% 폭등한 날 — 위험조정으로 보면 두드러진 건 케이아이엔엑스 하나뿐입니다</h3>
+    <p style="margin:0 0 12px;padding:10px 12px;background:var(--rausch-tint);border-radius:8px;font-size:13.5px;">🔧 <b>이 리포트는 분석 로직 v2로 다시 계산한 판본입니다.</b> 최초 발행본은 배지를 절대 등락으로 매기고 ATR을 4일 창으로 썼는데, 둘 다 이 날 결론을 왜곡했습니다. ATR을 14일로, 배지를 <b>초과수익÷ATR</b>로 바꾸자 <b>21종목 중 11종목의 배지가 뒤집혔습니다</b>. 무엇이 왜 바뀌었는지는 아래 <b>🔧 섹션</b>에 정리했습니다.</p>
+    <p style="margin:0;">오늘 <b class="up">KOSDAQ이 798.81 → 854.47로 +6.97%</b> 뛰었습니다. KOSPI는 +0.65%로 조용했으니 <b>코스닥 단독 급등</b>입니다. 21종목 중 15종목이 올랐지만, 지수를 빼고 각 종목의 변동성(ATR)으로 나눠 보면 <b>강세로 부를 만한 종목은 케이아이엔엑스(+0.62σ) 하나</b>뿐입니다. 두 자릿수로 뛴 넥스틴(+10.47%)·에코프로(+8.72%)도 지수를 빼고 변동성으로 나누면 +0.4σ·+0.2σ에 그칩니다. 반대로 <b class="down">클래시스(+0.87%)·배럴(+1.63%)</b>은 올랐는데도 코스닥 대비 −6·−5%p로 <b>−0.9σ대 약세</b>입니다. <b>지수가 하루의 일을 거의 다 한 날</b>이라, 종목 단위 강약은 대부분 노이즈였다는 게 정직한 그림입니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);margin-top:0;">
@@ -129,24 +131,37 @@
       <tbody>
         <tr><td>전체</td><td>15건</td><td>9건</td><td><b>60%</b></td><td>판정 불가 5건 제외</td></tr>
         <tr><td>range(양쪽 레벨 유효)</td><td>5건</td><td>4건</td><td class="ok">80%</td><td>넥스틴만 위로 이탈</td></tr>
-        <tr><td>레벨 시험(up/down_test)</td><td>8건</td><td>4건</td><td class="nt">50%</td><td>나머지 4건은 레벨에 닿지도 못함</td></tr>
+        <tr><td>레벨 시험(레벨에 닿았는가)</td><td>8건</td><td>4건</td><td class="nt">50%</td><td>나머지 4건은 레벨에 닿지도 못함</td></tr>
+        <tr><td>└ 닿은 뒤 방향(dir_hit)</td><td>4건</td><td>4건</td><td class="ok">100%</td><td>닿기만 하면 방향은 다 맞았음</td></tr>
         <tr><td>돌파 유지(breakout_hold)</td><td>2건</td><td>1건</td><td class="nt">50%</td><td>에이피알 유지 / KB금융 실패</td></tr>
         <tr><td>확신도 high</td><td>2건</td><td>2건</td><td class="ok">100%</td><td>삼성전자·클래시스</td></tr>
         <tr><td>확신도 mid</td><td>10건</td><td>4건</td><td class="ng">40%</td><td>—</td></tr>
-        <tr><td>확신도 low</td><td>3건</td><td>3건</td><td class="ok">100%</td><td>표본 3건, 의미 없음</td></tr>
-        <tr><td>존 기반</td><td>6건</td><td>3건</td><td class="nt">50%</td><td>—</td></tr>
-        <tr><td>라인 기반</td><td>9건</td><td>6건</td><td class="nt">67%</td><td>—</td></tr>
+        <tr><td>기준선 · 무작위(±1σ)</td><td>20건</td><td>19건</td><td class="nt">95%</td><td>거의 항상 맞음(비교 하한)</td></tr>
+        <tr><td>기준선 · 모멘텀(오늘↑→내일↑)</td><td>20건</td><td>11건</td><td class="nt">55%</td><td>우리 60%가 겨우 앞섬</td></tr>
       </tbody>
     </table>
-    <p style="margin:12px 0 0;font-size:13px;">눈에 띄는 건 <b>"레벨 시험" 8건 중 4건이 레벨에 닿지도 못했다</b>는 점입니다(삼성전기·삼성에스디에스·삼성중공업·효성중공업). 벽이 맞았는지 틀렸는지 이전에 <b>애초에 그 자리까지 가지 않은 경우가 절반</b>이라는 뜻으로, 하루 앞 예측에서 특정 레벨을 지목하는 것 자체가 얼마나 어려운지를 보여줍니다. 반대로 <b>범위 예측(range)은 5건 중 4건</b>이 맞았습니다 — 방향이 아니라 <b>"어디에 머물 것인가"</b>가 훨씬 맞히기 쉬운 질문이었습니다.</p>
-    <p style="margin:10px 0 0;font-size:13px;color:var(--muted);">개별 결과 — <span class="ok">적중</span> 삼성전자(지지 229,500 시험 후 방어)·SK하이닉스·케이아이엔엑스(지지 130,500 시험 후 +11.75%)·현대모비스(존 재진입)·SK텔레콤·클래시스·에이피알·배럴·웨이비스(7,420 시험 후 되밀림). <span class="ng">실패</span> 넥스틴(범위 위로 이탈)·KB금융(175,700 유지 실패). <span class="nt">레벨 미도달</span> 삼성전기·삼성에스디에스·삼성중공업·효성중공업. <b>판정 불가 5건</b>(에코프로·하이브·휴메딕스·달바글로벌·에스티팜)은 유효 레벨이 없어 한쪽만 적거나 양쪽 다 비워둔 경우로, <b>사실상 반증이 불가능한 예측</b>이었습니다. 다음 회차부터는 이런 종목에 <code>range</code> 대신 <b>"다음날 |등락| &lt; 1σ"</b>라는 검증 가능한 형태로 적겠습니다.</p>
+    <p style="margin:12px 0 0;font-size:13px;">v2에서 채점을 두 갈래로 쪼갰습니다. <b>"레벨에 닿았는가(level_hit)"</b>와 <b>"닿은 뒤 방향이 맞았는가(dir_hit)"</b>는 다른 질문입니다. 그렇게 보니 <b>레벨 지목 8건 중 4건은 그 자리에 닿지도 못했지만, 닿은 4건은 방향이 전부 맞았습니다</b>. 어려운 건 방향 판정이 아니라 <b>하루 앞서 정확한 자리를 찍는 일</b>이었습니다. 그리고 이번부터 기준선을 같이 채점했는데, 우리 60%는 모멘텀(55%)을 <b>겨우</b> 앞섰을 뿐입니다 — 표본 15건에서 이 차이는 아직 무의미하니, "방법이 통한다"고 말하려면 더 쌓여야 합니다.</p>
+    <p style="margin:10px 0 0;font-size:13px;color:var(--muted);">개별 결과 — <span class="ok">적중</span> 삼성전자·SK하이닉스·케이아이엔엑스·현대모비스·SK텔레콤·클래시스·에이피알·배럴·웨이비스. <span class="ng">실패</span> 넥스틴(범위 위로 이탈)·KB금융(175,700 유지 실패). <span class="nt">레벨 미도달</span> 삼성전기·삼성에스디에스·삼성중공업·효성중공업. <b>판정 불가 5건</b>(에코프로·하이브·휴메딕스·달바글로벌·에스티팜)은 유효 레벨이 없어 반증이 불가능했던 경우로, 이번 회차 예측부터는 <code>vol_band</code>(다음날 |등락| &lt; 1σ)로 적어 채점 가능하게 했습니다.</p>
+  </div>
+
+  <div class="secsum" style="border-color:rgba(255,56,92,.45);">
+    <h3>🔧 v2 재계산 — 무엇이 왜 바뀌었나</h3>
+    <p style="margin:0 0 12px;">로직을 검토하다 결함 몇 개를 찾아 고쳤고, 이 회차를 새 기준으로 다시 계산했습니다. 새로 받은 데이터는 없습니다 — <b>이미 받던 60봉을 다르게 계산</b>했을 뿐인데 결론이 꽤 달라졌습니다.</p>
+    <ul style="margin:0;padding-left:18px;">
+      <li><b class="down">ATR을 4일 → 14일 창으로.</b> 4일은 표본이 너무 적어 하루만 크게 움직여도 값이 튀었습니다. 삼성전자 실측 <b>ATR(14) 23,093 vs ATR(4) 13,250으로 43% 차이</b>입니다. ATR은 라인 필터의 분모라, 최초본의 삼성전자 지지 라인 223,000(당시 0.53σ)은 <b>ATR(14)에선 0.30σ로 탈락</b>합니다 — 즉 그 지지선은 애초에 인쇄되지 말았어야 했습니다.</li>
+      <li><b class="down">배지를 절대 등락 → 위험조정 초과수익으로.</b> 최초본은 배럴 +1.63%를 <span class="up">강세</span>로, 클래시스 +0.87%를 중립으로 매겼는데, 코스닥이 +6.97% 오른 날 둘의 초과수익은 −5·−6%p였습니다. 초과수익÷ATR로 바꾸니 <b>둘 다 <span class="down">약세</span></b>가 됩니다. <b>21종목 중 11종목의 배지가 뒤집혔고</b>, 강세는 10개에서 1개(케이아이엔엑스)로 줄었습니다.</li>
+      <li><b>존 "15% 넘게 멀면 제외" → "3σ 넘게 멀면".</b> 15%는 배럴(ATR 3.4%)에겐 4.4σ, 지엔씨에너지(ATR 14%)에겐 1.2σ라 종목마다 뜻이 달랐습니다. 3σ로 통일하니 <b>삼성전자·에스티팜·하이브 등 7종목의 먼 존이 되살아나</b> 참고 레벨로 다시 표에 올랐습니다.</li>
+      <li><b>라인 엇갈림 2건이 소멸했습니다.</b> 삼성전자·삼성전기의 최초본 <span style="color:var(--rausch);font-weight:600;">⚠</span> 표시는 노이즈 라인 때문이었는데, ATR(14) 기준으로 그 라인들이 0.5σ 필터에 걸러지면서 사라졌습니다. 대신 효성중공업에서 <b>새 엇갈림</b>이 드러났습니다(존 2.15σ vs 라인 0.50σ).</li>
+      <li><b class="up">라인 밀집도를 새로 셌습니다.</b> 하나짜리 라인보다 여럿 몰린 자리가 잘 버팁니다. 에코프로 97,600과 휴메딕스 26,900은 각각 <b>4겹</b>이라 '강함'으로 표시했습니다.</li>
+    </ul>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">※ 최초 발행본이 거짓이었던 건 아닙니다 — ATR(4)라고 명시했고 값도 맞았습니다. 다만 창 선택이 결론을 바꾼다는 걸 확인했기에 더 안정적인 기준으로 갈아탔습니다. ※ 한 가지 감안할 점 — 반도체 대형주의 ATR%가 10~13%로 높은 건 14일 창에 아직 <b>7월 말 급락이 들어 있기 때문</b>입니다. 그 봉이 빠지면 ATR은 내려갑니다.</p>
   </div>
 
   <table>
     <thead>
       <tr>
         <th>종목</th><th>종가</th><th>등락 / 지수比</th><th>당일 레인지</th>
-        <th>거래량 / 배수</th><th>방향</th><th>존(기본) · 라인(0.5σ 이상) · ATR</th>
+        <th>거래량 / 배수</th><th>방향(위험조정)</th><th>존(3σ 내) · 라인(0.5σ↑·겹) · ATR(14)</th>
       </tr>
     </thead>
     <tbody>
@@ -154,186 +169,188 @@
       <tr>
         <td class="name">SK하이닉스 <span class="code">(000660)</span></td>
         <td>1,420,000</td><td class="down">-0.14%<br><span class="rel down">지수比 -0.79%p</span></td><td>1,397,000~1,487,000</td>
-        <td>3.30M<br><span class="vr">0.54배</span></td><td><span class="badge neutral">중립(사흘째 1,4xx만 원대 횡보)</span></td><td class="zn"><b class="r">저</b>2,171,000~2,070,000<br><b class="s">지</b>852,000~806,000<br><span class="ln"><em>라인</em>저 1,678,000 · 지 1,246,000</span><span class="atr">ATR 133,500 · 저 <b>1.93σ</b> / 지 <b>1.30σ</b></span></td>
+        <td>3.30M<br><span class="vr">0.52배</span></td><td><span class="badge neutral">중립(사흘째 1,4xx만 원대 횡보 · -0.06σ)</span></td><td class="zn"><b class="r">저</b><span class="na">존 3σ밖</span><br><b class="s">지</b><span class="na">존 3σ밖</span><br><span class="ln"><em>라인</em>저 1,678,000 (2겹) · 지 1,246,000</span><span class="atr">ATR 187,071 · 저 <b>1.38σ</b> / 지 <b>0.93σ</b></span></td>
       </tr>
       <tr>
         <td class="name">삼성전자 <span class="code">(005930)</span></td>
         <td>230,000</td><td class="down">-0.43%<br><span class="rel down">지수比 -1.08%p</span></td><td>228,500~238,500</td>
-        <td>16.33M<br><span class="vr">0.53배</span></td><td><span class="badge neutral">중립(저가 228,500으로 229,500 시험 후 방어)</span></td><td class="zn"><b class="r">저</b>276,000~260,000<br><b class="s">지</b>174,700~167,000<br><span class="ln"><em>라인</em>저 240,000 · 지 223,000</span><span class="atr">ATR 13,250 · 저 <b>0.75σ</b> / 지 <b>0.53σ</b></span><span class="dis">⚠ 두 지표 엇갈림(저항 +13.0% vs +4.3%)</span></td>
+        <td>16.33M<br><span class="vr">0.53배</span></td><td><span class="badge neutral">중립(나흘째 방향 없음 · -0.11σ)</span></td><td class="zn"><b class="r">저</b>276,000~260,000<br><b class="s">지</b>174,700~167,000<span class="atr">ATR 23,093 · 저 <b>1.30σ</b> / 지 <b>2.73σ</b> · 라인·엇갈림 소멸</span></td>
       </tr>
       <tr>
         <td class="name">삼성전기 <span class="code">(009150)</span></td>
         <td>1,274,000</td><td class="down">-0.31%<br><span class="rel down">지수比 -0.96%p</span></td><td>1,250,000~1,357,000</td>
-        <td>61.27만<br><span class="vr">0.68배</span></td><td><span class="badge neutral">중립(고가 1,357,000, 1,380,000 미달)</span></td><td class="zn"><b class="r">저</b>1,475,000~1,380,000<br><b class="s">지</b>438,500~418,000<br><span class="ln"><em>라인</em>저 1,370,000 · 지 1,163,000</span><span class="atr">ATR 130,250 · 저 <b>0.74σ</b> / 지 <b>0.85σ</b></span></td>
+        <td>61.27만<br><span class="vr">0.65배</span></td><td><span class="badge neutral">중립(존·라인 1,380,000 수렴, 엇갈림 해소 · -0.07σ)</span></td><td class="zn"><b class="r">저</b>1,475,000~1,380,000<br><b class="s">지</b><span class="na">존 3σ밖</span><br><span class="ln"><em>라인</em>지 1,163,000</span><span class="atr">ATR 165,571 · 저 <b>0.64σ</b> / 지 <b>0.67σ</b></span></td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
         <td>34,300</td><td class="up">+10.47%<br><span class="rel up">지수比 +3.50%p</span></td><td>31,050~34,300</td>
-        <td>7.32만<br><span class="vr">0.80배</span></td><td><span class="badge up">강세(당일 고가 마감, 33,833 라인 돌파)</span></td><td class="zn"><b class="r">저</b>64,700~59,300<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 36,767 · 지 28,633</span><span class="atr">ATR 2,400 · 저 <b>1.03σ</b> / 지 <b>2.36σ</b></span></td>
+        <td>7.32만<br><span class="vr">0.81배</span></td><td><span class="badge neutral">중립(당일 고가 마감이나 변동성 대비 +0.38σ)</span></td><td class="zn"><b class="r">저</b><span class="na">존 3σ밖</span><br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 36,767 · 지 28,633 (2겹)</span><span class="atr">ATR 3,196 · 저 <b>0.77σ</b> / 지 <b>1.77σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
       <tr>
         <td class="name">삼성에스디에스 <span class="code">(018260)</span></td>
         <td>222,500</td><td class="up">+0.45%<br><span class="rel down">지수比 -0.20%p</span></td><td>218,000~225,250</td>
-        <td>19.04만<br><span class="vr">0.54배</span></td><td><span class="badge neutral">중립(존 사이 중간대 유지)</span></td><td class="zn"><b class="r">저</b>250,000~238,500<br><b class="s">지</b>209,500~197,000<span class="atr">ATR 13,563 · 저 <b>1.18σ</b> / 지 <b>0.96σ</b></span></td>
+        <td>19.04만<br><span class="vr">0.58배</span></td><td><span class="badge neutral">중립(존 사이 중간대 유지 · -0.03σ)</span></td><td class="zn"><b class="r">저</b>250,000~238,500<br><b class="s">지</b>209,500~197,000<span class="atr">ATR 15,764 · 저 <b>1.01σ</b> / 지 <b>0.82σ</b></span></td>
       </tr>
       <tr>
         <td class="name">케이아이엔엑스 <span class="code">(093320)</span></td>
         <td>149,300</td><td class="up">+11.75%<br><span class="rel up">지수比 +4.78%p</span></td><td>130,200~150,000</td>
-        <td>1.69만<br><span class="vr hot">1.07배</span></td><td><span class="badge up">강세(21종목 중 1위, 두 번 막혔던 145,100 돌파)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>130,000~122,400<br><span class="ln"><em>라인</em>저 <span class="na">유효 없음</span> · 지 139,900</span><span class="atr">ATR 12,700 · 지 라인 <b>0.74σ</b> / 존 <b>1.52σ</b></span></td>
+        <td>1.69만<br><span class="vr hot">1.11배</span></td><td><span class="badge up">강세(21종목 중 유일 · 위험조정 +0.62σ)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>130,000~122,400<br><span class="ln"><em>라인</em>저 <span class="na">유효 없음</span> · 지 139,900 (2겹)</span><span class="atr">ATR 11,421 · 지 라인 <b>0.82σ</b> / 존 <b>1.69σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
       <tr>
         <td class="name">KB금융 <span class="code">(105560)</span></td>
         <td>171,700</td><td class="down">-2.33%<br><span class="rel down">지수比 -2.98%p</span></td><td>168,600~175,400</td>
-        <td>69.02만<br><span class="vr">0.66배</span></td><td><span class="badge down">약세(175,700 위 종가 유지 실패)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>153,000~145,000<br><span class="ln"><em>라인</em>저 175,700 · 지 166,500</span><span class="atr">ATR 6,600 · 저 <b>0.61σ</b> / 지 <b>0.79σ</b></span></td>
+        <td>69.02만<br><span class="vr">0.55배</span></td><td><span class="badge down">약세(175,700 위 종가 유지 실패 · -0.65σ)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>153,000~145,000<br><span class="ln"><em>라인</em>저 175,700 · 지 166,500</span><span class="atr">ATR 7,836 · 저 라인 <b>0.51σ</b> / 지 라인 <b>0.66σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">2차전지</td></tr>
       <tr>
         <td class="name">에코프로 <span class="code">(086520)</span></td>
         <td>93,500</td><td class="up">+8.72%<br><span class="rel up">지수比 +1.75%p</span></td><td>84,000~93,700</td>
-        <td>1.27M<br><span class="vr hot">1.24배</span></td><td><span class="badge up">강세(거래량 최다 배수, 이틀 연속 상승)</span></td><td class="zn"><b class="r">저</b>125,500~121,200<br><b class="s">지</b>75,900~63,400<br><span class="ln"><em>라인</em>저 97,157 · 지 89,706</span><span class="atr">ATR 7,250 · 저 <b>0.50σ</b> / 지 <b>0.52σ</b></span></td>
+        <td>1.27M<br><span class="vr hot">1.24배</span></td><td><span class="badge neutral">중립(거래량 최다 배수지만 위험조정 +0.21σ)</span></td><td class="zn"><b class="r">저</b><span class="na">존 3σ밖</span><br><b class="s">지</b>75,900~63,400<br><span class="ln"><em>라인</em>저 97,600 (4겹·강)</span><span class="atr">ATR 7,786 · 저 라인 <b>0.53σ</b> / 지 존 <b>2.26σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
       <tr>
         <td class="name">삼성중공업 <span class="code">(010140)</span></td>
         <td>22,550</td><td class="up">+2.27%<br><span class="rel up">지수比 +1.62%p</span></td><td>21,950~22,700</td>
-        <td>2.52M<br><span class="vr">0.72배</span></td><td><span class="badge up">강세(존 안에서 나흘 횡보 끝에 상단 방향)</span></td><td class="zn"><b class="r">저</b>29,800~28,150<br><b class="s">지</b>18,990~18,210<br><span class="inzone">※ 23,900~21,850 내부</span><span class="atr">ATR 750 · 존천장 <b>1.80σ</b> / 존바닥 <b>0.93σ</b></span></td>
+        <td>2.52M<br><span class="vr">0.72배</span></td><td><span class="badge neutral">중립(나흘 횡보 후 상단, 위험조정 +0.26σ)</span></td><td class="zn"><b class="r">저</b>29,800~28,150<br><b class="s">지</b>18,990~18,210<br><span class="inzone">※ 23,900~21,850 내부</span><span class="atr">ATR 1,385 · 존천장 <b>0.97σ</b> / 존바닥 <b>0.51σ</b></span></td>
       </tr>
       <tr>
         <td class="name">효성중공업 <span class="code">(298040)</span></td>
         <td>2,934,000</td><td class="up">+3.60%<br><span class="rel up">지수比 +2.95%p</span></td><td>2,898,000~3,006,000</td>
-        <td>3.49만<br><span class="vr">0.58배</span></td><td><span class="badge up">강세(KOSPI 종목 중 초과수익 1위)</span></td><td class="zn"><b class="r">저</b>3,873,000~3,538,000<br><b class="s">지</b>1,794,000~1,731,000<br><span class="ln"><em>라인</em>저 3,075,000 · 지 2,745,000</span><span class="atr">ATR 264,250 · 저 <b>0.53σ</b> / 지 <b>0.72σ</b></span></td>
+        <td>3.49만<br><span class="vr">0.61배</span></td><td><span class="badge neutral">중립(초과수익 코스피 1위지만 변동성 대비 +0.31σ)</span></td><td class="zn"><b class="r">저</b>3,873,000~3,538,000<br><b class="s">지</b><span class="na">존 3σ밖</span><br><span class="ln"><em>라인</em>저 3,075,000 · 지 2,745,000</span><span class="atr">ATR 280,857 · 저 라인 <b>0.50σ</b>/존 <b>2.15σ</b> · 지 <b>0.67σ</b></span><span class="dis">⚠ 두 지표 엇갈림(존 2.15σ vs 라인 0.50σ)</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">엔터테인먼트</td></tr>
       <tr>
         <td class="name">하이브 <span class="code">(352820)</span></td>
         <td>183,900</td><td class="down">-0.59%<br><span class="rel down">지수比 -1.24%p</span></td><td>180,800~186,200</td>
-        <td>19.76만<br><span class="vr">0.58배</span></td><td><span class="badge neutral">중립(사흘째 18만 원대 좁은 횡보)</span></td><td class="zn"><b class="r">저</b>241,000~222,500<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 187,900 · 지 180,400</span><span class="atr">ATR 6,300 · 저 <b>0.63σ</b> / 지 <b>0.56σ</b></span></td>
+        <td>19.76만<br><span class="vr">0.65배</span></td><td><span class="badge neutral">중립(사흘째 좁은 횡보 · -0.16σ)</span></td><td class="zn"><b class="r">저</b>241,000~222,500<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>지 175,900 (2겹)</span><span class="atr">ATR 14,593 · 저 존 <b>2.65σ</b> / 지 라인 <b>0.55σ</b> · 기존 180,400은 노이즈화</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">자동차 부품</td></tr>
       <tr>
         <td class="name">현대모비스 <span class="code">(012330)</span></td>
         <td>505,000</td><td class="up">+1.71%<br><span class="rel up">지수比 +1.06%p</span></td><td>485,500~513,000</td>
-        <td>19.29만<br><span class="vr">0.58배</span></td><td><span class="badge up">강세(이탈했던 존에 재진입)</span></td><td class="zn"><b class="r">저</b>651,000~626,000<br><b class="s">지</b>443,000~419,000<br><span class="inzone">※ 541,000~501,000 내부</span><span class="atr">ATR 28,625 · 존천장 <b>1.26σ</b> / 존바닥 <b>0.14σ</b>(얇음)</span></td>
+        <td>19.29만<br><span class="vr">0.58배</span></td><td><span class="badge neutral">중립(존 재진입, 바닥 0.11σ로 위험조정 +0.15σ)</span></td><td class="zn"><b class="r">저</b>651,000~626,000<br><b class="s">지</b>443,000~419,000<br><span class="inzone">※ 541,000~501,000 내부</span><span class="atr">ATR 36,500 · 존천장 <b>0.99σ</b> / 존바닥 <b>0.11σ</b>(얇음)</span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">통신</td></tr>
       <tr>
         <td class="name">SK텔레콤 <span class="code">(017670)</span></td>
         <td>85,000</td><td class="down">-3.63%<br><span class="rel down">지수比 -4.28%p</span></td><td>83,700~88,600</td>
-        <td>1.09M<br><span class="vr">0.56배</span></td><td><span class="badge down">약세(21종목 중 초과수익 최하위, 사흘 연속 하락)</span></td><td class="zn"><b class="r">저</b>139,500~112,100<br><b class="s">지</b>77,700~75,800<br><span class="ln"><em>라인</em>저 88,600 · 지 81,500</span><span class="atr">ATR 6,250 · 저 <b>0.58σ</b> / 지 <b>0.56σ</b></span></td>
+        <td>1.09M<br><span class="vr">0.65배</span></td><td><span class="badge neutral">중립(사흘 연속 하락이나 변동성 커 -0.43σ)</span></td><td class="zn"><b class="r">저</b><span class="na">존 3σ밖</span><br><b class="s">지</b>77,700~75,800<br><span class="ln"><em>라인</em>저 90,300 (2겹)</span><span class="atr">ATR 8,507 · 저 라인 <b>0.62σ</b> / 지 존 <b>0.86σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
       <tr>
         <td class="name">클래시스 <span class="code">(214150)</span></td>
         <td>46,300</td><td class="up">+0.87%<br><span class="rel down">지수比 -6.10%p</span></td><td>45,150~46,950</td>
-        <td>23.79만<br><span class="vr hot">1.12배</span></td><td><span class="badge neutral">중립(올랐지만 코스닥 대비 크게 부진)</span></td><td class="zn"><b class="r">저</b>50,100~46,300<br><b class="s">지</b>37,550~36,250<br><span class="inzone">※ 47,500~44,900 내부</span><span class="atr">ATR 1,600 · 존천장 <b>0.75σ</b> / 존바닥 <b>0.88σ</b></span></td>
+        <td>23.79만<br><span class="vr hot">1.12배</span></td><td><span class="badge down">약세(코스닥 대비 -6.10%p · 위험조정 -0.95σ)</span></td><td class="zn"><b class="r">저</b>50,100~46,300<br><b class="s">지</b>37,550~36,250<br><span class="inzone">※ 47,500~44,900 내부</span><span class="atr">ATR 2,982 · 존천장 <b>0.40σ</b> / 존바닥 <b>0.47σ</b>(양쪽 좁음)</span></td>
       </tr>
       <tr>
         <td class="name">에이피알 <span class="code">(278470)</span></td>
         <td>387,000</td><td class="up">+0.65%<br><span class="rel neutral">지수比 0.00%p</span></td><td>373,000~396,000</td>
-        <td>22.19만<br><span class="vr">0.74배</span></td><td><span class="badge neutral">중립(존 안 유지, 시장과 정확히 동행)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(위 존 없음)</span><br><b class="s">지</b>294,500~281,000<br><span class="inzone">※ 402,500~376,000 내부</span><span class="atr">ATR 29,875 · 존천장 <b>0.52σ</b> / 존바닥 <b>0.37σ</b></span></td>
+        <td>22.19만<br><span class="vr">0.80배</span></td><td><span class="badge neutral">중립(시장과 정확히 동행 · 0.00σ)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(위 존 없음)</span><br><b class="s">지</b>294,500~281,000<br><span class="inzone">※ 402,500~376,000 내부</span><span class="atr">ATR 25,321 · 존천장 <b>0.61σ</b> / 존바닥 <b>0.43σ</b></span></td>
       </tr>
       <tr>
         <td class="name">에스티팜 <span class="code">(237690)</span></td>
         <td>108,000</td><td class="up">+7.89%<br><span class="rel up">지수比 +0.92%p</span></td><td>100,000~110,000</td>
-        <td>16.17만<br><span class="vr hot">1.07배</span></td><td><span class="badge up">강세(11만 원 터치, 10만 원선 안착)</span></td><td class="zn"><b class="r">저</b>136,100~130,800<br><b class="s">지</b>85,500~81,900<br><span class="ln"><em>라인</em>저 112,200 · 지 103,900</span><span class="atr">ATR 5,650 · 저 <b>0.74σ</b> / 지 <b>0.73σ</b></span></td>
+        <td>16.17만<br><span class="vr hot">1.07배</span></td><td><span class="badge neutral">중립(11만 원 터치했으나 위험조정 +0.11σ)</span></td><td class="zn"><b class="r">저</b>136,100~130,800<br><b class="s">지</b>85,500~81,900<span class="atr">ATR 8,729 · 저 존 <b>2.61σ</b> / 지 존 <b>2.58σ</b> · 라인 둘 다 노이즈화</span></td>
       </tr>
       <tr>
         <td class="name">휴메딕스 <span class="code">(200670)</span></td>
         <td>27,750</td><td class="up">+4.13%<br><span class="rel down">지수比 -2.84%p</span></td><td>26,450~28,000</td>
-        <td>1.82만<br><span class="vr">0.68배</span></td><td><span class="badge up">강세(반등했으나 코스닥엔 못 미침)</span></td><td class="zn"><b class="r">저</b>30,950~29,050<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>지 26,700</span><span class="atr">ATR 2,038 · 존저 <b>0.64σ</b> / 지 라인 <b>0.52σ</b></span></td>
+        <td>1.82만<br><span class="vr">0.65배</span></td><td><span class="badge neutral">중립(반등했으나 코스닥 대비 -2.84%p · -0.48σ)</span></td><td class="zn"><b class="r">저</b>30,950~29,050<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>지 26,900 (4겹·강)</span><span class="atr">ATR 1,643 · 저 존 <b>0.79σ</b> / 지 라인 <b>0.52σ</b></span></td>
       </tr>
       <tr>
         <td class="name">달바글로벌 <span class="code">(483650)</span></td>
         <td>241,500</td><td class="down">-1.83%<br><span class="rel down">지수比 -2.48%p</span></td><td>237,500~248,500</td>
-        <td>8.07만<br><span class="vr">0.40배</span></td><td><span class="badge down">약세(거래량 최저 0.40배, 관심 이탈)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>202,000~193,000<br><span class="ln"><em>라인</em>저 258,500 · 지 230,500</span><span class="atr">ATR 15,750 · 저 <b>1.08σ</b> / 지 <b>0.70σ</b></span></td>
+        <td>8.07만<br><span class="vr">0.46배</span></td><td><span class="badge neutral">중립(거래량 최저권이나 위험조정 -0.24σ)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>202,000~193,000<br><span class="ln"><em>라인</em>저 258,500</span><span class="atr">ATR 24,679 · 저 라인 <b>0.69σ</b> / 지 존 <b>1.60σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
       <tr>
         <td class="name">웨이비스 <span class="code">(289930)</span></td>
         <td>7,330</td><td class="up">+5.01%<br><span class="rel down">지수比 -1.96%p</span></td><td>7,140~7,580</td>
-        <td>6.68만<br><span class="vr">0.78배</span></td><td><span class="badge up">강세(고가 7,580으로 7,420 돌파 후 되밀림)</span></td><td class="zn"><b class="r">저</b>12,400~11,070<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 7,580 · 지 6,980</span><span class="atr">ATR 470 · 저 <b>0.53σ</b> / 지 <b>0.74σ</b></span></td>
+        <td>6.68만<br><span class="vr">0.79배</span></td><td><span class="badge neutral">중립(고가 7,580 반등이나 위험조정 -0.26σ)</span></td><td class="zn"><b class="r">저</b><span class="na">존 3σ밖</span><br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 7,660 (2겹) · 지 6,980</span><span class="atr">ATR 548 · 저 <b>0.60σ</b> / 지 <b>0.64σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">에너지 · 전력설비</td></tr>
       <tr>
         <td class="name">지엔씨에너지 <span class="code">(119850)</span><span class="new">NEW</span></td>
         <td>52,800</td><td class="up">+0.96%<br><span class="rel down">지수比 -6.01%p</span></td><td>48,150~55,400</td>
-        <td>1.03M<br><span class="vr">0.70배</span></td><td><span class="badge neutral">중립(변동폭 21종목 중 최대, 방향은 제자리)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>32,100~27,500<br><span class="ln"><em>라인</em>저 <span class="na">유효 없음</span> · 지 46,750</span><span class="atr">ATR 6,488 <b>(종가의 12.3%)</b> · 지 라인 <b>0.93σ</b> / 존 <b>3.19σ</b></span></td>
+        <td>1.03M<br><span class="vr">0.84배</span></td><td><span class="badge neutral">중립(변동폭 최대라 -6.01%p도 -0.43σ)</span></td><td class="zn"><b class="r">저</b><span class="na">없음(전 존 위)</span><br><b class="s">지</b>32,100~27,500<br><span class="ln"><em>라인</em>저 <span class="na">유효 없음</span> · 지 46,750 (2겹)</span><span class="atr">ATR 7,418 <b>(종가의 14.0%)</b> · 지 라인 <b>0.82σ</b> / 존 <b>2.79σ</b></span></td>
       </tr>
 
       <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
       <tr>
         <td class="name">배럴 <span class="code">(267790)</span></td>
         <td>3,125</td><td class="up">+1.63%<br><span class="rel down">지수比 -5.34%p</span></td><td>3,050~3,160</td>
-        <td>0.91만<br><span class="vr hot">1.21배</span></td><td><span class="badge up">강세(거래량 회복, 다만 코스닥 대비 부진)</span></td><td class="zn"><b class="r">저</b>3,720~3,480<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 3,270 · 지 3,000</span><span class="atr">ATR 105 · 저 <b>1.38σ</b> / 지 <b>1.19σ</b></span></td>
+        <td>0.91만<br><span class="vr hot">1.33배</span></td><td><span class="badge down">약세(거래량 회복했지만 코스닥 대비 -5.34%p · -0.93σ)</span></td><td class="zn"><b class="r">저</b>3,720~3,480<br><b class="s">지</b><span class="na">미확인</span><br><span class="ln"><em>라인</em>저 3,270 · 지 3,000</span><span class="atr">ATR 180 · 저 존 <b>1.97σ</b>/라인 <b>0.81σ</b> · 지 라인 <b>0.69σ</b></span></td>
       </tr>
     </tbody>
   </table>
   <div class="note">※ 등락률은 직전 거래일(8/7) 종가 대비 8/10 종가 기준입니다. <b>지엔씨에너지(119850)</b>가 이번 회차부터 새로 편입돼 총 21종목입니다.<br>
-  ※ <b>지수比</b>는 초과수익입니다 — 종목 등락에서 소속 시장 지수 등락을 뺀 값. 오늘은 <b>KOSPI +0.65% · KOSDAQ +6.97%</b> 기준입니다. 코스닥 종목은 +6.97%를 넘겨야 초과수익이 플러스가 됩니다.<br>
-  ※ <b>거래량 배수</b>는 당일 거래량 ÷ 직전 15거래일 평균입니다. 1.0배를 넘긴 5종목(에코프로 1.24 · 배럴 1.21 · 클래시스 1.12 · 케이아이엔엑스 1.07 · 에스티팜 1.07)만 <span class="vr hot" style="margin:0;">붉게</span> 표시했습니다.<br>
-  ※ <b>ATR</b>은 최근 4거래일 평균 실체범위이고, <b>σ</b>는 각 레벨까지의 거리를 ATR로 나눈 값입니다. 이번 회차부터 <b>라인은 "최근접"이 아니라 "0.5σ 이상 떨어진 최근접"</b>을 씁니다 — 지난 회차에 표기했던 라인의 절반이 0.3σ 미만 노이즈였기 때문입니다. 조건을 만족하는 라인이 없으면 <span class="na">유효 없음</span>으로 적었습니다.<br>
-  ※ 저항/지지는 LuxAlgo Smart Money Concepts의 오더블록·FVG <b>존</b>이 기본이고, 라인은 ① 존이 없을 때 ② 존이 15% 넘게 멀 때 ③ 두 지표가 엇갈릴 때(<span style="color:var(--rausch);font-weight:600;">⚠</span>)만 병기했습니다. 현재가가 존 <span class="inzone">※ 내부</span>면 존 경계가 곧 관문이라 병기하지 않았습니다.</div>
+  ※ <b>방향(위험조정)</b> 배지 — 절대 등락이 아니라 <b>초과수익 ÷ ATR%</b>로 매깁니다. <b>+0.5σ 이상 강세 / ±0.5σ 중립 / −0.5σ 이하 약세</b>. 지수가 크게 움직인 날 "올랐다=강하다"로 읽는 오류를 막기 위한 것입니다. 괄호 안 σ가 그 값입니다.<br>
+  ※ <b>지수比</b>는 초과수익(종목 등락 − 소속 지수 등락)입니다. 오늘은 <b>KOSPI +0.65% · KOSDAQ +6.97%</b> 기준입니다. 베타=1 가정이라 고베타(반도체)는 실제보다 약간 나빠, 저베타는 좋아 보이는 편향이 있습니다.<br>
+  ※ <b>거래량 배수</b>는 당일 거래량 ÷ 직전 <b>20</b>거래일 평균입니다. 1.0배를 넘긴 5종목(배럴 1.33 · 에코프로 1.24 · 클래시스 1.12 · 케이아이엔엑스 1.11 · 에스티팜 1.07)만 <span class="vr hot" style="margin:0;">붉게</span> 표시했습니다.<br>
+  ※ <b>ATR(14)</b>는 Wilder 방식 14일 평균 실체범위이고, <b>σ</b>는 각 레벨까지 거리를 ATR로 나눈 값입니다. <b>존</b>은 현재가에서 3σ 이내일 때만 표시하고, 그보다 멀면 <span class="na">존 3σ밖</span>으로 적고 <b>라인</b>(0.5σ 이상 떨어진 최근접)을 병기합니다. <b>(N겹)</b>은 그 라인 ±0.15σ 안에 몰린 라인 개수로, <b>4겹 이상은 강한 벽</b>입니다.</div>
 
   <div class="secsum">
     <h3>섹터별 한 줄 요약</h3>
     <ul style="margin:0;padding-left:18px;">
-      <li><b>반도체·부품</b> — 대형 3종목이 모두 보합권에서 멈췄습니다. <span class="down">SK하이닉스(−0.14%)·삼성전자(−0.43%)·삼성전기(−0.31%)</span> 모두 −1%p 안팎의 초과수익 마이너스로, 지난주 급락 뒤 <b>사흘째 방향을 못 잡고 있습니다</b>. 삼성전자는 저가 228,500으로 예측 지지 229,500을 시험한 뒤 230,000에 마감해 <b>선을 지켜냈고</b>, 삼성전기는 존(1,380,000)과 라인(1,370,000)이 이제 <b>거의 같은 자리를 가리켜 지난 회차의 엇갈림이 해소</b>됐습니다. 반면 <span class="up">넥스틴(+10.47%)</span>은 코스닥 급등을 타고 당일 고가로 마감하며 라인 33,833을 뚫었습니다.</li>
-      <li><b>인터넷·IT서비스</b> — <span class="up">케이아이엔엑스(+11.75%)</span>가 21종목 중 상승률 1위이자 초과수익 1위(+4.78%p)입니다. <b>8/6과 8/7에 두 번 막혔던 145,100을 이번엔 뚫고</b> 150,000까지 갔습니다. 두 번 거부당한 자리를 세 번째에 넘긴 형태로, 거래량도 1.07배로 뒷받침됐습니다. <span class="up">삼성에스디에스(+0.45%)</span>는 존 사이 중간대에서 조용했습니다.</li>
-      <li><b>금융·보험</b> — <span class="down">KB금융(−2.33%)</span>은 넘어섰던 175,700 위를 지키지 못하고 되밀렸습니다. 지난 회차에 "0.20σ는 벽이라 부르기 어렵다"고 단서를 달았던 자리인데, <b>실제로 지지선 역할도 못 했습니다</b>. 코스피가 오른 날 −2.33%라 초과수익은 −2.98%p입니다.</li>
-      <li><b>2차전지</b> — <span class="up">에코프로(+8.72%)</span>는 <b>거래량 배수 1.24배로 21종목 중 최고</b>였습니다. 코스닥 급등장에서 지수를 +1.75%p 앞섰고, 이틀 연속 상승으로 8/7에 생긴 75,900~63,400 지지존 위에 자리를 굳혔습니다.</li>
-      <li><b>조선·중공업</b> — <span class="up">효성중공업(+3.60%)</span>이 <b>코스피 종목 중 초과수익 1위(+2.95%p)</b>입니다. 다만 라인 3,075,000까지 0.53σ라 아직 관문 앞입니다. <span class="up">삼성중공업(+2.27%)</span>은 23,900~21,850 존 안에서 나흘 횡보한 끝에 위쪽으로 움직였습니다.</li>
-      <li><b>엔터테인먼트</b> — <span class="down">하이브(−0.59%)</span>는 사흘째 18만 원대에서 좁게 움직입니다. 지난 회차에 라인이 0.10σ로 노이즈였는데, 0.5σ 필터를 적용하니 <b>위 187,900·아래 180,400</b>이라는 실질적인 폭이 잡혔습니다. 필터가 유용했던 대표 사례입니다.</li>
-      <li><b>자동차 부품</b> — <span class="up">현대모비스(+1.71%)</span>는 8/7에 이탈했던 541,000~501,000 존에 <b>하루 만에 재진입</b>했습니다. 예측대로 501,000이 시험됐고 위로 넘겼습니다. 다만 존 바닥이 <b>0.14σ</b>밖에 안 떨어져 있어 언제든 다시 빠질 수 있는 자리입니다.</li>
-      <li><b>통신</b> — <span class="down">SK텔레콤(−3.63%)</span>이 <b>21종목 중 초과수익 최하위(−4.28%p)</b>입니다. 사흘 연속 하락이고, 8/5 고가 98,300 이후 반등 시도가 계속 실패하고 있습니다.</li>
-      <li><b>제약·바이오·미용</b> — 같은 섹터 안에서 초과수익이 극단적으로 갈렸습니다. <span class="up">에스티팜(+7.89%)</span>만 지수를 앞섰고(+0.92%p), <span class="up">휴메딕스(+4.13%)</span>는 올랐는데도 −2.84%p, <span class="up">클래시스(+0.87%)</span>는 <b>−6.10%p로 21종목 중 두 번째로 부진</b>했습니다. <span class="down">달바글로벌(−1.83%)</span>은 거래량이 0.40배까지 말라 관심이 빠졌습니다. <span class="neutral">에이피알(+0.65%)</span>은 코스피와 정확히 같은 폭으로 움직여 초과수익이 <b>0.00%p</b>였습니다.</li>
-      <li><b>방산·전자부품</b> — <span class="up">웨이비스(+5.01%)</span>는 고가 7,580으로 라인 7,420을 뚫었다가 7,330에 마감했습니다. 예측대로 <b>레벨이 시험됐고 되밀렸습니다</b>.</li>
-      <li><b>에너지·전력설비</b> — 신규 편입 <span class="neutral">지엔씨에너지(+0.96%)</span>는 <b>ATR이 종가의 12.3%로 21종목 중 가장 변동성이 큽니다</b>(15거래일 +55%). 당일에도 48,150~55,400을 오갔지만 종가는 제자리였고, 코스닥 급등장에서 −6.01%p로 뒤처졌습니다. 위쪽에 확인된 저항이 존·라인 모두 없어 <b>참고할 레벨이 아래(46,750)뿐</b>인 상태입니다.</li>
-      <li><b>패션·기타</b> — <span class="up">배럴(+1.63%)</span>은 거래량이 1.21배로 회복됐지만 코스닥 대비로는 −5.34%p입니다.</li>
+      <li><b>반도체·부품</b> — 대형 3종목이 모두 보합권에서 멈췄습니다. <span class="down">SK하이닉스(−0.14%)·삼성전자(−0.43%)·삼성전기(−0.31%)</span> 모두 위험조정 −0.1σ 안팎으로, 지난주 급락 뒤 <b>나흘째 방향을 못 잡고 있습니다</b>. 삼성전자는 최초본에서 짚었던 라인 지지 223,000이 ATR(14) 기준 0.30σ 노이즈로 걸러지면서 <b>사라졌고</b>, 삼성전기는 존(1,380,000)과 라인(1,370,000)이 수렴해 <b>엇갈림이 해소</b>됐습니다. <span class="neutral">넥스틴(+10.47%)</span>은 코스닥 급등을 타고 당일 고가로 마감했지만, 변동성(ATR 9.3%)으로 나누면 초과수익이 +0.38σ에 그쳐 <b>강세 배지를 받지 못했습니다</b>.</li>
+      <li><b>인터넷·IT서비스</b> — <span class="up">케이아이엔엑스(+11.75%)</span>가 <b>21종목 중 유일한 강세</b>(위험조정 +0.62σ)이자 상승률·초과수익 1위입니다. <b>8/6·8/7에 두 번 막혔던 145,100을 세 번째에 뚫고</b> 150,000까지 갔고 거래량도 1.11배로 받쳐졌습니다. <span class="neutral">삼성에스디에스(+0.45%)</span>는 존 사이 중간대에서 조용했습니다.</li>
+      <li><b>금융·보험</b> — <span class="down">KB금융(−2.33%)</span>은 넘어섰던 175,700 위를 지키지 못하고 되밀렸습니다. 지난 회차에 "0.20σ는 벽이라 부르기 어렵다"고 단서를 달았던 자리인데(v2 ATR로도 0.51σ로 얇습니다), <b>지지선 역할도 못 했습니다</b>. 위험조정 −0.65σ 약세.</li>
+      <li><b>2차전지</b> — <span class="neutral">에코프로(+8.72%)</span>는 <b>거래량 배수 1.24배로 21종목 중 최고</b>였지만, 코스닥 급등장이라 초과수익은 +1.75%p, 변동성으로 나누면 +0.21σ에 그쳐 중립입니다. 위 라인 97,600이 <b>4겹으로 몰려 있어</b> 실질적인 관문입니다.</li>
+      <li><b>조선·중공업</b> — <span class="neutral">효성중공업(+3.60%)</span>이 코스피 종목 중 초과수익 1위지만 변동성 대비로는 +0.31σ입니다. 존(3,538,000·2.15σ)과 라인(3,075,000·0.50σ)이 <b>다른 자리를 가리켜 이번엔 엇갈림 표시</b>가 붙었습니다. <span class="neutral">삼성중공업(+2.27%)</span>은 존 안에서 나흘 횡보 끝에 위쪽으로 움직였습니다(+0.26σ).</li>
+      <li><b>엔터테인먼트</b> — <span class="neutral">하이브(−0.59%)</span>는 사흘째 18만 원대에서 좁게 움직입니다. 최초본의 지지 라인 180,400은 ATR(14)로 0.24σ 노이즈라, <b>2겹으로 몰린 175,900으로 지지선을 갱신</b>했습니다.</li>
+      <li><b>자동차 부품</b> — <span class="neutral">현대모비스(+1.71%)</span>는 8/7에 이탈했던 541,000~501,000 존에 <b>하루 만에 재진입</b>했습니다. 다만 존 바닥이 <b>0.11σ</b>밖에 안 떨어져 있어 언제든 다시 빠질 수 있는 자리입니다.</li>
+      <li><b>통신</b> — <span class="neutral">SK텔레콤(−3.63%)</span>은 21종목 중 초과수익 최하위(−4.28%p)지만, ATR이 10%인 변동성 큰 종목이라 위험조정으로는 −0.43σ 중립입니다. 사흘 연속 하락이고 반등 시도가 계속 실패하고 있습니다.</li>
+      <li><b>제약·바이오·미용</b> — 온도차가 큽니다. <span class="neutral">에스티팜(+7.89%)</span>만 지수를 앞섰지만 변동성 대비로는 +0.11σ이고, <span class="down">클래시스(+0.87%)</span>는 <b>−6.10%p·−0.95σ로 그날 최악권</b>입니다. <span class="neutral">휴메딕스(+4.13%)</span>는 −2.84%p(−0.48σ)로 아슬하게 중립, <span class="neutral">달바글로벌(−1.83%)</span>은 거래량이 0.46배까지 말랐습니다. <span class="neutral">에이피알(+0.65%)</span>은 코스피와 정확히 동행해 초과수익 <b>0.00σ</b>였습니다.</li>
+      <li><b>방산·전자부품</b> — <span class="neutral">웨이비스(+5.01%)</span>는 고가 7,580으로 라인을 시험했다가 7,330에 마감했습니다. 위험조정 −0.26σ.</li>
+      <li><b>에너지·전력설비</b> — 신규 편입 <span class="neutral">지엔씨에너지(+0.96%)</span>는 <b>ATR이 종가의 14.0%로 21종목 중 가장 변동성이 큽니다</b>. 코스닥 대비 −6.01%p로 뒤졌지만 워낙 변동성이 커 위험조정으로는 −0.43σ 중립입니다. 위쪽엔 존·라인 모두 확인된 저항이 없어 <b>참고 레벨이 아래(46,750)뿐</b>입니다.</li>
+      <li><b>패션·기타</b> — <span class="down">배럴(+1.63%)</span>은 거래량이 1.33배로 회복됐지만 코스닥 대비 −5.34%p, 위험조정 −0.93σ로 약세입니다.</li>
     </ul>
   </div>
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트</h3>
-    <p style="margin:0;">오늘의 한 문장은 <b>"코스닥이 혼자 +6.97% 뛰었고, 그 안에서 실제로 강했던 건 두 종목뿐"</b>입니다. 케이아이엔엑스(+4.78%p)와 넥스틴(+3.50%p)만 지수를 뚜렷하게 앞섰고, 나머지 코스닥 종목 7개 중 5개는 <b>올랐는데도 지수에 뒤졌습니다</b>. 지수가 이렇게 크게 움직인 날에는 절대 등락률이 종목의 힘을 거의 알려주지 못합니다.</p>
-    <p style="margin:12px 0 0;">코스피 쪽은 조용했지만 그 안에서도 온도차가 있었습니다. <b class="up">효성중공업(+2.95%p)·삼성중공업(+1.62%p)·현대모비스(+1.06%p)</b> 중공업·부품 축이 앞섰고, <b class="down">SK텔레콤(−4.28%p)·KB금융(−2.98%p)</b>이 뒤로 밀렸습니다. 반도체 대형 3종목은 전부 −1%p 안팎으로, <b>지난주 급락 이후 나흘째 방향이 없습니다</b>.</p>
-    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">내일 볼 자리는 셋입니다. <b>삼성전자 229,500</b> — 오늘 저가로 시험됐고 지켰지만 아래 라인 223,000까지는 0.53σ뿐이라 여유가 얇습니다. <b>케이아이엔엑스 149,400 위</b> — 뚫으면 존·라인 모두 위쪽에 확인된 레벨이 없어 참고할 벽이 사라지는 구간입니다. <b>현대모비스 501,000</b> — 존 바닥이 0.14σ라 오늘의 재진입이 굳어질지 하루 만에 다시 빠질지가 갈립니다.</p>
+    <p style="margin:0;">오늘의 한 문장은 <b>"코스닥이 혼자 +6.97% 뛰었고, 변동성까지 감안하면 실제로 강했던 건 케이아이엔엑스 하나뿐"</b>입니다. 두 자릿수로 뛴 넥스틴·에코프로조차 지수를 빼고 ATR로 나누면 +0.4σ·+0.2σ에 그쳤습니다. <b>지수가 하루의 일을 거의 다 한 날</b>이라, 절대 등락률로는 15종목이 강해 보였지만 그중 대부분은 시장을 타고 오른 것이었습니다.</p>
+    <p style="margin:12px 0 0;">코스피 쪽은 조용했지만 온도차는 있었습니다. <b class="up">효성중공업(+2.95%p)·삼성중공업(+1.62%p)·현대모비스(+1.06%p)</b> 중공업·부품 축이 앞섰고, <b class="down">SK텔레콤(−4.28%p)·KB금융(−2.98%p)</b>이 뒤로 밀렸습니다. 반도체 대형 3종목은 전부 위험조정 −0.1σ 안팎으로 <b>나흘째 방향이 없습니다</b>.</p>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">내일 볼 자리는 셋입니다. <b>케이아이엔엑스 149,400 위</b> — 뚫으면 존·라인 모두 위쪽에 확인된 레벨이 없어 참고할 벽이 사라지는 구간입니다. <b>현대모비스 501,000</b> — 존 바닥이 0.11σ라 오늘의 재진입이 굳어질지 하루 만에 다시 빠질지가 갈립니다. <b>효성중공업 3,075,000</b> — 존(2.15σ)과 라인(0.50σ)이 엇갈리는 자리라, 어느 쪽이 맞는지가 이 구간에서 판가름 납니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);">
-    <h3>⭐ 투자유망 종목 베스트3 <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-08-10 종가 기준 · 초과수익 우선)</span></h3>
+    <h3>⭐ 투자유망 종목 베스트3 <span style="color:var(--muted);font-weight:400;font-size:12px;">(2026-08-10 종가 기준 · v2 점수 공식)</span></h3>
+    <p style="margin:0 0 10px;font-size:13px;color:var(--muted);">v2부터 선정 기준을 고정했습니다 — <b>위험조정 초과수익(40) · 거래량 배수(25) · 위쪽 여유(20) · 아래 지지 두께(15)</b> 합산 점수. 회차마다 잣대가 바뀌던 문제를 없애기 위한 것입니다.</p>
     <ol style="margin:8px 0 0;padding-left:20px;">
       <li style="margin-bottom:10px;">
-        <b class="up">1. 케이아이엔엑스 (093320)</b> — 종가 149,300 · +11.75% · <b>초과수익 +4.78%p</b> · 거래량 1.07배<br>
-        <span style="color:var(--muted);">21종목 중 상승률·초과수익 모두 1위. <b>8/6(고가 144,900)과 8/7에 두 번 막혔던 145,100을 세 번째에 종가로 돌파</b>했고, 거래량도 평균을 넘겼습니다. 8/7 예측에서 지목한 지지 130,500을 저가 130,200으로 시험한 뒤 반등한 것이라 <b>아래가 확인된 상태에서의 돌파</b>입니다. 다만 위쪽으로는 존·라인 모두 유효 레벨이 없어, 여기서부터는 참고할 벽 없이 올라가는 구간입니다.</span>
+        <b class="up">1. 케이아이엔엑스 (093320)</b> — 종가 149,300 · +11.75% · <b>위험조정 +0.62σ</b> · 거래량 1.11배 · <b>점수 50</b><br>
+        <span style="color:var(--muted);">21종목 중 유일한 강세이자 상승률 1위. <b>두 번 막혔던 145,100을 세 번째에 종가로 돌파</b>했고, 8/7 예측에서 지목한 지지 130,500을 저가 130,200으로 시험한 뒤 반등한 것이라 <b>아래가 확인된 상태에서의 돌파</b>입니다. 위쪽엔 존·라인 모두 유효 레벨이 없어 참고할 벽 없이 올라가는 구간이라는 점만 감안하면 됩니다.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="up">2. 효성중공업 (298040)</b> — 종가 2,934,000 · +3.60% · <b>초과수익 +2.95%p</b> · 거래량 0.58배<br>
-        <span style="color:var(--muted);">코스피 종목 중 초과수익 1위. 8/6에 −9.28%로 무너진 뒤 이틀 연속 반등해 <b>급락분을 대부분 되돌렸습니다</b>. 다음 관문은 두 번 막혔던 라인 3,075,000으로 <b>0.53σ</b> 위. 다만 <b>거래량이 0.58배로 얇아</b> 이 반등에 무게를 크게 싣기는 어렵습니다.</span>
+        <b class="up">2. 효성중공업 (298040)</b> — 종가 2,934,000 · +3.60% · <b>위험조정 +0.31σ</b> · 거래량 0.58배 · <b>점수 41</b><br>
+        <span style="color:var(--muted);">코스피 종목 중 초과수익 1위. 8/6에 −9.28%로 무너진 뒤 이틀 연속 반등했습니다. 다만 <b>거래량이 0.58배로 얇고</b>, 다음 관문에서 존(2.15σ)과 라인(0.50σ)이 엇갈려 위쪽 저항의 위치 자체가 불확실합니다.</span>
       </li>
       <li style="margin-bottom:10px;">
-        <b class="up">3. 에코프로 (086520)</b> — 종가 93,500 · +8.72% · <b>초과수익 +1.75%p</b> · 거래량 <b>1.24배(21종목 중 최고)</b><br>
-        <span style="color:var(--muted);">코스닥 급등장에서 지수를 앞선 세 종목 중 하나이면서 <b>거래량 배수가 가장 높습니다</b>. 8/7에 새로 생긴 75,900~63,400 지지존 위에서 이틀 연속 올라 발밑이 생겼습니다. 위 라인 97,157까지 0.50σ로, 필터를 겨우 통과한 가까운 관문입니다.</span>
+        <b class="up">3. 삼성중공업 (010140)</b> — 종가 22,550 · +2.27% · <b>위험조정 +0.26σ</b> · 거래량 0.72배 · <b>점수 30</b><br>
+        <span style="color:var(--muted);">23,900~21,850 존 안에서 <b>나흘 횡보 끝에 위쪽으로</b> 움직였습니다. 존 천장 0.97σ·바닥 0.51σ로 위아래가 모두 σ 기준을 통과하는, 판단 기준이 명확한 자리입니다. 최초본 베스트3의 에코프로를 대체했습니다.</span>
       </li>
     </ol>
-    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ 이번 회차부터 <b>절대 등락이 아니라 초과수익 기준</b>으로 선정했습니다. 절대 등락 2위였던 넥스틴(+10.47%)은 초과수익 +3.50%p로 3위권이지만 <b>거래량이 0.80배로 평균 이하</b>여서 제외했고, 상승 마감한 클래시스·지엔씨에너지·배럴은 <b>초과수익이 −5%p 이하</b>라 후보가 아닙니다.<br>
-    ※ 위 선정은 초과수익·거래량 배수·매물대 돌파 여부 등 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다.</p>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--muted);">※ <span class="flip">v2 변경</span> 최초 발행본 3위는 <b>에코프로</b>였으나, 점수 공식으로 계산하니 에코프로 20점 &lt; 삼성중공업 30점이라 교체됐습니다. 에코프로는 거래량(1.24배)은 최고지만 위험조정 초과수익이 +0.21σ로 낮고 위 여유(0.53σ)가 얇아 점수가 밀렸습니다.<br>
+    ※ 절대 등락 2위 넥스틴(+10.47%)은 위험조정 +0.38σ·거래량 0.81배로 점수 22, 에스티팜은 27점으로 3위권 밖입니다.<br>
+    ※ 위 선정은 기술적 요인을 기계적으로 종합한 것으로, 펀더멘털 분석이나 투자 추천이 아닙니다. 베스트3 자체도 다음 회차에 <b>나머지 종목 대비 초과수익</b>으로 채점해 선정이 쓸모 있는지 검증합니다.</p>
   </div>
 
   <div class="foot">
     ⚠️ 본 리포트는 TradingView 차트의 가격·구조 지표를 기계적으로 요약한 자료이며 투자 권유가 아닙니다.
-    수치는 <b>2026-08-10(월) 마감 기준</b>이며, 주봉 분석은 포함되어 있지 않습니다.
+    수치는 <b>2026-08-10(월) 마감 기준</b>이고 주봉 분석은 포함되어 있지 않으며, 이 판본은 <b>분석 로직 v2(ATR14·3σ·위험조정 배지·라인 밀집도)로 다시 계산</b>한 것입니다.
     예측 채점 기록은 저장소의 <code>data/predictions.json</code>에 남기고 있으며, 표본이 15건에 불과하므로 적중률 수치는 아직 경향으로만 참고하시기 바랍니다. 실제 매매 판단은 본인 책임하에 하시기 바랍니다.
   </div>
 </div>
@@ -370,7 +387,7 @@ function sortTable(table, col){
   allRows.filter(function(r){return r.classList.contains('sector');}).forEach(function(r){r.style.display='none';});
   var mul=dir==='asc'?1:-1;
   var isDir=stock.length&&/강세|중립|약세/.test(stock[0].children[col].textContent);
-  var isNum=!isDir&&stock.every(function(r){var s=r.children[col].textContent;return /\d/.test(s)&&s.replace(/[\d.,\s~%+\/\-만억조MKmk배지수比p]/g,'')==='';});
+  var isNum=!isDir&&stock.every(function(r){var s=r.children[col].textContent;return /\d/.test(s)&&s.replace(/[\d.,\s~%+\/\-만억조MKmk배지수比pσ]/g,'')==='';});
   function rank(s){return s.indexOf('강세')>-1?0:(s.indexOf('중립')>-1?1:2);}
   stock.sort(function(a,b){
     var ta=a.children[col].textContent, tb=b.children[col].textContent, cmp;
