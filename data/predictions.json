@@ -15,12 +15,27 @@
     "items[].note": "근거 한 줄"
   },
   "_scoring": {
-    "up_test": "다음날 고가가 resist에 닿으면 test 성립. 종가가 resist 위면 hit, 닿았다 되밀리면 reject, 못 닿으면 no_test",
-    "down_test": "다음날 저가가 support에 닿으면 test 성립. 종가가 support 위면 hold, 아래면 break, 못 닿으면 no_test",
-    "range": "다음날 종가가 support~resist 안이면 hit",
+    "_v2_note": "2026-08-10 개정 — level_hit(레벨에 닿았는가)과 dir_hit(방향이 맞았는가)을 분리한다. 예전엔 한 칸에 섞여 있어서 '레벨엔 닿았고 방향은 반대'인 경우를 hit으로 적었다.",
+    "level_hit": "다음날 고가/저가가 지목한 레벨에 닿았으면 true. 레벨 지목 자체가 맞았는지만 본다.",
+    "dir_hit": "level_hit이 true일 때만 판정. 예상한 쪽(돌파 또는 거부)으로 종가가 결론났으면 true. level_hit이 false면 null.",
+    "up_test": "고가 >= resist면 level_hit. 종가 > resist면 돌파, 아니면 거부.",
+    "down_test": "저가 <= support면 level_hit. 종가 > support면 방어, 아니면 이탈.",
+    "range": "종가가 support~resist 안이면 hit. 경계가 하나라도 null이면 이 call을 쓰지 말 것 — 반증이 불가능하다.",
+    "vol_band": "유효 레벨이 없는 종목 전용. 다음날 |등락| < 1σ(당일 ATR%)면 hit.",
     "breakout_hold": "직전에 돌파한 레벨 위에서 종가를 지키면 hit",
     "breakdown": "종가가 support 아래로 마감하면 hit",
-    "집계": "conf별·src별·sigma구간별로 나눠서 적중률을 낸다. 특히 존/라인이 일치한 경우와 엇갈린 경우를 분리할 것"
+    "baseline": "매 회차 두 기준선을 같이 채점한다 — (1) random: 내일 종가가 오늘 종가 ±1σ 안 (2) momentum: 오늘 오른 종목은 내일도 오른다. 우리 예측이 이 둘을 꾸준히 못 넘으면 방법을 재검토한다.",
+    "집계": "conf별·src별·sigma구간별로 나눠서 level_hit률과 dir_hit률을 각각 낸다. 존/라인이 일치한 경우와 엇갈린 경우를 분리할 것."
+  },
+  "_metrics_v2": {
+    "_effective": "2026-08-11 회차부터",
+    "atr": "Wilder ATR(14). 60봉(count=60, summary=false)에서 직접 계산. 이전 ATR(4)는 표본이 4개뿐이라 값이 요동쳤고, 삼성전자 실측에서 ATR(14) 23,093 vs ATR(4) 13,250으로 43% 차이가 났다. ATR은 0.5σ 필터의 분모라 이 차이가 인쇄되는 레벨을 그대로 바꾼다.",
+    "vol_ratio": "당일 거래량 ÷ 20일 평균",
+    "zone_far_threshold": "존이 3σ 넘게 멀면 라인 병기(이전 15% 기준은 종목마다 σ가 달라 일관성이 없었다)",
+    "line_filter": "0.5σ 이상 떨어진 최근접 라인만 사용",
+    "line_strength": "선택된 레벨 ±0.15σ 안의 라인 개수. 1개=약함, 2~3=보통, 4개 이상=강함",
+    "badge": "절대 등락이 아니라 초과수익÷ATR%. +0.5σ 이상 강세 / ±0.5σ 중립 / −0.5σ 이하 약세",
+    "beta": "초과수익은 베타=1 가정. 고베타(반도체)는 실제보다 나빠 보이고 저베타는 좋아 보이는 편향이 있음을 리포트에 밝힐 것"
   },
   "entries": [
     {
