@@ -27,7 +27,45 @@
       "asof": "2026-08-07",
       "next_session": "2026-08-10",
       "index": { "KOSPI": 6258.77, "KOSDAQ": 798.81 },
-      "scored": null,
+      "scored": {
+        "scored_on": "2026-08-10",
+        "index_next": { "KOSPI": 6299.66, "KOSDAQ": 854.47 },
+        "summary": { "scorable": 15, "hit": 9, "rate": 0.60, "unscorable": 5 },
+        "by_call": {
+          "range_both_bounds": { "n": 5, "hit": 4 },
+          "level_test": { "n": 8, "hit": 4, "note": "4건은 레벨에 닿지도 못함(no_test)" },
+          "breakout_hold": { "n": 2, "hit": 1 }
+        },
+        "by_conf": { "high": { "n": 2, "hit": 2 }, "mid": { "n": 10, "hit": 4 }, "low": { "n": 3, "hit": 3 } },
+        "by_src": { "zone": { "n": 6, "hit": 3 }, "line": { "n": 9, "hit": 6 } },
+        "results": {
+          "000660": { "outcome": "hit", "close": 1420000, "note": "range 1,246,000~1,678,000 안" },
+          "005930": { "outcome": "hit", "close": 230000, "note": "저가 228,500으로 229,500 시험 후 방어" },
+          "009150": { "outcome": "no_test", "close": 1274000, "note": "고가 1,357,000, 1,380,000 미달" },
+          "348210": { "outcome": "miss", "close": 34300, "note": "range 상단 33,833 위로 이탈 (+10.47%)" },
+          "018260": { "outcome": "no_test", "close": 222500, "note": "저가 218,000, 209,500 미달" },
+          "093320": { "outcome": "hit", "close": 149300, "note": "저가 130,200으로 130,500 시험 후 +11.75%" },
+          "105560": { "outcome": "miss", "close": 171700, "note": "175,700 위 종가 유지 실패" },
+          "086520": { "outcome": "unscorable", "close": 93500, "note": "상단 null이라 단측 자동 적중" },
+          "010140": { "outcome": "no_test", "close": 22550, "note": "저가 21,950, 21,850 미달" },
+          "298040": { "outcome": "no_test", "close": 2934000, "note": "고가 3,006,000, 3,075,000 미달" },
+          "352820": { "outcome": "unscorable", "close": 183900, "note": "하단 null이라 단측 자동 적중" },
+          "012330": { "outcome": "hit", "close": 505000, "note": "고가 513,000으로 501,000 시험, 존 재진입" },
+          "017670": { "outcome": "hit", "close": 85000, "note": "range 82,300~95,000 안" },
+          "214150": { "outcome": "hit", "close": 46300, "note": "range 44,900~47,500 안. conf high" },
+          "278470": { "outcome": "hit", "close": 387000, "note": "376,000 위 유지" },
+          "237690": { "outcome": "unscorable", "close": 108000, "note": "양쪽 null. 1σ 규칙 적용 시 1.49σ로 miss" },
+          "200670": { "outcome": "unscorable", "close": 27750, "note": "하단 null이라 단측 자동 적중" },
+          "483650": { "outcome": "unscorable", "close": 241500, "note": "상단 null이라 단측 자동 적중" },
+          "289930": { "outcome": "hit", "close": 7330, "note": "고가 7,580으로 7,420 시험 후 되밀림 = 레벨 작동" },
+          "267790": { "outcome": "hit", "close": 3125, "note": "range 3,000~3,270 안" }
+        },
+        "lessons": [
+          "range에 한쪽 또는 양쪽 경계가 null이면 반증이 불가능하다. 유효 레벨이 없는 종목은 vol_band(다음날 |등락| < 1σ)로 적을 것.",
+          "레벨 지목형(up_test/down_test) 8건 중 4건이 레벨에 닿지도 못했다. 하루 앞 특정 레벨 지목의 난이도가 높다.",
+          "범위형(range) 5건 중 4건 적중. '어디에 머물 것인가'가 '어느 벽을 칠 것인가'보다 맞히기 쉽다."
+        ]
+      },
       "items": [
         { "code": "000660", "name": "SK하이닉스", "market": "KOSPI", "close": 1422000, "resist": 1678000, "support": 1246000, "src": "line", "sigma": [1.73, 1.19], "call": "range", "conf": "mid", "note": "위아래 모두 1σ 이상 떨어져 당일 시험 가능성 낮음" },
         { "code": "005930", "name": "삼성전자", "market": "KOSPI", "close": 231000, "resist": 240000, "support": 229500, "src": "line", "sigma": [0.61, 0.10], "call": "down_test", "conf": "high", "note": "지지 229,500이 0.10σ로 코앞. 깨지면 아래 존까지 −27% 공백" },
@@ -49,6 +87,40 @@
         { "code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 246000, "resist": null, "support": 202000, "src": "zone", "sigma": [0.08, 2.20], "call": "range", "conf": "low", "note": "라인 양쪽 0.08σ. 전 존 위라 위쪽 참고 레벨 없음" },
         { "code": "289930", "name": "웨이비스", "market": "KOSDAQ", "close": 6980, "resist": 7420, "support": null, "src": "line", "sigma": [1.04, 0.21], "call": "up_test", "conf": "mid", "note": "저항 7,420이 1.04σ로 유효. 지지 6,890은 0.21σ라 제외" },
         { "code": "267790", "name": "배럴", "market": "KOSDAQ", "close": 3075, "resist": 3270, "support": 3000, "src": "line", "sigma": [1.32, 0.51], "call": "range", "conf": "low", "note": "양쪽 유효하나 거래량 0.40배로 관심 이탈 상태" }
+      ]
+    },
+    {
+      "asof": "2026-08-10",
+      "next_session": "2026-08-11",
+      "index": { "KOSPI": 6299.66, "KOSDAQ": 854.47 },
+      "scored": null,
+      "_changes": [
+        "라인은 0.5σ 이상 떨어진 최근접만 사용(지난 회차 노이즈 문제 대응)",
+        "유효 레벨이 없으면 range 대신 vol_band(|등락| < 1σ)로 적어 반증 가능하게 함",
+        "지엔씨에너지(119850) 신규 편입으로 21종목"
+      ],
+      "items": [
+        { "code": "000660", "name": "SK하이닉스", "market": "KOSPI", "close": 1420000, "atr": 133500, "resist": 1678000, "support": 1246000, "src": "line", "sigma": [1.93, 1.30], "call": "range", "conf": "mid", "note": "양쪽 1.3σ 이상. 사흘째 방향 없음" },
+        { "code": "005930", "name": "삼성전자", "market": "KOSPI", "close": 230000, "atr": 13250, "resist": 240000, "support": 223000, "src": "line", "sigma": [0.75, 0.53], "call": "down_test", "conf": "mid", "note": "오늘 229,500을 저가로 시험해 방어. 다음 유효 지지는 223,000" },
+        { "code": "009150", "name": "삼성전기", "market": "KOSPI", "close": 1274000, "atr": 130250, "resist": 1370000, "support": 1163000, "src": "line", "sigma": [0.74, 0.85], "call": "up_test", "conf": "mid", "note": "존 1,380,000과 라인 1,370,000이 수렴해 엇갈림 해소. 오늘 고가 1,357,000으로 근접" },
+        { "code": "348210", "name": "넥스틴", "market": "KOSDAQ", "close": 34300, "atr": 2400, "resist": 36767, "support": 28633, "src": "line", "sigma": [1.03, 2.36], "call": "range", "conf": "low", "note": "당일 고가 마감이라 추가 상승 여지. 아래는 2.36σ로 멂" },
+        { "code": "018260", "name": "삼성에스디에스", "market": "KOSPI", "close": 222500, "atr": 13563, "resist": 238500, "support": 209500, "src": "zone", "sigma": [1.18, 0.96], "call": "range", "conf": "mid", "note": "존 사이 중간. 두 지표 어긋나지 않아 병기 불필요" },
+        { "code": "093320", "name": "케이아이엔엑스", "market": "KOSDAQ", "close": 149300, "atr": 12700, "resist": null, "support": 139900, "src": "line", "sigma": [null, 0.74], "call": "breakout_hold", "conf": "mid", "note": "145,100 돌파 후 유지 여부. 위쪽 유효 레벨 없음" },
+        { "code": "105560", "name": "KB금융", "market": "KOSPI", "close": 171700, "atr": 6600, "resist": 175700, "support": 166500, "src": "line", "sigma": [0.61, 0.79], "call": "range", "conf": "mid", "note": "175,700 재도전 실패 후 되밀림. 양쪽 유효" },
+        { "code": "086520", "name": "에코프로", "market": "KOSDAQ", "close": 93500, "atr": 7250, "resist": 97157, "support": 89706, "src": "line", "sigma": [0.50, 0.52], "call": "up_test", "conf": "mid", "note": "거래량 1.24배로 최다. 위 관문 0.50σ로 가까움" },
+        { "code": "010140", "name": "삼성중공업", "market": "KOSPI", "close": 22550, "atr": 750, "resist": 23900, "support": 21850, "src": "zone_edge", "sigma": [1.80, 0.93], "call": "range", "conf": "high", "note": "존 내부, 양쪽 σ 유효. 나흘 횡보 후 상단 방향" },
+        { "code": "298040", "name": "효성중공업", "market": "KOSPI", "close": 2934000, "atr": 264250, "resist": 3075000, "support": 2745000, "src": "line", "sigma": [0.53, 0.72], "call": "up_test", "conf": "mid", "note": "두 번 막힌 3,075,000 재도전. 거래량 0.58배로 얇음" },
+        { "code": "352820", "name": "하이브", "market": "KOSPI", "close": 183900, "atr": 6300, "resist": 187900, "support": 180400, "src": "line", "sigma": [0.63, 0.56], "call": "range", "conf": "mid", "note": "0.5σ 필터로 처음 실질 폭이 잡힘. 사흘째 좁은 횡보" },
+        { "code": "012330", "name": "현대모비스", "market": "KOSPI", "close": 505000, "atr": 28625, "resist": 541000, "support": 501000, "src": "zone_edge", "sigma": [1.26, 0.14], "call": "down_test", "conf": "mid", "note": "존 재진입했으나 바닥이 0.14σ라 재이탈 위험" },
+        { "code": "017670", "name": "SK텔레콤", "market": "KOSPI", "close": 85000, "atr": 6250, "resist": 88600, "support": 81500, "src": "line", "sigma": [0.58, 0.56], "call": "range", "conf": "mid", "note": "초과수익 최하위. 사흘 연속 하락" },
+        { "code": "214150", "name": "클래시스", "market": "KOSDAQ", "close": 46300, "atr": 1600, "resist": 47500, "support": 44900, "src": "zone_edge", "sigma": [0.75, 0.88], "call": "range", "conf": "high", "note": "존 내부, 양쪽 유효. 지난 회차 high 예측 적중한 종목" },
+        { "code": "278470", "name": "에이피알", "market": "KOSPI", "close": 387000, "atr": 29875, "resist": 402500, "support": 376000, "src": "zone_edge", "sigma": [0.52, 0.37], "call": "up_test", "conf": "mid", "note": "존 천장 402,500이 0.52σ. 바닥 376,000은 0.37σ로 얇음" },
+        { "code": "237690", "name": "에스티팜", "market": "KOSDAQ", "close": 108000, "atr": 5650, "resist": 112200, "support": 103900, "src": "line", "sigma": [0.74, 0.73], "call": "range", "conf": "mid", "note": "0.5σ 필터로 유효 레벨 확보(지난 회차엔 양쪽 노이즈였음)" },
+        { "code": "200670", "name": "휴메딕스", "market": "KOSDAQ", "close": 27750, "atr": 2038, "resist": 29050, "support": 26700, "src": "mixed", "sigma": [0.64, 0.52], "call": "range", "conf": "mid", "note": "저항은 존, 지지는 라인. 둘 다 0.5σ 통과" },
+        { "code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 241500, "atr": 15750, "resist": 258500, "support": 230500, "src": "line", "sigma": [1.08, 0.70], "call": "range", "conf": "low", "note": "거래량 0.40배로 21종목 중 최저. 관심 이탈 상태" },
+        { "code": "289930", "name": "웨이비스", "market": "KOSDAQ", "close": 7330, "atr": 470, "resist": 7580, "support": 6980, "src": "line", "sigma": [0.53, 0.74], "call": "up_test", "conf": "mid", "note": "오늘 고가가 정확히 7,580. 재도전 여부" },
+        { "code": "119850", "name": "지엔씨에너지", "market": "KOSDAQ", "close": 52800, "atr": 6488, "resist": null, "support": 46750, "src": "line", "sigma": [null, 0.93], "call": "vol_band", "conf": "low", "note": "위쪽 유효 레벨 전무. ATR이 종가의 12.3%로 최고 변동성이라 |등락| < 1σ(±12.3%) 여부로 판정" },
+        { "code": "267790", "name": "배럴", "market": "KOSDAQ", "close": 3125, "atr": 105, "resist": 3270, "support": 3000, "src": "line", "sigma": [1.38, 1.19], "call": "range", "conf": "mid", "note": "거래량 1.21배로 회복. 양쪽 1σ 이상 유효" }
       ]
     }
   ]
