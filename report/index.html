@@ -75,6 +75,7 @@
   .score th{font-size:10.5px;}
   .score td:first-child{text-align:left;font-weight:600;}
   .ok{color:var(--up);font-weight:700;} .ng{color:var(--down);font-weight:700;} .nt{color:var(--muted);font-weight:600;}
+  .flip{display:inline-block;padding:0 6px;border-radius:4px;background:var(--rausch-tint);color:var(--rausch-active);font-size:12px;font-weight:700;vertical-align:middle;}
   .foot{margin-top:32px;color:var(--muted);font-size:12px;border-top:1px solid var(--hairline);padding-top:16px;}
 </style>
 </head>
@@ -121,19 +122,41 @@
   </div>
 
   <div class="secsum" style="border-color:rgba(255,56,92,.45);margin-top:0;">
-    <h3>🧮 지난 회차(8/10) 예측 채점 — 21건 전부 판정, 14건 적중(67%)</h3>
-    <p style="margin:0 0 10px;">v2에서 <code>vol_band</code>를 도입한 덕에 <b>이번엔 21건 전부 채점 가능</b>했습니다(지난 회차 판정 불가 5건 → 0건). 다만 정직하게 적자면, 이번 성적은 좋지 않았습니다.</p>
+    <h3>🧮 지난 회차(8/10) 예측 채점 — <span class="flip">채점표를 고쳤습니다</span></h3>
+    <p style="margin:0 0 10px;">이 리포트를 처음 낼 때 <b>"전체 14/21(67%)로 무작위 기준선 90%에 못 미쳤다"</b>고 자책해 적었습니다. 그 뒤 채점법 자체를 검토해 보니 <b>비교가 무효였습니다.</b> 아래는 고친 채점표입니다.</p>
+    <p style="margin:0 0 10px;font-size:13px;"><b>① 무작위 기준선(±1σ)은 기준선이 아니라 동어반복이었습니다.</b> 126 종목일로 실측하니 종가가 1σ 안에서 끝나는 비율이 <b>91.3%</b>입니다 — ATR의 정의상 당연한 값입니다. "±1σ 안에 있을 것"은 예측이 아니라 ATR이 무엇인지를 다시 말한 것이라, 여기 견주면 애초에 이길 수 없습니다. <b>폐기했습니다.</b></p>
+    <p style="margin:0 0 10px;font-size:13px;"><b>② 총계 67%도 폐기했습니다.</b> 콜 타입별 난이도가 완전히 달라서, 총계는 실력이 아니라 <b>어떤 콜을 몇 개 냈는지</b>만 반영합니다.</p>
     <table class="score">
-      <thead><tr><th>구분</th><th>대상</th><th>적중</th><th>적중률</th><th>비고</th></tr></thead>
+      <thead><tr><th>콜 타입</th><th>건수</th><th>적중</th><th>적중률</th><th>난이도</th></tr></thead>
       <tbody>
-        <tr><td>전체(종가가 예측 범위·조건 안)</td><td>21건</td><td>14건</td><td><b>67%</b></td><td>판정 불가 0건</td></tr>
-        <tr><td>레벨 시험(레벨에 닿았는가)</td><td>6건</td><td>1건</td><td class="ng">17%</td><td>up/down_test 6건 중 1건만 도달</td></tr>
-        <tr><td>└ 닿은 뒤 방향(dir_hit)</td><td>1건</td><td>0건</td><td class="ng">0%</td><td>현대모비스 501,000 닿았으나 이탈</td></tr>
-        <tr><td>기준선 · 무작위(±1σ)</td><td>21건</td><td>19건</td><td class="ok">90%</td><td>거의 다 하루 변동폭 안</td></tr>
-        <tr><td>기준선 · 모멘텀(어제↑→오늘↑)</td><td>21건</td><td>9건</td><td class="nt">43%</td><td>어제 급등주가 대거 되밀림</td></tr>
+        <tr><td>range (범위 안에 머물까)</td><td>12건</td><td>10건</td><td class="ok">83%</td><td>쉬움</td></tr>
+        <tr><td>up_test (위 레벨에 닿을까)</td><td>5건</td><td>0건</td><td class="ng">0%</td><td>어려움</td></tr>
+        <tr><td>down_test</td><td>1건</td><td>1건</td><td class="ok">100%</td><td>어려움</td></tr>
+        <tr><td>breakout_hold</td><td>1건</td><td>1건</td><td class="ok">100%</td><td>보통</td></tr>
+        <tr><td>vol_band</td><td>2건</td><td>2건</td><td class="ok">100%</td><td>쉬움</td></tr>
       </tbody>
     </table>
-    <p style="margin:12px 0 0;font-size:13px;">두 가지를 솔직히 적습니다. 첫째, <b>우리 적중률 67%는 무작위 기준선 90%에 못 미쳤습니다</b>. 어제 지수가 크게 흔들린 뒤라 오늘 되돌림이 컸고, 방향을 지목한 예측(up/down_test)이 <b>6건 중 1건만 레벨에 닿았을</b> 만큼 자리를 정확히 찍는 게 어려웠습니다. 둘째, 그럼에도 <b>모멘텀 기준선(43%)은 확실히 앞섰습니다</b> — 어제 오른 종목을 오늘도 오른다고 단순 추종했다면 절반 넘게 틀렸을 겁니다. 표본이 이제 2회차·36건이라 <b>여전히 경향으로만</b> 봐야 하고, 이런 회차가 있다는 것 자체를 기록해 둡니다.</p>
+    <p style="margin:12px 0 0;font-size:13px;">다음 회차에 range를 늘리면 85%, up_test를 늘리면 30%가 나옵니다 — 실력과 무관하게 움직이는 숫자를 대표 성적으로 쓸 수 없습니다.</p>
+    <p style="margin:12px 0 0;font-size:13px;"><b>③ 그래서 진짜 성적표는 이겁니다.</b> range 콜마다 <b>같은 폭</b>의 밴드를 그냥 전일종가 한가운데 놓고 똑같이 채점해 봤습니다. 폭의 효과가 상쇄되니 "벽을 찾아 배치한 것에 정보가 있는가"만 남습니다.</p>
+    <table class="score">
+      <thead><tr><th>비교</th><th>적중</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td>우리 밴드(존·라인 기반 배치)</td><td>10/12</td><td rowspan="2" class="ng" style="vertical-align:middle;">동률 — 정보 없음</td></tr>
+        <tr><td>폭일치 기준선(전일종가 중심)</td><td>10/12</td></tr>
+        <tr><td>모멘텀 기준선(어제↑→오늘↑)</td><td>9/21</td><td class="ok">우리가 앞섬</td></tr>
+      </tbody>
+    </table>
+    <p style="margin:12px 0 0;font-size:13px;">즉 <b>range 83%는 실력이 아니라 밴드 폭이 만든 숫자</b>였습니다. 밴드 폭 중앙값이 1.67σ, 최대가 <b>4.03σ</b>(삼성전자 167,000~260,000)였는데 4σ 밴드는 반증이 불가능하니 맞아도 얻는 게 없습니다.</p>
+    <p style="margin:12px 0 0;font-size:13px;"><b>④ up_test 0/5는 운이 아니라 설계였습니다.</b> 126 종목일 실측 도달 확률로 보면 우리가 지목한 거리 중앙값 <b>0.56σ</b>는 하루 도달 확률이 <b>30~40%</b>인 자리입니다. 기대 도달 2.4건에 실제 1건이니 운도 나빴지만, 구조적으로 상한이 35% 언저리인 콜을 하루 만에 채점하고 있었습니다.</p>
+    <table class="score">
+      <thead><tr><th>레벨까지 거리</th><th>0.25σ</th><th>0.40σ</th><th>0.50σ</th><th>0.60σ</th><th>0.75σ</th><th>1.00σ</th></tr></thead>
+      <tbody>
+        <tr><td>위로 닿을 확률</td><td>67%</td><td>52%</td><td>40%</td><td>32%</td><td>22%</td><td>16%</td></tr>
+        <tr><td>아래로 닿을 확률</td><td>54%</td><td>32%</td><td>21%</td><td>13%</td><td>8%</td><td class="ng">0.8%</td></tr>
+      </tbody>
+    </table>
+    <p style="margin:12px 0 0;font-size:13px;">정리하면 <b>"성적이 나빴다"가 아니라 "성적을 잴 수 없는 채점표를 쓰고 있었다"</b>가 정확합니다. 다음 회차부터 ⓐ 총계 대신 콜 타입별로만 보고하고, ⓑ range 밴드 폭은 2σ 이하로 제한하며, ⓒ 레벨 지목은 0.5σ 이내에서만 하루 채점하고 그보다 멀면 <b>사전 확률을 붙여 2~3세션 뒤에</b> 채점합니다. 이 기준으로 아래 8/12 예측 21건도 다시 썼습니다.</p>
+    <p style="margin:12px 0 0;font-size:12px;color:var(--muted);">※ 확률표는 126 종목일·6영업일·한 국면(급등 후 되돌림) 표본입니다. 위/아래 비대칭(0.5σ에서 40% 대 21%)은 상승장 편향일 가능성이 커서 잠정치로만 씁니다. 표본이 2회차·36건이라는 한계도 그대로입니다.</p>
   </div>
 
   <table>
@@ -299,7 +322,7 @@
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트</h3>
-    <p style="margin:0;">오늘의 한 문장은 <b>"지수가 숨을 고르자 어제의 과열이 식었다"</b>입니다. 어제 코스닥 +6.97%를 타고 급등했던 종목 다수가 오늘 되밀렸고(효성중공업·에코프로·삼성중공업·지엔씨에너지), 어제 눌렸던 반도체·삼성전자가 반등했습니다. 이런 되돌림 장에서는 예측이 어렵다는 게 위 채점(적중 67% &lt; 무작위 90%)에서도 드러났습니다.</p>
+    <p style="margin:0;">오늘의 한 문장은 <b>"지수가 숨을 고르자 어제의 과열이 식었다"</b>입니다. 어제 코스닥 +6.97%를 타고 급등했던 종목 다수가 오늘 되밀렸고(효성중공업·에코프로·삼성중공업·지엔씨에너지), 어제 눌렸던 반도체·삼성전자가 반등했습니다. 이런 되돌림 장에서 자리를 정확히 찍기가 어렵다는 건 위 채점의 <b>up_test 0/5</b>에서 드러납니다 — 다만 그건 지목한 자리가 하루에 닿을 확률이 애초에 30~40%였던 탓이 큽니다.</p>
     <p style="margin:12px 0 0;">그럼에도 방향이 또렷한 종목은 있었습니다. <b class="up">케이아이엔엑스</b>와 <b class="up">삼성에스디에스</b>는 지수가 잠잠한데도 각각 +8.79%p·+5.79%p 초과수익을 냈고 거래량도 붙어, 어제의 강세가 하루짜리가 아니었음을 보였습니다. 반대로 <b class="down">삼성중공업</b>은 닷새 횡보하던 존 하단을 오늘 종가로 이탈해, 유일하게 구조가 아래로 꺾인 종목입니다.</p>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">내일 볼 자리는 셋입니다. <b>삼성에스디에스 238,500</b> — 존 상단을 0.09σ 앞에 뒀으니 돌파 여부가 바로 갈립니다. <b>현대모비스 501,000</b> — 이틀째 진입·이탈을 반복 중이라 사흘째 종가가 어느 쪽에 서는지가 방향을 정합니다. <b>배럴 3,480</b> — 거래량이 실린 급등이 존 저항을 넘는지, 하루짜리로 끝나는지가 관건입니다.</p>
   </div>
