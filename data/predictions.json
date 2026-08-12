@@ -197,7 +197,32 @@
       "asof": "2026-08-11",
       "next_session": "2026-08-12",
       "index": { "KOSPI": 6345.53, "KOSDAQ": 857.84 },
-      "scored": null,
+      "scored": {
+        "scored_on": "2026-08-12",
+        "index_next": { "KOSPI": 6579.04, "KOSDAQ": 858.91 },
+        "_note": "v3 첫 정식 적용 회차. 총계는 내지 않는다. 2~3세션 콜 7건은 아직 미채점(1일차 전부 미도달).",
+        "non_level": {
+          "n": 14, "expected_by_null": 8.9, "actual": 9, "delta": 0.1,
+          "verdict": "2회차 연속 우연과 동일. 08-10 회차는 12.9 대 13(+0.1), 이번은 8.9 대 9(+0.1).",
+          "detail": "HIT — 삼성전자 range(귀무86) · SK하이닉스 vol_band(92) · 넥스틴 range(83) · KB금융 range(84) · 삼성중공업 range(42) · SK텔레콤 range(73) · 에이피알 range(74) · 웨이비스 range(73) · 지엔씨에너지 vol_band(92) / MISS — 케이아이엔엑스 breakout_hold(60) · 클래시스 range(58) · 달바글로벌 range(73)"
+        },
+        "level_1session": {
+          "n": 2, "expected_touch": 1.61, "touched": 2, "dir_hit": 0,
+          "verdict": "거리 통제가 작동했다 — 0.5σ 이내로 제한한 2건이 모두 레벨에 닿았다(기대 1.61). 다만 닿은 뒤 방향은 2건 모두 거부로 dir_hit 0.",
+          "detail": "삼성에스디에스 238,500(0.09σ·prior85%) 고가 243,500 닿음→종가 235,500 거부 · 현대모비스 501,000(0.17σ·prior76%) 고가 511,000 닿음→종가 498,500 거부"
+        },
+        "deferred_2_3session": {
+          "n": 7, "day1_reached": 0,
+          "detail": "삼성전기 1,380,000(prior55%) · 에코프로 96,000(55%) · 효성중공업 2,745,000→2,688,000(32%) · 하이브 170,963(21%) · 에스티팜 103,500(32%) · 휴메딕스 29,050(67%) · 배럴 3,480(73%) — 1일차 전원 미도달. 2~3세션 뒤 채점."
+        },
+        "baseline": { "momentum": "8/22 (36%) — 어제 오른 종목이 오늘도 오른 비율", "width_matched": "range 9건 중 우리 6건 vs 폭일치 6건 — 동률" },
+        "lessons": [
+          "비레벨 콜이 2회차 연속 귀무 기대와 정확히 같았다(+0.1, +0.1). 존·라인 배치가 정보를 더하지 못한다는 신호가 반복됐다.",
+          "반면 레벨 거리 통제(≤0.5σ)는 효과가 있었다 — 2건 모두 도달(기대 1.61). 어제 규칙을 넣지 않았다면 먼 레벨을 찍고 또 0/N이 났을 것이다.",
+          "케이아이엔엑스 breakout_hold를 종가 기준선(귀무 61%)으로 고친 덕에 실제로 MISS가 잡혔다. 옛 기준선(149,400·귀무 100%)이었다면 공짜 HIT였다.",
+          "dir_hit은 여전히 0/2. 레벨에 닿는 것은 통제 가능해졌지만 닿은 뒤 방향은 아직 못 맞힌다."
+        ]
+      },
       "_v3_revised": "2026-08-11 v3 난이도 통제 적용. SK하이닉스는 밴드 폭 2.40σ라 range→vol_band 강등. 레벨 지목 9건 중 7건이 0.5σ 초과라 horizon='2~3세션'으로 미루고, 전 레벨 콜에 prior(실측 하루 도달 확률)를 붙였다. 08-12에 즉시 채점하는 건 14건(range 9 + vol_band 2 + breakout_hold 1 + 1세션 레벨 2), 나머지 7건은 2~3세션 뒤 채점.",
       "items": [
         { "code": "005930", "name": "삼성전자", "market": "KOSPI", "close": 239500, "atr": 22992, "resist": 260000, "support": 223000, "src": "mixed", "sigma": [0.89, 0.72], "call": "range", "conf": "mid", "null_rate": 86, "note": "급락 뒤 반등. 존 저항 260,000(0.89σ)/라인 지지 223,000" },
@@ -221,6 +246,37 @@
         { "code": "289930", "name": "웨이비스", "market": "KOSDAQ", "close": 7310, "atr": 526, "resist": 7580, "support": 6980, "src": "line", "sigma": [0.51, 0.63], "call": "range", "conf": "mid", "null_rate": 72, "note": "보합. 라인 저 7,580/지 6,980" },
         { "code": "119850", "name": "지엔씨에너지", "market": "KOSDAQ", "close": 49900, "atr": 7390, "resist": null, "support": 43450, "src": "line", "sigma": [null, 0.87], "call": "vol_band", "conf": "low", "null_rate": 91, "baseline_equiv": true, "note": "위쪽 유효 레벨 전무, ATR 14.8%로 최고 변동성. |등락| < 1σ(±14.8%) 여부로 판정" },
         { "code": "267790", "name": "배럴", "market": "KOSDAQ", "close": 3390, "atr": 171, "resist": 3480, "support": 3300, "src": "mixed", "sigma": [0.53, 0.53], "call": "up_test", "conf": "mid", "prior": 73, "distance_sigma": 0.53, "horizon": "2~3세션", "note": "거래량 4.4배 급등. 존 저항 3,480 돌파 여부. 0.53σ라 하루 도달 확률 37% — '하루 만에 갈린다'는 표현은 v3에서 철회하고 2~3세션 뒤 채점" }
+      ]
+    },
+    {
+      "asof": "2026-08-12",
+      "next_session": "2026-08-13",
+      "index": { "KOSPI": 6579.04, "KOSDAQ": 858.91 },
+      "scored": null,
+      "_v3_note": "22종목(SK스퀘어 신규). 전 콜에 null_rate 또는 prior 기록. 비레벨 12건 귀무 기대 8.5건 — 8/13에 이 값을 넘겨야 정보가 있다. 귀무 90% 이상은 에스티팜 vol_band 1건뿐(어제 3건에서 감소).",
+      "items": [
+        { "code": "005930", "name": "삼성전자", "market": "KOSPI", "close": 255500, "atr": 23593, "resist": 260000, "support": 240000, "src": "mixed", "sigma": [0.19, 0.66], "call": "range", "null_rate": 56, "band_width": 0.85, "conf": "mid", "note": "급등 후 존 하단 260,000 코앞. 아래 라인 240,000까지 좁은 밴드" },
+        { "code": "000660", "name": "SK하이닉스", "market": "KOSPI", "close": 1504000, "atr": 180786, "resist": 1678000, "support": null, "src": "line", "sigma": [0.96, null], "call": "up_test", "distance_sigma": 0.96, "horizon": "2~3세션", "prior": 42, "conf": "mid", "note": "라인 1,678,000(2겹) 재도전. 0.96σ라 하루 도달 15%뿐" },
+        { "code": "402340", "name": "SK스퀘어", "market": "KOSPI", "close": 1024000, "atr": 118500, "resist": 1086000, "support": null, "src": "line", "sigma": [0.52, null], "call": "up_test", "distance_sigma": 0.52, "horizon": "2~3세션", "prior": 71, "conf": "mid", "note": "신규 편입. 라인 1,086,000 시험 여부. 위 존은 2.41σ로 너무 멂" },
+        { "code": "009150", "name": "삼성전기", "market": "KOSPI", "close": 1335000, "atr": 158071, "resist": 1380000, "support": null, "src": "zone", "sigma": [0.28, null], "call": "up_test", "distance_sigma": 0.28, "horizon": "1세션", "prior": 63, "conf": "mid", "note": "존 하단 1,380,000이 0.28σ 코앞 — 닿는 건 거의 확실, dir_hit이 시험" },
+        { "code": "348210", "name": "넥스틴", "market": "KOSDAQ", "close": 36900, "atr": 3239, "resist": 40350, "support": null, "src": "line", "sigma": [1.07, null], "call": "up_test", "distance_sigma": 1.07, "horizon": "2~3세션", "prior": 35, "conf": "mid", "note": "라인 40,350(3겹) 도전. 1.07σ라 3세션 기준" },
+        { "code": "018260", "name": "삼성에스디에스", "market": "KOSPI", "close": 235500, "atr": 15550, "resist": 238500, "support": null, "src": "zone", "sigma": [0.19, null], "call": "up_test", "distance_sigma": 0.19, "horizon": "1세션", "prior": 73, "conf": "mid", "note": "존 하단 238,500. 어제 243,500까지 닿았다가 거부당한 자리 재시험" },
+        { "code": "093320", "name": "케이아이엔엑스", "market": "KOSDAQ", "close": 151600, "atr": 11936, "resist": null, "support": 151600, "src": "close", "sigma": [null, -0.0], "call": "breakout_hold", "null_rate": 60, "conf": "mid", "note": "급락 후 오늘 종가 지지 여부. 위쪽 유효 레벨 전무" },
+        { "code": "105560", "name": "KB금융", "market": "KOSPI", "close": 166000, "atr": 7800, "resist": 172500, "support": null, "src": "line", "sigma": [0.83, null], "call": "up_test", "distance_sigma": 0.83, "horizon": "2~3세션", "prior": 47, "conf": "mid", "note": "라인 172,500 회복 여부. 0.83σ라 3세션 기준" },
+        { "code": "086520", "name": "에코프로", "market": "KOSDAQ", "close": 91300, "atr": 7507, "resist": 96000, "support": null, "src": "line", "sigma": [0.63, null], "call": "up_test", "distance_sigma": 0.63, "horizon": "2~3세션", "prior": 62, "conf": "mid", "note": "라인 96,000(2겹) 재도전. 0.63σ" },
+        { "code": "010140", "name": "삼성중공업", "market": "KOSPI", "close": 21750, "atr": 1274, "resist": 21850, "support": 18990, "src": "zone", "sigma": [0.08, 2.17], "call": "range", "null_rate": 50, "band_width": 2.24, "conf": "mid", "note": "존 하단 21,850 바로 아래. 아래 존 18,990까지 폭넓지만 귀무 50%로 가장 반증력 높음" },
+        { "code": "298040", "name": "효성중공업", "market": "KOSPI", "close": 2892000, "atr": 271929, "resist": null, "support": 2745000, "src": "line", "sigma": [null, 0.54], "call": "down_test", "distance_sigma": 0.54, "horizon": "2~3세션", "prior": 28, "conf": "mid", "note": "라인 2,745,000 시험 여부. 아래로 0.54σ" },
+        { "code": "352820", "name": "하이브", "market": "KOSPI", "close": 179500, "atr": 13207, "resist": 186400, "support": 170963, "src": "line", "sigma": [0.52, 0.65], "call": "range", "null_rate": 73, "band_width": 1.17, "conf": "mid", "note": "라인 186,400과 170,963(4겹) 사이 좁은 밴드" },
+        { "code": "012330", "name": "현대모비스", "market": "KOSPI", "close": 498500, "atr": 33571, "resist": 501000, "support": 443000, "src": "zone", "sigma": [0.07, 1.65], "call": "range", "null_rate": 49, "band_width": 1.73, "conf": "mid", "note": "존 하단 501,000 재이탈. 이틀째 닿았다 거부. 귀무 49%로 최고 반증력" },
+        { "code": "017670", "name": "SK텔레콤", "market": "KOSPI", "close": 87800, "atr": 7543, "resist": 95000, "support": null, "src": "line", "sigma": [0.95, null], "call": "up_test", "distance_sigma": 0.95, "horizon": "2~3세션", "prior": 42, "conf": "mid", "note": "라인 95,000(4겹·강) 도전. 0.95σ" },
+        { "code": "214150", "name": "클래시스", "market": "KOSDAQ", "close": 43800, "atr": 3343, "resist": 46300, "support": null, "src": "zone", "sigma": [0.75, null], "call": "up_test", "distance_sigma": 0.75, "horizon": "2~3세션", "prior": 54, "conf": "mid", "note": "급락으로 존 이탈. 존 하단 46,300 복귀 여부. 0.75σ" },
+        { "code": "278470", "name": "에이피알", "market": "KOSPI", "close": 397000, "atr": 27036, "resist": 414500, "support": 377500, "src": "line", "sigma": [0.65, 0.72], "call": "range", "null_rate": 81, "band_width": 1.37, "conf": "mid", "note": "라인 414,500과 377,500(3겹) 사이" },
+        { "code": "237690", "name": "에스티팜", "market": "KOSDAQ", "close": 107000, "atr": 8586, "resist": null, "support": null, "src": "none", "sigma": [null, null], "call": "vol_band", "null_rate": 92, "baseline_equiv": true, "conf": "mid", "note": "위아래 레벨이 전부 2.5σ 넘게 멂 — 반증 가능한 레벨 없음" },
+        { "code": "200670", "name": "휴메딕스", "market": "KOSDAQ", "close": 27900, "atr": 1593, "resist": 29050, "support": 26962, "src": "mixed", "sigma": [0.72, 0.59], "call": "range", "null_rate": 83, "band_width": 1.31, "conf": "mid", "note": "존 하단 29,050과 라인 26,962(8겹·강) 사이" },
+        { "code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 262000, "atr": 24393, "resist": 274500, "support": 202000, "src": "mixed", "sigma": [0.51, 2.46], "call": "range", "null_rate": 79, "band_width": 2.97, "conf": "mid", "note": "급등 후 라인 274,500 바로 아래. 아래 존까지는 멂" },
+        { "code": "289930", "name": "웨이비스", "market": "KOSDAQ", "close": 7390, "atr": 525, "resist": 7660, "support": 6980, "src": "line", "sigma": [0.51, 0.78], "call": "range", "null_rate": 75, "band_width": 1.3, "conf": "mid", "note": "라인 7,660과 6,980 사이 좁은 밴드" },
+        { "code": "267790", "name": "배럴", "market": "KOSDAQ", "close": 3380, "atr": 170, "resist": 3480, "support": 3280, "src": "mixed", "sigma": [0.59, 0.59], "call": "range", "null_rate": 75, "band_width": 1.18, "conf": "mid", "note": "존 하단 3,480과 라인 3,280(3겹) 사이" },
+        { "code": "119850", "name": "지엔씨에너지", "market": "KOSDAQ", "close": 48200, "atr": 7000, "resist": 51900, "support": 32100, "src": "mixed", "sigma": [0.53, 2.3], "call": "range", "null_rate": 79, "band_width": 2.83, "conf": "mid", "note": "라인 51,900과 존 32,100 사이. ATR 14.5%로 최고 변동성" }
       ]
     }
   ]
