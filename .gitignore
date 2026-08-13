@@ -5,4 +5,5 @@
 !/wrangler.toml
 !/report/
 !/data/
+!/scripts/
 .wrangler/
