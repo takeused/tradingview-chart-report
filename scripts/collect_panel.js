@@ -140,3 +140,50 @@ function STEP3() {
   Object.keys(F).forEach(f => { out[f]={}; Object.keys(Y).forEach(y => out[f][y]=pear(F[f],Y[y])); });
   return JSON.stringify(out);
 }
+
+// ─────────────────────────────────────────────────────────────
+// STEP 2b — RSI(14)·MACD(12,26,9) 를 종가에서 직접 계산해 패널에 붙인다
+//
+//   ⚠️ chart_manage_indicator 로 지표를 붙이는 건 이 환경에서 실패한다
+//      (add 하면 new_study_count: 0). ATR 때도 같았다.
+//      어차피 RSI·MACD는 종가만의 함수라 직접 계산하는 편이 낫다 —
+//      차트는 한 번에 한 종목만 보여주지만 이 방식은 60종목을 한꺼번에 처리한다.
+//
+//   MACD는 종목별 가격 스케일이 다르므로 반드시 ATR로 정규화할 것.
+//   RSI는 0~100이라 스케일 프리지만 (rsi-50)/10 으로 중심화해 쓴다.
+// ─────────────────────────────────────────────────────────────
+function rsi14(cl) {
+  const out = new Array(cl.length).fill(null);
+  let ag = 0, al = 0;
+  for (let i = 1; i <= 14; i++) { const d = cl[i] - cl[i-1]; ag += Math.max(d,0); al += Math.max(-d,0); }
+  ag /= 14; al /= 14;
+  out[14] = al === 0 ? 100 : 100 - 100/(1 + ag/al);
+  for (let i = 15; i < cl.length; i++) {
+    const d = cl[i] - cl[i-1];
+    ag = (ag*13 + Math.max(d,0))/14;
+    al = (al*13 + Math.max(-d,0))/14;
+    out[i] = al === 0 ? 100 : 100 - 100/(1 + ag/al);
+  }
+  return out;
+}
+function ema(cl, n) {
+  const k = 2/(n+1), out = new Array(cl.length).fill(null);
+  let s = 0; for (let i = 0; i < n; i++) s += cl[i];
+  out[n-1] = s/n;
+  for (let i = n; i < cl.length; i++) out[i] = cl[i]*k + out[i-1]*(1-k);
+  return out;
+}
+function macd(cl) {                       // 12,26,9
+  const e12 = ema(cl,12), e26 = ema(cl,26);
+  const m = cl.map((_,i) => (e12[i]!=null && e26[i]!=null) ? e12[i]-e26[i] : null);
+  const sig = ema(m.map(x => x==null?0:x), 9);
+  return { macd: m, signal: sig, hist: m.map((x,i) => (x!=null && sig[i]!=null) ? x-sig[i] : null) };
+}
+
+// 검정 결과 (2026-08-13, 60종목·3,060관측·2xSE=0.036) — 전부 예측력 없음
+//   rsi (50중심)    다음날 0.009 / 5일 -0.004 / 20일  0.000
+//   macd/ATR        다음날 0.004 / 5일  0.000 / 20일  0.033
+//   히스토그램/ATR   다음날 -0.029 / 5일 -0.029 / 20일 -0.063*
+//   * 20일은 선행구간 4배 중첩이라 실질 2xSE가 ~0.072 → 미달
+//   RSI 구간별 다음날 초과: <30 +0.015 / 30-45 -0.020 / 45-55 +0.005
+//                          55-70 +0.019 / >=70 -0.028  (전부 노이즈 범위)
