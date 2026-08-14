@@ -55,6 +55,16 @@ def check_entry(e, ledger, strict_ledger=True):
                 exp = tm.base_p(blk.get('dist_sigma'), dirn, h)
                 if exp is not None and blk.get('p_base') is not None and abs(exp - blk['p_base']) > 0.15:
                     err.append('%s — p_base %s != 모듈 계산 %s (표 불일치)' % (nm, blk['p_base'], exp))
+                # 4-b) 조건부 p 도 저장된 입력으로 재현되는가
+                mi = it.get('model_inputs')
+                if mi and blk.get('p') is not None:
+                    rep = tm.cond_p(blk.get('dist_sigma'), dirn, mi.get('volx'),
+                                    mi.get('rngatr'), mi.get('atrpct'), h)
+                    if rep is not None and abs(rep - blk['p']) > 0.15:
+                        err.append('%s — p %s 가 저장된 입력으로 재현되지 않는다(계산 %s)'
+                                   % (nm, blk['p'], rep))
+                if not mi:
+                    warn.append('%s — model_inputs 없음 (p 재현·감사 불가)' % nm)
 
         # 5) sigma 와 레벨 필드의 대응
         for i, (fld, dirn) in enumerate((('resist', 'up'), ('support', 'dn'))):

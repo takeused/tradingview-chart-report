@@ -87,6 +87,10 @@ def close_open_calls(ledger, actuals, session_date):
             closed.append(c)
             continue
         hi, lo = _hl(a)
+        if hi is None or lo is None:
+            c['status'] = 'no_data'
+            closed.append(c)
+            continue
         c['sessions_elapsed'] = c.get('sessions_elapsed', 0) + 1
         c.setdefault('run_hi', hi)
         c.setdefault('run_lo', lo)
