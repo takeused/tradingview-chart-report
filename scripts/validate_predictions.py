@@ -9,6 +9,15 @@
 #   - 거리 0 근방 보간 누락
 #   이 스크립트는 그 여섯을 전부 기계로 잡는다.
 #
+# 2026-08-20 감사에서 7종을 추가했다. 그날 실제로 난 사고와 손으로만 잡히던 것들이다.
+#   - SK스퀘어가 1.04σ 움직였는데 라인을 이월했다(재수집 규칙 위반) → 11
+#   - dist_sigma 가 (레벨−종가)/ATR 과 맞는지 아무도 안 봤다 → 8
+#   - atr_bars 를 검사하는 곳이 없었다(v6 ATR 창 드리프트의 재발 경로) → 7
+#   - 라인 0.5σ 하한·존 3σ 상한이 코드로 강제되지 않았다 → 9
+#   - 원장 레벨이 항목 레벨과 같은지 대조하지 않았다 → 12
+#   - p_probe 레벨이 종가±kσ 와 맞는지 검사하지 않았다 → 10
+#   - sigma[] 배열과 p_touch.dist_sigma 가 따로 놀 수 있었다 → 8-b
+#
 # 사용법
 #   python scripts/validate_predictions.py            # 마지막 회차 검사
 #   python scripts/validate_predictions.py --all      # 전 회차 검사
@@ -20,6 +29,14 @@ import touch_model as tm
 
 PRED = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'predictions.json')
 LEVEL_CALLS = ('up_test', 'down_test')
+
+# 2026-08-20 회차부터 도입한 근거 필드(chg · p_touch.src · line_provenance)를 필수로 본다.
+# 그 이전 회차는 필드가 없으므로 해당 검사를 건너뛴다.
+V62_FROM = '2026-08-20'
+MIN_ATR_BARS = 120      # 확률표(300봉)와의 오차가 0.004% 이하로 떨어지는 지점
+MAX_SIGMA = 3.0         # 존·라인 표시 상한
+MIN_LINE_SIGMA = 0.5    # 라인은 이보다 가까우면 노이즈라 쓰지 않는다
+SIG_TOL = 0.02          # dist_sigma 는 소수 둘째 자리 반올림이라 이 정도는 허용
 
 
 def check_entry(e, ledger, strict_ledger=True):
@@ -36,6 +53,22 @@ def check_entry(e, ledger, strict_ledger=True):
 
         h = tm.horizon_sessions(it.get('horizon'))
         sg = it.get('sigma') or [None, None]
+        mi_it = it.get('model_inputs') or {}
+        new_spec = tag >= V62_FROM
+
+        # 7) ATR 창 — v6 에서 확률표와 적용의 ATR 정의가 어긋났던 경로다
+        ab = mi_it.get('atr_bars')
+        if new_spec and ab is None:
+            err.append('%s — model_inputs.atr_bars 없음 (ATR 창 검증 불가)' % nm)
+        elif ab is not None and ab < MIN_ATR_BARS:
+            err.append('%s — atr_bars %s < %d (Wilder 시드가 남아 확률표와 어긋난다)'
+                       % (nm, ab, MIN_ATR_BARS))
+
+        # 11) 1σ 이상 움직인 종목은 라인을 이월하면 안 된다(스윙 구조가 바뀐다)
+        if new_spec and it.get('chg') is not None and mi_it.get('atrpct'):
+            mv = abs(it['chg']) / mi_it['atrpct']
+            if mv >= 1.0 and it.get('line_provenance') == 'carry':
+                err.append('%s — %.2fσ 움직였는데 라인을 이월했다 (재수집 규칙 위반)' % (nm, mv))
 
         # 1) 확률이 있으면 대응 레벨이 반드시 있어야 한다
         pt = it.get('p_touch') or {}
@@ -66,6 +99,33 @@ def check_entry(e, ledger, strict_ledger=True):
                 if not mi:
                     warn.append('%s — model_inputs 없음 (p 재현·감사 불가)' % nm)
 
+                # 8) dist_sigma 가 (레벨−종가)/ATR 과 일치하는가 — 레벨 산정 자체의 검산
+                lvl, cl, atr = it.get(fld), it.get('close'), it.get('atr')
+                ds = blk.get('dist_sigma')
+                if None not in (lvl, cl, atr, ds) and atr:
+                    signed = (lvl - cl) / atr if dirn == 'up' else (cl - lvl) / atr
+                    if signed < 0:
+                        err.append('%s — %s %s 가 종가 %s 의 반대쪽에 있다'
+                                   % (nm, fld, '{:,}'.format(lvl), '{:,}'.format(cl)))
+                    elif abs(signed - ds) > SIG_TOL:
+                        err.append('%s — dist_sigma %.2f != (레벨−종가)/ATR %.3f'
+                                   % (nm, ds, signed))
+                    # 8-b) sigma[] 배열도 같은 값을 가리켜야 한다
+                    i_sg = 0 if dirn == 'up' else 1
+                    if isinstance(sg[i_sg], (int, float)) and abs(sg[i_sg] - ds) > SIG_TOL:
+                        err.append('%s — sigma[%d]=%s 가 p_touch.%s dist_sigma %s 와 다르다'
+                                   % (nm, i_sg, sg[i_sg], dirn, ds))
+
+                # 9) 존 3σ 상한 · 라인 0.5σ 하한
+                src = blk.get('src')
+                if new_spec and src is None:
+                    err.append('%s — p_touch.%s 에 src(zone/line) 없음 (규칙 검증 불가)' % (nm, dirn))
+                if ds is not None and ds > MAX_SIGMA:
+                    err.append('%s — %s 거리 %.2fσ 가 상한 %.1fσ 초과' % (nm, dirn, ds, MAX_SIGMA))
+                if src == 'line' and ds is not None and ds < MIN_LINE_SIGMA:
+                    err.append('%s — 라인인데 %.2fσ 로 하한 %.1fσ 미만 (노이즈 레벨)'
+                               % (nm, ds, MIN_LINE_SIGMA))
+
         # 5) sigma 와 레벨 필드의 대응
         for i, (fld, dirn) in enumerate((('resist', 'up'), ('support', 'dn'))):
             has_sig = isinstance(sg[i], (int, float))
@@ -95,6 +155,16 @@ def check_entry(e, ledger, strict_ledger=True):
                         err.append('%s — p_probe[%s].%s 누락' % (nm, key, k))
                 if blk.get('up_level') and blk.get('dn_level') and blk['up_level'] <= blk['dn_level']:
                     err.append('%s — p_probe[%s] 위/아래 레벨이 뒤집혔다' % (nm, key))
+                # 10) 프로브 레벨이 종가 ± kσ 와 맞는가
+                k = {'0p5': 0.5, '1p0': 1.0}.get(key)
+                if k and it.get('close') and it.get('atr'):
+                    for side, want in (('up_level', it['close'] + k * it['atr']),
+                                       ('dn_level', it['close'] - k * it['atr'])):
+                        got = blk.get(side)
+                        if got is not None and abs(got - want) > max(1.0, it['atr'] * 0.005):
+                            err.append('%s — p_probe[%s].%s %s != 종가±%.1fσ %s'
+                                       % (nm, key, side, '{:,}'.format(got), k,
+                                          '{:,}'.format(int(round(want)))))
 
         # 8) 확률 범위
         for label, v in [('direction_prob', it.get('direction_prob'))]:
@@ -108,10 +178,29 @@ def check_entry(e, ledger, strict_ledger=True):
         if len(reg) != len(lv):
             err.append('%s — 레벨 콜 %d건인데 open_calls.active 등록 %d건 (채점기가 못 본다)'
                        % (tag, len(lv), len(reg)))
+        by_code = {it['code']: it for it in e['items']}
         for c in reg:
             for k in ('code', 'dir', 'level', 'horizon_sessions', 'p', 'p_base', 'status'):
                 if c.get(k) is None:
                     err.append('%s — 원장 %s 항목에 %s 누락' % (tag, c.get('code'), k))
+            # 12) 원장 값이 항목과 같은가 — 다르면 채점이 딴 레벨을 본다
+            it = by_code.get(c.get('code'))
+            if it is None:
+                err.append('%s — 원장에 로스터 밖 종목 %s 가 있다' % (tag, c.get('code')))
+                continue
+            blk = (it.get('p_touch') or {}).get(c.get('dir'))
+            if blk is None:
+                err.append('%s — 원장 %s %s 방향에 대응하는 p_touch 가 없다'
+                           % (tag, it.get('name'), c.get('dir')))
+                continue
+            for k in ('level', 'p', 'p_base', 'horizon_sessions'):
+                if c.get(k) != blk.get(k):
+                    err.append('%s — 원장 %s %s 가 항목과 다르다 (원장 %s / 항목 %s)'
+                               % (tag, it.get('name'), k, c.get(k), blk.get(k)))
+            if c.get('dist_sigma') is not None and blk.get('dist_sigma') is not None \
+                    and abs(c['dist_sigma'] - blk['dist_sigma']) > SIG_TOL:
+                err.append('%s — 원장 %s dist_sigma 가 항목과 다르다 (%s / %s)'
+                           % (tag, it.get('name'), c['dist_sigma'], blk['dist_sigma']))
     return err, warn
 
 

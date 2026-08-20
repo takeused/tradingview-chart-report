@@ -13,7 +13,7 @@
 #
 # 핵심 판정: 조건부 모델이 '거리 단독' 기준선을 이기는가. 못 이기면 조건부를 폐기한다.
 
-import json, sys, os
+import json, sys, os, math
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import touch_model as tm
@@ -24,6 +24,45 @@ MIN_BIN = 10  # 신뢰도 곡선에서 이보다 적은 구간은 노이즈라 �
 
 def brier(pairs):
     return round(sum((p - y) ** 2 for p, y in pairs) / len(pairs), 5) if pairs else None
+
+
+def _logit(p):
+    p = min(0.998, max(0.002, p))
+    return math.log(p / (1 - p))
+
+
+def shift_null(cond, base):
+    """기준선을 조건부의 '평균 로짓 이동량'만큼 일괄로 옮긴 귀무모형.
+
+    조건부가 이것을 못 이기면 그 회차의 우세는 종목별 구별이 아니라 수준 이동일 뿐이다.
+    2026-08-19 회차가 정확히 그 경우였다(88건 중 84건이 한 방향으로 조정됐다).
+    """
+    if not cond or len(cond) != len(base):
+        return None
+    delta = sum(_logit(c) - _logit(b) for (c, _), (b, _) in zip(cond, base)) / len(cond)
+    shifted = [(1 / (1 + math.exp(-(_logit(b) + delta))), y) for b, y in base]
+    n_lower = sum(1 for (c, _), (b, _) in zip(cond, base) if c < b)
+    return {
+        'mean_logit_shift': round(delta, 4),
+        'pct_adjusted_down': round(n_lower / len(cond) * 100, 1),
+        'actual_rate_pct': round(sum(y for _, y in cond) / len(cond) * 100, 1),
+        'brier_uniform_shift': brier(shifted),
+    }
+
+
+def _verdict(bc, bb, sn):
+    """기준선과 '일괄 이동 귀무모형' 을 모두 이겨야 실력으로 본다."""
+    if bc is None or not bb:
+        return '판정 불가'
+    if bc >= bb:
+        return '조건부가 기준선에 못 미침 — 누적되면 폐기 검토'
+    bu = (sn or {}).get('brier_uniform_shift')
+    if bu is None:
+        return '조건부가 기준선을 이김'
+    if bc < bu:
+        return '조건부가 기준선과 일괄이동 귀무모형을 모두 이김 — 종목별 구별이 있다'
+    return ('조건부가 기준선은 이겼으나 일괄이동 귀무모형은 못 이김 '
+            '— 이 회차의 우세는 수준 이동일 뿐 실력의 근거가 아니다')
 
 
 def reliability(pairs):
@@ -66,13 +105,16 @@ def score_probe(entry, actuals):
             cond += [(blk['up'] / 100, up), (blk['dn'] / 100, dn)]
             base += [(blk['up_base'] / 100, up), (blk['dn_base'] / 100, dn)]
     bc, bb = brier(cond), brier(base)
+    sn = shift_null(cond, base)
+    bu = (sn or {}).get('brier_uniform_shift')
     return {
         'n': len(cond),
         'brier_conditional': bc,
         'brier_distance_only': bb,
         'skill_vs_baseline_pct': round((bb - bc) / bb * 100, 2) if bc is not None and bb else None,
-        'verdict': ('조건부가 기준선을 이김' if bc is not None and bb and bc < bb
-                    else '조건부가 기준선에 못 미침 — 누적되면 폐기 검토'),
+        'shift_null': sn,
+        'skill_vs_uniform_shift_pct': round((bu - bc) / bu * 100, 2) if bc is not None and bu else None,
+        'verdict': _verdict(bc, bb, sn),
         'reliability': reliability(cond),
     }
 
@@ -116,7 +158,12 @@ def close_open_calls(ledger, actuals, session_date):
                 base_pairs.append((c['p_base'] / 100, y))
     ledger['active'] = still_open
     bc, bb = brier(scored_pairs), brier(base_pairs)
+    sn = shift_null(scored_pairs, base_pairs)
+    bu = (sn or {}).get('brier_uniform_shift')
     return {
+        'shift_null': sn,
+        'skill_vs_uniform_shift_pct': round((bu - bc) / bu * 100, 2) if bc is not None and bu else None,
+        'verdict': _verdict(bc, bb, sn),
         'closed': len(closed),
         'still_open': len(still_open),
         'touched': sum(1 for c in closed if c['status'] == 'touched'),

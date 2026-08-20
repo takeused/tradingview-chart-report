@@ -49,9 +49,23 @@ def main():
     for kw, label in (('120봉', 'ATR 120봉 규격'),
                       ('model_inputs', '모델 입력 기록 규칙'),
                       ('가장 좁은', '존 동점 규칙'),
-                      ('1σ 이상 움직였으면', '라인 이월 유효성 규칙')):
+                      ('1σ 이상 움직였으면', '라인 이월 유효성 규칙'),
+                      # 2026-08-20 감사 산물 — 한쪽만 적혀 있으면 다음 세션이 규칙을 모른다
+                      ('line_provenance', '라인 출처 기록 규칙'),
+                      ('일괄이동 귀무모형', '일괄이동 귀무모형 판정 규칙'),
+                      ('check_report.py', '리포트-데이터 대조 단계')):
         need(kw in skill, '%s 가 SKILL.md 에 없다' % label)
         need(kw in method, '%s 가 실행방법.md 에 없다' % label)
+
+    # 4-b) 코드가 실제로 그 규칙을 구현하고 있는가 — 문서만 고치고 코드를 안 고치는 반대 드리프트
+    val = read(os.path.join(ROOT, 'scripts', 'validate_predictions.py'))
+    sc = read(os.path.join(ROOT, 'scripts', 'score_touch.py'))
+    need('line_provenance' in val, 'validate_predictions.py 에 라인 이월 검사가 없다')
+    need('MIN_ATR_BARS' in val, 'validate_predictions.py 에 ATR 창 검사가 없다')
+    need('MIN_LINE_SIGMA' in val, 'validate_predictions.py 에 라인 0.5σ 하한 검사가 없다')
+    need('shift_null' in sc, 'score_touch.py 에 일괄이동 귀무모형이 없다')
+    need(os.path.exists(os.path.join(ROOT, 'scripts', 'check_report.py')),
+         'scripts/check_report.py 가 없다')
 
     # 5) 구 규격에 폐기 표시가 붙어 있어야 한다
     need('⛔' in method and '최소 120봉' in method, '실행방법.md 의 구 ATR(60봉) 규격에 폐기 표시가 없다')
