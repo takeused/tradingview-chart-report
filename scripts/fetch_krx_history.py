@@ -25,6 +25,12 @@
 #   장기 무거래(--stale-weeks 주 이상, 기본 12) 종목은 폐지·거래정지로 보고 건너뛴다.
 #
 #   --out data/panel_weekly_krx15.csv 로 다른 패널 파일에 받을 수 있다(표본 기간별 병행 보관).
+#
+#   python scripts/fetch_krx_history.py --backfill --from 2010-01-01 --out data/panel_weekly_krx15.csv
+#   과거 채우기 — FDR 은 종목당 **최근 3,000봉**만 준다(2010~2013 을 요청하면 0행이 온다).
+#   그래서 그 앞 구간만 네이버 시세 API 에서 받아 앞에 붙인다. 두 소스는 겹친 구간
+#   150개 주봉에서 OHLCV 가 완전히 일치함을 확인했다(수정주가 기준 동일).
+#   FDR 의 첫 주봉은 주중에 시작해 미완성일 수 있으므로 네이버 값으로 덮어쓴다.
 
 import csv, os, sys, time
 from datetime import datetime, timedelta
@@ -60,6 +66,86 @@ def universe(d_from, d_to):
         seen.add(code)
         out.append((code, mkt))
     return out, len(live), len(dead)
+
+
+NAVER = 'https://api.finance.naver.com/siseJson.naver'
+NAVER_H = {'User-Agent': 'Mozilla/5.0', 'Referer': 'https://finance.naver.com/'}
+
+
+def naver_weekly(code, mkt, d_from, d_to):
+    """네이버 시세 API 일봉 → 금요일 마감 주봉. FDR 이 못 주는 과거 구간용."""
+    import json, re, requests, pandas as pd
+
+    r = requests.get(NAVER, params={'symbol': code, 'requestType': '1',
+                                    'startTime': d_from.replace('-', ''),
+                                    'endTime': d_to.replace('-', ''), 'timeframe': 'day'},
+                     headers=NAVER_H, timeout=20)
+    rows = [x for x in json.loads(re.sub(r"'", '"', r.text.strip()))[1:] if isinstance(x[0], str)]
+    if not rows:
+        return []
+    df = pd.DataFrame(rows, columns=['date', 'Open', 'High', 'Low', 'Close', 'Volume', 'fx'])
+    df['date'] = pd.to_datetime(df['date'])
+    df = df.set_index('date')
+    wk = df.resample('W-FRI').agg({'Open': 'first', 'High': 'max', 'Low': 'min',
+                                   'Close': 'last', 'Volume': 'sum'}).dropna()
+    return [[code, mkt, ts.strftime('%Y-%m-%d'),
+             int(r.Open), int(r.High), int(r.Low), int(r.Close), int(r.Volume)]
+            for ts, r in wk.iterrows()]
+
+
+def backfill(d_from):
+    """패널 앞쪽 빈 구간을 네이버에서 받아 채운다."""
+    if not os.path.exists(OUT):
+        print('패널이 없다. 먼저 전체 수집을 돌려라.', file=sys.stderr)
+        return 1
+
+    rows, first, mkt_of = [], {}, {}
+    with open(OUT, encoding='utf-8') as f:
+        for r in csv.DictReader(f):
+            rows.append([r[k] for k in HDR])
+            if r['date'] < first.get(r['code'], '9999'):
+                first[r['code']] = r['date']
+            mkt_of[r['code']] = r['mkt']
+
+    # 이미 시작일 부근부터 있는 종목은 채울 게 없다(2주 여유)
+    edge = (datetime.strptime(d_from, '%Y-%m-%d') + timedelta(days=14)).strftime('%Y-%m-%d')
+    todo = sorted(c for c, d in first.items() if d > edge)
+    print('패널 %d행 · %d종목 · 채울대상 %d (%s 이후 시작)'
+          % (len(rows), len(first), len(todo), edge), flush=True)
+
+    add, ok, empty, err = {}, 0, 0, 0
+    t0 = time.time()
+    for i, code in enumerate(todo, 1):
+        try:
+            # 이어 붙이는 주(FDR 첫 주봉)는 미완성일 수 있으므로 네이버 값으로 덮어쓴다
+            got = [r for r in naver_weekly(code, mkt_of[code], d_from, first[code])
+                   if r[2] <= first[code]]
+            if got:
+                add[code] = got
+                ok += 1
+            else:
+                empty += 1
+        except Exception:
+            err += 1
+        if i % 100 == 0:
+            el = time.time() - t0
+            print('  %d/%d · 채움 %d · 없음 %d · 실패 %d · %.0f초 경과 · 남은 예상 %.0f분'
+                  % (i, len(todo), ok, empty, err, el, (el / i) * (len(todo) - i) / 60), flush=True)
+
+    kept = [r for r in rows if not (r[0] in add and r[2] <= first[r[0]])]
+    out = kept + [r for code in add for r in add[code]]
+    out.sort(key=lambda r: (r[0], r[2]))
+
+    tmp = OUT + '.tmp'
+    with open(tmp, 'w', encoding='utf-8', newline='') as f:
+        w = csv.writer(f)
+        w.writerow(HDR)
+        w.writerows(out)
+    os.replace(tmp, OUT)
+
+    print('채우기 완료 — %d종목 · %d행 늘어 총 %d행 · 과거없음 %d · 실패 %d'
+          % (len(add), len(out) - len(rows), len(out), empty, err))
+    return 0
 
 
 def done_codes(path):
@@ -147,6 +233,8 @@ def main():
     if '--update' in sys.argv:
         sw = int(sys.argv[sys.argv.index('--stale-weeks') + 1]) if '--stale-weeks' in sys.argv else 12
         return update(d_to, sw)
+    if '--backfill' in sys.argv:
+        return backfill(d_from)
     import FinanceDataReader as fdr
 
     uni, n_live, n_dead = universe(d_from, d_to)
