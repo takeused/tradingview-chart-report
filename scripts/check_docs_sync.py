@@ -121,6 +121,13 @@ def main():
                       ('MIN_WEEK_BARS', '주봉 ATR 창 규칙')):
         need(kw in skill, '%s 가 SKILL.md 에 없다' % label)
         need(kw in method, '%s 가 실행방법.md 에 없다' % label)
+    # 금요일 규칙은 문서 '앞부분'에 있어야 한다 — 뒤쪽 절에만 있으면 거기까지 읽어야 알게 된다
+    HEAD_CHARS = 2500
+    need('금요일' in skill[:HEAD_CHARS],
+         'SKILL.md 앞부분(무엇을 하는가·언제 쓰는가)에 금요일 주봉 분기가 없다')
+    need('금요일' in method[:HEAD_CHARS],
+         '실행방법.md 앞부분(TL;DR)에 금요일 주봉 분기가 없다')
+
     val_w = read(os.path.join(ROOT, 'scripts', 'validate_predictions.py'))
     need('check_weekly' in val_w, 'validate_predictions.py 에 주봉 검사가 없다')
     need('horizon_weeks' in val_w, 'validate_predictions.py 에 주봉 원장 오염 검사가 없다')
