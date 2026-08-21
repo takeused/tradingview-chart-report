@@ -17,8 +17,15 @@
 # 사용법
 #   python scripts/fetch_krx_history.py [--from 2020-10-01] [--to 2026-08-21]
 #   중단돼도 다시 돌리면 이미 받은 종목은 건너뛴다(재개 가능).
+#
+#   python scripts/fetch_krx_history.py --update --to 2026-08-28
+#   갱신 모드 — 종목별 마지막 주 이후만 받아 이어 붙인다. 전진 추적(원장 pending 승격)에
+#   매주 필요하다. 기본 모드는 이미 받은 종목을 통째로 건너뛰므로 새 주가 한 줄도 안 붙는다.
+#   마지막 주봉은 미완성 주였을 수 있으므로 **다시 받아 덮어쓴다**.
+#   장기 무거래(--stale-weeks 주 이상, 기본 12) 종목은 폐지·거래정지로 보고 건너뛴다.
 
 import csv, os, sys, time
+from datetime import datetime, timedelta
 
 FROM, TO = '2020-10-01', '2026-08-21'
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'panel_weekly_krx.csv')
@@ -60,9 +67,81 @@ def done_codes(path):
         return {r['code'] for r in csv.DictReader(f)}
 
 
+def weekly_rows(fdr, code, mkt, d_from, d_to):
+    """일봉을 받아 금요일 마감 주봉으로 재표본한 행 목록."""
+    df = fdr.DataReader(code, d_from, d_to)
+    if df is None or df.empty:
+        return []
+    wk = df.resample('W-FRI').agg({'Open': 'first', 'High': 'max', 'Low': 'min',
+                                   'Close': 'last', 'Volume': 'sum'}).dropna()
+    return [[code, mkt, ts.strftime('%Y-%m-%d'),
+             int(r.Open), int(r.High), int(r.Low), int(r.Close), int(r.Volume)]
+            for ts, r in wk.iterrows()]
+
+
+def update(d_to, stale_weeks):
+    """종목별 마지막 주 이후만 받아 패널을 다시 쓴다."""
+    import FinanceDataReader as fdr
+
+    if not os.path.exists(OUT):
+        print('패널이 없다. 갱신 모드 대신 전체 수집으로 돌려라.', file=sys.stderr)
+        return 1
+
+    rows, last, mkt_of = [], {}, {}
+    with open(OUT, encoding='utf-8') as f:
+        for r in csv.DictReader(f):
+            rows.append([r[k] for k in HDR])
+            if r['date'] > last.get(r['code'], ''):
+                last[r['code']] = r['date']
+            mkt_of[r['code']] = r['mkt']
+
+    cut = (datetime.strptime(d_to, '%Y-%m-%d') - timedelta(weeks=stale_weeks)).strftime('%Y-%m-%d')
+    todo = sorted(c for c, d in last.items() if d >= cut and d < d_to)
+    stale = len(last) - len(todo) - sum(1 for d in last.values() if d >= d_to)
+    print('패널 %d행 · %d종목 · 갱신대상 %d · 무거래건너뜀 %d (기준 %s 이전)'
+          % (len(rows), len(last), len(todo), stale, cut), flush=True)
+
+    add, ok, err = {}, 0, 0
+    t0 = time.time()
+    for i, code in enumerate(todo, 1):
+        # 마지막 주봉은 미완성이었을 수 있으므로 그 주 월요일부터 다시 받는다
+        start = (datetime.strptime(last[code], '%Y-%m-%d') - timedelta(days=6)).strftime('%Y-%m-%d')
+        try:
+            got = [r for r in weekly_rows(fdr, code, mkt_of[code], start, d_to)
+                   if r[2] >= last[code]]
+            if got:
+                add[code] = got
+                ok += 1
+        except Exception:
+            err += 1
+        if i % 100 == 0:
+            el = time.time() - t0
+            print('  %d/%d · 갱신 %d · 실패 %d · %.0f초 경과 · 남은 예상 %.0f분'
+                  % (i, len(todo), ok, err, el, (el / i) * (len(todo) - i) / 60), flush=True)
+
+    kept = [r for r in rows if not (r[0] in add and r[2] >= last[r[0]])]
+    out = kept + [r for code in add for r in add[code]]
+    out.sort(key=lambda r: (r[0], r[2]))
+
+    tmp = OUT + '.tmp'
+    with open(tmp, 'w', encoding='utf-8', newline='') as f:
+        w = csv.writer(f)
+        w.writerow(HDR)
+        w.writerows(out)
+    os.replace(tmp, OUT)
+
+    added = len(out) - len(kept)
+    print('갱신 완료 — %d종목 · 새 주봉 %d행(마지막 주 재수집 포함) · 총 %d행 · 실패 %d'
+          % (len(add), added, len(out), err))
+    return 0
+
+
 def main():
     d_from = sys.argv[sys.argv.index('--from') + 1] if '--from' in sys.argv else FROM
     d_to = sys.argv[sys.argv.index('--to') + 1] if '--to' in sys.argv else TO
+    if '--update' in sys.argv:
+        sw = int(sys.argv[sys.argv.index('--stale-weeks') + 1]) if '--stale-weeks' in sys.argv else 12
+        return update(d_to, sw)
     import FinanceDataReader as fdr
 
     uni, n_live, n_dead = universe(d_from, d_to)
@@ -81,17 +160,12 @@ def main():
     t0 = time.time()
     for i, (code, mkt) in enumerate(todo, 1):
         try:
-            df = fdr.DataReader(code, d_from, d_to)
-            if df is None or df.empty:
-                err += 1
-            else:
-                # 주봉으로 재표본 — 금요일 마감 기준
-                wk = df.resample('W-FRI').agg({'Open': 'first', 'High': 'max', 'Low': 'min',
-                                               'Close': 'last', 'Volume': 'sum'}).dropna()
-                for ts, r in wk.iterrows():
-                    w.writerow([code, mkt, ts.strftime('%Y-%m-%d'),
-                                int(r.Open), int(r.High), int(r.Low), int(r.Close), int(r.Volume)])
+            got = weekly_rows(fdr, code, mkt, d_from, d_to)
+            if got:
+                w.writerows(got)
                 ok += 1
+            else:
+                err += 1
         except Exception:
             err += 1
         if i % 100 == 0:
