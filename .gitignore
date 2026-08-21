@@ -8,3 +8,8 @@
 !/scripts/
 .wrangler/
 __pycache__/
+
+# 원시 OHLCV 패널은 추적하지 않는다 — 원격이 PUBLIC 이고(데이터 재배포 문제),
+# scripts/collect_panel_daily.md 절차로 언제든 재생성된다. 집계 결과만 커밋한다.
+/data/panel_daily.csv
+/data/panel_*.csv

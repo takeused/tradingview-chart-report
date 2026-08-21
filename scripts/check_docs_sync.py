@@ -128,6 +128,19 @@ def main():
     need('금요일' in method[:HEAD_CHARS],
          '실행방법.md 앞부분(TL;DR)에 금요일 주봉 분기가 없다')
 
+    # 제1원칙 — 목적함수가 흐려지면 다시 Brier 를 최적화하게 된다
+    need('제1원칙' in skill[:HEAD_CHARS], 'SKILL.md 앞부분에 제1원칙(돈을 버는 것)이 없다')
+    need('제1원칙' in method[:HEAD_CHARS], '실행방법.md 앞부분에 제1원칙이 없다')
+    for kw in ('벤치마크', '비용'):
+        need(kw in skill[:HEAD_CHARS], 'SKILL.md 앞부분에 %s 판정 기준이 없다' % kw)
+    for f in ('backtest.py', 'paper_ledger.py', 'panel_io.py', 'cdp_fetch.py'):
+        need(os.path.exists(os.path.join(ROOT, 'scripts', f)), 'scripts/%s 가 없다' % f)
+    bt = read(os.path.join(ROOT, 'scripts', 'backtest.py'))
+    need('ret_oo' in read(os.path.join(ROOT, 'scripts', 'panel_io.py')),
+         'panel_io.py 에 익일 시가 진입(ret_oo) 이 없다 — 룩어헤드 차단 장치')
+    need('bh_reject' in bt, 'backtest.py 에 다중검정 보정이 없다')
+    need('bench' in bt, 'backtest.py 에 벤치마크 차감이 없다')
+
     val_w = read(os.path.join(ROOT, 'scripts', 'validate_predictions.py'))
     need('check_weekly' in val_w, 'validate_predictions.py 에 주봉 검사가 없다')
     need('horizon_weeks' in val_w, 'validate_predictions.py 에 주봉 원장 오염 검사가 없다')
