@@ -134,9 +134,21 @@ def regime_of(P, t, back):
     강세장에서만 사는 규칙은 팩터가 아니라 베타다. 국면을 안 쪼개면 그걸 구별할 수 없다.
     """
     cl = P.c.get('KOSPI')
-    if cl is None or t - back < 0 or cl[t] is None or cl[t - back] is None:
-        return None
-    r = (cl[t] / cl[t - back] - 1) * 100
+    if cl is not None and t - back >= 0 and cl[t] is not None and cl[t - back] is not None:
+        r = (cl[t] / cl[t - back] - 1) * 100
+    else:
+        # 지수가 없는 패널(FDR 등)은 전 종목 동일가중 수익률로 대신한다.
+        # 없으면 국면 칸이 조용히 비어 버려서 '국면을 봤다'고 착각하게 된다.
+        if t - back < 0:
+            return None
+        rs = []
+        for c in P.stocks:
+            a, b = P.c[c][t - back], P.c[c][t]
+            if a and b:
+                rs.append(b / a - 1)
+        if len(rs) < 20:
+            return None
+        r = sum(rs) / len(rs) * 100
     return '강세' if r > REGIME_BAND else ('약세' if r < -REGIME_BAND else '횡보')
 
 

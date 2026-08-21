@@ -11,6 +11,7 @@
 # 사용법
 #   python scripts/paper_ledger.py open <positions.json> --date YYYY-MM-DD [--panel weekly]
 #   python scripts/paper_ledger.py mark [--date YYYY-MM-DD] [--panel weekly]
+#   python scripts/paper_ledger.py cancel --reason "사유" [--strategy 이름]
 #   python scripts/paper_ledger.py report
 #
 #   신호 다음 봉이 아직 없으면 pending 으로 남고, 패널 갱신 후 mark 에서 진입가가 채워진다.
@@ -222,13 +223,37 @@ def cmd_report(_args):
           % a['win_pct'])
 
 
+def cmd_cancel(args):
+    """미진입(pending) 건을 사유와 함께 취소한다.
+
+    가설을 기록해 놓고 진입 전에 그 가설이 깨지는 일이 있다. 조용히 지우면 원장이
+    '맞은 것만 남는' 기록이 된다. 취소 사유를 남겨 둔다.
+    """
+    strat = args[args.index('--strategy') + 1] if '--strategy' in args else None
+    why = args[args.index('--reason') + 1] if '--reason' in args else ''
+    if not why:
+        raise SystemExit('--reason "취소 사유" 가 필요하다')
+    d = load()
+    n = 0
+    for tr in d['trades']:
+        if tr['status'] != 'pending':
+            continue
+        if strat and tr['strategy'] != strat:
+            continue
+        tr.update(status='cancelled', cancel_reason=why)
+        n += 1
+    save(d)
+    print('취소 %d건 — %s' % (n, why))
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__ or '')
         print('usage: paper_ledger.py open|mark|report ...')
         sys.exit(1)
     cmd, args = sys.argv[1], sys.argv[2:]
-    {'open': cmd_open, 'mark': cmd_mark, 'report': cmd_report}[cmd](args)
+    {'open': cmd_open, 'mark': cmd_mark, 'report': cmd_report,
+     'cancel': cmd_cancel}[cmd](args)
 
 
 if __name__ == '__main__':

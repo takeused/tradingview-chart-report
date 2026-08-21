@@ -1,0 +1,108 @@
+# KRX 전 종목(상장폐지 포함) 주봉 패널을 만든다 — 시점별(point-in-time) 검정용
+#
+# 왜 있나 (2026-08-22): TradingView 스크리너로 만든 유니버스는 **오늘 기준 시총 상위**라
+#   과거 구간에 두 가지 편향이 있다.
+#     (a) 생존편향 — 그 사이 상장폐지된 종목이 통째로 빠져 있다
+#     (b) 유니버스 룩어헤드 — 그동안 커진 종목이 처음부터 목록에 들어가 있다
+#   둘 다 **모멘텀(과거 상승 종목 매수)** 검정에는 가짜 수익을 만드는 방향이다.
+#   여기서 무너지면 지금까지의 모멘텀 결과를 폐기해야 하므로, 다른 걸 더 쌓기 전에 확인한다.
+#
+# 어떻게 푸는가
+#   - FinanceDataReader 로 **현재 상장 주권 + 검정 구간에 폐지된 주권**을 모두 받는다.
+#     (pykrx 는 2026 기준 KRX 계정 로그인을 요구해서 쓰지 않는다)
+#   - 유니버스는 시총이 아니라 **직전 12주 평균 거래대금 상위 N** 으로 정의한다.
+#     과거 시점의 상장주식수를 못 구해 시총을 시점별로 재구성하기 어렵고,
+#     거래대금은 관측값만으로 계산되며 매매 가능성(비용)과도 직결된다.
+#
+# 사용법
+#   python scripts/fetch_krx_history.py [--from 2020-10-01] [--to 2026-08-21]
+#   중단돼도 다시 돌리면 이미 받은 종목은 건너뛴다(재개 가능).
+
+import csv, os, sys, time
+
+FROM, TO = '2020-10-01', '2026-08-21'
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'panel_weekly_krx.csv')
+HDR = ['code', 'mkt', 'date', 'open', 'high', 'low', 'close', 'volume']
+
+
+def universe(d_from, d_to):
+    """검정 구간에 한 번이라도 상장돼 있던 보통주 목록."""
+    import pandas as pd
+    import FinanceDataReader as fdr
+
+    cur = fdr.StockListing('KRX')
+    cur = cur[cur['Market'].isin(['KOSPI', 'KOSDAQ'])]
+    cur = cur[cur['Code'].str.endswith('0')]                 # 우선주 제외
+    cur = cur[~cur['Name'].str.contains('스팩', na=False)]
+    live = [(r.Code, r.Market) for r in cur.itertuples()]
+
+    de = fdr.StockListing('KRX-DELISTING')
+    de['DelistingDate'] = pd.to_datetime(de['DelistingDate'], errors='coerce')
+    de = de[(de['SecuGroup'] == '주권') & de['Market'].isin(['KOSPI', 'KOSDAQ'])]
+    de = de[(de['DelistingDate'] >= d_from) & (de['DelistingDate'] <= d_to)]
+    de = de[de['Symbol'].str.endswith('0')]
+    de = de[~de['Name'].str.contains('스팩', na=False)]
+    dead = [(r.Symbol, r.Market) for r in de.itertuples()]
+
+    seen, out = set(), []
+    for code, mkt in live + dead:
+        if code in seen:
+            continue
+        seen.add(code)
+        out.append((code, mkt))
+    return out, len(live), len(dead)
+
+
+def done_codes(path):
+    if not os.path.exists(path):
+        return set()
+    with open(path, encoding='utf-8') as f:
+        return {r['code'] for r in csv.DictReader(f)}
+
+
+def main():
+    d_from = sys.argv[sys.argv.index('--from') + 1] if '--from' in sys.argv else FROM
+    d_to = sys.argv[sys.argv.index('--to') + 1] if '--to' in sys.argv else TO
+    import FinanceDataReader as fdr
+
+    uni, n_live, n_dead = universe(d_from, d_to)
+    have = done_codes(OUT)
+    todo = [(c, m) for c, m in uni if c not in have]
+    print('유니버스 %d종목 (현재상장 %d + 구간내폐지 %d) · 이미받음 %d · 받을것 %d'
+          % (len(uni), n_live, n_dead, len(have), len(todo)), flush=True)
+
+    new = not os.path.exists(OUT)
+    f = open(OUT, 'a', encoding='utf-8', newline='')
+    w = csv.writer(f)
+    if new:
+        w.writerow(HDR)
+
+    ok = err = 0
+    t0 = time.time()
+    for i, (code, mkt) in enumerate(todo, 1):
+        try:
+            df = fdr.DataReader(code, d_from, d_to)
+            if df is None or df.empty:
+                err += 1
+            else:
+                # 주봉으로 재표본 — 금요일 마감 기준
+                wk = df.resample('W-FRI').agg({'Open': 'first', 'High': 'max', 'Low': 'min',
+                                               'Close': 'last', 'Volume': 'sum'}).dropna()
+                for ts, r in wk.iterrows():
+                    w.writerow([code, mkt, ts.strftime('%Y-%m-%d'),
+                                int(r.Open), int(r.High), int(r.Low), int(r.Close), int(r.Volume)])
+                ok += 1
+        except Exception:
+            err += 1
+        if i % 100 == 0:
+            f.flush()
+            el = time.time() - t0
+            print('  %d/%d · 성공 %d · 실패 %d · %.0f초 경과 · 남은 예상 %.0f분'
+                  % (i, len(todo), ok, err, el, (el / i) * (len(todo) - i) / 60), flush=True)
+    f.close()
+    print('완료 — 성공 %d · 실패 %d · %s' % (ok, err, OUT))
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

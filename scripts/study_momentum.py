@@ -10,6 +10,13 @@
 #      롱온리는 동일가중 보유 벤치마크 대비 초과로 본다(1다리 비용).
 #   2) **국면별** — 강세장에서만 사는 것은 팩터가 아니라 베타다.
 #   3) **격자 전체의 분포** — 한 칸만 좋고 이웃 칸이 나쁘면 그건 잡음이다.
+#   4-b) **시점별 유니버스** (`--pit N`, 2026-08-22 추가) — 이게 진짜 해답이다.
+#      매 리밸런싱 시점에 **그때 살아 있던 종목** 중 직전 12주 평균 거래대금 상위 N 을
+#      유니버스로 잡는다. 상장폐지 종목이 그 시점까지는 포함되고, 나중에 커진 종목이
+#      미리 들어오지도 않는다. `data/panel_weekly_krx.csv`(FDR, 폐지 포함)와 함께 쓴다.
+#      시총 대신 거래대금을 쓰는 이유 — 과거 시점의 상장주식수를 구하기 어렵고,
+#      거래대금은 관측값만으로 계산되며 매매 가능성(비용)과도 직결된다.
+#
 #   4) **시총 계층 진단** (2026-08-22 추가) — 유니버스가 '오늘 기준' 시총 상위라
 #      과거 구간에는 룩어헤드가 있다. 그동안 커진 종목이 처음부터 목록에 있는 것이고,
 #      하필 모멘텀 검정에는 가짜 수익을 만드는 최악의 조합이다.
@@ -17,7 +24,7 @@
 #      상위 계층(메가캡, 편출입이 드묾)에서도 살아 있어야 신호로 본다.
 #
 # 사용법
-#   python scripts/study_momentum.py [--cost 0.28] [--panel weekly_top300]
+#   python scripts/study_momentum.py [--cost 0.28] [--panel weekly_krx] [--pit 300]
 
 import os, sys
 
@@ -43,19 +50,50 @@ def _spread(P, t, sc, K, rs, bm):
     return mt - mb, mt - bm
 
 
-def run_grid(P, spec, cost, fracs=FRACS, universe=None):
-    """universe 를 주면 그 종목만 쓴다(시총 계층 진단용)."""
+PIT_LIQ_WEEKS = 12       # 유니버스 선정에 쓰는 거래대금 평균 창(주)
+
+
+def pit_universe(P, t, top_n):
+    """t 시점에 살아 있던 종목 중 직전 12주 평균 거래대금 상위 N.
+
+    '살아 있다' 는 t 시점에 종가와 거래량이 있다는 뜻이다. 나중에 폐지된 종목도
+    그때까지는 포함되고(생존편향 제거), 나중에 커진 종목이 미리 들어오지도 않는다.
+    """
+    out = []
+    for c in P.stocks:
+        cl, vo = P.c[c], P.v[c]
+        if t >= P.T or cl[t] is None or vo[t] is None:
+            continue
+        vals = [cl[k] * vo[k] for k in range(max(0, t - PIT_LIQ_WEEKS), t)
+                if cl[k] is not None and vo[k] is not None]
+        if len(vals) < PIT_LIQ_WEEKS * 0.7:
+            continue
+        out.append((c, sum(vals) / len(vals)))
+    out.sort(key=lambda x: -x[1])
+    return {c for c, _ in out[:top_n]}
+
+
+def run_grid(P, spec, cost, fracs=FRACS, universe=None, pit_top=None):
+    """universe 를 주면 그 종목만 쓴다(시총 계층 진단용).
+    pit_top 을 주면 매 시점 거래대금 상위 N 으로 유니버스를 다시 잡는다(시점별)."""
     RB = spec['regime_back']
     stocks = [c for c in P.stocks if (universe is None or c in universe)]
     rows = []
+    pit_cache = {}
     for back in LOOKBACKS:
         for fr in fracs:
-            K = max(3, int(round(len(stocks) * fr)))
+            K = max(3, int(round((pit_top or len(stocks)) * fr)))
             ls, lo = [], []
             reg_ls, reg_lo = {}, {}
             warm = max(spec['warmup'], back + SKIP + 2)
             for t in range(warm, P.T - HORIZON - 2, HORIZON):
-                sc = [(c, _mom(P, c, t, back, SKIP)) for c in stocks]
+                if pit_top:
+                    if t not in pit_cache:
+                        pit_cache[t] = pit_universe(P, t, pit_top)
+                    pool = [c for c in stocks if c in pit_cache[t]]
+                else:
+                    pool = stocks
+                sc = [(c, _mom(P, c, t, back, SKIP)) for c in pool]
                 sc = [x for x in sc if x[1] is not None]
                 if len(sc) < max(20, 3 * K):
                     continue
@@ -106,11 +144,12 @@ def main():
     if '--cost' in sys.argv:
         cost = float(sys.argv[sys.argv.index('--cost') + 1])
     which = sys.argv[sys.argv.index('--panel') + 1] if '--panel' in sys.argv else 'weekly'
+    pit = int(sys.argv[sys.argv.index('--pit') + 1]) if '--pit' in sys.argv else None
     spec = PANELS['weekly']
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data',
                         'panel_%s.csv' % which)
     P = panel_io.load(path)
-    rows = run_grid(P, spec, cost)
+    rows = run_grid(P, spec, cost, pit_top=pit)
     if not rows:
         print('격자에서 유효한 조합이 없다.')
         return 1
@@ -120,6 +159,11 @@ def main():
 
     print('횡단면 모멘텀 강건성 — 패널 %s · %d주 · 종목 %d · 월간(%d주) · 왕복비용 %.2f%%'
           % (which, P.T, len(P.stocks), HORIZON, cost))
+    if pit:
+        print('**시점별 유니버스** — 매 시점 직전 %d주 거래대금 상위 %d종목 '
+              '(상장폐지 종목 포함, 유니버스 룩어헤드 없음)' % (PIT_LIQ_WEEKS, pit))
+    else:
+        print('※ 고정 유니버스 — 오늘 기준 목록이라 과거 구간에 룩어헤드가 있다(--pit 로 해소)')
     print('격자: 되돌아보기 %s주 x 분위비율 %s (스킵 %d주 고정) — 사전 지정, 사후 조정 없음'
           % (LOOKBACKS, FRACS, SKIP))
     print('')
@@ -148,7 +192,7 @@ def main():
 
     # ── 시총 계층 진단 (유니버스 룩어헤드) ──
     tiers = load_tiers()
-    if tiers and len(P.stocks) > 100:
+    if tiers and len(P.stocks) > 100 and not pit:
         print('\n시총 계층 진단 — 유니버스 룩어헤드가 원인이면 하위 계층에서 효과가 커진다')
         print('%-12s %5s | %10s %6s | %s' % ('계층', '종목', '롱온리비용차감', 't', '국면별'))
         for lo_r, hi_r in TIERS:
