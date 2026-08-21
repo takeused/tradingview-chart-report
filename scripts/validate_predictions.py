@@ -204,6 +204,122 @@ def check_entry(e, ledger, strict_ledger=True):
     return err, warn
 
 
+MIN_WEEK_BARS = tm.MIN_WEEK_BARS   # 주봉 ATR 창 하한 — 모듈이 진실
+
+
+def check_weekly(e, ledger):
+    """주봉 회차 검사. 일봉과 규격이 다른 곳(주 단위 만기·주봉 표·거래량 무효)을 따로 본다."""
+    err, warn = [], []
+    tag = e['asof']
+    lv = 0
+
+    for it in e['items']:
+        nm = '%s(주봉) %s' % (tag, it.get('name', it['code']))
+        mi = it.get('model_inputs') or {}
+        wb = mi.get('watr_bars')
+        short = wb is not None and wb < MIN_WEEK_BARS
+
+        if wb is None:
+            err.append('%s — model_inputs.watr_bars 없음 (ATR 창 검증 불가)' % nm)
+        if short and not it.get('atr_insufficient'):
+            err.append('%s — 주봉 %s개(<%d)인데 atr_insufficient 표시가 없다' % (nm, wb, MIN_WEEK_BARS))
+        if short and (it.get('p_touch') or it.get('p_probe')):
+            err.append('%s — ATR 창이 짧은데 확률이 매겨져 있다 (표와 자가 어긋난다)' % nm)
+        if not short and not it.get('p_probe'):
+            err.append('%s — p_probe 없음 (채점 집합에서 누락된다)' % nm)
+
+        h = tm.horizon_weeks(it.get('horizon'))
+        sg = it.get('sigma') or [None, None]
+        pt = it.get('p_touch') or {}
+
+        for i, (dirn, fld) in enumerate((('up', 'resist'), ('dn', 'support'))):
+            blk = pt.get(dirn)
+            if blk is None:
+                continue
+            if it.get(fld) is None:
+                err.append('%s — p_touch.%s 있는데 %s 가 null (채점 불가)' % (nm, dirn, fld))
+            if blk.get('p') is None or blk.get('p_base') is None:
+                err.append('%s — p_touch.%s 에 p/p_base 짝이 없다' % (nm, dirn))
+            if blk.get('horizon_weeks') != h:
+                err.append('%s — p_touch.%s horizon_weeks %s != item horizon %s(%d주)'
+                           % (nm, dirn, blk.get('horizon_weeks'), it.get('horizon'), h))
+            exp = tm.base_p_w(blk.get('dist_sigma'), dirn, h)
+            if exp is not None and blk.get('p_base') is not None and abs(exp - blk['p_base']) > 0.15:
+                err.append('%s — p_base %s != 주봉표 %s' % (nm, blk['p_base'], exp))
+            rep = tm.cond_p_w(blk.get('dist_sigma'), dirn, mi.get('wrngatr'), mi.get('watrpct'), h)
+            if rep is not None and blk.get('p') is not None and abs(rep - blk['p']) > 0.15:
+                err.append('%s — p %s 가 저장된 입력으로 재현되지 않는다(계산 %s)' % (nm, blk['p'], rep))
+
+            lvl, cl, atr, ds = it.get(fld), it.get('close'), it.get('atr'), blk.get('dist_sigma')
+            if None not in (lvl, cl, atr, ds) and atr:
+                signed = (lvl - cl) / atr if dirn == 'up' else (cl - lvl) / atr
+                if signed < 0:
+                    err.append('%s — %s 가 종가의 반대쪽에 있다' % (nm, fld))
+                elif abs(signed - ds) > SIG_TOL:
+                    err.append('%s — dist_sigma %.2f != (레벨-종가)/주봉ATR %.3f' % (nm, ds, signed))
+                if isinstance(sg[i], (int, float)) and abs(sg[i] - ds) > SIG_TOL:
+                    err.append('%s — sigma[%d]=%s 가 p_touch.%s 와 다르다' % (nm, i, sg[i], dirn))
+
+            src = blk.get('src')
+            if src is None:
+                err.append('%s — p_touch.%s 에 src 없음' % (nm, dirn))
+            if ds is not None and ds > MAX_SIGMA:
+                err.append('%s — %s 거리 %.2f 가 상한 %.1f 초과' % (nm, dirn, ds, MAX_SIGMA))
+            if src == 'line' and ds is not None and ds < MIN_LINE_SIGMA:
+                err.append('%s — 라인인데 %.2f 로 하한 %.1f 미만' % (nm, ds, MIN_LINE_SIGMA))
+
+        pb = it.get('p_probe')
+        if pb:
+            for key, blk in pb.items():
+                for k in ('up', 'dn', 'up_base', 'dn_base', 'up_level', 'dn_level'):
+                    if blk.get(k) is None:
+                        err.append('%s — p_probe[%s].%s 누락' % (nm, key, k))
+                k = {'0p5': 0.5, '1p0': 1.0}.get(key)
+                if k and it.get('close') and it.get('atr'):
+                    for side, want in (('up_level', it['close'] + k * it['atr']),
+                                       ('dn_level', it['close'] - k * it['atr'])):
+                        got = blk.get(side)
+                        if got is not None and abs(got - want) > max(1.0, it['atr'] * 0.005):
+                            err.append('%s — p_probe[%s].%s 가 종가±%.1f주봉ATR 과 다르다'
+                                       % (nm, key, side, k))
+
+        if it.get('prior') is not None and it.get('distance_sigma') is not None \
+                and it['call'] in LEVEL_CALLS:
+            dirn = 'up' if it['call'] == 'up_test' else 'dn'
+            exp = round(tm.base_p_w(it['distance_sigma'], dirn, h))
+            if abs(exp - it['prior']) > 1:
+                err.append('%s — prior %s != 주봉표 %s' % (nm, it['prior'], exp))
+
+        if it['call'] in LEVEL_CALLS and not short:
+            lv += 1
+
+    reg = [c for c in ledger.get('active', []) if c.get('opened') == tag]
+    if len(reg) != lv:
+        err.append('%s(주봉) — 레벨 콜 %d건인데 weekly_calls 등록 %d건' % (tag, lv, len(reg)))
+    by = {it['code']: it for it in e['items']}
+    for c in reg:
+        for k in ('code', 'dir', 'level', 'horizon_weeks', 'p', 'p_base', 'status'):
+            if c.get(k) is None:
+                err.append('%s(주봉) — 원장 %s 에 %s 누락' % (tag, c.get('code'), k))
+        it = by.get(c.get('code'))
+        if it is None:
+            err.append('%s(주봉) — 원장에 로스터 밖 종목 %s' % (tag, c.get('code')))
+            continue
+        blk = (it.get('p_touch') or {}).get(c.get('dir'))
+        if blk is None:
+            err.append('%s(주봉) — 원장 %s %s 에 대응하는 p_touch 없음'
+                       % (tag, it.get('name'), c.get('dir')))
+            continue
+        for k in ('level', 'p', 'p_base'):
+            if c.get(k) != blk.get(k):
+                err.append('%s(주봉) — 원장 %s %s 가 항목과 다르다 (%s / %s)'
+                           % (tag, it.get('name'), k, c.get(k), blk.get(k)))
+        if c.get('horizon_weeks') != blk.get('horizon_weeks'):
+            err.append('%s(주봉) — 원장 %s horizon_weeks 가 항목과 다르다' % (tag, it.get('name')))
+
+    return err, warn
+
+
 def main():
     d = json.load(open(PRED, encoding='utf-8'))
     ledger = d.get('open_calls', {})
@@ -224,6 +340,29 @@ def main():
     # 채점 순서 검사 — 마지막 직전 회차는 채점돼 있어야 한다
     if len(d['entries']) >= 2 and d['entries'][-2].get('scored') is None:
         all_err.append('%s 회차가 채점되지 않은 채 다음 회차가 추가됐다' % d['entries'][-2]['asof'])
+
+    # ── 주봉 회차 ──
+    wled = d.get('weekly_calls', {})
+    wents = d.get('weekly_entries', [])
+    if wents:
+        er, wr = check_weekly(wents[-1], wled)
+        all_err += er
+        all_warn += wr
+        for c in wled.get('active', []):
+            if c.get('weeks_elapsed', 0) > c.get('horizon_weeks', 1):
+                all_err.append('주봉원장 %s — 만기(%d주) 지났는데 open 상태'
+                               % (c.get('code'), c.get('horizon_weeks', 1)))
+        if len(wents) >= 2 and wents[-2].get('scored') is None:
+            all_err.append('%s 주봉 회차가 채점되지 않은 채 다음 주봉 회차가 추가됐다'
+                           % wents[-2]['asof'])
+        # 오염 검사 — 주봉 콜이 일봉 원장에 섞이면 하루마다 만기가 깎여 1~3'일'만에 닫힌다
+        for c in ledger.get('active', []):
+            if 'horizon_weeks' in c:
+                all_err.append('일봉 원장에 주봉 콜(%s)이 섞였다 — 하루마다 만기가 깎인다'
+                               % c.get('code'))
+        for c in wled.get('active', []):
+            if 'horizon_sessions' in c:
+                all_err.append('주봉 원장에 일봉 콜(%s)이 섞였다' % c.get('code'))
 
     print('오류 %d건 · 경고 %d건 (모델 %s)' % (len(all_err), len(all_warn), tm.META['version']))
     for x in all_err:

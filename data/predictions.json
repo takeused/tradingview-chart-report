@@ -2650,5 +2650,1847 @@
    }
   ],
   "_expiry_rule": "sessions_elapsed 가 horizon_sessions 에 도달하면 종결한다. 중간에 레벨에 닿으면 즉시 touched 로 종결. scripts/score_touch.py 가 매 회차 자동 처리한다."
- }
+ },
+ "weekly_calls": {
+  "_readme": "주봉 레벨 콜 원장. 일봉 원장(open_calls)과 분리한 이유는 만기 단위가 다르기 때문이다 — 주봉 콜을 일봉 원장에 넣으면 score_touch.py 가 하루마다 만기를 깎아 1~3\"일\"만에 닫아 버린다.",
+  "_fields": "opened, code, dir, level, dist_sigma, horizon_weeks, weeks_elapsed, p, p_base, status",
+  "_expiry_rule": "weeks_elapsed >= horizon_weeks 이면 종결. 채점은 매주 금요일 1회만 돌린다.",
+  "active": [
+   {
+    "opened": "2026-08-21",
+    "code": "005930",
+    "name": "삼성전자",
+    "dir": "dn",
+    "level": 223000,
+    "dist_sigma": 1.48,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 15.6,
+    "p_base": 16.4,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.05,
+     "watrpct": 14.01
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "000660",
+    "name": "SK하이닉스",
+    "dir": "dn",
+    "level": 1246000,
+    "dist_sigma": 1.47,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 14.7,
+    "p_base": 16.7,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.93,
+     "watrpct": 19.06
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "348210",
+    "name": "넥스틴",
+    "dir": "up",
+    "level": 40350,
+    "dist_sigma": 0.81,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 33.6,
+    "p_base": 42.1,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.61,
+     "watrpct": 27.14
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "402340",
+    "name": "SK스퀘어",
+    "dir": "dn",
+    "level": 768000,
+    "dist_sigma": 1.4,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 17.1,
+    "p_base": 18.8,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.08,
+     "watrpct": 22.53
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "017670",
+    "name": "SK텔레콤",
+    "dir": "dn",
+    "level": 91400,
+    "dist_sigma": 0.79,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 32.7,
+    "p_base": 35.6,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.9,
+     "watrpct": 13.39
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "035420",
+    "name": "NAVER",
+    "dir": "up",
+    "level": 241500,
+    "dist_sigma": 0.69,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 44.5,
+    "p_base": 48.4,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.81,
+     "watrpct": 12.78
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "018260",
+    "name": "삼성에스디에스",
+    "dir": "up",
+    "level": 247500,
+    "dist_sigma": 0.58,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 49.9,
+    "p_base": 55.0,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.75,
+     "watrpct": 14.69
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "093320",
+    "name": "케이아이엔엑스",
+    "dir": "dn",
+    "level": 130500,
+    "dist_sigma": 1.01,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 21.0,
+    "p_base": 24.1,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.71,
+     "watrpct": 11.34
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "105560",
+    "name": "KB금융",
+    "dir": "up",
+    "level": 172500,
+    "dist_sigma": 0.54,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 52.7,
+    "p_base": 57.6,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.59,
+     "watrpct": 9.32
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "086520",
+    "name": "에코프로",
+    "dir": "dn",
+    "level": 71176,
+    "dist_sigma": 0.57,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 40.9,
+    "p_base": 48.8,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.64,
+     "watrpct": 22.79
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "456040",
+    "name": "OCI",
+    "dir": "dn",
+    "level": 72600,
+    "dist_sigma": 0.52,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 42.5,
+    "p_base": 52.5,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.35,
+     "watrpct": 18.07
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "010140",
+    "name": "삼성중공업",
+    "dir": "up",
+    "level": 21807,
+    "dist_sigma": 0.5,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 53.9,
+    "p_base": 60.2,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.65,
+     "watrpct": 15.76
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "352820",
+    "name": "하이브",
+    "dir": "up",
+    "level": 174000,
+    "dist_sigma": 0.2,
+    "horizon_weeks": 1,
+    "expiry_after_weeks": 1,
+    "p": 65.8,
+    "p_base": 74.2,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.54,
+     "watrpct": 18.33
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "012330",
+    "name": "현대모비스",
+    "dir": "dn",
+    "level": 420500,
+    "dist_sigma": 0.94,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 24.3,
+    "p_base": 27.7,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.86,
+     "watrpct": 16.12
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "214150",
+    "name": "클래시스",
+    "dir": "dn",
+    "level": 29350,
+    "dist_sigma": 0.42,
+    "horizon_weeks": 1,
+    "expiry_after_weeks": 1,
+    "p": 41.0,
+    "p_base": 46.4,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.94,
+     "watrpct": 20.58
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "278470",
+    "name": "에이피알",
+    "dir": "dn",
+    "level": 342500,
+    "dist_sigma": 0.85,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 27.4,
+    "p_base": 32.4,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.62,
+     "watrpct": 12.94
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "237690",
+    "name": "에스티팜",
+    "dir": "dn",
+    "level": 89500,
+    "dist_sigma": 0.54,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 51.1,
+    "p_base": 51.0,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.36,
+     "watrpct": 19.12
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "200670",
+    "name": "휴메딕스",
+    "dir": "up",
+    "level": 26950,
+    "dist_sigma": 0.52,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 55.4,
+    "p_base": 58.9,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.89,
+     "watrpct": 14.25
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "119850",
+    "name": "지엔씨에너지",
+    "dir": "dn",
+    "level": 43450,
+    "dist_sigma": 0.55,
+    "horizon_weeks": 2,
+    "expiry_after_weeks": 2,
+    "p": 49.0,
+    "p_base": 50.3,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.21,
+     "watrpct": 18.22
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "267790",
+    "name": "배럴",
+    "dir": "up",
+    "level": 3390,
+    "dist_sigma": 0.16,
+    "horizon_weeks": 1,
+    "expiry_after_weeks": 1,
+    "p": 79.5,
+    "p_base": 78.6,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.22,
+     "watrpct": 10.44
+    }
+   }
+  ]
+ },
+ "weekly_entries": [
+  {
+   "asof": "2026-08-21",
+   "next_week": "2026-08-28",
+   "timeframe": "1W",
+   "model": "v6.1-W",
+   "index": {
+    "KOSPI_wchg": -0.93,
+    "KOSDAQ_wchg": -7.25
+   },
+   "scored": null,
+   "roster_change": "일봉과 같은 22종목.",
+   "_note": "주봉 분석 첫 회차(매주 금요일 규칙 신설). 주봉 확률표를 60종목 유니버스의 주봉으로 새로 보정했다 — 일봉 표를 그대로 쓰면 위쪽이 체계적으로 낮게 나온다(0.5σ 1기간 위 44.9% 대 일봉 43.0%, 0.05σ 는 89.8% 대 82.9%). 아래쪽은 거의 일치. 조건부에서 거래량 배수는 폴드·지평마다 부호가 뒤집혀 무효 판정하고 뺐다(레인지·ATR%만 남김). 주간 지수는 KOSPI -0.93% · KOSDAQ -7.25% 로 갈렸다. 주봉 존은 대부분 몇 년 전 자리라 3σ 밖이고, 위쪽 존이 남은 것은 NAVER·클래시스·에스티팜 셋뿐이라 위쪽 레벨은 대개 주봉 스윙 라인에서 나온다. SK하이닉스·SK스퀘어·현대모비스는 위쪽에 3σ 안 레벨이 아예 없고, 케이아이엔엑스·지엔씨에너지는 주봉 스윙 구조상 위가 비어 있다(신고가권). 하이브는 종가가 주봉 존 157,700~174,000 안이라 존 경계를 레벨로 썼다. 달바글로벌(66주)·웨이비스(96주)는 ATR 창 120주 미달이라 레벨만 표시하고 확률은 내지 않았다.",
+   "items": [
+    {
+     "code": "005930",
+     "name": "삼성전자",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 281500,
+     "atr": 39437,
+     "wchg": 2.55,
+     "resist": 374500,
+     "support": 223000,
+     "src": "line",
+     "sigma": [
+      2.36,
+      1.48
+     ],
+     "call": "down_test",
+     "distance_sigma": 1.48,
+     "horizon": "2~3주",
+     "prior": 16,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "low",
+     "atr_insufficient": null,
+     "note": "위 374,500 라인 2.36σ · 아래 223,000 라인 1.48σ. 주봉으로는 양쪽이 다 멀다",
+     "model_inputs": {
+      "wrngatr": 1.05,
+      "watrpct": 14.01,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 25.9,
+       "p_base": 27.1,
+       "dist_sigma": 2.36,
+       "dir": "up",
+       "horizon_weeks": 3,
+       "level": 374500,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 15.6,
+       "p_base": 16.4,
+       "dist_sigma": 1.48,
+       "dir": "dn",
+       "horizon_weeks": 3,
+       "level": 223000,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 42.7,
+       "dn": 36.8,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 301218,
+       "dn_level": 261782
+      },
+      "1p0": {
+       "up": 17.5,
+       "dn": 11.1,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 320937,
+       "dn_level": 242063
+      }
+     }
+    },
+    {
+     "code": "000660",
+     "name": "SK하이닉스",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 1730000,
+     "atr": 329768,
+     "wchg": 5.17,
+     "resist": null,
+     "support": 1246000,
+     "src": "line",
+     "sigma": [
+      null,
+      1.47
+     ],
+     "call": "down_test",
+     "distance_sigma": 1.47,
+     "horizon": "2~3주",
+     "prior": 17,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "low",
+     "atr_insufficient": null,
+     "note": "2주 연속 상승. 위쪽에 3σ 안 레벨이 없다 — 다음 저항은 2,987,000(3.81σ)",
+     "model_inputs": {
+      "wrngatr": 0.93,
+      "watrpct": 19.06,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "dn": {
+       "p": 14.7,
+       "p_base": 16.7,
+       "dist_sigma": 1.47,
+       "dir": "dn",
+       "horizon_weeks": 3,
+       "level": 1246000,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 39.8,
+       "dn": 34.0,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 1894884,
+       "dn_level": 1565116
+      },
+      "1p0": {
+       "up": 15.8,
+       "dn": 10.0,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 2059768,
+       "dn_level": 1400232
+      }
+     }
+    },
+    {
+     "code": "348210",
+     "name": "넥스틴",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 33050,
+     "atr": 8971,
+     "wchg": -7.68,
+     "resist": 40350,
+     "support": 24800,
+     "src": "line",
+     "sigma": [
+      0.81,
+      0.92
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.81,
+     "horizon": "1~2주",
+     "prior": 42,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "mid",
+     "atr_insufficient": null,
+     "note": "주간 -7.68%. 위 40,350(2겹) 0.81σ · 아래 24,800 0.92σ",
+     "model_inputs": {
+      "wrngatr": 0.61,
+      "watrpct": 27.14,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 33.6,
+       "p_base": 42.1,
+       "dist_sigma": 0.81,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 40350,
+       "src": "line",
+       "lap": 2
+      },
+      "dn": {
+       "p": 21.9,
+       "p_base": 28.7,
+       "dist_sigma": 0.92,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 24800,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 34.4,
+       "dn": 29.0,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 37536,
+       "dn_level": 28564
+      },
+      "1p0": {
+       "up": 12.9,
+       "dn": 8.1,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 42021,
+       "dn_level": 24079
+      }
+     }
+    },
+    {
+     "code": "402340",
+     "name": "SK스퀘어",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 1123000,
+     "atr": 252958,
+     "wchg": -2.69,
+     "resist": null,
+     "support": 768000,
+     "src": "line",
+     "sigma": [
+      null,
+      1.4
+     ],
+     "call": "down_test",
+     "distance_sigma": 1.4,
+     "horizon": "2~3주",
+     "prior": 19,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "low",
+     "atr_insufficient": null,
+     "note": "위쪽 3σ 안 레벨 없음. 아래 768,000 라인 1.40σ까지 비어 있다",
+     "model_inputs": {
+      "wrngatr": 1.08,
+      "watrpct": 22.53,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "dn": {
+       "p": 17.1,
+       "p_base": 18.8,
+       "dist_sigma": 1.4,
+       "dir": "dn",
+       "horizon_weeks": 3,
+       "level": 768000,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 40.8,
+       "dn": 35.0,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 1249479,
+       "dn_level": 996521
+      },
+      "1p0": {
+       "up": 16.4,
+       "dn": 10.4,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 1375958,
+       "dn_level": 870042
+      }
+     }
+    },
+    {
+     "code": "017670",
+     "name": "SK텔레콤",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 102200,
+     "atr": 13680,
+     "wchg": 1.69,
+     "resist": 139500,
+     "support": 91400,
+     "src": "line",
+     "sigma": [
+      2.73,
+      0.79
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.79,
+     "horizon": "1~2주",
+     "prior": 36,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "mid",
+     "atr_insufficient": null,
+     "note": "3주 연속 상승. 위 105,600 라인은 0.25σ로 하한 미달이라 유효 저항은 139,500(2.73σ)뿐",
+     "model_inputs": {
+      "wrngatr": 0.9,
+      "watrpct": 13.39,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 16.7,
+       "p_base": 18.6,
+       "dist_sigma": 2.73,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 139500,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 32.7,
+       "p_base": 35.6,
+       "dist_sigma": 0.79,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 91400,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 41.1,
+       "dn": 35.3,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 109040,
+       "dn_level": 95360
+      },
+      "1p0": {
+       "up": 16.5,
+       "dn": 10.5,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 115880,
+       "dn_level": 88520
+      }
+     }
+    },
+    {
+     "code": "035420",
+     "name": "NAVER",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 222000,
+     "atr": 28364,
+     "wchg": -2.63,
+     "resist": 241500,
+     "support": 202000,
+     "src": "line",
+     "sigma": [
+      0.69,
+      0.71
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.69,
+     "horizon": "1~2주",
+     "prior": 48,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "mid",
+     "atr_insufficient": null,
+     "note": "주봉 존이 양쪽에 남은 셋 중 하나지만 라인이 더 가깝다 — 위 241,500(2겹) 0.69σ · 아래 202,000(3겹) 0.71σ",
+     "model_inputs": {
+      "wrngatr": 0.81,
+      "watrpct": 12.78,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 44.5,
+       "p_base": 48.4,
+       "dist_sigma": 0.69,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 241500,
+       "src": "line",
+       "lap": 2
+      },
+      "dn": {
+       "p": 36.4,
+       "p_base": 40.1,
+       "dist_sigma": 0.71,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 202000,
+       "src": "line",
+       "lap": 3
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 40.2,
+       "dn": 34.4,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 236182,
+       "dn_level": 207818
+      },
+      "1p0": {
+       "up": 16.0,
+       "dn": 10.1,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 250364,
+       "dn_level": 193636
+      }
+     }
+    },
+    {
+     "code": "018260",
+     "name": "삼성에스디에스",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 228000,
+     "atr": 33504,
+     "wchg": -6.37,
+     "resist": 247500,
+     "support": 207000,
+     "src": "line",
+     "sigma": [
+      0.58,
+      0.63
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.58,
+     "horizon": "1~2주",
+     "prior": 55,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "위 247,500(2겹) 0.58σ · 아래 207,000(2겹) 0.63σ로 주봉에서도 좁은 통로",
+     "model_inputs": {
+      "wrngatr": 0.75,
+      "watrpct": 14.69,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 49.9,
+       "p_base": 55.0,
+       "dist_sigma": 0.58,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 247500,
+       "src": "line",
+       "lap": 2
+      },
+      "dn": {
+       "p": 39.8,
+       "p_base": 44.8,
+       "dist_sigma": 0.63,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 207000,
+       "src": "line",
+       "lap": 2
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 38.8,
+       "dn": 33.1,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 244752,
+       "dn_level": 211248
+      },
+      "1p0": {
+       "up": 15.3,
+       "dn": 9.6,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 261504,
+       "dn_level": 194496
+      }
+     }
+    },
+    {
+     "code": "093320",
+     "name": "케이아이엔엑스",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 147300,
+     "atr": 16707,
+     "wchg": -1.8,
+     "resist": null,
+     "support": 130500,
+     "src": "line",
+     "sigma": [
+      null,
+      1.01
+     ],
+     "call": "down_test",
+     "distance_sigma": 1.01,
+     "horizon": "1~2주",
+     "prior": 24,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "mid",
+     "atr_insufficient": null,
+     "note": "주봉 스윙 구조상 위가 비어 있다(신고가권). 아래 130,500 라인 1.01σ",
+     "model_inputs": {
+      "wrngatr": 0.71,
+      "watrpct": 11.34,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "dn": {
+       "p": 21.0,
+       "p_base": 24.1,
+       "dist_sigma": 1.01,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 130500,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 39.5,
+       "dn": 33.8,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 155654,
+       "dn_level": 138946
+      },
+      "1p0": {
+       "up": 15.7,
+       "dn": 9.9,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 164007,
+       "dn_level": 130593
+      }
+     }
+    },
+    {
+     "code": "105560",
+     "name": "KB금융",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 164300,
+     "atr": 15312,
+     "wchg": -2.49,
+     "resist": 172500,
+     "support": 156000,
+     "src": "line",
+     "sigma": [
+      0.54,
+      0.54
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.54,
+     "horizon": "1~2주",
+     "prior": 58,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "위 172,500 0.54σ · 아래 156,000 0.54σ로 위아래 대칭. 주봉 ATR% 9.32로 로스터 최저",
+     "model_inputs": {
+      "wrngatr": 0.59,
+      "watrpct": 9.32,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 52.7,
+       "p_base": 57.6,
+       "dist_sigma": 0.54,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 172500,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 46.1,
+       "p_base": 51.0,
+       "dist_sigma": 0.54,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 156000,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 39.0,
+       "dn": 33.3,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 171956,
+       "dn_level": 156644
+      },
+      "1p0": {
+       "up": 15.4,
+       "dn": 9.7,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 179612,
+       "dn_level": 148988
+      }
+     }
+    },
+    {
+     "code": "086520",
+     "name": "에코프로",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 81700,
+     "atr": 18620,
+     "wchg": -12.71,
+     "resist": 92451,
+     "support": 71176,
+     "src": "line",
+     "sigma": [
+      0.58,
+      0.57
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.57,
+     "horizon": "1~2주",
+     "prior": 49,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "주간 -12.71%. 위 92,451(2겹) 0.58σ · 아래 71,176 0.57σ",
+     "model_inputs": {
+      "wrngatr": 0.64,
+      "watrpct": 22.79,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 47.0,
+       "p_base": 55.0,
+       "dist_sigma": 0.58,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 92451,
+       "src": "line",
+       "lap": 2
+      },
+      "dn": {
+       "p": 40.9,
+       "p_base": 48.8,
+       "dist_sigma": 0.57,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 71176,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 35.5,
+       "dn": 30.1,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 91010,
+       "dn_level": 72390
+      },
+      "1p0": {
+       "up": 13.5,
+       "dn": 8.4,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 100320,
+       "dn_level": 63080
+      }
+     }
+    },
+    {
+     "code": "456040",
+     "name": "OCI",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 80100,
+     "atr": 14477,
+     "wchg": -0.99,
+     "resist": 91600,
+     "support": 72600,
+     "src": "line",
+     "sigma": [
+      0.79,
+      0.52
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.52,
+     "horizon": "1~2주",
+     "prior": 52,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "주간 -0.99%로 거의 제자리. 아래 72,600(3겹) 0.52σ",
+     "model_inputs": {
+      "wrngatr": 0.35,
+      "watrpct": 18.07,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 33.5,
+       "p_base": 43.0,
+       "dist_sigma": 0.79,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 91600,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 42.5,
+       "p_base": 52.5,
+       "dist_sigma": 0.52,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 72600,
+       "src": "line",
+       "lap": 3
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 33.2,
+       "dn": 28.0,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 87338,
+       "dn_level": 72862
+      },
+      "1p0": {
+       "up": 12.4,
+       "dn": 7.7,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 94577,
+       "dn_level": 65623
+      }
+     }
+    },
+    {
+     "code": "010140",
+     "name": "삼성중공업",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 20200,
+     "atr": 3184,
+     "wchg": -9.42,
+     "resist": 21807,
+     "support": 18560,
+     "src": "line",
+     "sigma": [
+      0.5,
+      0.51
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.5,
+     "horizon": "1~2주",
+     "prior": 60,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "위 21,807(6겹) 0.50σ · 아래 18,560(7겹) 0.51σ — 양쪽 다 라인이 조밀하다",
+     "model_inputs": {
+      "wrngatr": 0.65,
+      "watrpct": 15.76,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 53.9,
+       "p_base": 60.2,
+       "dist_sigma": 0.5,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 21807,
+       "src": "line",
+       "lap": 6
+      },
+      "dn": {
+       "p": 46.9,
+       "p_base": 53.3,
+       "dist_sigma": 0.51,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 18560,
+       "src": "line",
+       "lap": 7
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 37.3,
+       "dn": 31.7,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 21792,
+       "dn_level": 18608
+      },
+      "1p0": {
+       "up": 14.5,
+       "dn": 9.0,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 23384,
+       "dn_level": 17016
+      }
+     }
+    },
+    {
+     "code": "352820",
+     "name": "하이브",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 167900,
+     "atr": 30769,
+     "wchg": -6.41,
+     "resist": 174000,
+     "support": 157700,
+     "src": "zone",
+     "sigma": [
+      0.2,
+      0.33
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.2,
+     "horizon": "1주",
+     "prior": 74,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "종가가 주봉 존 157,700~174,000 안. 위 0.20σ · 아래 0.33σ로 1주 안에 어느 쪽이든 닿을 자리",
+     "model_inputs": {
+      "wrngatr": 0.54,
+      "watrpct": 18.33,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 65.8,
+       "p_base": 74.2,
+       "dist_sigma": 0.2,
+       "dir": "up",
+       "horizon_weeks": 1,
+       "level": 174000,
+       "src": "zone",
+       "lap": 1
+      },
+      "dn": {
+       "p": 45.7,
+       "p_base": 55.7,
+       "dist_sigma": 0.33,
+       "dir": "dn",
+       "horizon_weeks": 1,
+       "level": 157700,
+       "src": "zone",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 35.3,
+       "dn": 29.9,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 183284,
+       "dn_level": 152516
+      },
+      "1p0": {
+       "up": 13.4,
+       "dn": 8.4,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 198669,
+       "dn_level": 137131
+      }
+     }
+    },
+    {
+     "code": "012330",
+     "name": "현대모비스",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 496000,
+     "atr": 79967,
+     "wchg": -9.32,
+     "resist": null,
+     "support": 420500,
+     "src": "line",
+     "sigma": [
+      null,
+      0.94
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.94,
+     "horizon": "1~2주",
+     "prior": 28,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "mid",
+     "atr_insufficient": null,
+     "note": "주간 -9.32%. 위쪽 3σ 안 레벨 없음(531,000은 0.44σ로 하한 미달, 822,000은 4.08σ)",
+     "model_inputs": {
+      "wrngatr": 0.86,
+      "watrpct": 16.12,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "dn": {
+       "p": 24.3,
+       "p_base": 27.7,
+       "dist_sigma": 0.94,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 420500,
+       "src": "line",
+       "lap": 2
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 39.7,
+       "dn": 34.0,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 535984,
+       "dn_level": 456016
+      },
+      "1p0": {
+       "up": 15.8,
+       "dn": 9.9,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 575967,
+       "dn_level": 416033
+      }
+     }
+    },
+    {
+     "code": "214150",
+     "name": "클래시스",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 32150,
+     "atr": 6615,
+     "wchg": -14.27,
+     "resist": 40000,
+     "support": 29350,
+     "src": "zone",
+     "sigma": [
+      1.19,
+      0.42
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.42,
+     "horizon": "1주",
+     "prior": 46,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "12주 위치 -29%로 최하. 아래 29,350 존 0.42σ · 위 40,000(2겹) 1.19σ로 위가 멀다",
+     "model_inputs": {
+      "wrngatr": 0.94,
+      "watrpct": 20.58,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 11.6,
+       "p_base": 14.1,
+       "dist_sigma": 1.19,
+       "dir": "up",
+       "horizon_weeks": 1,
+       "level": 40000,
+       "src": "line",
+       "lap": 2
+      },
+      "dn": {
+       "p": 41.0,
+       "p_base": 46.4,
+       "dist_sigma": 0.42,
+       "dir": "dn",
+       "horizon_weeks": 1,
+       "level": 29350,
+       "src": "zone",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 39.5,
+       "dn": 33.8,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 35458,
+       "dn_level": 28842
+      },
+      "1p0": {
+       "up": 15.7,
+       "dn": 9.9,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 38765,
+       "dn_level": 25535
+      }
+     }
+    },
+    {
+     "code": "278470",
+     "name": "에이피알",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 385000,
+     "atr": 49831,
+     "wchg": -1.41,
+     "resist": 443000,
+     "support": 342500,
+     "src": "line",
+     "sigma": [
+      1.16,
+      0.85
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.85,
+     "horizon": "1~2주",
+     "prior": 32,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "mid",
+     "atr_insufficient": null,
+     "note": "주간 -1.41%. 위 443,000 1.16σ · 아래 342,500 0.85σ",
+     "model_inputs": {
+      "wrngatr": 0.62,
+      "watrpct": 12.94,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 23.6,
+       "p_base": 28.1,
+       "dist_sigma": 1.16,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 443000,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 27.4,
+       "p_base": 32.4,
+       "dist_sigma": 0.85,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 342500,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 37.8,
+       "dn": 32.2,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 409916,
+       "dn_level": 360084
+      },
+      "1p0": {
+       "up": 14.7,
+       "dn": 9.2,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 434831,
+       "dn_level": 335169
+      }
+     }
+    },
+    {
+     "code": "237690",
+     "name": "에스티팜",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 99700,
+     "atr": 19059,
+     "wchg": -6.3,
+     "resist": 112200,
+     "support": 89500,
+     "src": "line",
+     "sigma": [
+      0.66,
+      0.54
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.54,
+     "horizon": "1~2주",
+     "prior": 51,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "위 112,200(3겹) 0.66σ · 아래 89,500(5겹) 0.54σ. 주봉 레인지가 ATR의 1.36배로 확장",
+     "model_inputs": {
+      "wrngatr": 1.36,
+      "watrpct": 19.12,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 50.2,
+       "p_base": 50.1,
+       "dist_sigma": 0.66,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 112200,
+       "src": "line",
+       "lap": 3
+      },
+      "dn": {
+       "p": 51.1,
+       "p_base": 51.0,
+       "dist_sigma": 0.54,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 89500,
+       "src": "line",
+       "lap": 5
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 45.1,
+       "dn": 39.1,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 109230,
+       "dn_level": 90170
+      },
+      "1p0": {
+       "up": 18.9,
+       "dn": 12.1,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 118759,
+       "dn_level": 80641
+      }
+     }
+    },
+    {
+     "code": "200670",
+     "name": "휴메딕스",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 25100,
+     "atr": 3577,
+     "wchg": -8.39,
+     "resist": 26950,
+     "support": 22900,
+     "src": "line",
+     "sigma": [
+      0.52,
+      0.62
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.52,
+     "horizon": "1~2주",
+     "prior": 59,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "위 26,950(6겹) 0.52σ · 아래 22,900(3겹) 0.62σ",
+     "model_inputs": {
+      "wrngatr": 0.89,
+      "watrpct": 14.25,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 55.4,
+       "p_base": 58.9,
+       "dist_sigma": 0.52,
+       "dir": "up",
+       "horizon_weeks": 2,
+       "level": 26950,
+       "src": "line",
+       "lap": 6
+      },
+      "dn": {
+       "p": 41.9,
+       "p_base": 45.4,
+       "dist_sigma": 0.62,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 22900,
+       "src": "line",
+       "lap": 3
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 40.7,
+       "dn": 34.9,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 26888,
+       "dn_level": 23312
+      },
+      "1p0": {
+       "up": 16.3,
+       "dn": 10.3,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 28677,
+       "dn_level": 21523
+      }
+     }
+    },
+    {
+     "code": "483650",
+     "name": "달바글로벌",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 216500,
+     "atr": 36750,
+     "wchg": -5.25,
+     "resist": 247500,
+     "support": 180000,
+     "src": "line",
+     "sigma": [
+      0.84,
+      0.99
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.84,
+     "horizon": "1~2주",
+     "prior": null,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "mid",
+     "atr_insufficient": true,
+     "note": "ATR 창 66주로 120주 미달 — 레벨만 표시하고 확률은 내지 않았다",
+     "model_inputs": {
+      "wrngatr": 0.38,
+      "watrpct": 16.97,
+      "watr_bars": 66,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {},
+     "p_probe": null
+    },
+    {
+     "code": "289930",
+     "name": "웨이비스",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 6370,
+     "atr": 2209,
+     "wchg": -10.53,
+     "resist": 7660,
+     "support": null,
+     "src": "line",
+     "sigma": [
+      0.58,
+      null
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.58,
+     "horizon": "1~2주",
+     "prior": null,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": true,
+     "note": "ATR 창 96주로 120주 미달 — 레벨만 표시하고 확률은 내지 않았다. 12주 위치 7%",
+     "model_inputs": {
+      "wrngatr": 0.54,
+      "watrpct": 34.68,
+      "watr_bars": 96,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {},
+     "p_probe": null
+    },
+    {
+     "code": "119850",
+     "name": "지엔씨에너지",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 48250,
+     "atr": 8791,
+     "wchg": -12.11,
+     "resist": null,
+     "support": 43450,
+     "src": "line",
+     "sigma": [
+      null,
+      0.55
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.55,
+     "horizon": "1~2주",
+     "prior": 50,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "주봉 스윙 구조상 위가 비어 있다(신고가권). 아래 43,450 0.55σ. 12주 모멘텀 +112.6%",
+     "model_inputs": {
+      "wrngatr": 1.21,
+      "watrpct": 18.22,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "dn": {
+       "p": 49.0,
+       "p_base": 50.3,
+       "dist_sigma": 0.55,
+       "dir": "dn",
+       "horizon_weeks": 2,
+       "level": 43450,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 43.5,
+       "dn": 37.5,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 52646,
+       "dn_level": 43854
+      },
+      "1p0": {
+       "up": 17.9,
+       "dn": 11.4,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 57041,
+       "dn_level": 39459
+      }
+     }
+    },
+    {
+     "code": "267790",
+     "name": "배럴",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 3335,
+     "atr": 348,
+     "wchg": 3.25,
+     "resist": 3390,
+     "support": 2930,
+     "src": "zone",
+     "sigma": [
+      0.16,
+      1.16
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.16,
+     "horizon": "1주",
+     "prior": 79,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "high",
+     "atr_insufficient": null,
+     "note": "위 3,390 존 0.16σ로 바짝. 아래는 2,930 라인 1.16σ까지 비어 있다",
+     "model_inputs": {
+      "wrngatr": 1.22,
+      "watrpct": 10.44,
+      "watr_bars": 120,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 79.5,
+       "p_base": 78.6,
+       "dist_sigma": 0.16,
+       "dir": "up",
+       "horizon_weeks": 1,
+       "level": 3390,
+       "src": "zone",
+       "lap": 1
+      },
+      "dn": {
+       "p": 9.0,
+       "p_base": 8.5,
+       "dist_sigma": 1.16,
+       "dir": "dn",
+       "horizon_weeks": 1,
+       "level": 2930,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 46.3,
+       "dn": 40.3,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 3509,
+       "dn_level": 3161
+      },
+      "1p0": {
+       "up": 19.7,
+       "dn": 12.6,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 3683,
+       "dn_level": 2987
+      }
+     }
+    }
+   ]
+  }
+ ]
 }

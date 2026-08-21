@@ -5,7 +5,7 @@
 #   선언된 우선순위를 따르면 틀린 값을 쓰게 된다. 상수는 코드(touch_model.py)가 진실이고
 #   문서는 그 설명일 뿐인데, 설명이 낡으면 다음 세션이 낡은 값을 쓴다.
 
-import io, json, os, sys
+import io, json, os, re, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -22,6 +22,24 @@ def read(p):
     return io.open(p, encoding='utf-8').read() if os.path.exists(p) else ''
 
 
+def has_num(text, value):
+    """문서에 그 숫자가 값으로 적혀 있는가.
+
+    부분문자열 비교는 두 방향으로 틀렸다 — 0.55 가 다른 문단의 0.552% 에 걸려 통과했고(놓침),
+    코드의 0.3690 이 float 로 0.369 가 되면서 문서의 0.3690 과 안 맞았다(오탐).
+    그래서 문서에서 숫자 토큰을 뽑아 **값으로** 비교한다.
+    """
+    # 부호는 토큰에 넣지 않는다 — 호출부가 abs() 로 넘기므로 문서의 -0.1966 도 0.1966 로 읽어야 한다
+    # 천단위 콤마를 먼저 없앤다 — '9,905건' 이 '9' 와 '905' 로 쪼개져 9.00 에 걸리는 오검출이 났다
+    for tok in re.findall(r'\d+(?:\.\d+)?', text.replace(',', '')):
+        try:
+            if abs(float(tok) - float(value)) < 1e-9:
+                return True
+        except ValueError:
+            continue
+    return False
+
+
 def main():
     skill, const, collect, method = read(SKILL), read(CONST), read(COLLECT), read(METHOD)
     pred = json.load(open(PRED, encoding='utf-8'))
@@ -33,14 +51,14 @@ def main():
 
     # 1) 계수 — 코드가 진실, 문서에 같은 값이 적혀 있어야 한다
     for k, v in tm.COEF.items():
-        need(str(abs(v)) in const, '계수 %s=%s 가 v6-constants.md 에 없다' % (k, v))
+        need(has_num(const, abs(v)), '계수 %s=%s 가 v6-constants.md 에 없다' % (k, v))
 
     # 2) 확률표 대표값
     for h, d, expect in ((1, 'up', 43.0), (2, 'up', 57.2), (3, 'up', 65.0),
                          (1, 'dn', 39.1), (3, 'dn', 60.9)):
         got = tm.base_p(0.5, d, h)
         need(abs(got - expect) < 0.05, '모듈 표 변경됨: %d세션 %s 0.5σ = %s (문서 기준 %s)' % (h, d, got, expect))
-        need(str(expect) in const, '%d세션 %s 0.5σ 값 %s 가 v6-constants.md 에 없다' % (h, d, expect))
+        need(has_num(const, expect), '%d세션 %s 0.5σ 값 %s 가 v6-constants.md 에 없다' % (h, d, expect))
 
     # 3) 지평 감쇠
     need(tm.HORIZON_DAMP == {1: 1.0, 2: 0.7, 3: 0.5}, '감쇠 계수가 바뀌었는데 문서 확인 필요')
@@ -78,6 +96,38 @@ def main():
     # 7) 스킬이 코드를 SSOT로 지시하는가
     need('touch_model.py' in skill, 'SKILL.md 가 touch_model.py 를 SSOT로 지시하지 않는다')
     need('validate_predictions.py' in skill, 'SKILL.md 에 검증 단계가 없다')
+
+    # 7-b) 주봉 모델 (v6.1-W) — 상수가 문서와 코드 양쪽에 같아야 한다
+    for h, d_, expect in ((1, 'up', 44.9), (1, 'dn', 38.9), (2, 'up', 60.2), (3, 'dn', 61.6)):
+        got = tm.base_p_w(0.5, d_, h)
+        need(abs(got - expect) < 0.05,
+             '주봉표 변경됨: %d기간 %s 0.5σ = %s (문서 기준 %s)' % (h, d_, got, expect))
+        need(has_num(const, expect), '주봉 %d기간 %s 0.5σ 값 %s 가 v6-constants.md 에 없다'
+             % (h, d_, expect))
+    # 주봉이 일봉과 같아져 버리면(=표를 잘못 덮어썼으면) 잡는다
+    need(tm.base_p_w(0.5, 'up', 1) != tm.base_p(0.5, 'up', 1),
+         '주봉표가 일봉표와 같아졌다 — 표를 덮어썼는지 확인할 것')
+    for wk, c in tm.COEF_W.items():
+        for k, v in c.items():
+            need(has_num(const, abs(v)),
+                 '주봉 계수 %d주 %s=%s 가 v6-constants.md 에 없다' % (wk, k, v))
+    need(has_num(const, tm.REF_ATRPCT_W), '주봉 정규화 기준점 %s 가 v6-constants.md 에 없다'
+         % tm.REF_ATRPCT_W)
+    need('거래량' in const and '무효' in const,
+         'v6-constants.md 에 주봉 거래량 무효 판정이 적혀 있지 않다')
+    for kw, label in (('주봉', '주봉 분석 절차'),
+                      ('금요일', '금요일 주봉 규칙'),
+                      ('weekly_calls', '주봉 원장 분리 규칙'),
+                      ('MIN_WEEK_BARS', '주봉 ATR 창 규칙')):
+        need(kw in skill, '%s 가 SKILL.md 에 없다' % label)
+        need(kw in method, '%s 가 실행방법.md 에 없다' % label)
+    val_w = read(os.path.join(ROOT, 'scripts', 'validate_predictions.py'))
+    need('check_weekly' in val_w, 'validate_predictions.py 에 주봉 검사가 없다')
+    need('horizon_weeks' in val_w, 'validate_predictions.py 에 주봉 원장 오염 검사가 없다')
+    need(os.path.exists(os.path.join(ROOT, 'scripts', 'score_weekly.py')),
+         'scripts/score_weekly.py 가 없다')
+    rep_w = read(os.path.join(ROOT, 'scripts', 'check_report.py'))
+    need('weekly_entries' in rep_w, 'check_report.py 가 주봉 레벨표를 대조하지 않는다')
 
     # 8) 버전 표기
     need('phase: v6.1' in skill, 'SKILL.md frontmatter phase 가 v6.1 이 아니다')

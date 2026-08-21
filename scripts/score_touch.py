@@ -119,8 +119,14 @@ def score_probe(entry, actuals):
     }
 
 
-def close_open_calls(ledger, actuals, session_date):
-    """만기 도래분을 종결한다. 만기 전이면 경과 세션만 올리고 open으로 남긴다."""
+def close_open_calls(ledger, actuals, session_date,
+                     hkey='horizon_sessions', ekey='sessions_elapsed'):
+    """만기 도래분을 종결한다. 만기 전이면 경과 세션만 올리고 open으로 남긴다.
+
+    주봉 원장도 같은 로직으로 닫는다(hkey/ekey 만 'horizon_weeks'/'weeks_elapsed' 로 바꾼다).
+    구현을 복사하지 않는 이유는 v6.1 감사에서 배운 것과 같다 — 같은 로직을 두 군데 두면
+    반드시 어긋난다. 주봉 콜을 일봉 원장에 넣으면 하루마다 만기가 깎여 1~3'일'만에 닫힌다.
+    """
     closed, still_open, scored_pairs, base_pairs = [], [], [], []
     for c in ledger.get('active', []):
         a = actuals.get(c['code'])
@@ -133,7 +139,7 @@ def close_open_calls(ledger, actuals, session_date):
             c['status'] = 'no_data'
             closed.append(c)
             continue
-        c['sessions_elapsed'] = c.get('sessions_elapsed', 0) + 1
+        c[ekey] = c.get(ekey, 0) + 1
         c.setdefault('run_hi', hi)
         c.setdefault('run_lo', lo)
         c['run_hi'] = max(c['run_hi'], hi)
@@ -143,7 +149,7 @@ def close_open_calls(ledger, actuals, session_date):
             c['status'] = 'touched'
             c['touched_on'] = session_date
             closed.append(c)
-        elif c['sessions_elapsed'] >= c.get('horizon_sessions', 1):
+        elif c[ekey] >= c.get(hkey, 1):
             c['status'] = 'expired'
             c['expired_on'] = session_date
             closed.append(c)
@@ -172,7 +178,7 @@ def close_open_calls(ledger, actuals, session_date):
         'brier_distance_only': bb,
         'rows': [{k: c.get(k) for k in
                   ('opened', 'code', 'name', 'dir', 'level', 'dist_sigma',
-                   'horizon_sessions', 'p', 'p_base', 'status')} for c in closed],
+                   hkey, 'p', 'p_base', 'status')} for c in closed],
     }
 
 

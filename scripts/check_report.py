@@ -37,6 +37,22 @@ def rows_of(html):
             for i, (p, c) in enumerate(marks)}
 
 
+def _split(seg):
+    marks = [(m.start(), m.group(1)) for m in
+             re.finditer(r'class="name">[^<]+? <span class="code">\((\d{6})\)', seg)]
+    return {c: seg[p:(marks[i + 1][0] if i + 1 < len(marks) else len(seg))]
+            for i, (p, c) in enumerate(marks)}
+
+
+def wrows_of(html):
+    """주봉 레벨·도달확률 표를 종목별 구간으로 쪼갠다."""
+    i = html.find('주봉 도달확률')
+    if i < 0:
+        return {}
+    j = html.find('<div class="foot">', i)
+    return _split(html[i:(j if j > 0 else len(html))])
+
+
 def main():
     asof = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith('-') else None
     d = json.load(open(PRED, encoding='utf-8'))
@@ -95,6 +111,36 @@ def main():
                  '%s — %s %s 가 표에 없다' % (nm, fld, '{:,}'.format(lvl)))
             need('<b>%.2fσ</b>' % blk['dist_sigma'] in g,
                  '%s — %s 거리 %.2fσ 가 표에 없다' % (nm, dirn, blk['dist_sigma']))
+
+    # 4-b) 주봉 레벨표 대조 — 주봉 회차가 있으면 같은 숫자를 말해야 한다
+    wents = d.get('weekly_entries', [])
+    we = next((x for x in wents if x['asof'] == asof), None)
+    if we is not None:
+        wseg = wrows_of(html)
+        need(len(wseg) == len(we['items']),
+             '주봉 레벨표 종목 수 %d != 주봉 entry 종목 수 %d' % (len(wseg), len(we['items'])))
+        for it in we['items']:
+            g = wseg.get(it['code'])
+            nm = it.get('name', it['code'])
+            if g is None:
+                fail.append('%s 행이 주봉 레벨표에 없다' % nm)
+                continue
+            for dirn, fld in (('up', 'resist'), ('dn', 'support')):
+                lvl = it.get(fld)
+                if lvl is None:
+                    continue
+                need('{:,}'.format(lvl) in g,
+                     '%s(주봉) — %s %s 가 표에 없다' % (nm, fld, '{:,}'.format(lvl)))
+                blk = (it.get('p_touch') or {}).get(dirn)
+                if blk is None:
+                    continue
+                need('<b>%.2f\u03c3</b>' % blk['dist_sigma'] in g,
+                     '%s(주봉) — %s 거리 %.2f\u03c3 가 표에 없다' % (nm, dirn, blk['dist_sigma']))
+                need('<b>%.1f%%</b>' % blk['p'] in g,
+                     '%s(주봉) — %s 확률 %.1f%% 가 표에 없다' % (nm, dirn, blk['p']))
+            # ATR 창이 짧아 확률을 안 낸 종목은 그 사실이 표에 드러나야 한다
+            if it.get('atr_insufficient'):
+                need('확률 미산출' in g, '%s(주봉) — 확률 미산출 표시가 없다' % nm)
 
     # 5) 플레이스홀더
     for pat in (r'%\(\w+\)[sd]', r'\{\{\w+\}\}', r'\bTODO\b', r'\bXXX\b'):
