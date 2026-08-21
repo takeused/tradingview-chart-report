@@ -9,9 +9,11 @@
 #     3) 승률이 아니라 **거래당 기대값**. 승률과 손익은 별개다.
 #
 # 사용법
-#   python scripts/paper_ledger.py open <positions.json> --date YYYY-MM-DD
-#   python scripts/paper_ledger.py mark --date YYYY-MM-DD        # 패널로 시가 평가·만기 청산
+#   python scripts/paper_ledger.py open <positions.json> --date YYYY-MM-DD [--panel weekly]
+#   python scripts/paper_ledger.py mark [--date YYYY-MM-DD] [--panel weekly]
 #   python scripts/paper_ledger.py report
+#
+#   신호 다음 봉이 아직 없으면 pending 으로 남고, 패널 갱신 후 mark 에서 진입가가 채워진다.
 #
 #   positions.json = {"strategy":"이름", "horizon_days":5, "codes":["005930", ...],
 #                     "note":"근거"}
@@ -24,6 +26,14 @@ import panel_io
 from backtest import COST, round_trip_cost
 
 LEDGER = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'paper_trades.json')
+
+
+def _panel_path(which):
+    """주봉 전략은 주봉 패널로 채점해야 한다 — 봉 단위가 섞이면 지평이 뒤틀린다."""
+    if not which:
+        return panel_io.PANEL
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data',
+                        'panel_%s.csv' % which)
 
 
 def _blank():
@@ -65,34 +75,57 @@ def _next_open(P, code, date):
 
 
 def cmd_open(args):
+    """포지션을 등록한다.
+
+    신호 다음 봉이 아직 없으면(= 오늘 신호를 냈으면) **pending** 으로 남긴다.
+    이게 없으면 원장은 과거 채우기만 되고 전진 추적이 안 된다 — 단계 1의 목적을 못 한다.
+    """
     pos = json.load(open(args[0], encoding='utf-8'))
     date = args[args.index('--date') + 1] if '--date' in args else None
     if not date:
         raise SystemExit('--date YYYY-MM-DD (신호일) 가 필요하다')
-    P = panel_io.load()
+    panel = args[args.index('--panel') + 1] if '--panel' in args else None
+    P = panel_io.load(_panel_path(panel))
     d = load()
-    n = 0
+    n, pend = 0, 0
     for code in pos['codes']:
         px, edate = _next_open(P, code, date)
-        if px is None:
-            print('  [건너뜀] %s — 다음 거래일 시가 없음' % code)
-            continue
-        d['trades'].append({
+        tr = {
             'id': len(d['trades']) + 1, 'strategy': pos['strategy'], 'code': code,
             'signal_date': date, 'entry_date': edate, 'entry_px': px,
             'horizon_days': pos['horizon_days'], 'side': pos.get('side', 'long'),
-            'status': 'open', 'note': pos.get('note', ''),
-        })
+            'panel': panel or 'daily',
+            'status': 'open' if px else 'pending', 'note': pos.get('note', ''),
+        }
+        d['trades'].append(tr)
         n += 1
+        if px is None:
+            pend += 1
     save(d)
-    print('진입 등록 %d건 (전략 %s · 지평 %d일)' % (n, pos['strategy'], pos['horizon_days']))
+    print('등록 %d건 (전략 %s · 지평 %d봉) — 진입확정 %d · 대기(pending) %d'
+          % (n, pos['strategy'], pos['horizon_days'], n - pend, pend))
+    if pend:
+        print('  ※ 다음 봉이 아직 없다. 패널을 갱신한 뒤 mark 를 돌리면 진입가가 채워진다.')
 
 
 def cmd_mark(args):
     date = args[args.index('--date') + 1] if '--date' in args else None
-    P = panel_io.load()
+    panel = args[args.index('--panel') + 1] if '--panel' in args else None
+    P = panel_io.load(_panel_path(panel))
     d = load()
     cost = round_trip_cost()
+
+    # 1) 대기 건에 진입가가 생겼으면 승격시킨다
+    promoted = 0
+    for tr in d['trades']:
+        if tr['status'] != 'pending':
+            continue
+        px, edate = _next_open(P, tr['code'], tr['signal_date'])
+        if px:
+            tr.update(entry_px=px, entry_date=edate, status='open')
+            promoted += 1
+
+    # 2) 만기 도래분 청산
     closed = 0
     for tr in d['trades']:
         if tr['status'] != 'open':
@@ -128,7 +161,8 @@ def cmd_mark(args):
         closed += 1
     save(d)
     op = sum(1 for t in d['trades'] if t['status'] == 'open')
-    print('청산 %d건 · 미결 %d건' % (closed, op))
+    pd_ = sum(1 for t in d['trades'] if t['status'] == 'pending')
+    print('승격 %d건 · 청산 %d건 · 미결 %d건 · 대기 %d건' % (promoted, closed, op, pd_))
 
 
 def _agg(trs):
@@ -161,8 +195,9 @@ def cmd_report(_args):
     d = load()
     trs = [t for t in d['trades'] if t['status'] == 'closed']
     op = [t for t in d['trades'] if t['status'] == 'open']
-    print('모의매매 원장 — 청산 %d건 · 미결 %d건 · 왕복비용 가정 %.2f%%'
-          % (len(trs), len(op), round_trip_cost()))
+    pdg = [t for t in d['trades'] if t['status'] == 'pending']
+    print('모의매매 원장 — 청산 %d건 · 미결 %d건 · 대기 %d건 · 왕복비용 가정 %.2f%%'
+          % (len(trs), len(op), len(pdg), round_trip_cost()))
     print(d['_execution'])
     if not trs:
         print('\n청산된 거래가 없다. open → mark 순서로 쌓은 뒤 다시 본다.')
