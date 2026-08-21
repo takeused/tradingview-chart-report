@@ -23,6 +23,8 @@
 #   매주 필요하다. 기본 모드는 이미 받은 종목을 통째로 건너뛰므로 새 주가 한 줄도 안 붙는다.
 #   마지막 주봉은 미완성 주였을 수 있으므로 **다시 받아 덮어쓴다**.
 #   장기 무거래(--stale-weeks 주 이상, 기본 12) 종목은 폐지·거래정지로 보고 건너뛴다.
+#
+#   --out data/panel_weekly_krx15.csv 로 다른 패널 파일에 받을 수 있다(표본 기간별 병행 보관).
 
 import csv, os, sys, time
 from datetime import datetime, timedelta
@@ -139,6 +141,9 @@ def update(d_to, stale_weeks):
 def main():
     d_from = sys.argv[sys.argv.index('--from') + 1] if '--from' in sys.argv else FROM
     d_to = sys.argv[sys.argv.index('--to') + 1] if '--to' in sys.argv else TO
+    global OUT
+    if '--out' in sys.argv:
+        OUT = sys.argv[sys.argv.index('--out') + 1]
     if '--update' in sys.argv:
         sw = int(sys.argv[sys.argv.index('--stale-weeks') + 1]) if '--stale-weeks' in sys.argv else 12
         return update(d_to, sw)
