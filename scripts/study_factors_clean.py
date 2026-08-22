@@ -25,6 +25,32 @@ from universe_pit import load_market, pool_cap
 
 COST = round_trip_cost()
 
+# ── 무수정 원자료가 있어야 계산되는 팩터 (2026-08-22 신규 등록) ──────────────
+# 지금까지 시가총액을 못 구해 검정하지 못했던 가설들이다. 등록부 규칙대로 **먼저 등록하고**
+# 돌린다. 회전율은 거래대금/시가총액 — 둘 다 무수정 원자료라야 뜻이 있다.
+def _cap(M, P, c, t):
+    d = M.get((c, P.dates[t]))
+    return d['cap'] if d and d['cap'] > 0 else None
+
+
+def _turnover(M, P, c, t, n=12):
+    vals = []
+    for k in range(max(0, t - n), t + 1):
+        d = M.get((c, P.dates[k]))
+        if d and d['cap'] > 0 and d['value'] >= 0:
+            vals.append(d['value'] / d['cap'])
+    return sum(vals) / len(vals) if len(vals) >= n * 0.6 else None
+
+
+CLEAN_FACTORS = {
+    '소형주(시총 낮은)': ('Banz 1981 규모효과',
+                     lambda M, P, c, t, m: (lambda v: None if v is None else -math.log(v))(_cap(M, P, c, t))),
+    '대형주(시총 높은)': ('규모효과 반대 방향 — 대칭 확인용',
+                     lambda M, P, c, t, m: (lambda v: None if v is None else math.log(v))(_cap(M, P, c, t))),
+    '저회전율(12주)':   ('Datar-Naik-Radcliffe 1998 회전율',
+                     lambda M, P, c, t, m: (lambda v: None if v is None else -v)(_turnover(M, P, c, t, 12))),
+}
+
 
 def main():
     which = sys.argv[sys.argv.index('--panel') + 1] if '--panel' in sys.argv else 'weekly_krx15'
@@ -44,10 +70,13 @@ def main():
           % ('팩터', '분위%', 'n', '산술순%', 't', 'BH', '로그순%', 't', '국면별(강세/횡보/약세)'))
     print('-' * 118)
 
+    cand = [(n, w, (lambda f: lambda t, c: f(P, c, t, mkt))(f)) for n, (w, f) in FACTORS.items()]
+    cand += [(n, w, (lambda f: lambda t, c: f(M, P, c, t, mkt))(f)) for n, (w, f) in CLEAN_FACTORS.items()]
+
     out = []
-    for name, (why, fn) in FACTORS.items():
+    for name, why, score in cand:
         for frac in FRACS:
-            sel = by_score(lambda t, c, fn=fn: fn(P, c, t, mkt))
+            sel = by_score(score)
             rows = run(P, M, pool_fn, sel, t0, frac)
             if len(rows) < 20:
                 continue
