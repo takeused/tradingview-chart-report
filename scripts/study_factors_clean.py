@@ -22,6 +22,7 @@ from study_factors import FACTORS, FRACS, HORIZON, market_series
 from study_clean_universe import run, by_score, START
 from study_universe_audit import compound
 from universe_pit import load_market, pool_cap
+from factors_fundamental import load_financials, build as build_fundamental
 
 COST = round_trip_cost()
 
@@ -72,6 +73,9 @@ def main():
 
     cand = [(n, w, (lambda f: lambda t, c: f(P, c, t, mkt))(f)) for n, (w, f) in FACTORS.items()]
     cand += [(n, w, (lambda f: lambda t, c: f(M, P, c, t, mkt))(f)) for n, (w, f) in CLEAN_FACTORS.items()]
+    if '--no-fundamental' not in sys.argv:
+        fund = build_fundamental(load_financials())
+        cand += [(n, w, (lambda f: lambda t, c: f(M, P, c, t, mkt))(f)) for n, (w, f) in fund.items()]
 
     out = []
     for name, why, score in cand:
