@@ -142,6 +142,30 @@ def main():
             if it.get('atr_insufficient'):
                 need('확률 미산출' in g, '%s(주봉) — 확률 미산출 표시가 없다' % nm)
 
+    # 4-b) 서술부 집계가 표와 맞는가 (2026-08-22 신설)
+    #      로스터를 22 → 30 으로 늘렸을 때 표만 갱신되고 본문의 배지 분포·시장 분포·
+    #      종목 수가 22종목 시절 값으로 남아 있었다. 표만 대조하던 이 검사기는 못 잡았다.
+    #      **본문에 적힌 집계는 표에서 다시 세어 대조한다.**
+    badges = re.findall(r'badge (?:up|down|neutral)">(강세|중립|약세)\(', html)
+    n_up = badges.count('강세')
+    n_mid = badges.count('중립')
+    n_dn = badges.count('약세')
+    m = re.search(r'강세\s*(\d+)\s*·\s*중립\s*(\d+)\s*·\s*약세\s*(\d+)', html)
+    if m:
+        got = tuple(int(x) for x in m.groups())
+        need(got == (n_up, n_mid, n_dn),
+             '본문 배지 분포 %s 가 표(%d·%d·%d)와 다르다' % (str(got), n_up, n_mid, n_dn))
+    n_kp = sum(1 for i in e['items'] if i.get('market') == 'KOSPI')
+    n_kq = len(e['items']) - n_kp
+    for pat, want, label in ((r'코스피\s*(\d+)\s*종목', n_kp, '코스피'),
+                             (r'코스닥\s*(\d+)\s*종목', n_kq, '코스닥')):
+        for got in re.findall(pat, html):
+            need(int(got) == want,
+                 '본문 %s 종목 수 %s 가 데이터(%d)와 다르다' % (label, got, want))
+    for got in re.findall(r'(?:로스터가|로스터)\s*(\d+)\s*종목', html):
+        need(int(got) == len(e['items']),
+             '본문 로스터 %s종목이 데이터(%d)와 다르다' % (got, len(e['items'])))
+
     # 5) 플레이스홀더
     for pat in (r'%\(\w+\)[sd]', r'\{\{\w+\}\}', r'\bTODO\b', r'\bXXX\b'):
         m = re.search(pat, html)
