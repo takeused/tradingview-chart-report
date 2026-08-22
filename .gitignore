@@ -13,3 +13,5 @@ __pycache__/
 # scripts/collect_panel_daily.md 절차로 언제든 재생성된다. 집계 결과만 커밋한다.
 /data/panel_daily.csv
 /data/panel_*.csv
+
+/data/krx_marketdata.csv
