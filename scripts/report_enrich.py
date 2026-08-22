@@ -125,16 +125,32 @@ def main():
     if dry:
         return 0
 
-    before = html
-    html = html.replace('강세 3 · 중립 16 · 약세 3',
-                        '강세 %d · 중립 %d · 약세 %d' % (n_up, n_mid, n_dn))
-    html = html.replace('코스닥 9종목', '코스닥 %d종목' % n_kq)
-    html = html.replace('코스피 13종목', '코스피 %d종목' % n_kp)
-    # 헤더 알약(3 강세 / 16 중립 / 3 약세)
-    html = re.sub(r'(>)\s*3\s*(<[^>]*>\s*강세)', r'\g<1>%d\g<2>' % n_up, html, count=1)
-    html = re.sub(r'(>)\s*16\s*(<[^>]*>\s*중립)', r'\g<1>%d\g<2>' % n_mid, html, count=1)
-    if html == before:
-        print('경고 — 바뀐 것이 없다. 문구가 이미 다르다면 패턴을 확인하라')
+    # 치환은 **패턴**으로 한다. 옛 값 리터럴로 짜면 다음 증설 때 또 안 먹는다 —
+    # 2026-08-22에 30 → 31 종목으로 늘렸을 때 실제로 그렇게 조용히 실패했다.
+    n_all = len(ent['items'])
+    subs = [
+        (r'강세\s*\d+\s*·\s*중립\s*\d+\s*·\s*약세\s*\d+',
+         '강세 %d · 중립 %d · 약세 %d' % (n_up, n_mid, n_dn), 0),
+        (r'코스닥\s*\d+\s*종목', '코스닥 %d종목' % n_kq, 0),
+        (r'코스피\s*\d+\s*종목', '코스피 %d종목' % n_kp, 0),
+        (r'(?<![\d])\d+\s*종목(?=\s*비교 리포트)', '%d종목' % n_all, 0),
+        (r'(로스터가?\s*)\d+\s*종목', r'\g<1>%d종목' % n_all, 0),
+        # 헤더는 `KRX · <b>30종목</b>` 처럼 태그가 끼어 있다. 태그를 건너뛰고 숫자만 바꾼다.
+        (r'(KRX\s*·\s*(?:<b>)?\s*)\d+(\s*종목)', r'\g<1>%d\g<2>' % n_all, 1),
+        # "N종목 중 위쪽 주봉 존이 …" 처럼 로스터 전체를 가리키는 서술
+        (r'\d+(종목 중 위쪽 주봉 존)', r'%d\g<1>' % n_all, 0),
+        (r'(>)\s*\d+\s*(<[^>]*>\s*강세)', r'\g<1>%d\g<2>' % n_up, 1),
+        (r'(>)\s*\d+\s*(<[^>]*>\s*중립)', r'\g<1>%d\g<2>' % n_mid, 1),
+        (r'(>)\s*\d+\s*(<[^>]*>\s*약세)', r'\g<1>%d\g<2>' % n_dn, 1),
+    ]
+    hits = 0
+    for pat, rep, cnt in subs:
+        html, k = re.subn(pat, rep, html, count=cnt)
+        hits += k
+    if not hits:
+        print('경고 — 치환 0건. 본문 문구가 바뀌었는지 확인하라')
+    else:
+        print('본문 치환 %d건' % hits)
     open(p, 'w', encoding='utf-8').write(html)
     for q in ('stock_comparison_report_%s.html' % date, 'stock_comparison_report.html'):
         open(os.path.join(ROOT, 'report', q), 'w', encoding='utf-8').write(html)

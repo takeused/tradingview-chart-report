@@ -1376,7 +1376,8 @@
         {"code": "196170", "name": "알테오젠", "market": "KOSDAQ", "close": 320000, "atr": 24279, "chg": -5.74, "line_provenance": "fresh", "resist": 333077, "support": 307692, "src": "line", "sigma": [0.539, 0.507], "call": "down_test", "distance_sigma": 0.507, "horizon": "2~3세션", "prior": 60, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 -1.24%p(β0.96) · 배지 중립(-0.16σ) · 거래량 0.84배", "model_inputs": {"volx": 0.84, "rngatr": 0.74, "atrpct": 7.59, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 60.3, "p_base": 62.7, "dist_sigma": 0.539, "dir": "up", "horizon_sessions": 3, "level": 333077, "src": "line"}, "dn": {"p": 58.0, "p_base": 60.4, "dist_sigma": 0.507, "dir": "dn", "horizon_sessions": 3, "level": 307692, "src": "line"}}, "p_probe": {"0p5": {"up": 38.2, "dn": 34.4, "up_base": 43.0, "dn_base": 39.1, "up_level": 332140, "dn_level": 307860}, "1p0": {"up": 14.2, "dn": 10.0, "up_base": 16.8, "dn_base": 11.9, "up_level": 344279, "dn_level": 295721}}, "excess": -1.24, "badge": "중립", "badge_sigma": -0.16, "clsloc": 0.56, "volx": 0.84, "streak": -1, "hi": 328000, "lo": 310000, "vol": 491494},
         {"code": "214450", "name": "파마리서치", "market": "KOSDAQ", "close": 400500, "atr": 28694, "chg": -3.14, "line_provenance": "fresh", "resist": 418000, "support": 384500, "src": "line", "sigma": [0.61, 0.558], "call": "down_test", "distance_sigma": 0.558, "horizon": "2~3세션", "prior": 57, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 +0.42%p(β0.67) · 배지 중립(0.06σ) · 거래량 0.34배", "model_inputs": {"volx": 0.34, "rngatr": 0.64, "atrpct": 7.16, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 53.9, "p_base": 58.6, "dist_sigma": 0.61, "dir": "up", "horizon_sessions": 3, "level": 418000, "src": "line"}, "dn": {"p": 52.4, "p_base": 57.1, "dist_sigma": 0.558, "dir": "dn", "horizon_sessions": 3, "level": 384500, "src": "line"}}, "p_probe": {"0p5": {"up": 34.0, "dn": 30.5, "up_base": 43.0, "dn_base": 39.1, "up_level": 414847, "dn_level": 386153}, "1p0": {"up": 12.1, "dn": 8.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 429194, "dn_level": 371806}}, "excess": 0.42, "badge": "중립", "badge_sigma": 0.06, "clsloc": 0.16, "volx": 0.34, "streak": -1, "hi": 416000, "lo": 397500, "vol": 83923},
         {"code": "241710", "name": "코스메카코리아", "market": "KOSDAQ", "close": 137300, "atr": 10245, "chg": 0.07, "line_provenance": "fresh", "resist": null, "support": null, "src": null, "sigma": [null, null], "call": "no_level", "distance_sigma": null, "horizon": "1~2세션", "prior": null, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 +2.98%p(β0.47) · 배지 중립(0.40σ) · 거래량 0.92배", "model_inputs": {"volx": 0.92, "rngatr": 0.85, "atrpct": 7.46, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {}, "p_probe": {"0p5": {"up": 39.6, "dn": 35.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 142422, "dn_level": 132178}, "1p0": {"up": 14.9, "dn": 10.5, "up_base": 16.8, "dn_base": 11.9, "up_level": 147545, "dn_level": 127055}}, "excess": 2.982, "badge": "중립", "badge_sigma": 0.4, "clsloc": 0.31, "volx": 0.92, "streak": 3, "hi": 143300, "lo": 134600, "vol": 179557},
-        {"code": "403870", "name": "HPSP", "market": "KOSDAQ", "close": 44900, "atr": 4211, "chg": -6.46, "line_provenance": "fresh", "resist": 47300, "support": 42500, "src": "line", "sigma": [0.57, 0.57], "call": "up_test", "distance_sigma": 0.57, "horizon": "2~3세션", "prior": 61, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 -0.70%p(β1.35) · 배지 중립(-0.07σ) · 거래량 0.89배", "model_inputs": {"volx": 0.89, "rngatr": 1.08, "atrpct": 9.38, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 59.7, "p_base": 60.9, "dist_sigma": 0.57, "dir": "up", "horizon_sessions": 3, "level": 47300, "src": "line"}, "dn": {"p": 55.1, "p_base": 56.3, "dist_sigma": 0.57, "dir": "dn", "horizon_sessions": 3, "level": 42500, "src": "line"}}, "p_probe": {"0p5": {"up": 40.6, "dn": 36.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 47006, "dn_level": 42794}, "1p0": {"up": 15.5, "dn": 10.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 49111, "dn_level": 40689}}, "excess": -0.696, "badge": "중립", "badge_sigma": -0.07, "clsloc": 0.22, "volx": 0.89, "streak": -1, "hi": 48450, "lo": 43900, "vol": 2509334}
+        {"code": "403870", "name": "HPSP", "market": "KOSDAQ", "close": 44900, "atr": 4211, "chg": -6.46, "line_provenance": "fresh", "resist": 47300, "support": 42500, "src": "line", "sigma": [0.57, 0.57], "call": "up_test", "distance_sigma": 0.57, "horizon": "2~3세션", "prior": 61, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 -0.70%p(β1.35) · 배지 중립(-0.07σ) · 거래량 0.89배", "model_inputs": {"volx": 0.89, "rngatr": 1.08, "atrpct": 9.38, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 59.7, "p_base": 60.9, "dist_sigma": 0.57, "dir": "up", "horizon_sessions": 3, "level": 47300, "src": "line"}, "dn": {"p": 55.1, "p_base": 56.3, "dist_sigma": 0.57, "dir": "dn", "horizon_sessions": 3, "level": 42500, "src": "line"}}, "p_probe": {"0p5": {"up": 40.6, "dn": 36.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 47006, "dn_level": 42794}, "1p0": {"up": 15.5, "dn": 10.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 49111, "dn_level": 40689}}, "excess": -0.696, "badge": "중립", "badge_sigma": -0.07, "clsloc": 0.22, "volx": 0.89, "streak": -1, "hi": 48450, "lo": 43900, "vol": 2509334},
+        {"code": "049630", "name": "재영솔루텍", "market": "KOSDAQ", "close": 7360, "atr": 742, "chg": -3.16, "line_provenance": "fresh", "resist": 7750, "support": 6975, "src": "line", "sigma": [0.526, 0.519], "call": "down_test", "distance_sigma": 0.519, "horizon": "2~3세션", "prior": 59.6, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 +0.17%p(β0.60) · 배지 중립(0.02σ) · 거래량 1.82배", "model_inputs": {"volx": 1.82, "rngatr": 1.17, "atrpct": 10.08, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 64.0, "p_base": 63.5, "dist_sigma": 0.526, "dir": "up", "horizon_sessions": 3, "level": 7750, "src": "line"}, "dn": {"p": 60.1, "p_base": 59.6, "dist_sigma": 0.519, "dir": "dn", "horizon_sessions": 3, "level": 6975, "src": "line"}}, "p_probe": {"0p5": {"up": 44.1, "dn": 40.2, "up_base": 43.0, "dn_base": 39.1, "up_level": 7731, "dn_level": 6989}, "1p0": {"up": 17.4, "dn": 12.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 8102, "dn_level": 6618}}, "excess": 0.174, "badge": "중립", "badge_sigma": 0.02, "clsloc": 0.11, "volx": 1.82, "streak": -4, "hi": 8130, "lo": 7260, "vol": 1058297}
       ]
   }
  ],
@@ -3266,6 +3267,48 @@
      "atr_bars": 180,
      "atr_method": "wilder14"
     }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "049630",
+    "name": "재영솔루텍",
+    "dir": "up",
+    "level": 7750,
+    "dist_sigma": 0.526,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 64.0,
+    "p_base": 63.5,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.82,
+     "rngatr": 1.17,
+     "atrpct": 10.08,
+     "atr_bars": 150,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "049630",
+    "name": "재영솔루텍",
+    "dir": "dn",
+    "level": 6975,
+    "dist_sigma": 0.519,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 60.1,
+    "p_base": 59.6,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.82,
+     "rngatr": 1.17,
+     "atrpct": 10.08,
+     "atr_bars": 150,
+     "atr_method": "wilder14"
+    }
    }
   ],
   "_expiry_rule": "sessions_elapsed 가 horizon_sessions 에 도달하면 종결한다. 중간에 레벨에 닿으면 즉시 touched 로 종결. scripts/score_touch.py 가 매 회차 자동 처리한다."
@@ -4232,6 +4275,46 @@
      "wrngatr": 1.22,
      "watrpct": 10.44,
      "watr_bars": 120,
+     "atr_method": "wilder14_1W"
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "049630",
+    "name": "재영솔루텍",
+    "dir": "up",
+    "level": 8769,
+    "dist_sigma": 0.582,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 60.1,
+    "p_base": 63.0,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.21,
+     "watrpct": 32.89,
+     "watr_bars": 300,
+     "atr_method": "wilder14_1W"
+    }
+   },
+   {
+    "opened": "2026-08-21",
+    "code": "049630",
+    "name": "재영솔루텍",
+    "dir": "dn",
+    "level": 6108,
+    "dist_sigma": 0.517,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 57.6,
+    "p_base": 60.5,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.21,
+     "watrpct": 32.89,
+     "watr_bars": 300,
      "atr_method": "wilder14_1W"
     }
    }
@@ -6314,6 +6397,83 @@
      "pos12": 27,
      "wstreak": 2,
      "watrpct": 23.09
+    },
+    {
+     "code": "049630",
+     "name": "재영솔루텍",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 7360,
+     "atr": 2421,
+     "wchg": -18.49,
+     "resist": 8769,
+     "support": 6108,
+     "src": "line",
+     "sigma": [
+      0.582,
+      0.517
+     ],
+     "call": "down_test",
+     "distance_sigma": 0.517,
+     "horizon": "2~3주",
+     "prior": 60.5,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "low",
+     "atr_insufficient": null,
+     "note": "신규 편입. 주간 -18.49% · 4주 +22.3% · 12주 -30.9% · 12주위치 32% · 연속 -1주",
+     "model_inputs": {
+      "wrngatr": 1.21,
+      "watrpct": 32.89,
+      "watr_bars": 300,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 60.1,
+       "p_base": 63.0,
+       "dist_sigma": 0.582,
+       "dir": "up",
+       "horizon_weeks": 3,
+       "level": 8769,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 57.6,
+       "p_base": 60.5,
+       "dist_sigma": 0.517,
+       "dir": "dn",
+       "horizon_weeks": 3,
+       "level": 6108,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 64.9,
+       "dn": 58.7,
+       "up_base": 67.6,
+       "dn_base": 61.6,
+       "up_level": 8570,
+       "dn_level": 6150
+      },
+      "1p0": {
+       "up": 40.2,
+       "dn": 31.0,
+       "up_base": 43.1,
+       "dn_base": 33.6,
+       "up_level": 9781,
+       "dn_level": 4939
+      }
+     },
+     "m4": 22.3,
+     "m12": -30.9,
+     "pos12": 32,
+     "wstreak": -1,
+     "watrpct": 32.89
     }
    ]
   }

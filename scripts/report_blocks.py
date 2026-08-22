@@ -18,7 +18,9 @@
 import json, os, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-NEW = ['403870', '214450', '241710', '196170', '039490', '003230', '002380', '192820']
+# 증설로 들어온 종목. 추가할 때 여기에만 넣는다 — 본문 숫자는 전부 len 으로 쓴다.
+NEW = ['403870', '214450', '241710', '196170', '039490', '003230', '002380', '192820',
+       '049630']
 
 
 def f(n):
@@ -57,9 +59,11 @@ def legend_block():
 '''
 
 
-def new_block(items, rank_by_code):
-    order = ['192820', '002380', '241710', '214450', '403870', '196170', '039490', '003230']
+def new_block(items, rank_by_code, total):
     by = {i['code']: i for i in items}
+    # 합산 점수 순으로 보여 준다 — 코드 순서를 손으로 적으면 추가할 때마다 고쳐야 한다.
+    order = sorted([c for c in NEW if c in by],
+                   key=lambda c: -(rank_by_code.get(c, {}).get('score') or 0))
     lines = []
     for c in order:
         it = by[c]
@@ -86,9 +90,9 @@ def new_block(items, rank_by_code):
                lvs))
     return '''
   <div class="secsum" style="border-color:rgba(255,180,60,.5);">
-    <h3>🆕 신규 편입 8종목 — 오늘 처음 들어온 종목들입니다</h3>
+    <h3>🆕 신규 편입 %d종목 — 최근 로스터에 들어온 종목들입니다</h3>
     <p style="margin:0 0 10px;">
-      8/21 회차에 <b>8종목을 추가해 로스터가 30종목</b>이 됐습니다. 표에서 이들만
+      8/21 회차에 <b>%d종목을 추가해 로스터가 %d종목</b>이 됐습니다. 표에서 이들만
       <b>맨 아래 별도 그룹</b>으로 묶은 이유는 섹터가 없어서가 아니라,
       <b>편입 시점을 숨기지 않기 위해서</b>입니다. 뒤늦게 넣은 종목을 기존 섹터에 섞으면
       "처음부터 보고 있었던 것처럼" 보입니다. 기록은 8/21 종가 기준이고
@@ -102,10 +106,10 @@ def new_block(items, rank_by_code):
       비어 있어 <b>3σ 밖</b>입니다. 걸릴 자리가 없다는 사실 자체가 정보이므로,
       억지로 레벨을 만들지 않고 비워 둡니다.</p>
   </div>
-'''.replace('%s\n    </ul>', '%s\n    </ul>') % '\n'.join(lines)
+''' % (len(order), len(order), total, '\n'.join(lines))
 
 
-def rank_block(rows):
+def rank_block(rows, n_all, n_new):
     top = rows[:5]
     spread = top[0]['score'] - top[-1]['score']
     body = []
@@ -118,10 +122,10 @@ def rank_block(rows):
                sg(r['room_up']), sg(r['near_dn'])))
     return '''
   <div class="secsum" style="border-color:rgba(0,200,120,.45);">
-    <h3>🔁 순위 재산정 — 30종목 기준 · 산식도 고쳤습니다</h3>
+    <h3>🔁 순위 재산정 — %d종목 기준 · 산식도 고쳤습니다</h3>
     <p style="margin:0 0 10px;">
-      위 「베스트3」는 <b>22종목이던 때 뽑은 것</b>이라 신규 8종목이 후보에 없었습니다.
-      30종목으로 다시 계산하면서 <b>산식 자체도 손봤습니다</b>(아래 ※ 참조).</p>
+      위 「베스트3」는 <b>22종목이던 때 뽑은 것</b>이라 신규 %d종목이 후보에 없었습니다.
+      %d종목으로 다시 계산하면서 <b>산식 자체도 손봤습니다</b>(아래 ※ 참조).</p>
     <table class="score" style="width:100%%;">
       <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
         <th>위 여유<br><span class="vr">멀수록 가점</span></th>
@@ -131,7 +135,7 @@ def rank_block(rows):
       </tbody>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
-      산식 — <b>위험조정 초과 47 · 거래량 배수 29 · 위쪽 여유 24</b>, 각 항목을 30종목 안
+      산식 — <b>위험조정 초과 47 · 거래량 배수 29 · 위쪽 여유 24</b>, 각 항목을 %d종목 안
       백분위로 환산해 합산합니다. <b>레벨이 없으면 그 항목은 결측으로 빼고 남은 가중치로
       재정규화</b>합니다.</p>
     <p style="margin:10px 0 0;font-size:13px;">
@@ -148,7 +152,7 @@ def rank_block(rows):
       <b>"상위 그룹"</b> 정도로만 보시기 바랍니다. 위쪽 여유 항목도 검정된 것이 아니라
       <b>합리적 가정</b>일 뿐입니다. 기계적 종합이며 투자 추천이 아닙니다.</p>
   </div>
-''' % ('\n'.join(body), spread)
+''' % (n_all, n_new, n_all, '\n'.join(body), n_all, spread)
 
 
 def main():
@@ -162,7 +166,7 @@ def main():
     p = os.path.join(ROOT, 'report', 'index.html')
     html = open(p, encoding='utf-8').read()
     # 재실행 가능하게: 이미 있는 보완 블록을 지우고 다시 넣는다
-    for mark in ('📖 표 읽는 법', '🆕 신규 편입 8종목', '🔁 순위 재산정'):
+    for mark in ('📖 표 읽는 법', '🆕 신규 편입', '🔁 순위 재산정'):
         while mark in html:
             h = html.index(mark)
             st = html.rindex('<div class="secsum"', 0, h)
@@ -187,17 +191,17 @@ def main():
     # 섹터 요약 섹션 뒤에 신규 편입 해석과 순위 재산정을 넣는다
     key = '오늘의 시장 관전 포인트'
     j = html.rindex('<div', 0, html.index(key))
-    blk = new_block(ent['items'], rank_by_code).strip() + '\n\n  '
+    blk = new_block(ent['items'], rank_by_code, len(ent['items'])).strip() + '\n\n  '
     html = html[:j] + blk + html[j:]
 
     key2 = '📆 주봉으로 보면'
     k = html.rindex('<div', 0, html.index(key2))
-    html = html[:k] + rank_block(rows).strip() + '\n\n  ' + html[k:]
+    html = html[:k] + rank_block(rows, len(ent['items']), len([c for c in NEW if any(i['code']==c for i in ent['items'])])).strip() + '\n\n  ' + html[k:]
 
     for q in ('index.html', 'stock_comparison_report_%s.html' % date,
               'stock_comparison_report.html'):
         open(os.path.join(ROOT, 'report', q), 'w', encoding='utf-8').write(html)
-    print('블록 3종 삽입 — 범례 · 신규 8종목 해석 · 순위 재산정 (%d자)' % len(html))
+    print('블록 3종 삽입 — 범례 · 신규 종목 해석 · 순위 재산정 (%d자)' % len(html))
     return 0
 
 

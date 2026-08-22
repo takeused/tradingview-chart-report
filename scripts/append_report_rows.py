@@ -105,6 +105,13 @@ def insert(html, header_text, block, colspan):
     if st is None:
         raise SystemExit('표를 못 찾았다 — 헤더 "%s"' % header_text)
     end = html.index('</tbody>', st)
+    # 이미 증설 그룹이 있으면 **그 헤더 바로 뒤에** 이어 붙인다.
+    # 새 그룹을 또 만들면 같은 라벨이 표에 두 번 찍힌다(2026-08-22 재영솔루텍 추가 때 발생).
+    mark = '<td colspan="%d">%s</td></tr>' % (colspan, SECTOR)
+    tbl = html[st:end]
+    if mark in tbl:
+        at = st + tbl.index(mark) + len(mark)
+        return html[:at] + '\n' + block.rstrip('\n') + html[at:]
     grp = ('      <tr class="sector"><td colspan="%d">%s</td></tr>\n%s'
            % (colspan, SECTOR, block))
     return html[:end] + grp + html[end:]
@@ -121,8 +128,9 @@ def main():
 
     src = os.path.join(ROOT, 'report', 'stock_comparison_report_%s.html' % date)
     html = open(src, encoding='utf-8').read()
-    if SECTOR in html:
-        raise SystemExit('이미 증설 섹터가 있다 — 중복 삽입 방지')
+    for c in codes:                       # 같은 종목을 두 번 넣지 않는다
+        if 'code">(%s)' % c in html:
+            raise SystemExit('%s 는 이미 표에 있다' % c)
 
     html = insert(html, '방향(위험조정)', ''.join(daily_row(i) for i in items), 7)
     html = insert(html, '추세(연속주)', ''.join(weekly_desc_row(w) for w in wrows), 7)

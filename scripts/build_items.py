@@ -13,9 +13,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import touch_model as tm
 
 SCR = sys.argv[sys.argv.index('--dir') + 1] if '--dir' in sys.argv else '.'
-NAMES = {'403870': 'HPSP', '214450': '파마리서치', '241710': '코스메카코리아',
-         '196170': '알테오젠', '039490': '키움증권', '003230': '삼양식품',
-         '002380': 'KCC', '192820': '코스맥스'}
+# 종목은 --names "코드:이름,코드:이름" 으로 받는다. 하드코딩하면 다음 증설 때 또 고쳐야 한다.
+NAMES = (dict(x.split(':') for x in sys.argv[sys.argv.index('--names') + 1].split(','))
+         if '--names' in sys.argv else
+         {'403870': 'HPSP', '214450': '파마리서치', '241710': '코스메카코리아',
+          '196170': '알테오젠', '039490': '키움증권', '003230': '삼양식품',
+          '002380': 'KCC', '192820': '코스맥스'})
+OPENED = sys.argv[sys.argv.index('--date') + 1] if '--date' in sys.argv else '2026-08-21'
 SESSIONS = 3          # 기본 지평. 0.5σ 미만 근접 레벨은 2세션으로 줄인다(기존 회차 관행)
 
 
@@ -58,7 +62,7 @@ def pick_level(close, atr, zones, lines, direction):
     d, lvl, src, _ = cands[0]
     # 레벨은 정수 원으로 맞춘다 — 수정주가에서 온 소수점 레벨(333,076.59)은 호가로
     # 존재하지 않고, 리포트·원장·채점기가 서로 다른 반올림을 하면 값이 갈린다.
-    lvl = float(int(round(lvl)))
+    lvl = int(round(lvl))          # float 로 두면 표기(7,750)와 값(7750.0)이 갈려 검사기가 잡는다
     d = abs(lvl - close) / atr
     n = 0
     if src == 'line':
@@ -92,7 +96,7 @@ def main():
             pr['level'] = sel['level']
             pr['src'] = sel['src']
             pt[d] = pr
-            calls.append({'opened': '2026-08-21', 'code': code, 'name': NAMES[code], 'dir': d,
+            calls.append({'opened': OPENED, 'code': code, 'name': NAMES[code], 'dir': d,
                           'level': sel['level'], 'dist_sigma': sel['dist_sigma'],
                           'horizon_sessions': sess, 'expiry_after_sessions': sess,
                           'p': pr['p'], 'p_base': pr['p_base'], 'sessions_elapsed': 0,
@@ -115,7 +119,7 @@ def main():
               'support': dn['level'] if dn else None,
               'src': (up or dn or {}).get('src'),
               'sigma': [up['dist_sigma'] if up else None, dn['dist_sigma'] if dn else None],
-              'call': ('up_test' if main_dir == 'up' else 'dn_test') if pt else 'no_level',
+              'call': ('up_test' if main_dir == 'up' else 'down_test') if pt else 'no_level',
               'distance_sigma': pt[main_dir]['dist_sigma'] if pt else None,
               'horizon': '2~3세션' if (pt and pt[main_dir]['horizon_sessions'] == 3) else '1~2세션',
               'prior': tm.base_p(pt[main_dir]['dist_sigma'], main_dir,
@@ -128,7 +132,7 @@ def main():
               'model_inputs': mi, 'p_touch': pt, 'p_probe': probe,
               'excess': exc, 'badge': bdg, 'badge_sigma': sig,
               'clsloc': m['clsloc'], 'volx': m['volx'], 'streak': m['streak'],
-              'hi': m['hi'], 'lo': m['lo']}
+              'hi': m['hi'], 'lo': m['lo'], 'vol': m['vol']}
         items.append(it)
 
         # ── 주봉 ─────────────────────────────────────────────────────────────
@@ -152,7 +156,7 @@ def main():
                 pr['src'] = sel['src']
                 pr['lap'] = 1
                 wpt[d] = pr
-                wcalls.append({'opened': '2026-08-21', 'code': code, 'name': NAMES[code],
+                wcalls.append({'opened': OPENED, 'code': code, 'name': NAMES[code],
                                'dir': d, 'level': sel['level'],
                                'dist_sigma': sel['dist_sigma'], 'horizon_weeks': WEEKS,
                                'expiry_after_weeks': WEEKS, 'p': pr['p'],
