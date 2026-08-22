@@ -172,12 +172,19 @@ def check_entry(e, ledger, strict_ledger=True):
                 err.append('%s — %s 범위 이탈 %s' % (nm, label, v))
 
     # 9) 레벨 콜은 전부 원장에 등록돼야 한다
+    #    **방향 단위로 센다**(2026-08-22 수정). 항목 단위로 세던 때는 위·아래 확률을 둘 다
+    #    내고 원장에는 주 방향만 넣어도 통과했고, 그 바람에 예측의 절반이 영원히 채점되지
+    #    않았다(8/21 회차만 일봉 15건·주봉 15건). 확률을 냈으면 채점해야 한다.
     if strict_ledger:
-        lv = [it for it in e['items'] if it['call'] in LEVEL_CALLS]
+        lv = [(it['code'], d) for it in e['items']
+              for d, pr in (it.get('p_touch') or {}).items()
+              if pr.get('level') is not None]
         reg = [c for c in ledger.get('active', []) if c.get('opened') == e['asof']]
         if len(reg) != len(lv):
-            err.append('%s — 레벨 콜 %d건인데 open_calls.active 등록 %d건 (채점기가 못 본다)'
-                       % (tag, len(lv), len(reg)))
+            miss = sorted(set(lv) - {(c.get('code'), c.get('dir')) for c in reg})
+            err.append('%s — 레벨 콜 %d방향인데 원장 등록 %d건 (채점기가 못 본다)%s'
+                       % (tag, len(lv), len(reg),
+                          ' · 누락 ' + ', '.join('%s/%s' % m for m in miss[:6]) if miss else ''))
         by_code = {it['code']: it for it in e['items']}
         for c in reg:
             for k in ('code', 'dir', 'level', 'horizon_sessions', 'p', 'p_base', 'status'):
@@ -290,12 +297,19 @@ def check_weekly(e, ledger):
             if abs(exp - it['prior']) > 1:
                 err.append('%s — prior %s != 주봉표 %s' % (nm, it['prior'], exp))
 
-        if it['call'] in LEVEL_CALLS and not short:
-            lv += 1
+        # 방향 단위로 센다(2026-08-22 수정) — 일봉 9)번과 같은 이유다.
+        if not short:
+            lv += sum(1 for pr in (it.get('p_touch') or {}).values()
+                      if pr.get('level') is not None)
 
     reg = [c for c in ledger.get('active', []) if c.get('opened') == tag]
     if len(reg) != lv:
-        err.append('%s(주봉) — 레벨 콜 %d건인데 weekly_calls 등록 %d건' % (tag, lv, len(reg)))
+        want = {(it['code'], d) for it in e['items']
+                for d, pr in (it.get('p_touch') or {}).items() if pr.get('level') is not None}
+        miss = sorted(want - {(c.get('code'), c.get('dir')) for c in reg})
+        err.append('%s(주봉) — 레벨 콜 %d방향인데 weekly_calls 등록 %d건%s'
+                   % (tag, lv, len(reg),
+                      ' · 누락 ' + ', '.join('%s/%s' % m for m in miss[:6]) if miss else ''))
     by = {it['code']: it for it in e['items']}
     for c in reg:
         for k in ('code', 'dir', 'level', 'horizon_weeks', 'p', 'p_base', 'status'):
