@@ -18,3 +18,4 @@ __pycache__/
 /data/dart_financials.csv
 /data/dart_corpcode.csv
 /data/*.bak
+/data/dart_accmt.csv

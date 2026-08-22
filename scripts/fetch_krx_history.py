@@ -46,7 +46,12 @@ def universe(d_from, d_to):
     import FinanceDataReader as fdr
 
     cur = fdr.StockListing('KRX')
-    cur = cur[cur['Market'].isin(['KOSPI', 'KOSDAQ'])]
+    # **'KOSDAQ GLOBAL' 을 빠뜨리면 안 된다** (2026-08-22 발각).
+    # FDR 의 Market 값은 KOSPI / KOSDAQ / KOSDAQ GLOBAL / KONEX 넷이다. 앞의 둘만 받다가
+    # 코스닥 글로벌 세그먼트 50종목이 통째로 패널에서 빠졌고, 그중 알테오젠·에코프로·
+    # 에코프로비엠·리노공업 등이 **시총 상위 300 안 24~32개(약 9%)** 를 차지한다.
+    # KONEX 는 별도 시장이라 계속 제외한다(시총이 작아 상위 유니버스에 들지 않는다).
+    cur = cur[cur['Market'].isin(['KOSPI', 'KOSDAQ', 'KOSDAQ GLOBAL'])]
     cur = cur[cur['Code'].str.endswith('0')]                 # 우선주 제외
     cur = cur[~cur['Name'].str.contains('스팩', na=False)]
     live = [(r.Code, r.Market) for r in cur.itertuples()]
