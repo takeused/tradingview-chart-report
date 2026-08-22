@@ -90,10 +90,20 @@ def weekly_level_row(w):
                w.get('horizon', '2~3주')))
 
 
-def insert(html, table_idx, block, colspan):
-    """표의 </tbody> 앞에 섹터 그룹을 붙인다."""
-    starts = [m.start() for m in re.finditer(r'<table[^>]*>', html)]
-    st = starts[table_idx]
+def insert(html, header_text, block, colspan):
+    """표의 </tbody> 앞에 섹터 그룹을 붙인다.
+
+    표는 **인덱스가 아니라 헤더 내용으로** 찾는다. 앞에 블록을 끼워 넣으면 인덱스가
+    조용히 밀려 엉뚱한 표에 행을 넣게 된다(2026-08-22에 범례 추가로 실제 발생).
+    """
+    st = None
+    for m in re.finditer(r'<table[^>]*>', html):
+        head = html[m.start():m.start() + 3000]
+        if '</thead>' in head and header_text in head[:head.index('</thead>')]:
+            st = m.start()
+            break
+    if st is None:
+        raise SystemExit('표를 못 찾았다 — 헤더 "%s"' % header_text)
     end = html.index('</tbody>', st)
     grp = ('      <tr class="sector"><td colspan="%d">%s</td></tr>\n%s'
            % (colspan, SECTOR, block))
@@ -114,9 +124,9 @@ def main():
     if SECTOR in html:
         raise SystemExit('이미 증설 섹터가 있다 — 중복 삽입 방지')
 
-    html = insert(html, 1, ''.join(daily_row(i) for i in items), 7)          # 일봉 표
-    html = insert(html, 2, ''.join(weekly_desc_row(w) for w in wrows), 7)    # 주봉 서술 표
-    html = insert(html, 3, ''.join(weekly_level_row(w) for w in wrows), 6)   # 주봉 레벨 표
+    html = insert(html, '방향(위험조정)', ''.join(daily_row(i) for i in items), 7)
+    html = insert(html, '추세(연속주)', ''.join(weekly_desc_row(w) for w in wrows), 7)
+    html = insert(html, '위 레벨(주봉)', ''.join(weekly_level_row(w) for w in wrows), 6)
     html = html.replace('22종목', '30종목')
 
     for p in ('stock_comparison_report_%s.html' % date, 'index.html',

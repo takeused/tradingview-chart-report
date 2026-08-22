@@ -107,40 +107,48 @@ def new_block(items, rank_by_code):
 
 def rank_block(rows):
     top = rows[:5]
-    tie = [r for r in rows[1:6]]
-    spread = max(r['score'] for r in tie) - min(r['score'] for r in tie)
+    spread = top[0]['score'] - top[-1]['score']
     body = []
     for i, r in enumerate(top, 1):
+        sg = lambda v: '%.2fσ' % v if v is not None else '<span class="na">없음</span>'
         body.append(
             '      <tr><td><b>%d</b></td><td class="name">%s <span class="code">(%s)</span></td>'
-            '<td><b>%.1f</b></td><td>%+.2fσ</td><td>%.2f배</td><td>%.2fσ</td><td>%.2fσ</td></tr>'
+            '<td><b>%.1f</b></td><td>%+.2fσ</td><td>%.2f배</td><td>%s</td><td>%s</td></tr>'
             % (i, r['name'], r['code'], r['score'], r['sig'], r['volx'],
-               r['room_up'], r['near_dn']))
+               sg(r['room_up']), sg(r['near_dn'])))
     return '''
   <div class="secsum" style="border-color:rgba(0,200,120,.45);">
-    <h3>🔁 순위 재산정 — 30종목 기준으로 다시 뽑았습니다</h3>
+    <h3>🔁 순위 재산정 — 30종목 기준 · 산식도 고쳤습니다</h3>
     <p style="margin:0 0 10px;">
       위 「베스트3」는 <b>22종목이던 때 뽑은 것</b>이라 신규 8종목이 후보에 없었습니다.
-      30종목 전체로 다시 계산하면 <b class="up">코스맥스가 1위</b>입니다 —
-      배지 자체는 3위(+0.64σ)지만 <b>거래량 1.39배</b>로 매수가 실렸고
-      아래 지지가 0.58σ로 가깝습니다.</p>
+      30종목으로 다시 계산하면서 <b>산식 자체도 손봤습니다</b>(아래 ※ 참조).</p>
     <table class="score" style="width:100%%;">
       <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
-        <th>위 여유</th><th>아래 지지</th></tr></thead>
+        <th>위 여유<br><span class="vr">멀수록 가점</span></th>
+        <th>아래 지지<br><span class="vr">참고용 · 점수 미반영</span></th></tr></thead>
       <tbody>
 %s
       </tbody>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
-      산식 — <b>위험조정 초과 40 · 거래량 배수 25 · 위쪽 여유 20 · 아래 지지 근접 15</b>,
-      각 항목을 30종목 안 백분위로 환산해 합산합니다. 레벨이 없으면 3.0σ로 봅니다
-      (저항 없음 = 여유 최대 / 지지 없음 = 받침 최약).</p>
+      산식 — <b>위험조정 초과 47 · 거래량 배수 29 · 위쪽 여유 24</b>, 각 항목을 30종목 안
+      백분위로 환산해 합산합니다. <b>레벨이 없으면 그 항목은 결측으로 빼고 남은 가중치로
+      재정규화</b>합니다.</p>
+    <p style="margin:10px 0 0;font-size:13px;">
+      ※ <b>「아래 지지 근접」15점을 뺐습니다.</b> 세 가지 이유입니다.
+      ① <b>방향에 근거가 없습니다</b> — "지지에 가깝다"는 대체로 "최근 밀렸다"와 같은 말인데,
+      우리 팩터 검정에서 <b>최근 하락 종목 매수(단기반전)는 −0.79~−0.98%%/월(t −2.1~−2.3)로
+      뚜렷한 음수</b>였습니다. 가점을 줄 근거가 없습니다.
+      ② <b>결측을 최고값으로 채우고 있었습니다</b> — 레벨이 없는 종목을 3.0σ로 메우자
+      "정보가 없다"가 "여유 최대"로 둔갑해 코스메카코리아가 1위로 올라왔습니다.
+      ③ <b>그 15점 하나로 1위가 바뀌었습니다</b>(코스맥스 ↔ 코스메카코리아).
+      가정이 순위를 지배하면 그건 순위가 아닙니다.</p>
     <p style="margin:8px 0 0;font-size:13px;">
-      ⚠️ <b>2~5위는 사실상 동점입니다</b> — 점수 폭이 %.1f점(%.1f~%.1f)에 불과합니다.
-      순위를 서열로 읽지 마시고, <b>1위와 나머지</b> 정도로만 보시기 바랍니다.
-      기계적 종합이며 투자 추천이 아닙니다.</p>
+      ⚠️ 고친 뒤에도 <b>상위권 점수 폭은 %.1f점</b>에 불과합니다. 서열로 읽지 마시고
+      <b>"상위 그룹"</b> 정도로만 보시기 바랍니다. 위쪽 여유 항목도 검정된 것이 아니라
+      <b>합리적 가정</b>일 뿐입니다. 기계적 종합이며 투자 추천이 아닙니다.</p>
   </div>
-''' % ('\n'.join(body), spread, min(r['score'] for r in tie), max(r['score'] for r in tie))
+''' % ('\n'.join(body), spread)
 
 
 def main():
@@ -153,8 +161,24 @@ def main():
 
     p = os.path.join(ROOT, 'report', 'index.html')
     html = open(p, encoding='utf-8').read()
-    if 'id="howto"' in html:
-        raise SystemExit('이미 보완 블록이 있다 — 중복 삽입 방지')
+    # 재실행 가능하게: 이미 있는 보완 블록을 지우고 다시 넣는다
+    for mark in ('📖 표 읽는 법', '🆕 신규 편입 8종목', '🔁 순위 재산정'):
+        while mark in html:
+            h = html.index(mark)
+            st = html.rindex('<div class="secsum"', 0, h)
+            depth, k = 0, st
+            while True:
+                nx = min([x for x in (html.find('<div', k + 1), html.find('</div>', k + 1))
+                          if x != -1])
+                if html.startswith('<div', nx):
+                    depth += 1
+                else:
+                    if depth == 0:
+                        en = nx + 6
+                        break
+                    depth -= 1
+                k = nx
+            html = html[:st] + html[en:].lstrip('\n ')
 
     anchor = '<div class="secsum"'
     i = html.index(anchor)                      # 시장 요약 박스 앞
