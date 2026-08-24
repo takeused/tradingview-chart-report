@@ -88,10 +88,13 @@ def main():
               'atr_bars': m['bars'], 'atr_method': 'wilder14'}
 
         pt = {}
+        # 지평은 **항목당 하나**다. 방향별로 따로 정하면 위·아래가 0.5σ 를 사이에 두고
+        # 갈릴 때 item['horizon'] 과 p_touch 의 세션 수가 어긋난다(2026-08-24 삼양식품).
+        near = min([s['dist_sigma'] for s in (up, dn) if s] or [9.9])
+        sess = 2 if near < 0.5 else SESSIONS
         for d, sel in (('up', up), ('dn', dn)):
             if not sel:
                 continue
-            sess = 2 if sel['dist_sigma'] < 0.5 else SESSIONS
             pr = tm.predict(sel['dist_sigma'], d, mi, sess)
             pr['level'] = sel['level']
             pr['src'] = sel['src']
