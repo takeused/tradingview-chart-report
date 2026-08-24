@@ -74,7 +74,9 @@ def probe(key):
     rows, err = call(key, host, path, '20240105')
     print('대조군(우리 키)     → %s' % ('행 %d' % len(rows) if rows else err))
     if err and 'Unauthorized API Call' in err:
-        print('  -> 키는 유효하나 이 API 에 이용신청이 없다. 서비스 목록에서 신청할 것.')
+        # 샘플 엔드포인트는 실서비스와 권한이 별개다. 실서비스가 열려 있으면
+        # 여기가 401 이어도 문제가 아니다 — 아래 엔드포인트 확인 결과로 판단한다.
+        print('  -> 샘플 권한은 없다(정상일 수 있다). 아래 실서비스 결과로 판단할 것.')
     elif err and 'Unauthorized Key' in err:
         print('  -> 키 자체를 못 알아본다. API/keys.env 의 KRX_API_KEY 를 확인할 것.')
     print()
