@@ -9,6 +9,15 @@
 #
 # 인증키 — `API/keys.env` 의 `KRX_API_KEY=` 또는 환경변수 `KRX_API_KEY`.
 #
+# 401 이 두 종류다 (2026-08-24 확인). 헷갈리면 엉뚱한 데를 고치게 된다.
+#   "Unauthorized Key"      → 키를 못 알아본다. 오타·미저장·미발급.
+#   "Unauthorized API Call" → 키는 유효한데 그 API 에 **이용신청**이 안 걸려 있다.
+#     인증키 발급 승인과 API 별 이용신청(1M/3M/6M/12M)은 별개 단계다. 서비스 목록
+#     https://openapi.krx.co.kr/contents/OPP/INFO/service/OPPINFO004.cmd 에서 신청한다.
+#
+# 소급 범위는 문서상 stk_bydd_trd·ksq_bydd_trd 둘 다 **2010-01-04** 부터다.
+# 응답 컬럼에 MKTCAP·LIST_SHRS·ACC_TRDVAL 이 있어 universe_pit 요구를 그대로 채운다.
+#
 # 사용법
 #   python scripts/fetch_krx_openapi.py --probe
 #   python scripts/fetch_krx_openapi.py --from 2010-01-01 --to 2019-12-31
@@ -22,6 +31,8 @@ HDR = ['date', 'code', 'name', 'mkt', 'close', 'volume', 'value', 'shares', 'mkt
 
 # KRX Open API — 시장별 일별매매정보
 HOSTS = ['https://data-dbg.krx.co.kr/svc/apis', 'http://data-dbg.krx.co.kr/svc/apis']
+# KRX 문서의 공개 테스트 엔드포인트 + 공개 샘플키. 우리 코드가 멀쩡한지 가르는 대조군이다.
+SAMPLE = ('https://data-dbg.krx.co.kr/svc/sample/apis', '74D1B99DFBF345BBA3FB4476510A4BED4C78D13A')
 PATHS = [('KOSPI', '/sto/stk_bydd_trd'), ('KOSDAQ', '/sto/ksq_bydd_trd')]
 
 
@@ -56,6 +67,18 @@ def call(key, host, path, ymd):
 
 
 def probe(key):
+    # 먼저 대조군 — 샘플키가 200 을 주면 헤더·호스트·파서는 무죄다.
+    host, path = SAMPLE[0], PATHS[0][1]
+    rows, err = call(SAMPLE[1], host, path, '20240105')
+    print('대조군(공개 샘플키) → %s' % ('행 %d, 클라이언트 정상' % len(rows) if rows else err))
+    rows, err = call(key, host, path, '20240105')
+    print('대조군(우리 키)     → %s' % ('행 %d' % len(rows) if rows else err))
+    if err and 'Unauthorized API Call' in err:
+        print('  -> 키는 유효하나 이 API 에 이용신청이 없다. 서비스 목록에서 신청할 것.')
+    elif err and 'Unauthorized Key' in err:
+        print('  -> 키 자체를 못 알아본다. API/keys.env 의 KRX_API_KEY 를 확인할 것.')
+    print()
+
     print('엔드포인트 확인')
     live = None
     for host in HOSTS:
