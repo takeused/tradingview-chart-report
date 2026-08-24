@@ -20,7 +20,7 @@
 #                     "note":"근거"}
 #   진입가는 **다음 거래일 시가**를 쓴다(신호일 종가로 진입하면 룩어헤드다).
 
-import json, os, sys
+import json, math, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import panel_io
@@ -171,6 +171,10 @@ def _agg(trs):
         return None
     net = [t['net_pct'] for t in trs]
     exc = [t['excess_net_pct'] for t in trs]
+    # 로그(기하) 초과 — 산술 초과만 보면 변동성이 낮은 전략을 구조적으로 과소평가한다.
+    # 유니버스 감사에서 누적 2.94배 대 1.71배인데 산술 t 는 1.04 였다. 둘 다 낸다.
+    lex = [100 * (math.log(1 + t['net_pct'] / 100) - math.log(1 + t['bench_pct'] / 100))
+           for t in trs]
     n = len(net)
     mn = sum(net) / n
     mx = sum(exc) / n
@@ -184,6 +188,7 @@ def _agg(trs):
     cost_sum = sum(t['cost_pct'] for t in trs)
     return {
         'n': n, 'net_mean': round(mn, 4), 'excess_mean': round(mx, 4),
+        'log_excess_mean': round(sum(lex) / n, 4),
         'win_pct': round(sum(1 for x in net if x > 0) / n * 100, 1),
         'excess_win_pct': round(sum(1 for x in exc if x > 0) / n * 100, 1),
         'cum_net_pct': round((eq - 1) * 100, 2),
@@ -204,21 +209,24 @@ def cmd_report(_args):
         print('\n청산된 거래가 없다. open → mark 순서로 쌓은 뒤 다시 본다.')
         return
     print('')
-    print('%-22s %5s %10s %11s %8s %10s %9s %9s'
-          % ('전략', 'n', '순손익/건%', '벤치초과/건%', '승률%', '누적순%', '최대낙폭%', '비용비중%'))
-    print('-' * 92)
+    print('%-22s %5s %10s %11s %11s %8s %10s %9s %9s'
+          % ('전략', 'n', '순손익/건%', '벤치초과/건%', '로그초과/건%', '승률%', '누적순%',
+             '최대낙폭%', '비용비중%'))
+    print('-' * 104)
     for name in sorted({t['strategy'] for t in trs}) + ['(전체)']:
         sub = trs if name == '(전체)' else [t for t in trs if t['strategy'] == name]
         a = _agg(sub)
-        print('%-22s %5d %10.3f %11.3f %8.1f %10.2f %9.2f %9s'
-              % (name, a['n'], a['net_mean'], a['excess_mean'], a['win_pct'],
-                 a['cum_net_pct'], a['max_dd_pct'],
+        print('%-22s %5d %10.3f %11.3f %11.3f %8.1f %10.2f %9.2f %9s'
+              % (name, a['n'], a['net_mean'], a['excess_mean'], a['log_excess_mean'],
+                 a['win_pct'], a['cum_net_pct'], a['max_dd_pct'],
                  a['cost_share_pct'] if a['cost_share_pct'] is not None else '-'))
-    print('-' * 92)
+    print('-' * 104)
     a = _agg(trs)
-    print('판정 — 벤치마크 초과가 거래당 %+.3f%%%s'
-          % (a['excess_mean'],
+    print('판정 — 벤치마크 초과가 거래당 산술 %+.3f%% · 로그 %+.3f%%%s'
+          % (a['excess_mean'], a['log_excess_mean'],
              ' (양수: 계속 관찰)' if a['excess_mean'] > 0 else ' (음수: 이 전략은 돈을 못 번다)'))
+    if (a['excess_mean'] > 0) != (a['log_excess_mean'] > 0):
+        print('※ 산술과 로그의 부호가 갈렸다. 한쪽만 보고 판정하지 말 것.')
     print('※ 승률 %.1f%% 는 참고값이다. 판정 기준은 승률이 아니라 벤치마크 초과 기대값이다.'
           % a['win_pct'])
 
