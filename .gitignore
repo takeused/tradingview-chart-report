@@ -15,6 +15,7 @@ __pycache__/
 /data/panel_*.csv
 
 /data/krx_marketdata.csv
+/data/krx_openapi_marketdata.csv
 /data/dart_financials.csv
 /data/dart_corpcode.csv
 /data/*.bak
