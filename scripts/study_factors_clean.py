@@ -53,7 +53,51 @@ def _turnover(M, P, c, t, n=12):
     return sum(vals) / len(vals) if len(vals) >= n * 0.6 else None
 
 
+def _value(M, P, c, t):
+    d = M.get((c, P.dates[t]))
+    return d['value'] if d and d['value'] > 0 else None
+
+
+def _amihud_raw(M, P, c, t, n=26):
+    """Amihud 비유동성 — 무수정 거래대금판.
+
+    기존 `_amihud` 는 `수정종가 x 미수정 거래량` 으로 거래대금을 만들었다. **유니버스를
+    오염시킨 바로 그 곱셈이다** — 분할·감자가 있으면 수정계수 f 만큼 어긋나고, 그 f 는
+    미래에 일어날 사건이라 룩어헤드까지 들어온다. 거래대금은 원화 금액이라 수정과
+    무관하므로 무수정 원자료를 그대로 쓰면 그 문제가 사라진다.
+    """
+    vals = []
+    for k in range(max(1, t - n + 1), t + 1):
+        a, b = P.c[c][k - 1], P.c[c][k]
+        v = _value(M, P, c, k)
+        if a and b and v:
+            vals.append(abs(b / a - 1) / v)
+    return (sum(vals) / len(vals)) if len(vals) >= n * 0.6 else None
+
+
+def _valgrowth(M, P, c, t, n=12):
+    """거래대금 추세 — 직전 n주 평균 대비 그 이전 n주 평균 (무수정).
+
+    기존 `_volgrowth` 는 주식 수(거래량) 비율이라 분할이 창 사이에 끼면 경제적 변화가
+    없어도 f 배로 튄다. 금액 기준으로 재면 그 가짜 점프가 없다.
+    """
+    a = [v for v in (_value(M, P, c, k) for k in range(max(0, t - n + 1), t + 1)) if v]
+    b = [v for v in (_value(M, P, c, k) for k in range(max(0, t - 2 * n + 1), t - n + 1)) if v]
+    if len(a) < n * 0.6 or len(b) < n * 0.6:
+        return None
+    ma, mb = sum(a) / len(a), sum(b) / len(b)
+    return (ma / mb) if mb else None
+
+
 CLEAN_FACTORS = {
+    '비유동성(무수정)':    ('Amihud 2002 — 거래대금을 무수정 원자료로',
+                     lambda M, P, c, t, m: _amihud_raw(M, P, c, t, 26)),
+    '거래대금감소(12주)':  ('거래량감소 가설을 금액 기준으로 다시 잰 것',
+                     lambda M, P, c, t, m: (lambda x: None if x is None else -x)(_valgrowth(M, P, c, t, 12))),
+    # 반대 방향도 등록한다(2026-08-24). '감소' 쪽이 유의하게 음수라면 이기고 있는 것은
+    # '증가' 쪽이다. 소형주/대형주처럼 대칭 쌍으로 넣어야 어느 쪽이 값을 내는지 읽을 수 있다.
+    '거래대금증가(12주)':  ('관심 증가가 이어진다는 가설 — 감소 쪽의 대칭',
+                     lambda M, P, c, t, m: _valgrowth(M, P, c, t, 12)),
     '소형주(시총 낮은)': ('Banz 1981 규모효과',
                      lambda M, P, c, t, m: (lambda v: None if v is None else -math.log(v))(_cap(M, P, c, t))),
     '대형주(시총 높은)': ('규모효과 반대 방향 — 대칭 확인용',
