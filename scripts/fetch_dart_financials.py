@@ -14,7 +14,11 @@
 # 인증키 — 환경변수 `API_K_DART` 또는 `API/keys.env` 의 `API_K_DART=`.
 #
 # 사용법
-#   python scripts/fetch_dart_financials.py [--from-year 2018] [--to-year 2025]
+#   python scripts/fetch_dart_financials.py [--from-year 2015] [--to-year 2025]
+#
+# 소급 한계 — DART 다중회사 주요계정은 **FY2015 부터**다(2014 이하는 0행, 2026-08-24 확인).
+#   그래서 밸류 검정은 (2015+1)-04-30 = **2016-04-30** 부터 설 수 있다. 가격 데이터가
+#   2010년까지 있어도 여기가 병목이다.
 
 import csv, os, sys, time
 
@@ -53,8 +57,16 @@ def num(s):
 
 
 def universe_codes():
-    """마켓데이터에 등장하는 종목 중 DART 법인코드가 있는 것."""
-    md = os.path.join(ROOT, 'data', 'krx_marketdata.csv')
+    """마켓데이터에 등장하는 종목 중 DART 법인코드가 있는 것.
+
+    **전 구간 시장데이터를 쓴다(2026-08-24 수정).** 원래 2020년 이후만 담긴
+    krx_marketdata.csv 를 봤는데, 그러면 2020년 전에 상장폐지된 회사가 대상에서
+    통째로 빠진다 — 살아남은 회사만 재무를 갖게 되어 **생존편향**이 들어간다.
+    검정 구간이 2016년까지 내려가므로 그때 살아 있던 회사가 모두 필요하다.
+    """
+    md = os.path.join(ROOT, 'data', 'krx_marketdata_full.csv')
+    if not os.path.exists(md):
+        md = os.path.join(ROOT, 'data', 'krx_marketdata.csv')
     have = set()
     if os.path.exists(md):
         with open(md, encoding='utf-8') as f:
@@ -81,7 +93,7 @@ def fetch(key, corps, year, reprt='11011'):
 
 def main():
     key = api_key()
-    y0 = int(sys.argv[sys.argv.index('--from-year') + 1]) if '--from-year' in sys.argv else 2018
+    y0 = int(sys.argv[sys.argv.index('--from-year') + 1]) if '--from-year' in sys.argv else 2015
     y1 = int(sys.argv[sys.argv.index('--to-year') + 1]) if '--to-year' in sys.argv else 2025
 
     cmap = universe_codes()

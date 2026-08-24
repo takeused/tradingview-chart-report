@@ -10,8 +10,15 @@
 #   또 하나 — 저PBR 은 소형주로 쏠린다. 그런데 이 표본에서 소형주 팩터 자체는 음수다.
 #   그래서 크기 중립성(대/중/소 3분위 각각 양수인가)을 따로 확인한다.
 #
+# 2026-08-24 확장 — `--market data/krx_marketdata_full.csv --start 2016-04-30` 로
+#   표본을 6.4년 → **10.4년**으로 늘린다. 가격은 2010년까지 있지만 **DART 다중회사
+#   주요계정이 FY2015 부터**라 (2015+1)-04-30 이 한계다. 재무가 병목이다.
+#   재무 수집 대상도 전 구간 유니버스로 바꿨다 — 2020년 이후 시장데이터로 대상을
+#   고르면 그 전에 상장폐지된 회사가 빠져 **생존편향**이 생긴다(312법인 추가됨).
+#
 # 사용법
 #   python scripts/study_value.py [--pit 300]
+#   python scripts/study_value.py --market data/krx_marketdata_full.csv --start 2016-04-30
 
 import math, os, sys
 
@@ -74,9 +81,12 @@ def main():
     pit = int(sys.argv[sys.argv.index('--pit') + 1]) if '--pit' in sys.argv else 300
     P = panel_io.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',
                                    'data', 'panel_weekly_krx15.csv'))
-    M = load_market()
+    mpath = sys.argv[sys.argv.index('--market') + 1] if '--market' in sys.argv else None
+    M = load_market(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', mpath)
+                    ) if mpath else load_market()
     fin = load_financials()
-    t0 = P.di[min(d for d in P.dates if d >= START)]
+    start = sys.argv[sys.argv.index('--start') + 1] if '--start' in sys.argv else START
+    t0 = P.di[min(d for d in P.dates if d >= start)]
     MEAS = {'저PBR': 'equity', '저PSR': 'sales', '저PER': 'netinc'}
 
     print('밸류 스트레스 테스트 — %s ~ %s · 월간(%d주) · 왕복비용 %.2f%%'
