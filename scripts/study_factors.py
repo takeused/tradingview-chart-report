@@ -19,6 +19,7 @@
 # 사용법
 #   python scripts/study_factors.py [--panel weekly_krx] [--pit 300] [--cost 0.28]
 
+import zlib
 import math, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -133,10 +134,16 @@ def _volgrowth(P, c, t, n=12):
     return (ma / mb) if mb else None
 
 
-def _rand(P, c, t):
-    """음성 대조군 — 종목·시점에만 의존하는 결정적 난수. 정보가 0이다."""
-    h = (hash((c, t)) & 0xFFFFFFFF) / 0xFFFFFFFF
-    return h
+def _rand(P, c, t, seed=0):
+    """음성 대조군 — 종목·시점·시드에만 의존하는 난수. 정보가 0이다.
+
+    2026-08-24 수정: 원래 `hash((c, t))` 를 썼는데 파이썬 해시는 **프로세스마다
+    시드가 바뀐다.** 그래서 같은 명령을 두 번 돌리면 대조군이 -0.25 와 -0.57 사이를
+    오갔고, 한 번은 BH 까지 통과했다. 대조군이 실행마다 달라지면 "하네스가 정상인가"를
+    판정할 수 없다. crc32 로 바꿔 **실행 간 재현**되게 하고, 시드를 받아 여러 번
+    뽑을 수 있게 한다(한 번 뽑은 난수 하나로는 폭을 알 수 없다).
+    """
+    return zlib.crc32(('%d:%s:%d' % (seed, c, t)).encode()) / 0xFFFFFFFF
 
 
 # ── 팩터 등록부 (돌리기 전에 확정) ──────────────────────────────────────────

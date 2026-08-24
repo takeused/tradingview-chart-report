@@ -10,8 +10,18 @@
 # 판정에 로그(기하) 초과수익을 함께 낸다 — 저변동처럼 변동성이 낮은 전략은 기하수익에서
 #   벌고 산술평균은 그걸 못 잡는다(유니버스 감사에서 누적 2.94배 vs 1.71배인데 t=1.04였다).
 #
+# 2026-08-24 확장 — `--market data/krx_marketdata_full.csv --start 2010-04-02` 로
+#   **15.6년** 표본을 쓴다. KRX Open API 로 2010~2019 무수정 원자료를 받아 붙였고,
+#   두 출처가 겹치는 날에 값이 완전히 일치하는 것을 확인했다(merge_krx_marketdata.py).
+#   표본이 6.6년 → 15.6년이 되면서 **검정력 부족이라는 변명이 사라진다.**
+#
+# 주의 — 패널 거래량은 여전히 미수정이다. `비유동성(Amihud)`·`거래량감소`는 패널
+#   거래량을 쓰므로 이 확장으로도 깨끗해지지 않는다. 무수정 거래대금을 쓰는
+#   `저회전율`(CLEAN_FACTORS)과 가격만 쓰는 계열(저변동성·모멘텀 등)이 판정 대상이다.
+#
 # 사용법
 #   python scripts/study_factors_clean.py [--pit 300] [--panel weekly_krx15]
+#   python scripts/study_factors_clean.py --market data/krx_marketdata_full.csv --start 2010-04-02
 
 import math, os, sys
 
@@ -58,20 +68,33 @@ def main():
     pit = int(sys.argv[sys.argv.index('--pit') + 1]) if '--pit' in sys.argv else 300
     P = panel_io.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',
                                    'data', 'panel_%s.csv' % which))
-    M = load_market()
+    mpath = (sys.argv[sys.argv.index('--market') + 1] if '--market' in sys.argv
+             else None)
+    M = load_market(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', mpath)
+                    if mpath else None) if mpath else load_market()
+    start = sys.argv[sys.argv.index('--start') + 1] if '--start' in sys.argv else START
     mkt = market_series(P)
-    t0 = P.di[min(d for d in P.dates if d >= START)]
+    t0 = P.di[min(d for d in P.dates if d >= start)]
     pool_fn = lambda t: pool_cap(P, M, t, pit)
 
     print('팩터 등록부 재검정(무수정 유니버스) — %s ~ %s · 시가총액 상위 %d · 월간(%d주) · 비용 %.2f%%'
           % (P.dates[t0], P.dates[-1], pit, HORIZON, COST))
     print('유니버스는 공공데이터포털 무수정 시가총액, 수익률은 수정주가 패널.')
     print('')
-    print('%-22s %5s %4s %9s %6s %6s %9s %6s  %s'
-          % ('팩터', '분위%', 'n', '산술순%', 't', 'BH', '로그순%', 't', '국면별(강세/횡보/약세)'))
+    print('%-22s %5s %4s %9s %6s %6s %9s %6s %7s  %s'
+          % ('팩터', '분위%', 'n', '산술순%', 't', 'BH', '로그순%', 't', '회전율%',
+             '국면별(강세/횡보/약세)'))
     print('-' * 118)
 
-    cand = [(n, w, (lambda f: lambda t, c: f(P, c, t, mkt))(f)) for n, (w, f) in FACTORS.items()]
+    cand = [(n, w, (lambda f: lambda t, c: f(P, c, t, mkt))(f)) for n, (w, f) in FACTORS.items()
+            if '대조군' not in n]
+    # 대조군은 **여러 번 뽑는다.** 난수 하나로는 "0 근처인가"를 판정할 수 없다 —
+    # 회전율 95%짜리 무작위 선택은 비용만으로도 월 -0.27% 를 잃으므로, 팩터의 0 기준선은
+    # 0 이 아니라 이 분포다.
+    import study_factors as _sf
+    for sd in range(1, 6):
+        cand.append(('[대조군] 난수#%d' % sd, '음성 대조군 — 유의하면 하네스 결함',
+                     (lambda k: lambda t, c: _sf._rand(P, c, t, k))(sd)))
     cand += [(n, w, (lambda f: lambda t, c: f(M, P, c, t, mkt))(f)) for n, (w, f) in CLEAN_FACTORS.items()]
     if '--no-fundamental' not in sys.argv:
         fund = build_fundamental(load_financials())
@@ -93,6 +116,7 @@ def main():
                 if g:
                     reg.setdefault(g, []).append(r['net'])
             out.append({'name': name, 'why': why, 'frac': frac, 'ari': ari, 'log': log,
+                        'turn': sum(r['turn'] for r in rows) / len(rows),
                         'reg': {g: round(stat(v)['mean'], 2) for g, v in reg.items() if stat(v)},
                         'eq': compound([r['port'] - r['turn'] * COST for r in rows]),
                         'bm': compound([r['bm'] for r in rows])})
@@ -101,9 +125,9 @@ def main():
     rej = bh_reject([x['ari']['p'] for x in out])
     for i, x in enumerate(out):
         g = x['reg']
-        print('%-22s %5.0f %4d %9.3f %6.2f %6s %9.3f %6.2f  %s'
+        print('%-22s %5.0f %4d %9.3f %6.2f %6s %9.3f %6.2f %7.0f  %s'
               % (x['name'], x['frac'] * 100, x['ari']['n'], x['ari']['mean'], x['ari']['t'],
-                 'O' if rej[i] else '-', x['log']['mean'], x['log']['t'],
+                 'O' if rej[i] else '-', x['log']['mean'], x['log']['t'], x['turn'] * 100,
                  ' / '.join('%+.2f' % g[k] for k in ('강세', '횡보', '약세') if k in g)))
     print('-' * 118)
 
