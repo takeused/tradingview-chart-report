@@ -16,12 +16,18 @@ import websockets
 
 
 def target_ws(port=9222):
-    """차트 페이지 타깃의 WebSocket 주소를 찾는다."""
-    r = requests.get('http://localhost:%d/json/list' % port, timeout=5).json()
+    """차트 페이지 타깃의 WebSocket 주소를 찾는다.
+
+    호스트는 **127.0.0.1 로 고정**한다. TradingView 는 IPv4 로만 CDP 를 열고
+    다른 크로미엄이 같은 포트를 ::1 에 물고 있으면 'localhost' 가 그쪽으로 풀려
+    엉뚱한 브라우저에 붙는다(2026-08-25에 실제로 그랬다 — 타깃 목록에
+    chrome://newtab 만 나온다).
+    """
+    r = requests.get('http://127.0.0.1:%d/json/list' % port, timeout=5).json()
     pages = [t for t in r if t.get('type') == 'page' and 'tradingview.com' in t.get('url', '')]
     if not pages:
         raise SystemExit('TradingView 차트 페이지를 못 찾았다. 런처로 띄웠는지 확인할 것.')
-    return pages[0]['webSocketDebuggerUrl']
+    return pages[0]['webSocketDebuggerUrl'].replace('localhost', '127.0.0.1')
 
 
 async def evaluate(expr, port=9222):
