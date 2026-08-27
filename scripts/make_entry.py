@@ -47,6 +47,7 @@ def main():
     ap.add_argument('--dir', required=True)
     ap.add_argument('--date', required=True)
     ap.add_argument('--next', required=True)
+    ap.add_argument('--weekday', required=True, help='기준일 요일 한 글자 — 월화수목금')
     ap.add_argument('--dry', action='store_true')
     a = ap.parse_args()
 
@@ -90,7 +91,8 @@ def main():
              'index': {'KOSPI': int(round(md['KOSPI']['close'])),
                        'KOSDAQ': int(round(md['KOSDAQ']['close']))},
              'scored': None, 'roster_change': None,
-             '_note': '로스터·수집·확률 전 과정 v6.1. 주봉 확률은 금요일에만 낸다(오늘은 월요일).',
+             '_note': '로스터·수집·확률 전 과정 v6.1. 주봉 확률은 금요일에만 낸다(오늘은 %s요일).'
+                      % a.weekday,
              'items': items}
 
     want = sum(1 for it in items for k in it['p_touch'])

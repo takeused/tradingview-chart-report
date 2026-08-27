@@ -57,6 +57,8 @@ def main():
     ap.add_argument('--date', required=True)
     ap.add_argument('--prev', required=True)
     ap.add_argument('--weekday', required=True)
+    ap.add_argument('--add-sector', default=None,
+                    help='직전 표에 없던 종목을 담을 섹터 라벨(증설 회차에만)')
     a = ap.parse_args()
 
     d = json.load(open(os.path.join(ROOT, 'data', 'predictions.json'), encoding='utf-8'))
@@ -70,8 +72,16 @@ def main():
     order = sector_order(html)
     seen = [c for _, cs in order for c in cs]
     missing = [c for c in items if c not in seen]
-    if missing:
+    if missing and not a.add_sector:
         raise SystemExit('직전 표에 없는 종목이 있다 — %s' % missing)
+    if missing:
+        # 증설 — 직전 표에 없던 종목은 별도 그룹으로 맨 뒤에 붙인다.
+        # 순서는 entry 의 항목 순서를 따른다(코드순).
+        order = order + [(a.add_sector, [c for c in items if c in missing])]
+        seen = [c for _, cs in order for c in cs]
+    gone = [c for c in seen if c not in items]
+    if gone:
+        raise SystemExit('직전 표에 있는데 이번 항목에 없는 종목 — %s' % gone)
     if len(seen) != len(items):
         raise SystemExit('직전 표 %d행 != 이번 항목 %d개' % (len(seen), len(items)))
 
@@ -94,6 +104,11 @@ def main():
     # 헤더 기준일
     html = re.sub(r'기준일 \d{4}-\d{2}-\d{2}\([월화수목금]\)',
                   '기준일 %s(%s)' % (a.date, a.weekday), html)
+    # <title> 도 같이 옮긴다 — check_report 가 title 의 회차를 대조한다
+    html, n = re.subn(r'(<title>[^<]*?)\d{4}-\d{2}-\d{2}(</title>)',
+                      r'\g<1>%s\g<2>' % a.date, html)
+    if n != 1:
+        raise SystemExit('<title> 기준일 치환 %d건 — 제목 형식을 확인하라' % n)
 
     for p in ('stock_comparison_report_%s.html' % a.date, 'index.html',
               'stock_comparison_report.html'):

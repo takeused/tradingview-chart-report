@@ -19,8 +19,11 @@ import json, os, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 # 증설로 들어온 종목. 추가할 때 여기에만 넣는다 — 본문 숫자는 전부 len 으로 쓴다.
-NEW = ['403870', '214450', '241710', '196170', '039490', '003230', '002380', '192820',
-       '049630']
+# 회차별로 묶는다. 한 리스트로 뭉치면 "8/21에 13종목을 추가해"처럼 없는 사실이 인쇄된다.
+GROUPS = [('8/21', ['403870', '214450', '241710', '196170', '039490', '003230', '002380',
+                    '192820', '049630']),
+          ('8/27', ['011760', '025860', '103140', '267250'])]
+NEW = [c for _, cs in GROUPS for c in cs]
 
 
 def f(n):
@@ -59,10 +62,10 @@ def legend_block():
 '''
 
 
-def new_block(items, rank_by_code, total):
+def new_block(items, rank_by_code, total, when, codes):
     by = {i['code']: i for i in items}
     # 합산 점수 순으로 보여 준다 — 코드 순서를 손으로 적으면 추가할 때마다 고쳐야 한다.
-    order = sorted([c for c in NEW if c in by],
+    order = sorted([c for c in codes if c in by],
                    key=lambda c: -(rank_by_code.get(c, {}).get('score') or 0))
     lines = []
     for c in order:
@@ -88,25 +91,31 @@ def new_block(items, rank_by_code, total):
                it['badge'], it['badge_sigma'], it['model_inputs']['volx'],
                ' · <b>합산 %.1f점(전체 %d위)</b>' % (rk['score'], rk['rank']) if rk else '',
                lvs))
+    # 결측 사유는 항목의 note 에서 읽는다 — 손으로 적으면 다음 회차에 조용히 낡는다.
+    miss = []
+    for c in order:
+        nt = by[c].get('note') or ''
+        if '없는 쪽 — ' in nt:
+            miss.append('<b>%s</b> %s' % (by[c]['name'], nt.split('없는 쪽 — ')[1]))
+    foot = ('      ※ 레벨이 한쪽이라도 비어 있는 종목 — %s. 걸릴 자리가 없다는 사실 자체가 '
+            '정보이므로 억지로 레벨을 만들지 않고 비워 둡니다.' % ' / '.join(miss)) if miss else \
+           '      ※ 이 그룹은 위·아래 모두 유효 레벨이 잡혔습니다.'
     return '''
   <div class="secsum" style="border-color:rgba(255,180,60,.5);">
-    <h3>🆕 신규 편입 %d종목 — 최근 로스터에 들어온 종목들입니다</h3>
+    <h3>🆕 %s 신규 편입 %d종목</h3>
     <p style="margin:0 0 10px;">
-      8/21 회차에 <b>%d종목을 추가해 로스터가 %d종목</b>이 됐습니다. 표에서 이들만
+      %s 회차에 <b>%d종목을 추가해 로스터가 %d종목</b>이 됐습니다. 표에서 이들만
       <b>맨 아래 별도 그룹</b>으로 묶은 이유는 섹터가 없어서가 아니라,
       <b>편입 시점을 숨기지 않기 위해서</b>입니다. 뒤늦게 넣은 종목을 기존 섹터에 섞으면
-      "처음부터 보고 있었던 것처럼" 보입니다. 기록은 8/21 종가 기준이고
-      그 이후 장이 열리지 않은 상태에서 붙였으므로, <b>움직인 것을 보고 고른 것은 아닙니다</b>.</p>
+      "처음부터 보고 있었던 것처럼" 보입니다. 기록은 편입 회차의 종가 기준이며,
+      <b>이 종목들의 편입 이전 성과는 누적 판정에 넣지 않습니다</b>.</p>
     <ul style="margin:0;padding-left:18px;line-height:1.85;">
 %s
     </ul>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
-      ※ <b>코스메카코리아만 확률을 내지 않았습니다.</b> 위쪽은 신고가 부근이라 가장 가까운
-      라인이 137,900(0.06σ)으로 <b>0.5σ 하한에 미달</b>해 노이즈로 버렸고, 아래쪽은 106,400까지
-      비어 있어 <b>3σ 밖</b>입니다. 걸릴 자리가 없다는 사실 자체가 정보이므로,
-      억지로 레벨을 만들지 않고 비워 둡니다.</p>
+%s</p>
   </div>
-''' % (len(order), len(order), total, '\n'.join(lines))
+''' % (when, len(order), when, len(order), total, '\n'.join(lines), foot)
 
 
 def rank_block(rows, n_all, n_new):
@@ -124,8 +133,8 @@ def rank_block(rows, n_all, n_new):
   <div class="secsum" style="border-color:rgba(0,200,120,.45);">
     <h3>🔁 순위 재산정 — %d종목 기준 · 산식도 고쳤습니다</h3>
     <p style="margin:0 0 10px;">
-      위 「베스트3」는 <b>22종목이던 때 뽑은 것</b>이라 신규 %d종목이 후보에 없었습니다.
-      %d종목으로 다시 계산하면서 <b>산식 자체도 손봤습니다</b>(아래 ※ 참조).</p>
+      위 「베스트3」 뒤에 있는 <b>%d종목 전체 순위</b>입니다. 증설로 들어온 %d종목도
+      같은 산식으로 함께 세었고, <b>산식 자체도 한 차례 손봤습니다</b>(아래 ※ 참조).</p>
     <table class="score" style="width:100%%;">
       <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
         <th>위 여유<br><span class="vr">멀수록 가점</span></th>
@@ -152,7 +161,7 @@ def rank_block(rows, n_all, n_new):
       <b>"상위 그룹"</b> 정도로만 보시기 바랍니다. 위쪽 여유 항목도 검정된 것이 아니라
       <b>합리적 가정</b>일 뿐입니다. 기계적 종합이며 투자 추천이 아닙니다.</p>
   </div>
-''' % (n_all, n_new, n_all, '\n'.join(body), n_all, spread)
+''' % (n_all, n_all, n_new, '\n'.join(body), n_all, spread)
 
 
 def main():
@@ -166,7 +175,7 @@ def main():
     p = os.path.join(ROOT, 'report', 'index.html')
     html = open(p, encoding='utf-8').read()
     # 재실행 가능하게: 이미 있는 보완 블록을 지우고 다시 넣는다
-    for mark in ('📖 표 읽는 법', '🆕 신규 편입', '🔁 순위 재산정'):
+    for mark in ('📖 표 읽는 법', '🆕', '🔁 순위 재산정'):
         while mark in html:
             h = html.index(mark)
             st = html.rindex('<div class="secsum"', 0, h)
@@ -191,7 +200,13 @@ def main():
     # 섹터 요약 섹션 뒤에 신규 편입 해석과 순위 재산정을 넣는다
     key = '오늘의 시장 관전 포인트'
     j = html.rindex('<div', 0, html.index(key))
-    blk = new_block(ent['items'], rank_by_code, len(ent['items'])).strip() + '\n\n  '
+    have = {i['code'] for i in ent['items']}
+    blk = ''
+    for when, codes in GROUPS:
+        if not any(c in have for c in codes):
+            continue
+        blk += new_block(ent['items'], rank_by_code, len(ent['items']),
+                         when, codes).strip() + '\n\n  '
     html = html[:j] + blk + html[j:]
 
     key2 = '📆 주봉으로 보면'
