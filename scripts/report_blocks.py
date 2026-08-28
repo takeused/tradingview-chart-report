@@ -30,7 +30,48 @@ def f(n):
     return '{:,}'.format(int(round(n)))
 
 
-def legend_block():
+def ib(w):
+    """받침에 맞춰 '은/는'을 붙인다 — '배럴는'처럼 찍히면 사람이 쓴 글로 안 읽힌다."""
+    c = w[-1]
+    if '가' <= c <= '힣':
+        return w + ('은' if (ord(c) - 0xAC00) % 28 else '는')
+    return w + '는'          # 영문·숫자로 끝나면 관행대로 '는'
+
+
+def legend_block(items):
+    """범례. σ·거리 예시는 **이 회차 로스터에서 계산**한다.
+
+    2026-08-28에 발각: 예시가 "삼성전자 0.23σ · 배럴 1.6σ"로 상수로 박혀 있었는데,
+    0.23σ는 ATR이 21,364이던 옛 회차 값이고 배럴 1.6σ는 아예 맞지 않았다
+    (3,485원짜리 종목에 5,000원 위는 28σ다). **예시 숫자도 데이터에서 낸다.**
+    """
+    AMT = 5000                                   # 두 종목에 똑같이 대 보는 금액
+    real = [i for i in items if i.get('atr')]
+    hi = max(real, key=lambda i: i['atr'])       # ATR 가장 큰 종목
+    lo = min(real, key=lambda i: i['atr'])       # ATR 가장 작은 종목
+    # 거리 예시는 위 레벨이 있는 종목 중 1σ에 가장 가까운 것 — 읽는 사람이 감을 잡기 쉽다
+    ups = [i for i in items if (i.get('p_touch') or {}).get('up')]
+    ex = min(ups, key=lambda i: abs(i['p_touch']['up']['dist_sigma'] - 1.0))
+    exu = ex['p_touch']['up']
+
+    dist_row = """      <tr><td style="width:120px;"><b>거리</b></td>
+          <td><b>오늘 종가에서 그 레벨(저항·지지)까지의 간격</b>입니다. 목표가도 예상가도
+              아니고 <b>지금 자리에서 걸릴 자리까지 몇 원 남았나</b>일 뿐입니다.
+              위쪽은 저항까지, 아래쪽은 지지까지를 재며 방향과 무관하게 <b>절댓값</b>으로 씁니다.
+              예를 들어 %s 종가 %s원에 위 레벨이 %s원이니 거리는 <b>%s원</b>이고,
+              이걸 ATR(%s원)로 나눈 <b>%.2fσ</b>가 표에 찍힙니다.
+              도달확률도 이 거리에서 나옵니다 — <b>멀수록 낮고 가까울수록 높습니다.</b></td></tr>
+""" % (ib(ex['name']), f(ex['close']), f(exu['level']),
+       f(abs(exu['level'] - ex['close'])), f(ex['atr']), exu['dist_sigma'])
+
+    sigma_row = """      <tr><td><b>σ (시그마)</b></td>
+          <td>거리를 <b>그 종목의 하루 변동폭(ATR)</b>으로 나눈 값입니다. 1σ = 평소 하루치.
+              1σ가 %s <b>%s원</b>인데 %s <b>%s원</b>이라, 같은 "%s원 위"라도
+              %s <b>%.2fσ</b>이고 %s <b>%.1fσ</b>입니다 — 앞은 반나절이면 닿는 거리이고
+              뒤는 몇 달치입니다. <b>종목 간 비교는 원이 아니라 σ로 합니다.</b></td></tr>
+""" % (ib(hi['name']), f(hi['atr']), ib(lo['name']), f(lo['atr']), f(AMT),
+       ib(hi['name']), AMT / float(hi['atr']), ib(lo['name']), AMT / float(lo['atr']))
+
     return '''
   <div class="secsum" id="howto" style="border-color:rgba(120,140,255,.45);">
     <h3>📖 표 읽는 법 — 숫자 넷만 알면 됩니다</h3>
@@ -38,11 +79,7 @@ def legend_block():
       아래 표들은 "오를까 내릴까"를 맞히는 표가 아닙니다. <b>얼마나 움직일 여지가 있고,
       어디에 걸릴 자리가 있는지</b>를 재는 표입니다.</p>
     <table class="score" style="width:100%;">
-      <tr><td style="width:120px;"><b>σ (시그마)</b></td>
-          <td>거리를 <b>그 종목의 하루 변동폭(ATR)</b>으로 나눈 값입니다. 1σ = 평소 하루치.
-              같은 "5,000원 위"라도 삼성전자는 0.23σ, 배럴은 1.6σ라 의미가 전혀 다릅니다.
-              <b>종목 간 비교는 원이 아니라 σ로 합니다.</b></td></tr>
-      <tr><td><b>존 / 라인</b></td>
+''' + dist_row + sigma_row + '''      <tr><td><b>존 / 라인</b></td>
           <td><b>존</b>은 매물이 쌓인 <b>구간</b>(SMC 박스), <b>라인</b>은 과거 고·저점이 만든
               <b>한 점</b>입니다. 존이 기본이고 라인은 보조인데, <b>둘 중 가까운 쪽</b>을 씁니다.
               라인은 0.5σ보다 가까우면 노이즈로 보고 버립니다 —
@@ -195,7 +232,7 @@ def main():
 
     anchor = '<div class="secsum"'
     i = html.index(anchor)                      # 시장 요약 박스 앞
-    html = html[:i] + legend_block().strip() + '\n\n  ' + html[i:]
+    html = html[:i] + legend_block(ent['items']).strip() + '\n\n  ' + html[i:]
 
     # 섹터 요약 섹션 뒤에 신규 편입 해석과 순위 재산정을 넣는다
     key = '오늘의 시장 관전 포인트'
