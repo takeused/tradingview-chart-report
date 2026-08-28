@@ -131,10 +131,10 @@ def rank_block(rows, n_all, n_new):
                sg(r['room_up']), sg(r['near_dn'])))
     return '''
   <div class="secsum" style="border-color:rgba(0,200,120,.45);">
-    <h3>🔁 순위 재산정 — %d종목 기준 · 산식도 고쳤습니다</h3>
+    <h3>🔁 순위 재산정 — %d종목 전체 순위</h3>
     <p style="margin:0 0 10px;">
-      위 「베스트3」 뒤에 있는 <b>%d종목 전체 순위</b>입니다. 증설로 들어온 %d종목도
-      같은 산식으로 함께 세었고, <b>산식 자체도 한 차례 손봤습니다</b>(아래 ※ 참조).</p>
+      위 「베스트3」 뒤에 있는 <b>%d종목 전체 순위</b>입니다. 증설로 들어온 %d종목을 포함해
+      로스터 전체를 같은 산식으로 세었고, <b>산식은 2026-08-22에 한 차례 손봤습니다</b>(아래 ※ 참조).</p>
     <table class="score" style="width:100%%;">
       <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
         <th>위 여유<br><span class="vr">멀수록 가점</span></th>

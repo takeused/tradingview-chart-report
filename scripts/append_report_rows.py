@@ -81,6 +81,27 @@ def weekly_level_row(w):
                 '<td><b>%.1f%%</b><br><span class="vr">기준선 %.1f%% (%+.1f)</span></td>'
                 % (fmt(pr['level']), '존' if pr['src'] == 'zone' else '라인',
                    pr['dist_sigma'], pr['p'], pr['p_base'], pr['p'] - pr['p_base']))
+    def short_cell(fld, sig, src):
+        """ATR 창 120주 미달 — 레벨은 내고 확률만 뺀다(v6.1-W 규격)."""
+        lvl = w.get(fld)
+        if lvl is None:
+            return ('<td><span class="na">유효 레벨 없음</span></td>'
+                    '<td><span class="na">—</span></td>')
+        return ('<td>%s <span class="vr">%s · <b>%.2fσ</b></span></td>'
+                '<td><span class="na">확률 미산출</span></td>'
+                % (fmt(lvl), '존' if src == 'zone' else '라인', sig))
+
+    if w.get('atr_insufficient'):
+        sg = w.get('sigma') or [None, None]
+        return ('      <tr>\n'
+                '        <td class="name">%s <span class="code">(%s)</span></td>\n'
+                '        %s%s<td><span class="na">주봉 %d개</span></td>\n'
+                '      </tr>\n'
+                % (w['name'], w['code'],
+                   short_cell('resist', sg[0], w.get('src_up')),
+                   short_cell('support', sg[1], w.get('src_dn')),
+                   w['model_inputs']['watr_bars']))
+
     pt = w.get('p_touch') or {}
     return ('      <tr>\n'
             '        <td class="name">%s <span class="code">(%s)</span></td>\n'
