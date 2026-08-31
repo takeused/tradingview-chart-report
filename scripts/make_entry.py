@@ -48,6 +48,8 @@ def main():
     ap.add_argument('--date', required=True)
     ap.add_argument('--next', required=True)
     ap.add_argument('--weekday', required=True, help='기준일 요일 한 글자 — 월화수목금')
+    ap.add_argument('--roster-change', default=None,
+                    help='로스터가 바뀐 회차에만 — 바뀐 종목과 편향을 문장으로 적는다')
     ap.add_argument('--dry', action='store_true')
     a = ap.parse_args()
 
@@ -90,7 +92,7 @@ def main():
              # 지수는 정수로 맞춘다 — 직전 회차까지 정수라 섞이면 대조가 깨진다
              'index': {'KOSPI': int(round(md['KOSPI']['close'])),
                        'KOSDAQ': int(round(md['KOSDAQ']['close']))},
-             'scored': None, 'roster_change': None,
+             'scored': None, 'roster_change': a.roster_change,
              '_note': '로스터·수집·확률 전 과정 v6.1. 주봉 확률은 금요일에만 낸다(오늘은 %s요일).'
                       % a.weekday,
              'items': items}
