@@ -7,10 +7,21 @@
 #   숫자는 전부 predictions.json / report_rank_*.json 에서 읽는다. 문장 안에 숫자를
 #   손으로 적으면 다음 회차에 조용히 어긋난다 — 이번에 실제로 그렇게 어긋났다.
 #
-# 넣는 블록 셋
-#   1) 읽는 법(범례) — σ·존/라인·배지·도달확률을 한 자리에서 설명
-#   2) 신규 편입 8종목 해석 — 왜 별도 그룹인지 + 종목별 한 줄
-#   3) 순위 재산정 — 30종목 기준 상위, 산식 공개, 동점 구간 명시
+# 넣는 블록 둘 (2026-09-01에 셋 → 둘로 줄였다)
+#   1) 읽는 법(범례) — σ·거리·존/라인·배지·도달확률을 한 자리에서 설명
+#   2) 순위 — 로스터 전체 순위 + 상위 3종목 한 줄, 산식 공개, 동점 구간 명시
+#
+# 「🆕 신규 편입」 블록을 없앤 이유 (2026-09-01)
+#   ① 표에 있는 값(종가·등락·초과·배지·거래량·레벨)을 문장으로 다시 읽어 줬을 뿐이다.
+#   ② 머리말 250자가 블록마다 **글자 하나 안 틀리고** 반복됐다(3블록 = 750자).
+#   ③ 로스터가 늘 때마다 블록이 하나씩 늘어 **무한히 자라는 구조**였다.
+#   편입 시점은 일봉 표의 섹터 라벨(「신규 편입(2026-08-27 증설)」)이 그대로 밝혀 준다 —
+#   원래 이 블록의 목적이 그것이었으므로 목적은 보존된다.
+#
+# 「⭐ 베스트3」를 순위 블록에 합친 이유 (2026-09-01)
+#   같은 산식을 베스트3 머리말·순위 머리말·순위 각주에서 **세 번** 설명하고 있었고,
+#   상위 3종목이 두 블록에 두 번 나왔다. 게다가 순위 제목은 「36종목 전체 순위」인데
+#   표는 **5행**이었다 — 제목이 거짓말을 하고 있었다.
 #
 # 사용법
 #   python scripts/report_blocks.py --date 2026-08-21
@@ -18,13 +29,6 @@
 import json, os, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-# 증설로 들어온 종목. 추가할 때 여기에만 넣는다 — 본문 숫자는 전부 len 으로 쓴다.
-# 회차별로 묶는다. 한 리스트로 뭉치면 "8/21에 13종목을 추가해"처럼 없는 사실이 인쇄된다.
-GROUPS = [('8/21', ['403870', '214450', '241710', '196170', '039490', '003230', '002380',
-                    '192820', '049630']),
-          ('8/27', ['011760', '025860', '103140', '267250']),
-          ('8/31', ['000500'])]
-NEW = [c for _, cs in GROUPS for c in cs]
 
 
 def f(n):
@@ -100,79 +104,69 @@ def legend_block(items):
 '''
 
 
-def new_block(items, rank_by_code, total, when, codes):
+def rank_block(items, rows, date):
+    """순위 블록 — 상위 3종목 한 줄 + 로스터 전체 표.
+
+    2026-09-01에 「⭐ 베스트3」를 여기로 합쳤다. 상위 3종목이 두 블록에 두 번 나왔고,
+    같은 산식을 세 번 설명하고 있었다. 상위 3종목 코멘트도 **손으로 쓰지 않고 생성**한다 —
+    손으로 쓰면 다음 회차에 낡고, 지금까지 실제로 매번 낡았다.
+
+    표는 **로스터 전체**를 싣는다. 5행만 실으면서 제목에 「N종목 전체 순위」라고 쓰면
+    제목이 거짓말을 한다(2026-09-01 이전까지 그랬다).
+    """
     by = {i['code']: i for i in items}
-    # 합산 점수 순으로 보여 준다 — 코드 순서를 손으로 적으면 추가할 때마다 고쳐야 한다.
-    order = sorted([c for c in codes if c in by],
-                   key=lambda c: -(rank_by_code.get(c, {}).get('score') or 0))
-    lines = []
-    for c in order:
-        it = by[c]
-        pt = it.get('p_touch') or {}
-        up, dn = pt.get('up'), pt.get('dn')
-        lv = []
-        if up:
-            lv.append('위 %s(%s %.2fσ)' % (f(up['level']), '존' if up['src'] == 'zone' else '라인',
-                                          up['dist_sigma']))
-        if dn:
-            lv.append('아래 %s(%s %.2fσ)' % (f(dn['level']), '존' if dn['src'] == 'zone' else '라인',
-                                           dn['dist_sigma']))
-        lvs = ' · '.join(lv) if lv else '<b>양쪽 다 유효 레벨 없음</b>'
-        cl = 'up' if it['chg'] > 0 else 'down' if it['chg'] < 0 else ''
-        rk = rank_by_code.get(c)
-        lines.append(
-            '      <li><b>%s</b> <span class="code">(%s)</span> — 종가 %s '
-            '<span class="%s">%+.2f%%</span> · 초과 <b class="%s">%+.2f%%p</b>(%s %+.2fσ) · '
-            '거래량 %.2f배%s<br><span class="vr">%s</span></li>'
-            % (it['name'], c, f(it['close']), cl, it['chg'],
-               'up' if it['excess'] > 0 else 'down', it['excess'],
-               it['badge'], it['badge_sigma'], it['model_inputs']['volx'],
-               ' · <b>합산 %.1f점(전체 %d위)</b>' % (rk['score'], rk['rank']) if rk else '',
-               lvs))
-    # 결측 사유는 항목의 note 에서 읽는다 — 손으로 적으면 다음 회차에 조용히 낡는다.
-    miss = []
-    for c in order:
-        nt = by[c].get('note') or ''
-        if '없는 쪽 — ' in nt:
-            miss.append('<b>%s</b> %s' % (by[c]['name'], nt.split('없는 쪽 — ')[1]))
-    foot = ('      ※ 레벨이 한쪽이라도 비어 있는 종목 — %s. 걸릴 자리가 없다는 사실 자체가 '
-            '정보이므로 억지로 레벨을 만들지 않고 비워 둡니다.' % ' / '.join(miss)) if miss else \
-           '      ※ 이 그룹은 위·아래 모두 유효 레벨이 잡혔습니다.'
-    return '''
-  <div class="secsum" style="border-color:rgba(255,180,60,.5);">
-    <h3>🆕 %s 신규 편입 %d종목</h3>
-    <p style="margin:0 0 10px;">
-      %s 회차에 <b>%d종목을 추가했습니다</b>(현재 로스터 <b>%d종목</b>). 표에서 이들만
-      <b>맨 아래 별도 그룹</b>으로 묶은 이유는 섹터가 없어서가 아니라,
-      <b>편입 시점을 숨기지 않기 위해서</b>입니다. 뒤늦게 넣은 종목을 기존 섹터에 섞으면
-      "처음부터 보고 있었던 것처럼" 보입니다. 기록은 편입 회차의 종가 기준이며,
-      <b>이 종목들의 편입 이전 성과는 누적 판정에 넣지 않습니다</b>.</p>
-    <ul style="margin:0;padding-left:18px;line-height:1.85;">
-%s
-    </ul>
-    <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
-%s</p>
-  </div>
-''' % (when, len(order), when, len(order), total, '\n'.join(lines), foot)
+    n_all = len(rows)
+    MISS = {'room_up': '위쪽 여유', 'volx': '거래량', 'sig': '초과'}
 
+    def sg(v):
+        return '%.2fσ' % v if v is not None else '<span class="na">없음</span>'
 
-def rank_block(rows, n_all, n_new):
-    top = rows[:5]
-    spread = top[0]['score'] - top[-1]['score']
     body = []
-    for i, r in enumerate(top, 1):
-        sg = lambda v: '%.2fσ' % v if v is not None else '<span class="na">없음</span>'
+    for k, r in enumerate(rows, 1):
         body.append(
             '      <tr><td><b>%d</b></td><td class="name">%s <span class="code">(%s)</span></td>'
             '<td><b>%.1f</b></td><td>%+.2fσ</td><td>%.2f배</td><td>%s</td><td>%s</td></tr>'
-            % (i, r['name'], r['code'], r['score'], r['sig'], r['volx'],
+            % (k, r['name'], r['code'], r['score'], r['sig'], r['volx'],
                sg(r['room_up']), sg(r['near_dn'])))
+
+    tops = []
+    for k, r in enumerate(rows[:3], 1):
+        it = by[r['code']]
+        pt = it.get('p_touch') or {}
+        lv = []
+        for d, lab in (('up', '위'), ('dn', '아래')):
+            v = pt.get(d)
+            if v:
+                lv.append('%s %s(%s %.2fσ · %.1f%%)'
+                          % (lab, f(v['level']), '존' if v['src'] == 'zone' else '라인',
+                             v['dist_sigma'], v['p']))
+            else:
+                # 없는 쪽을 적지 않으면 독자가 "아래는?" 하고 표를 뒤진다.
+                # 걸릴 자리가 없다는 사실 자체가 정보다.
+                lv.append('<b>%s 유효 레벨 없음</b>' % lab)
+        tail = ' · '.join(lv)
+        # 결측이 있으면 그 사실을 밝힌다 — 없는 것을 좋은 것으로 읽으면 안 된다.
+        note = ('<b>「%s」가 결측</b>이라 남은 가중치로 재정규화한 점수입니다.'
+                % '」·「'.join(MISS.get(m, m) for m in r['missing'])) if r['missing'] else                '세 항목이 <b>모두 채워진</b> 점수입니다.'
+        tops.append(
+            '    <p style="margin:0 0 8px;font-size:13px;"><b>%d. %s (%s)</b> — 종가 %s · '
+            '<b class="%s">%+.2f%%</b> · β조정 초과 <b class="%s">%+.2f%%p</b>(%s %+.2fσ) · '
+            '거래량 %.2f배 · <b>합산 %.1f점</b><br><span class="vr">%s</span> %s</p>'
+            % (k, it['name'], r['code'], f(it['close']),
+               'up' if it['chg'] > 0 else 'down' if it['chg'] < 0 else '', it['chg'],
+               'up' if it['excess'] > 0 else 'down', it['excess'],
+               it['badge'], it['badge_sigma'], r['volx'], r['score'], tail, note))
+
+    s3 = rows[0]['score'] - rows[2]['score']
+    s47 = rows[3]['score'] - rows[6]['score'] if len(rows) > 6 else 0.0
     return '''
-  <div class="secsum" style="border-color:rgba(0,200,120,.45);">
-    <h3>🔁 순위 재산정 — %d종목 전체 순위</h3>
-    <p style="margin:0 0 10px;">
-      위 「베스트3」 뒤에 있는 <b>%d종목 전체 순위</b>입니다. 증설로 들어온 %d종목을 포함해
-      로스터 전체를 같은 산식으로 세었고, <b>산식은 2026-08-22에 한 차례 손봤습니다</b>(아래 ※ 참조).</p>
+  <div class="secsum" style="border-color:rgba(255,215,0,.5);">
+    <h3>🔁 순위 — %d종목 전체 <span class="muted">(%s 종가 기준 · v6.1 · β조정)</span></h3>
+    <p style="margin:0 0 10px;font-size:13px;color:var(--muted);">
+      <b>위험조정 초과수익 47 · 거래량 배수 29 · 위쪽 여유 24</b>를 각각 %d종목 안 백분위로
+      환산해 합산합니다. <b>레벨이 없으면 그 항목은 결측으로 빼고 남은 가중치로 재정규화</b>합니다 —
+      없는 것은 "여유가 최대"가 아니라 <b>정보가 없는</b> 것입니다.</p>
+%s
     <table class="score" style="width:100%%;">
       <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
         <th>위 여유<br><span class="vr">멀수록 가점</span></th>
@@ -182,24 +176,13 @@ def rank_block(rows, n_all, n_new):
       </tbody>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
-      산식 — <b>위험조정 초과 47 · 거래량 배수 29 · 위쪽 여유 24</b>, 각 항목을 %d종목 안
-      백분위로 환산해 합산합니다. <b>레벨이 없으면 그 항목은 결측으로 빼고 남은 가중치로
-      재정규화</b>합니다.</p>
-    <p style="margin:10px 0 0;font-size:13px;">
-      ※ <b>「아래 지지 근접」15점을 뺐습니다.</b> 세 가지 이유입니다.
-      ① <b>방향에 근거가 없습니다</b> — "지지에 가깝다"는 대체로 "최근 밀렸다"와 같은 말인데,
-      우리 팩터 검정에서 <b>최근 하락 종목 매수(단기반전)는 −0.79~−0.98%%/월(t −2.1~−2.3)로
-      뚜렷한 음수</b>였습니다. 가점을 줄 근거가 없습니다.
-      ② <b>결측을 최고값으로 채우고 있었습니다</b> — 레벨이 없는 종목을 3.0σ로 메우자
-      "정보가 없다"가 "여유 최대"로 둔갑해 코스메카코리아가 1위로 올라왔습니다.
-      ③ <b>그 15점 하나로 1위가 바뀌었습니다</b>(코스맥스 ↔ 코스메카코리아).
-      가정이 순위를 지배하면 그건 순위가 아닙니다.</p>
-    <p style="margin:8px 0 0;font-size:13px;">
-      ⚠️ 고친 뒤에도 <b>상위권 점수 폭은 %.1f점</b>에 불과합니다. 서열로 읽지 마시고
-      <b>"상위 그룹"</b> 정도로만 보시기 바랍니다. 위쪽 여유 항목도 검정된 것이 아니라
-      <b>합리적 가정</b>일 뿐입니다. 기계적 종합이며 투자 추천이 아닙니다.</p>
+      ※ 상위 3종목은 <b>%.1f점</b>, 4~7위는 <b>%.1f점</b> 안에 몰려 있어 <b>서열이 아니라
+      "상위 그룹"</b>으로만 읽어야 합니다. 「아래 지지 근접」 항목은 <b>2026-08-22에
+      제거</b>했습니다 — 단기반전이 우리 검정에서 −0.79~−0.98%%/월(t −2.1~−2.3)로 음수였고,
+      결측을 3.0σ로 메우던 처리가 1위를 뒤집고 있었습니다. 위쪽 여유도 검정된 것이 아니라
+      <b>합리적 가정</b>입니다. 기계적 종합이며 <b>투자 추천이 아닙니다</b>.</p>
   </div>
-''' % (n_all, n_all, n_new, '\n'.join(body), n_all, spread)
+''' % (n_all, date, n_all, chr(10).join(tops), chr(10).join(body), s3, s47)
 
 
 def main():
@@ -208,12 +191,13 @@ def main():
     ent = next(e for e in d['entries'] if e['asof'] == date)
     rk = json.load(open(os.path.join(ROOT, 'data', 'report_rank_%s.json' % date), encoding='utf-8'))
     rows = rk['rows']
-    rank_by_code = {r['code']: dict(r, rank=i + 1) for i, r in enumerate(rows)}
 
     p = os.path.join(ROOT, 'report', 'index.html')
     html = open(p, encoding='utf-8').read()
-    # 재실행 가능하게: 이미 있는 보완 블록을 지우고 다시 넣는다
-    for mark in ('📖 표 읽는 법', '🆕', '🔁 순위 재산정'):
+    # 재실행 가능하게: 이미 있는 보완 블록을 지우고 다시 넣는다.
+    # '🆕'·'투자유망 종목 베스트3' 은 2026-09-01에 없앤 블록이라, 옛 회차 스냅샷을
+    # 템플릿으로 쓸 때 남아 있으면 여기서 걷어낸다.
+    for mark in ('📖 표 읽는 법', '🆕', '🔁 순위', '투자유망 종목 베스트3'):
         while mark in html:
             h = html.index(mark)
             st = html.rindex('<div class="secsum"', 0, h)
@@ -235,26 +219,15 @@ def main():
     i = html.index(anchor)                      # 시장 요약 박스 앞
     html = html[:i] + legend_block(ent['items']).strip() + '\n\n  ' + html[i:]
 
-    # 섹터 요약 섹션 뒤에 신규 편입 해석과 순위 재산정을 넣는다
-    key = '오늘의 시장 관전 포인트'
-    j = html.rindex('<div', 0, html.index(key))
-    have = {i['code'] for i in ent['items']}
-    blk = ''
-    for when, codes in GROUPS:
-        if not any(c in have for c in codes):
-            continue
-        blk += new_block(ent['items'], rank_by_code, len(ent['items']),
-                         when, codes).strip() + '\n\n  '
-    html = html[:j] + blk + html[j:]
-
-    key2 = '📆 주봉으로 보면'
-    k = html.rindex('<div', 0, html.index(key2))
-    html = html[:k] + rank_block(rows, len(ent['items']), len([c for c in NEW if any(i['code']==c for i in ent['items'])])).strip() + '\n\n  ' + html[k:]
+    # 순위 블록은 「관전 포인트」 뒤, 주봉 구획(wkhead) 앞에 넣는다.
+    # 예전에는 주봉 툴바 **뒤**에 있어 일봉 순위가 「주봉」 배지 아래에 걸려 있었다.
+    k = html.index('<div class="wkhead">')
+    html = html[:k] + rank_block(ent['items'], rows, date).strip() + '\n\n  ' + html[k:]
 
     for q in ('index.html', 'stock_comparison_report_%s.html' % date,
               'stock_comparison_report.html'):
         open(os.path.join(ROOT, 'report', q), 'w', encoding='utf-8').write(html)
-    print('블록 3종 삽입 — 범례 · 신규 종목 해석 · 순위 재산정 (%d자)' % len(html))
+    print('블록 2종 삽입 — 범례 · 순위 (%d자)' % len(html))
     return 0
 
 
