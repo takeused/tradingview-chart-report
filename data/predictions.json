@@ -5139,7 +5139,856 @@
     "KOSPI": 6820,
     "KOSDAQ": 834
    },
-   "scored": null,
+   "scored": {
+    "asof": "2026-08-31",
+    "scored_on": "2026-09-01",
+    "model": "v6.1",
+    "probe": {
+     "n": 144,
+     "brier_conditional": 0.1296,
+     "brier_distance_only": 0.13697,
+     "skill_vs_baseline_pct": 5.38,
+     "shift_null": {
+      "mean_logit_shift": -0.1324,
+      "pct_adjusted_down": 82.6,
+      "actual_rate_pct": 15.3,
+      "brier_uniform_shift": 0.13116
+     },
+     "skill_vs_uniform_shift_pct": 1.19,
+     "verdict": "조건부가 기준선과 일괄이동 귀무모형을 모두 이김 — 종목별 구별이 있다",
+     "reliability": [
+      {
+       "bin": "0~20%",
+       "n": 71,
+       "pred": 12.8,
+       "actual": 4.2
+      },
+      {
+       "bin": "20~35%",
+       "n": 18,
+       "pred": 32.5,
+       "actual": 22.2
+      },
+      {
+       "bin": "35~50%",
+       "n": 55,
+       "pred": 39.4,
+       "actual": 27.3
+      }
+     ]
+    },
+    "open_calls": {
+     "shift_null": {
+      "mean_logit_shift": -0.087,
+      "pct_adjusted_down": 81.8,
+      "actual_rate_pct": 33.3,
+      "brier_uniform_shift": 0.16216
+     },
+     "skill_vs_uniform_shift_pct": 3.58,
+     "verdict": "조건부가 기준선과 일괄이동 귀무모형을 모두 이김 — 종목별 구별이 있다",
+     "closed": 66,
+     "still_open": 78,
+     "touched": 22,
+     "expired": 44,
+     "brier_conditional": 0.15636,
+     "brier_distance_only": 0.16304,
+     "rows": [
+      {
+       "opened": "2026-08-27",
+       "code": "000660",
+       "name": "SK하이닉스",
+       "dir": "up",
+       "level": 1855000,
+       "dist_sigma": 0.807,
+       "horizon_sessions": 3,
+       "p": 43.7,
+       "p_base": 48.3,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "000660",
+       "name": "SK하이닉스",
+       "dir": "dn",
+       "level": 1455000,
+       "dist_sigma": 1.776,
+       "horizon_sessions": 3,
+       "p": 13.4,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "002380",
+       "name": "KCC",
+       "dir": "up",
+       "level": 493500,
+       "dist_sigma": 0.881,
+       "horizon_sessions": 3,
+       "p": 43.4,
+       "p_base": 44.9,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "005930",
+       "name": "삼성전자",
+       "dir": "up",
+       "level": 276000,
+       "dist_sigma": 0.51,
+       "horizon_sessions": 3,
+       "p": 59.9,
+       "p_base": 64.4,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "005930",
+       "name": "삼성전자",
+       "dir": "dn",
+       "level": 243000,
+       "dist_sigma": 1.173,
+       "horizon_sessions": 3,
+       "p": 22.7,
+       "p_base": 26.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "010140",
+       "name": "삼성중공업",
+       "dir": "up",
+       "level": 21850,
+       "dist_sigma": 0.859,
+       "horizon_sessions": 3,
+       "p": 42.2,
+       "p_base": 45.9,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "010140",
+       "name": "삼성중공업",
+       "dir": "dn",
+       "level": 18990,
+       "dist_sigma": 2.032,
+       "horizon_sessions": 3,
+       "p": 13.8,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "011760",
+       "name": "현대코퍼레이션",
+       "dir": "up",
+       "level": 26200,
+       "dist_sigma": 0.556,
+       "horizon_sessions": 3,
+       "p": 62.5,
+       "p_base": 61.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "011760",
+       "name": "현대코퍼레이션",
+       "dir": "dn",
+       "level": 25150,
+       "dist_sigma": 0.506,
+       "horizon_sessions": 3,
+       "p": 61.3,
+       "p_base": 60.5,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "017670",
+       "name": "SK텔레콤",
+       "dir": "up",
+       "level": 112100,
+       "dist_sigma": 1.98,
+       "horizon_sessions": 3,
+       "p": 21.9,
+       "p_base": 23.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "017670",
+       "name": "SK텔레콤",
+       "dir": "dn",
+       "level": 86600,
+       "dist_sigma": 1.904,
+       "horizon_sessions": 3,
+       "p": 14.8,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "025860",
+       "name": "남해화학",
+       "dir": "dn",
+       "level": 5780,
+       "dist_sigma": 1.098,
+       "horizon_sessions": 3,
+       "p": 27.2,
+       "p_base": 29.1,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "035420",
+       "name": "NAVER",
+       "dir": "up",
+       "level": 245500,
+       "dist_sigma": 2.3,
+       "horizon_sessions": 3,
+       "p": 22.0,
+       "p_base": 23.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "035420",
+       "name": "NAVER",
+       "dir": "dn",
+       "level": 189400,
+       "dist_sigma": 2.149,
+       "horizon_sessions": 3,
+       "p": 14.8,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "039490",
+       "name": "키움증권",
+       "dir": "up",
+       "level": 319500,
+       "dist_sigma": 2.257,
+       "horizon_sessions": 3,
+       "p": 21.5,
+       "p_base": 23.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "039490",
+       "name": "키움증권",
+       "dir": "dn",
+       "level": 246500,
+       "dist_sigma": 1.862,
+       "horizon_sessions": 3,
+       "p": 14.5,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "049630",
+       "name": "재영솔루텍",
+       "dir": "up",
+       "level": 7750,
+       "dist_sigma": 0.994,
+       "horizon_sessions": 3,
+       "p": 34.6,
+       "p_base": 39.8,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "049630",
+       "name": "재영솔루텍",
+       "dir": "dn",
+       "level": 5200,
+       "dist_sigma": 2.628,
+       "horizon_sessions": 3,
+       "p": 13.0,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "086520",
+       "name": "에코프로",
+       "dir": "up",
+       "level": 96000,
+       "dist_sigma": 0.597,
+       "horizon_sessions": 3,
+       "p": 58.7,
+       "p_base": 59.3,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "086520",
+       "name": "에코프로",
+       "dir": "dn",
+       "level": 75900,
+       "dist_sigma": 2.403,
+       "horizon_sessions": 3,
+       "p": 15.4,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "105560",
+       "name": "KB금융",
+       "dir": "dn",
+       "level": 153000,
+       "dist_sigma": 2.351,
+       "horizon_sessions": 3,
+       "p": 15.0,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "192820",
+       "name": "코스맥스",
+       "dir": "dn",
+       "level": 262000,
+       "dist_sigma": 1.327,
+       "horizon_sessions": 3,
+       "p": 20.5,
+       "p_base": 20.9,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "196170",
+       "name": "알테오젠",
+       "dir": "up",
+       "level": 367307,
+       "dist_sigma": 2.473,
+       "horizon_sessions": 3,
+       "p": 20.8,
+       "p_base": 23.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "200670",
+       "name": "휴메딕스",
+       "dir": "up",
+       "level": 27600,
+       "dist_sigma": 0.941,
+       "horizon_sessions": 3,
+       "p": 45.0,
+       "p_base": 42.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "214450",
+       "name": "파마리서치",
+       "dir": "dn",
+       "level": 418000,
+       "dist_sigma": 0.532,
+       "horizon_sessions": 3,
+       "p": 54.4,
+       "p_base": 58.8,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "237690",
+       "name": "에스티팜",
+       "dir": "up",
+       "level": 117100,
+       "dist_sigma": 0.732,
+       "horizon_sessions": 3,
+       "p": 47.6,
+       "p_base": 51.9,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "237690",
+       "name": "에스티팜",
+       "dir": "dn",
+       "level": 85500,
+       "dist_sigma": 2.997,
+       "horizon_sessions": 3,
+       "p": 13.6,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "241710",
+       "name": "코스메카코리아",
+       "dir": "dn",
+       "level": 126000,
+       "dist_sigma": 1.382,
+       "horizon_sessions": 3,
+       "p": 16.9,
+       "p_base": 19.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "267250",
+       "name": "HD현대",
+       "dir": "up",
+       "level": 229500,
+       "dist_sigma": 1.025,
+       "horizon_sessions": 3,
+       "p": 36.0,
+       "p_base": 38.5,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "267250",
+       "name": "HD현대",
+       "dir": "dn",
+       "level": 204500,
+       "dist_sigma": 0.873,
+       "horizon_sessions": 3,
+       "p": 36.7,
+       "p_base": 39.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "278470",
+       "name": "에이피알",
+       "dir": "up",
+       "level": 469500,
+       "dist_sigma": 1.386,
+       "horizon_sessions": 3,
+       "p": 24.5,
+       "p_base": 26.2,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "278470",
+       "name": "에이피알",
+       "dir": "dn",
+       "level": 388000,
+       "dist_sigma": 1.841,
+       "horizon_sessions": 3,
+       "p": 14.6,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "289930",
+       "name": "웨이비스",
+       "dir": "up",
+       "level": 7420,
+       "dist_sigma": 1.329,
+       "horizon_sessions": 3,
+       "p": 23.4,
+       "p_base": 27.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "289930",
+       "name": "웨이비스",
+       "dir": "dn",
+       "level": 5630,
+       "dist_sigma": 2.222,
+       "horizon_sessions": 3,
+       "p": 12.9,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "348210",
+       "name": "넥스틴",
+       "dir": "up",
+       "level": 38200,
+       "dist_sigma": 1.848,
+       "horizon_sessions": 3,
+       "p": 20.1,
+       "p_base": 23.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "352820",
+       "name": "하이브",
+       "dir": "dn",
+       "level": 162300,
+       "dist_sigma": 1.64,
+       "horizon_sessions": 3,
+       "p": 15.9,
+       "p_base": 15.7,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "402340",
+       "name": "SK스퀘어",
+       "dir": "up",
+       "level": 1231000,
+       "dist_sigma": 1.494,
+       "horizon_sessions": 3,
+       "p": 20.3,
+       "p_base": 23.4,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "403870",
+       "name": "HPSP",
+       "dir": "dn",
+       "level": 45600,
+       "dist_sigma": 1.241,
+       "horizon_sessions": 3,
+       "p": 22.0,
+       "p_base": 23.5,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "456040",
+       "name": "OCI",
+       "dir": "up",
+       "level": 90600,
+       "dist_sigma": 2.424,
+       "horizon_sessions": 3,
+       "p": 19.9,
+       "p_base": 23.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "483650",
+       "name": "달바글로벌",
+       "dir": "up",
+       "level": 258500,
+       "dist_sigma": 1.978,
+       "horizon_sessions": 3,
+       "p": 20.0,
+       "p_base": 23.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-27",
+       "code": "483650",
+       "name": "달바글로벌",
+       "dir": "dn",
+       "level": 202000,
+       "dist_sigma": 1.126,
+       "horizon_sessions": 3,
+       "p": 24.4,
+       "p_base": 28.0,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "002380",
+       "name": "KCC",
+       "dir": "up",
+       "level": 493500,
+       "dist_sigma": 0.75,
+       "horizon_sessions": 3,
+       "p": 48.9,
+       "p_base": 50.9,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "003230",
+       "name": "삼양식품",
+       "dir": "up",
+       "level": 1587000,
+       "dist_sigma": 0.534,
+       "horizon_sessions": 2,
+       "p": 53.9,
+       "p_base": 54.9,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "012330",
+       "name": "현대모비스",
+       "dir": "up",
+       "level": 485500,
+       "dist_sigma": 1.192,
+       "horizon_sessions": 2,
+       "p": 20.1,
+       "p_base": 23.8,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "018260",
+       "name": "삼성에스디에스",
+       "dir": "up",
+       "level": 250000,
+       "dist_sigma": 0.535,
+       "horizon_sessions": 2,
+       "p": 52.6,
+       "p_base": 54.9,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "192820",
+       "name": "코스맥스",
+       "dir": "dn",
+       "level": 287000,
+       "dist_sigma": 0.977,
+       "horizon_sessions": 3,
+       "p": 37.2,
+       "p_base": 34.0,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "214150",
+       "name": "클래시스",
+       "dir": "dn",
+       "level": 32400,
+       "dist_sigma": 0.35,
+       "horizon_sessions": 2,
+       "p": 59.3,
+       "p_base": 63.9,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "241710",
+       "name": "코스메카코리아",
+       "dir": "dn",
+       "level": 137900,
+       "dist_sigma": 1.632,
+       "horizon_sessions": 3,
+       "p": 16.1,
+       "p_base": 15.7,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "267790",
+       "name": "배럴",
+       "dir": "up",
+       "level": 3720,
+       "dist_sigma": 1.32,
+       "horizon_sessions": 2,
+       "p": 17.3,
+       "p_base": 20.2,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "278470",
+       "name": "에이피알",
+       "dir": "dn",
+       "level": 443000,
+       "dist_sigma": 0.723,
+       "horizon_sessions": 3,
+       "p": 47.5,
+       "p_base": 46.9,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-28",
+       "code": "456040",
+       "name": "OCI",
+       "dir": "up",
+       "level": 90600,
+       "dist_sigma": 2.044,
+       "horizon_sessions": 2,
+       "p": 14.0,
+       "p_base": 16.0,
+       "status": "expired"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "002380",
+       "name": "KCC",
+       "dir": "up",
+       "level": 493500,
+       "dist_sigma": 0.757,
+       "horizon_sessions": 3,
+       "p": 47.8,
+       "p_base": 50.6,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "003230",
+       "name": "삼양식품",
+       "dir": "dn",
+       "level": 1523000,
+       "dist_sigma": 0.109,
+       "horizon_sessions": 2,
+       "p": 78.7,
+       "p_base": 80.4,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "012330",
+       "name": "현대모비스",
+       "dir": "dn",
+       "level": 447000,
+       "dist_sigma": 0.223,
+       "horizon_sessions": 2,
+       "p": 72.9,
+       "p_base": 73.0,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "018260",
+       "name": "삼성에스디에스",
+       "dir": "dn",
+       "level": 238500,
+       "dist_sigma": 0.115,
+       "horizon_sessions": 2,
+       "p": 80.3,
+       "p_base": 80.0,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "025860",
+       "name": "남해화학",
+       "dir": "up",
+       "level": 6470,
+       "dist_sigma": 0.576,
+       "horizon_sessions": 3,
+       "p": 61.3,
+       "p_base": 60.5,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "093320",
+       "name": "케이아이엔엑스",
+       "dir": "dn",
+       "level": 138000,
+       "dist_sigma": 0.787,
+       "horizon_sessions": 3,
+       "p": 41.4,
+       "p_base": 43.5,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "103140",
+       "name": "풍산",
+       "dir": "dn",
+       "level": 81000,
+       "dist_sigma": 0.186,
+       "horizon_sessions": 2,
+       "p": 73.0,
+       "p_base": 75.4,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "119850",
+       "name": "지엔씨에너지",
+       "dir": "dn",
+       "level": 43450,
+       "dist_sigma": 0.509,
+       "horizon_sessions": 3,
+       "p": 58.0,
+       "p_base": 60.3,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "192820",
+       "name": "코스맥스",
+       "dir": "dn",
+       "level": 287000,
+       "dist_sigma": 0.806,
+       "horizon_sessions": 3,
+       "p": 41.8,
+       "p_base": 42.5,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "214450",
+       "name": "파마리서치",
+       "dir": "dn",
+       "level": 410500,
+       "dist_sigma": 0.545,
+       "horizon_sessions": 3,
+       "p": 57.8,
+       "p_base": 57.9,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "241710",
+       "name": "코스메카코리아",
+       "dir": "dn",
+       "level": 137900,
+       "dist_sigma": 1.158,
+       "horizon_sessions": 3,
+       "p": 27.6,
+       "p_base": 26.8,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "267790",
+       "name": "배럴",
+       "dir": "up",
+       "level": 3480,
+       "dist_sigma": 0.306,
+       "horizon_sessions": 2,
+       "p": 74.7,
+       "p_base": 71.0,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "267790",
+       "name": "배럴",
+       "dir": "dn",
+       "level": 3365,
+       "dist_sigma": 0.333,
+       "horizon_sessions": 2,
+       "p": 69.4,
+       "p_base": 65.2,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "278470",
+       "name": "에이피알",
+       "dir": "dn",
+       "level": 443000,
+       "dist_sigma": 0.853,
+       "horizon_sessions": 3,
+       "p": 38.6,
+       "p_base": 40.2,
+       "status": "touched"
+      },
+      {
+       "opened": "2026-08-31",
+       "code": "456040",
+       "name": "OCI",
+       "dir": "dn",
+       "level": 80900,
+       "dist_sigma": 0.48,
+       "horizon_sessions": 2,
+       "p": 52.6,
+       "p_base": 54.4,
+       "status": "touched"
+      }
+     ]
+    },
+    "_caveat": "회차 내 관측은 독립이 아니다(같은 날·같은 시장). 한 회차 Brier 차이로 결론 내지 말고 누적 10회차 이후에 판단한다."
+   },
    "roster_change": "직전 35종목에 가온전선(000500) 1종목을 더해 36종목이 됐다. 사용자가 회차 도중에 요청해 오늘 종가 이후·다음 세션 전에 편입했으므로 룩어헤드는 없다. 가온전선은 코스피이고 오늘 +2.94%(거래량 2.33배) 로 올랐다 — 편입 시점이 상승일이라는 편향이 있으니 이 종목의 과거 성과는 리포트의 누적 판정에 넣지 않는다.",
    "_note": "로스터·수집·확률 전 과정 v6.1. 주봉 확률은 금요일에만 낸다(오늘은 월요일).",
    "items": [
@@ -5179,6 +6028,55 @@
         {"code": "403870", "name": "HPSP", "market": "KOSDAQ", "close": 50200, "atr": 3747, "chg": -1.76, "line_provenance": "carry", "resist": null, "support": 45600, "src": "line", "sigma": [null, 1.228], "call": "down_test", "distance_sigma": 1.228, "horizon": "2~3세션", "prior": 24.1, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.12%p(β1.43) · 배지 중립(-0.15σ) · 거래량 0.58배 · 지지 45,600(1.23σ·라인·21.1%) · 없는 쪽 — 위 3σ 밖", "model_inputs": {"volx": 0.58, "rngatr": 0.51, "atrpct": 7.46, "atr_bars": 160, "atr_method": "wilder14"}, "p_touch": {"dn": {"p": 21.1, "p_base": 24.1, "dist_sigma": 1.228, "dir": "dn", "horizon_sessions": 3, "level": 45600, "src": "line"}}, "p_probe": {"0p5": {"up": 34.8, "dn": 31.2, "up_base": 43.0, "dn_base": 39.1, "up_level": 52074, "dn_level": 48326}, "1p0": {"up": 12.5, "dn": 8.7, "up_base": 16.8, "dn_base": 11.9, "up_level": 53947, "dn_level": 46453}}, "excess": -1.122, "badge": "중립", "badge_sigma": -0.15, "clsloc": 0.58, "volx": 0.58, "streak": -1, "hi": 51000, "lo": 49100, "vol": 1681240},
         {"code": "456040", "name": "OCI", "market": "KOSPI", "close": 82900, "atr": 4171, "chg": 1.1, "line_provenance": "carry", "resist": 90600, "support": 80900, "src": "zone", "sigma": [1.846, 0.48], "call": "down_test", "distance_sigma": 0.48, "horizon": "1~2세션", "prior": 54.4, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.81%p(β0.46) · 배지 중립(0.16σ) · 거래량 0.70배 · 저항 90,600(1.85σ·존·15.1%) / 지지 80,900(0.48σ·존·52.6%)", "model_inputs": {"volx": 0.7, "rngatr": 0.89, "atrpct": 5.03, "atr_bars": 160, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 15.1, "p_base": 16.0, "dist_sigma": 1.846, "dir": "up", "horizon_sessions": 2, "level": 90600, "src": "zone"}, "dn": {"p": 52.6, "p_base": 54.4, "dist_sigma": 0.48, "dir": "dn", "horizon_sessions": 2, "level": 80900, "src": "zone"}}, "p_probe": {"0p5": {"up": 40.5, "dn": 36.7, "up_base": 43.0, "dn_base": 39.1, "up_level": 84986, "dn_level": 80814}, "1p0": {"up": 15.4, "dn": 10.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 87071, "dn_level": 78729}}, "excess": 0.813, "badge": "중립", "badge_sigma": 0.16, "clsloc": 0.81, "volx": 0.7, "streak": 2, "hi": 83600, "lo": 79900, "vol": 33845},
         {"code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 220000, "atr": 17074, "chg": -3.93, "line_provenance": "carry", "resist": 258500, "support": 202000, "src": "line", "sigma": [2.255, 1.054], "call": "down_test", "distance_sigma": 1.054, "horizon": "2~3세션", "prior": 30.8, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -4.10%p(β0.10) · 배지 약세(-0.53σ) · 거래량 0.71배 · 저항 258,500(2.25σ·라인·20.9%) / 지지 202,000(1.05σ·존·28.0%)", "model_inputs": {"volx": 0.71, "rngatr": 0.64, "atrpct": 7.76, "atr_bars": 160, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 20.9, "p_base": 23.2, "dist_sigma": 2.255, "dir": "up", "horizon_sessions": 3, "level": 258500, "src": "line"}, "dn": {"p": 28.0, "p_base": 30.8, "dist_sigma": 1.054, "dir": "dn", "horizon_sessions": 3, "level": 202000, "src": "zone"}}, "p_probe": {"0p5": {"up": 36.5, "dn": 32.9, "up_base": 43.0, "dn_base": 39.1, "up_level": 228537, "dn_level": 211463}, "1p0": {"up": 13.4, "dn": 9.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 237074, "dn_level": 202926}}, "excess": -4.102, "badge": "약세", "badge_sigma": -0.53, "clsloc": 0.18, "volx": 0.71, "streak": -1, "hi": 229000, "lo": 218000, "vol": 119965}
+      ]
+  },
+  {
+   "asof": "2026-09-01",
+   "next_session": "2026-09-02",
+   "index": {
+    "KOSPI": 6836,
+    "KOSDAQ": 821
+   },
+   "scored": null,
+   "roster_change": null,
+   "_note": "로스터·수집·확률 전 과정 v6.1. 주봉 확률은 금요일에만 낸다(오늘은 화요일).",
+   "items": [
+        {"code": "000500", "name": "가온전선", "market": "KOSPI", "close": 208500, "atr": 18313, "chg": -0.71, "line_provenance": "carry", "resist": 233000, "support": 192778, "src": "line", "sigma": [1.338, 0.859], "call": "down_test", "distance_sigma": 0.859, "horizon": "2~3세션", "prior": 39.9, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -0.92%p(β0.89) · 배지 중립(-0.11σ) · 거래량 0.58배 · 저항 233,000(1.34σ·라인·23.7%) / 지지 192,778(0.86σ·라인·35.3%)", "model_inputs": {"volx": 0.58, "rngatr": 0.46, "atrpct": 8.78, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 23.7, "p_base": 27.5, "dist_sigma": 1.338, "dir": "up", "horizon_sessions": 3, "level": 233000, "src": "line"}, "dn": {"p": 35.3, "p_base": 39.9, "dist_sigma": 0.859, "dir": "dn", "horizon_sessions": 3, "level": 192778, "src": "line"}}, "p_probe": {"0p5": {"up": 33.7, "dn": 30.2, "up_base": 43.0, "dn_base": 39.1, "up_level": 217656, "dn_level": 199344}, "1p0": {"up": 12.0, "dn": 8.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 226813, "dn_level": 190187}}, "excess": -0.922, "badge": "중립", "badge_sigma": -0.11, "clsloc": 0.59, "volx": 0.58, "streak": -1, "hi": 212000, "lo": 203500, "vol": 111900},
+        {"code": "000660", "name": "SK하이닉스", "market": "KOSPI", "close": 1693000, "atr": 139536, "chg": 1.14, "line_provenance": "carry", "resist": 1855000, "support": 1455000, "src": "line", "sigma": [1.161, 1.706], "call": "up_test", "distance_sigma": 1.161, "horizon": "2~3세션", "prior": 33.3, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.82%p(β1.57) · 배지 중립(0.10σ) · 거래량 0.63배 · 저항 1,855,000(1.16σ·라인·29.3%) / 지지 1,455,000(1.71σ·존·13.4%)", "model_inputs": {"volx": 0.63, "rngatr": 0.44, "atrpct": 8.24, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 29.3, "p_base": 33.3, "dist_sigma": 1.161, "dir": "up", "horizon_sessions": 3, "level": 1855000, "src": "line"}, "dn": {"p": 13.4, "p_base": 15.7, "dist_sigma": 1.706, "dir": "dn", "horizon_sessions": 3, "level": 1455000, "src": "zone"}}, "p_probe": {"0p5": {"up": 34.1, "dn": 30.6, "up_base": 43.0, "dn_base": 39.1, "up_level": 1762768, "dn_level": 1623232}, "1p0": {"up": 12.2, "dn": 8.5, "up_base": 16.8, "dn_base": 11.9, "up_level": 1832536, "dn_level": 1553464}}, "excess": 0.818, "badge": "중립", "badge_sigma": 0.1, "clsloc": 0.67, "volx": 0.63, "streak": 2, "hi": 1713000, "lo": 1652000, "vol": 2727724},
+        {"code": "002380", "name": "KCC", "market": "KOSPI", "close": 493500, "atr": 25303, "chg": 4.11, "line_provenance": "fresh", "resist": 510000, "support": 477000, "src": "line", "sigma": [0.652, 0.652], "call": "up_test", "distance_sigma": 0.652, "horizon": "2~3세션", "prior": 56.3, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +3.91%p(β0.83) · 배지 강세(0.76σ) · 거래량 1.16배 · 저항 510,000(0.65σ·라인·55.5%) / 지지 477,000(0.65σ·라인·50.4%)", "model_inputs": {"volx": 1.16, "rngatr": 0.77, "atrpct": 5.13, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 55.5, "p_base": 56.3, "dist_sigma": 0.652, "dir": "up", "horizon_sessions": 3, "level": 510000, "src": "line"}, "dn": {"p": 50.4, "p_base": 51.2, "dist_sigma": 0.652, "dir": "dn", "horizon_sessions": 3, "level": 477000, "src": "line"}}, "p_probe": {"0p5": {"up": 41.4, "dn": 37.5, "up_base": 43.0, "dn_base": 39.1, "up_level": 506152, "dn_level": 480848}, "1p0": {"up": 15.9, "dn": 11.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 518803, "dn_level": 468197}}, "excess": 3.907, "badge": "강세", "badge_sigma": 0.76, "clsloc": 1, "volx": 1.16, "streak": 3, "hi": 493500, "lo": 474000, "vol": 26383},
+        {"code": "003230", "name": "삼양식품", "market": "KOSPI", "close": 1492000, "atr": 73758, "chg": -2.55, "line_provenance": "carry", "resist": 1523000, "support": null, "src": "zone", "sigma": [0.42, null], "call": "up_test", "distance_sigma": 0.42, "horizon": "1~2세션", "prior": 62.6, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -2.62%p(β0.03) · 배지 약세(-0.53σ) · 거래량 0.69배 · 저항 1,523,000(0.42σ·존·61.8%) · 없는 쪽 — 아래 3σ 밖", "model_inputs": {"volx": 0.69, "rngatr": 1.03, "atrpct": 4.94, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 61.8, "p_base": 62.6, "dist_sigma": 0.42, "dir": "up", "horizon_sessions": 2, "level": 1523000, "src": "zone"}}, "p_probe": {"0p5": {"up": 41.8, "dn": 37.9, "up_base": 43.0, "dn_base": 39.1, "up_level": 1528879, "dn_level": 1455121}, "1p0": {"up": 16.1, "dn": 11.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 1565758, "dn_level": 1418242}}, "excess": -2.624, "badge": "약세", "badge_sigma": -0.53, "clsloc": 0.41, "volx": 0.69, "streak": -2, "hi": 1537000, "lo": 1461000, "vol": 40748},
+        {"code": "005930", "name": "삼성전자", "market": "KOSPI", "close": 261000, "atr": 17851, "chg": 0.38, "line_provenance": "carry", "resist": 276000, "support": 243000, "src": "line", "sigma": [0.84, 1.008], "call": "up_test", "distance_sigma": 0.84, "horizon": "2~3세션", "prior": 46.8, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.10%p(β1.32) · 배지 중립(0.01σ) · 거래량 0.64배 · 저항 276,000(0.84σ·라인·42.8%) / 지지 243,000(1.01σ·존·29.1%)", "model_inputs": {"volx": 0.64, "rngatr": 0.48, "atrpct": 6.84, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 42.8, "p_base": 46.8, "dist_sigma": 0.84, "dir": "up", "horizon_sessions": 3, "level": 276000, "src": "line"}, "dn": {"p": 29.1, "p_base": 32.6, "dist_sigma": 1.008, "dir": "dn", "horizon_sessions": 3, "level": 243000, "src": "zone"}}, "p_probe": {"0p5": {"up": 35.2, "dn": 31.7, "up_base": 43.0, "dn_base": 39.1, "up_level": 269926, "dn_level": 252074}, "1p0": {"up": 12.7, "dn": 8.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 278851, "dn_level": 243149}}, "excess": 0.098, "badge": "중립", "badge_sigma": 0.01, "clsloc": 0.82, "volx": 0.64, "streak": 2, "hi": 262500, "lo": 254000, "vol": 15319615},
+        {"code": "010140", "name": "삼성중공업", "market": "KOSPI", "close": 21000, "atr": 924, "chg": 0.48, "line_provenance": "carry", "resist": 21850, "support": 18990, "src": "zone", "sigma": [0.92, 2.175], "call": "up_test", "distance_sigma": 0.92, "horizon": "2~3세션", "prior": 43.1, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.34%p(β0.47) · 배지 중립(0.08σ) · 거래량 0.68배 · 저항 21,850(0.92σ·존·40.5%) / 지지 18,990(2.17σ·존·14.3%)", "model_inputs": {"volx": 0.68, "rngatr": 0.54, "atrpct": 4.4, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 40.5, "p_base": 43.1, "dist_sigma": 0.92, "dir": "up", "horizon_sessions": 3, "level": 21850, "src": "zone"}, "dn": {"p": 14.3, "p_base": 15.7, "dist_sigma": 2.175, "dir": "dn", "horizon_sessions": 3, "level": 18990, "src": "zone"}}, "p_probe": {"0p5": {"up": 37.8, "dn": 34.1, "up_base": 43.0, "dn_base": 39.1, "up_level": 21462, "dn_level": 20538}, "1p0": {"up": 14.0, "dn": 9.8, "up_base": 16.8, "dn_base": 11.9, "up_level": 21924, "dn_level": 20076}}, "excess": 0.335, "badge": "중립", "badge_sigma": 0.08, "clsloc": 0.9, "volx": 0.68, "streak": 1, "hi": 21050, "lo": 20550, "vol": 1717861},
+        {"code": "011760", "name": "현대코퍼레이션", "market": "KOSPI", "close": 25750, "atr": 915, "chg": 0.39, "line_provenance": "carry", "resist": 28050, "support": 25150, "src": "zone", "sigma": [2.514, 0.656], "call": "down_test", "distance_sigma": 0.656, "horizon": "2~3세션", "prior": 50.9, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.28%p(β0.27) · 배지 중립(0.08σ) · 거래량 0.77배 · 저항 28,050(2.51σ·존·22.2%) / 지지 25,150(0.66σ·라인·49.5%)", "model_inputs": {"volx": 0.77, "rngatr": 0.66, "atrpct": 3.55, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 22.2, "p_base": 23.2, "dist_sigma": 2.514, "dir": "up", "horizon_sessions": 3, "level": 28050, "src": "zone"}, "dn": {"p": 49.5, "p_base": 50.9, "dist_sigma": 0.656, "dir": "dn", "horizon_sessions": 3, "level": 25150, "src": "line"}}, "p_probe": {"0p5": {"up": 40.2, "dn": 36.4, "up_base": 43.0, "dn_base": 39.1, "up_level": 26208, "dn_level": 25292}, "1p0": {"up": 15.3, "dn": 10.8, "up_base": 16.8, "dn_base": 11.9, "up_level": 26665, "dn_level": 24835}}, "excess": 0.278, "badge": "중립", "badge_sigma": 0.08, "clsloc": 0.75, "volx": 0.77, "streak": 1, "hi": 25900, "lo": 25300, "vol": 16677},
+        {"code": "012330", "name": "현대모비스", "market": "KOSPI", "close": 443500, "atr": 28549, "chg": -2.21, "line_provenance": "carry", "resist": 447000, "support": 443000, "src": "zone", "sigma": [0.123, 0.018], "call": "down_test", "distance_sigma": 0.018, "horizon": "1~2세션", "prior": 94.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -2.38%p(β0.65) · 배지 중립(-0.37σ) · 거래량 0.94배 · 저항 447,000(0.12σ·존·82.4%) / 지지 443,000(0.02σ·존·93.6%)", "model_inputs": {"volx": 0.94, "rngatr": 0.75, "atrpct": 6.44, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 82.4, "p_base": 83.9, "dist_sigma": 0.123, "dir": "up", "horizon_sessions": 2, "level": 447000, "src": "zone"}, "dn": {"p": 93.6, "p_base": 94.2, "dist_sigma": 0.018, "dir": "dn", "horizon_sessions": 2, "level": 443000, "src": "zone"}}, "p_probe": {"0p5": {"up": 39.4, "dn": 35.6, "up_base": 43.0, "dn_base": 39.1, "up_level": 457774, "dn_level": 429226}, "1p0": {"up": 14.8, "dn": 10.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 472049, "dn_level": 414951}}, "excess": -2.384, "badge": "중립", "badge_sigma": -0.37, "clsloc": 0.23, "volx": 0.94, "streak": -1, "hi": 460000, "lo": 438500, "vol": 287607},
+        {"code": "017670", "name": "SK텔레콤", "market": "KOSPI", "close": 94600, "atr": 6271, "chg": 0.42, "line_provenance": "carry", "resist": 112100, "support": 86600, "src": "zone", "sigma": [2.791, 1.276], "call": "down_test", "distance_sigma": 1.276, "horizon": "2~3세션", "prior": 22.4, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.28%p(β0.42) · 배지 중립(0.04σ) · 거래량 0.46배 · 저항 112,100(2.79σ·존·19.7%) / 지지 86,600(1.28σ·존·19.0%)", "model_inputs": {"volx": 0.46, "rngatr": 0.38, "atrpct": 6.63, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 19.7, "p_base": 23.2, "dist_sigma": 2.791, "dir": "up", "horizon_sessions": 3, "level": 112100, "src": "zone"}, "dn": {"p": 19.0, "p_base": 22.4, "dist_sigma": 1.276, "dir": "dn", "horizon_sessions": 3, "level": 86600, "src": "zone"}}, "p_probe": {"0p5": {"up": 33.3, "dn": 29.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 97736, "dn_level": 91464}, "1p0": {"up": 11.8, "dn": 8.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 100871, "dn_level": 88329}}, "excess": 0.283, "badge": "중립", "badge_sigma": 0.04, "clsloc": 0.88, "volx": 0.46, "streak": 1, "hi": 94900, "lo": 92500, "vol": 751318},
+        {"code": "018260", "name": "삼성에스디에스", "market": "KOSPI", "close": 245000, "atr": 13003, "chg": 2.08, "line_provenance": "carry", "resist": 250000, "support": 238500, "src": "zone", "sigma": [0.385, 0.5], "call": "up_test", "distance_sigma": 0.385, "horizon": "1~2세션", "prior": 65.0, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +1.91%p(β0.60) · 배지 중립(0.36σ) · 거래량 0.59배 · 저항 250,000(0.39σ·존·62.9%) / 지지 238,500(0.50σ·존·50.7%)", "model_inputs": {"volx": 0.59, "rngatr": 0.92, "atrpct": 5.31, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 62.9, "p_base": 65.0, "dist_sigma": 0.385, "dir": "up", "horizon_sessions": 2, "level": 250000, "src": "zone"}, "dn": {"p": 50.7, "p_base": 53.0, "dist_sigma": 0.5, "dir": "dn", "horizon_sessions": 2, "level": 238500, "src": "zone"}}, "p_probe": {"0p5": {"up": 39.8, "dn": 36.1, "up_base": 43.0, "dn_base": 39.1, "up_level": 251502, "dn_level": 238498}, "1p0": {"up": 15.1, "dn": 10.6, "up_base": 16.8, "dn_base": 11.9, "up_level": 258003, "dn_level": 231997}}, "excess": 1.914, "badge": "중립", "badge_sigma": 0.36, "clsloc": 0.92, "volx": 0.59, "streak": 1, "hi": 246000, "lo": 234000, "vol": 159555},
+        {"code": "025860", "name": "남해화학", "market": "KOSPI", "close": 6480, "atr": 276, "chg": 2.69, "line_provenance": "carry", "resist": 6640, "support": 6470, "src": "zone", "sigma": [0.58, 0.036], "call": "down_test", "distance_sigma": 0.036, "horizon": "1~2세션", "prior": 88.4, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +2.62%p(β0.02) · 배지 강세(0.62σ) · 거래량 0.81배 · 저항 6,640(0.58σ·존·50.8%) / 지지 6,470(0.04σ·존·88.0%)", "model_inputs": {"volx": 0.81, "rngatr": 0.87, "atrpct": 4.25, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 50.8, "p_base": 51.8, "dist_sigma": 0.58, "dir": "up", "horizon_sessions": 2, "level": 6640, "src": "zone"}, "dn": {"p": 88.0, "p_base": 88.4, "dist_sigma": 0.036, "dir": "dn", "horizon_sessions": 2, "level": 6470, "src": "zone"}}, "p_probe": {"0p5": {"up": 41.6, "dn": 37.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 6618, "dn_level": 6342}, "1p0": {"up": 16.0, "dn": 11.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 6756, "dn_level": 6204}}, "excess": 2.618, "badge": "강세", "badge_sigma": 0.62, "clsloc": 0.67, "volx": 0.81, "streak": 1, "hi": 6560, "lo": 6320, "vol": 625363},
+        {"code": "035420", "name": "NAVER", "market": "KOSPI", "close": 215000, "atr": 11985, "chg": -0.92, "line_provenance": "carry", "resist": 245500, "support": 189400, "src": "zone", "sigma": [2.545, 2.136], "call": "down_test", "distance_sigma": 2.136, "horizon": "2~3세션", "prior": 15.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.06%p(β0.44) · 배지 중립(-0.19σ) · 거래량 0.37배 · 저항 245,500(2.54σ·존·19.8%) / 지지 189,400(2.14σ·존·13.2%)", "model_inputs": {"volx": 0.37, "rngatr": 0.42, "atrpct": 5.57, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 19.8, "p_base": 23.2, "dist_sigma": 2.545, "dir": "up", "horizon_sessions": 3, "level": 245500, "src": "zone"}, "dn": {"p": 13.2, "p_base": 15.7, "dist_sigma": 2.136, "dir": "dn", "horizon_sessions": 3, "level": 189400, "src": "zone"}}, "p_probe": {"0p5": {"up": 33.4, "dn": 30.0, "up_base": 43.0, "dn_base": 39.1, "up_level": 220992, "dn_level": 209008}, "1p0": {"up": 11.9, "dn": 8.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 226985, "dn_level": 203015}}, "excess": -1.06, "badge": "중립", "badge_sigma": -0.19, "clsloc": 0.3, "volx": 0.37, "streak": -2, "hi": 218500, "lo": 213500, "vol": 382061},
+        {"code": "039490", "name": "키움증권", "market": "KOSPI", "close": 282000, "atr": 16116, "chg": 1.62, "line_provenance": "carry", "resist": 319500, "support": 246500, "src": "zone", "sigma": [2.327, 2.203], "call": "down_test", "distance_sigma": 2.203, "horizon": "2~3세션", "prior": 15.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +1.41%p(β0.87) · 배지 중립(0.25σ) · 거래량 0.56배 · 저항 319,500(2.33σ·존·21.2%) / 지지 246,500(2.20σ·존·14.2%)", "model_inputs": {"volx": 0.56, "rngatr": 0.71, "atrpct": 5.71, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 21.2, "p_base": 23.2, "dist_sigma": 2.327, "dir": "up", "horizon_sessions": 3, "level": 319500, "src": "zone"}, "dn": {"p": 14.2, "p_base": 15.7, "dist_sigma": 2.203, "dir": "dn", "horizon_sessions": 3, "level": 246500, "src": "zone"}}, "p_probe": {"0p5": {"up": 37.5, "dn": 33.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 290058, "dn_level": 273942}, "1p0": {"up": 13.8, "dn": 9.7, "up_base": 16.8, "dn_base": 11.9, "up_level": 298116, "dn_level": 265884}}, "excess": 1.411, "badge": "중립", "badge_sigma": 0.25, "clsloc": 0.78, "volx": 0.56, "streak": 1, "hi": 284500, "lo": 273000, "vol": 58120},
+        {"code": "049630", "name": "재영솔루텍", "market": "KOSDAQ", "close": 7210, "atr": 641, "chg": 0.84, "line_provenance": "carry", "resist": 7750, "support": null, "src": "line", "sigma": [0.842, null], "call": "up_test", "distance_sigma": 0.842, "horizon": "2~3세션", "prior": 46.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +2.13%p(β0.75) · 배지 중립(0.24σ) · 거래량 0.70배 · 저항 7,750(0.84σ·라인·45.2%) · 없는 쪽 — 아래 3σ 밖", "model_inputs": {"volx": 0.7, "rngatr": 1.11, "atrpct": 8.89, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 45.2, "p_base": 46.7, "dist_sigma": 0.842, "dir": "up", "horizon_sessions": 3, "level": 7750, "src": "line"}}, "p_probe": {"0p5": {"up": 40.1, "dn": 36.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 7530, "dn_level": 6890}, "1p0": {"up": 15.2, "dn": 10.7, "up_base": 16.8, "dn_base": 11.9, "up_level": 7851, "dn_level": 6569}}, "excess": 2.127, "badge": "중립", "badge_sigma": 0.24, "clsloc": 0.38, "volx": 0.7, "streak": 2, "hi": 7650, "lo": 6940, "vol": 474133},
+        {"code": "086520", "name": "에코프로", "market": "KOSDAQ", "close": 87200, "atr": 6271, "chg": -4.49, "line_provenance": "carry", "resist": 96000, "support": 75900, "src": "line", "sigma": [1.403, 1.802], "call": "up_test", "distance_sigma": 1.403, "horizon": "2~3세션", "prior": 25.8, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -2.65%p(β1.26) · 배지 중립(-0.37σ) · 거래량 0.96배 · 저항 96,000(1.40σ·라인·24.5%) / 지지 75,900(1.80σ·존·14.8%)", "model_inputs": {"volx": 0.96, "rngatr": 0.83, "atrpct": 7.19, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 24.5, "p_base": 25.8, "dist_sigma": 1.403, "dir": "up", "horizon_sessions": 3, "level": 96000, "src": "line"}, "dn": {"p": 14.8, "p_base": 15.7, "dist_sigma": 1.802, "dir": "dn", "horizon_sessions": 3, "level": 75900, "src": "zone"}}, "p_probe": {"0p5": {"up": 39.7, "dn": 36.0, "up_base": 43.0, "dn_base": 39.1, "up_level": 90336, "dn_level": 84064}, "1p0": {"up": 15.0, "dn": 10.6, "up_base": 16.8, "dn_base": 11.9, "up_level": 93471, "dn_level": 80929}}, "excess": -2.646, "badge": "중립", "badge_sigma": -0.37, "clsloc": 0.1, "volx": 0.96, "streak": -1, "hi": 91900, "lo": 86700, "vol": 882663},
+        {"code": "093320", "name": "케이아이엔엑스", "market": "KOSDAQ", "close": 134600, "atr": 9360, "chg": -7.3, "line_provenance": "fresh", "resist": 138000, "support": 130000, "src": "zone", "sigma": [0.363, 0.491], "call": "up_test", "distance_sigma": 0.363, "horizon": "1~2세션", "prior": 66.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -6.34%p(β0.45) · 배지 약세(-0.91σ) · 거래량 1.03배 · 저항 138,000(0.36σ·존·67.6%) / 지지 130,000(0.49σ·존·54.6%)", "model_inputs": {"volx": 1.03, "rngatr": 1.29, "atrpct": 6.95, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 67.6, "p_base": 66.7, "dist_sigma": 0.363, "dir": "up", "horizon_sessions": 2, "level": 138000, "src": "zone"}, "dn": {"p": 54.6, "p_base": 53.6, "dist_sigma": 0.491, "dir": "dn", "horizon_sessions": 2, "level": 130000, "src": "zone"}}, "p_probe": {"0p5": {"up": 44.4, "dn": 40.5, "up_base": 43.0, "dn_base": 39.1, "up_level": 139280, "dn_level": 129920}, "1p0": {"up": 17.6, "dn": 12.5, "up_base": 16.8, "dn_base": 11.9, "up_level": 143960, "dn_level": 125240}}, "excess": -6.341, "badge": "약세", "badge_sigma": -0.91, "clsloc": 0.02, "volx": 1.03, "streak": -2, "hi": 146500, "lo": 134400, "vol": 13716},
+        {"code": "103140", "name": "풍산", "market": "KOSPI", "close": 80900, "atr": 4707, "chg": -1.22, "line_provenance": "carry", "resist": 81000, "support": 76300, "src": "zone", "sigma": [0.021, 0.977], "call": "up_test", "distance_sigma": 0.021, "horizon": "1~2세션", "prior": 95.0, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.36%p(β0.46) · 배지 중립(-0.23σ) · 거래량 0.65배 · 저항 81,000(0.02σ·존·94.2%) / 지지 76,300(0.98σ·존·22.5%)", "model_inputs": {"volx": 0.65, "rngatr": 0.66, "atrpct": 5.82, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 94.2, "p_base": 95.0, "dist_sigma": 0.021, "dir": "up", "horizon_sessions": 2, "level": 81000, "src": "zone"}, "dn": {"p": 22.5, "p_base": 25.4, "dist_sigma": 0.977, "dir": "dn", "horizon_sessions": 2, "level": 76300, "src": "zone"}}, "p_probe": {"0p5": {"up": 37.5, "dn": 33.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 83254, "dn_level": 78546}, "1p0": {"up": 13.9, "dn": 9.7, "up_base": 16.8, "dn_base": 11.9, "up_level": 85607, "dn_level": 76193}}, "excess": -1.363, "badge": "중립", "badge_sigma": -0.23, "clsloc": 0.32, "volx": 0.65, "streak": -2, "hi": 83000, "lo": 79900, "vol": 115572},
+        {"code": "105560", "name": "KB금융", "market": "KOSPI", "close": 171200, "atr": 6266, "chg": -1.21, "line_provenance": "carry", "resist": null, "support": 153000, "src": "zone", "sigma": [null, 2.905], "call": "down_test", "distance_sigma": 2.905, "horizon": "2~3세션", "prior": 15.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.32%p(β0.24) · 배지 중립(-0.36σ) · 거래량 1.97배 · 지지 153,000(2.90σ·존·16.0%) · 없는 쪽 — 위 후보 없음", "model_inputs": {"volx": 1.97, "rngatr": 0.69, "atrpct": 3.66, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"dn": {"p": 16.0, "p_base": 15.7, "dist_sigma": 2.905, "dir": "dn", "horizon_sessions": 3, "level": 153000, "src": "zone"}}, "p_probe": {"0p5": {"up": 44.3, "dn": 40.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 174333, "dn_level": 168067}, "1p0": {"up": 17.5, "dn": 12.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 177466, "dn_level": 164934}}, "excess": -1.318, "badge": "중립", "badge_sigma": -0.36, "clsloc": 0.53, "volx": 1.97, "streak": -1, "hi": 173200, "lo": 168900, "vol": 1949667},
+        {"code": "119850", "name": "지엔씨에너지", "market": "KOSDAQ", "close": 43750, "atr": 5129, "chg": -5.1, "line_provenance": "carry", "resist": 51900, "support": 32100, "src": "line", "sigma": [1.589, 2.271], "call": "up_test", "distance_sigma": 1.589, "horizon": "2~3세션", "prior": 23.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -3.25%p(β1.27) · 배지 중립(-0.28σ) · 거래량 0.69배 · 저항 51,900(1.59σ·라인·20.8%) / 지지 32,100(2.27σ·존·13.9%)", "model_inputs": {"volx": 0.69, "rngatr": 0.81, "atrpct": 11.72, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 20.8, "p_base": 23.2, "dist_sigma": 1.589, "dir": "up", "horizon_sessions": 3, "level": 51900, "src": "line"}, "dn": {"p": 13.9, "p_base": 15.7, "dist_sigma": 2.271, "dir": "dn", "horizon_sessions": 3, "level": 32100, "src": "zone"}}, "p_probe": {"0p5": {"up": 36.3, "dn": 32.6, "up_base": 43.0, "dn_base": 39.1, "up_level": 46314, "dn_level": 41186}, "1p0": {"up": 13.2, "dn": 9.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 48879, "dn_level": 38621}}, "excess": -3.245, "badge": "중립", "badge_sigma": -0.28, "clsloc": 0.29, "volx": 0.69, "streak": -2, "hi": 46700, "lo": 42550, "vol": 685981},
+        {"code": "192820", "name": "코스맥스", "market": "KOSPI", "close": 287000, "atr": 16484, "chg": -4.33, "line_provenance": "fresh", "resist": null, "support": 270000, "src": "line", "sigma": [null, 1.031], "call": "down_test", "distance_sigma": 1.031, "horizon": "2~3세션", "prior": 31.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -4.42%p(β0.10) · 배지 약세(-0.77σ) · 거래량 0.73배 · 지지 270,000(1.03σ·라인·32.0%) · 없는 쪽 — 위 후보 없음", "model_inputs": {"volx": 0.73, "rngatr": 1.27, "atrpct": 5.74, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"dn": {"p": 32.0, "p_base": 31.7, "dist_sigma": 1.031, "dir": "dn", "horizon_sessions": 3, "level": 270000, "src": "line"}}, "p_probe": {"0p5": {"up": 43.6, "dn": 39.7, "up_base": 43.0, "dn_base": 39.1, "up_level": 295242, "dn_level": 278758}, "1p0": {"up": 17.2, "dn": 12.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 303484, "dn_level": 270516}}, "excess": -4.415, "badge": "약세", "badge_sigma": -0.77, "clsloc": 0.07, "volx": 0.73, "streak": -2, "hi": 306500, "lo": 285500, "vol": 128070},
+        {"code": "196170", "name": "알테오젠", "market": "KOSDAQ", "close": 301000, "atr": 21772, "chg": -2.11, "line_provenance": "carry", "resist": null, "support": null, "src": null, "sigma": [null, null], "call": "no_level", "distance_sigma": null, "horizon": "1~2세션", "prior": null, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -0.57%p(β0.98) · 배지 중립(-0.08σ) · 거래량 0.48배 · 유효 레벨 없음 · 없는 쪽 — 위 3σ 밖, 아래 0.5σ 하한 미달(최근접 293,846)", "model_inputs": {"volx": 0.48, "rngatr": 0.39, "atrpct": 7.23, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {}, "p_probe": {"0p5": {"up": 33.2, "dn": 29.7, "up_base": 43.0, "dn_base": 39.1, "up_level": 311886, "dn_level": 290114}, "1p0": {"up": 11.7, "dn": 8.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 322772, "dn_level": 279228}}, "excess": -0.572, "badge": "중립", "badge_sigma": -0.08, "clsloc": 0.41, "volx": 0.48, "streak": -2, "hi": 306000, "lo": 297500, "vol": 281391},
+        {"code": "200670", "name": "휴메딕스", "market": "KOSDAQ", "close": 26600, "atr": 1275, "chg": 1.72, "line_provenance": "carry", "resist": 27600, "support": null, "src": "zone", "sigma": [0.784, null], "call": "up_test", "distance_sigma": 0.784, "horizon": "2~3세션", "prior": 49.3, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +3.00%p(β0.74) · 배지 강세(0.63σ) · 거래량 0.96배 · 저항 27,600(0.78σ·존·47.4%) · 없는 쪽 — 아래 후보 없음", "model_inputs": {"volx": 0.96, "rngatr": 0.59, "atrpct": 4.79, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 47.4, "p_base": 49.3, "dist_sigma": 0.784, "dir": "up", "horizon_sessions": 3, "level": 27600, "src": "zone"}}, "p_probe": {"0p5": {"up": 39.3, "dn": 35.5, "up_base": 43.0, "dn_base": 39.1, "up_level": 27238, "dn_level": 25962}, "1p0": {"up": 14.7, "dn": 10.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 27875, "dn_level": 25325}}, "excess": 2.996, "badge": "강세", "badge_sigma": 0.63, "clsloc": 0.93, "volx": 0.96, "streak": 1, "hi": 26650, "lo": 25900, "vol": 25844},
+        {"code": "214150", "name": "클래시스", "market": "KOSDAQ", "close": 32850, "atr": 2336, "chg": -2.95, "line_provenance": "carry", "resist": null, "support": 32400, "src": "zone", "sigma": [null, 0.193], "call": "down_test", "distance_sigma": 0.193, "horizon": "1~2세션", "prior": 75.0, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.72%p(β0.70) · 배지 중립(-0.24σ) · 거래량 0.55배 · 지지 32,400(0.19σ·존·71.1%) · 없는 쪽 — 위 3σ 밖", "model_inputs": {"volx": 0.55, "rngatr": 0.68, "atrpct": 7.11, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"dn": {"p": 71.1, "p_base": 75.0, "dist_sigma": 0.193, "dir": "dn", "horizon_sessions": 2, "level": 32400, "src": "zone"}}, "p_probe": {"0p5": {"up": 36.2, "dn": 32.6, "up_base": 43.0, "dn_base": 39.1, "up_level": 34018, "dn_level": 31682}, "1p0": {"up": 13.2, "dn": 9.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 35186, "dn_level": 30514}}, "excess": -1.718, "badge": "중립", "badge_sigma": -0.24, "clsloc": 0.22, "volx": 0.55, "streak": -1, "hi": 34100, "lo": 32500, "vol": 211371},
+        {"code": "214450", "name": "파마리서치", "market": "KOSDAQ", "close": 414000, "atr": 28252, "chg": -2.82, "line_provenance": "carry", "resist": 454500, "support": 397500, "src": "line", "sigma": [1.434, 0.584], "call": "down_test", "distance_sigma": 0.584, "horizon": "2~3세션", "prior": 55.4, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.69%p(β0.61) · 배지 중립(-0.25σ) · 거래량 0.78배 · 저항 454,500(1.43σ·라인·23.4%) / 지지 397,500(0.58σ·존·53.3%)", "model_inputs": {"volx": 0.78, "rngatr": 0.81, "atrpct": 6.82, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 23.4, "p_base": 24.9, "dist_sigma": 1.434, "dir": "up", "horizon_sessions": 3, "level": 454500, "src": "line"}, "dn": {"p": 53.3, "p_base": 55.4, "dist_sigma": 0.584, "dir": "dn", "horizon_sessions": 3, "level": 397500, "src": "zone"}}, "p_probe": {"0p5": {"up": 38.9, "dn": 35.2, "up_base": 43.0, "dn_base": 39.1, "up_level": 428126, "dn_level": 399874}, "1p0": {"up": 14.6, "dn": 10.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 442252, "dn_level": 385748}}, "excess": -1.686, "badge": "중립", "badge_sigma": -0.25, "clsloc": 0.61, "volx": 0.78, "streak": -2, "hi": 423000, "lo": 400000, "vol": 149954},
+        {"code": "237690", "name": "에스티팜", "market": "KOSDAQ", "close": 103000, "atr": 7834, "chg": -2.09, "line_provenance": "carry", "resist": 117100, "support": 85500, "src": "line", "sigma": [1.8, 2.234], "call": "up_test", "distance_sigma": 1.8, "horizon": "2~3세션", "prior": 23.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -0.74%p(β0.81) · 배지 중립(-0.10σ) · 거래량 0.36배 · 저항 117,100(1.80σ·라인·19.5%) / 지지 85,500(2.23σ·존·13.0%)", "model_inputs": {"volx": 0.36, "rngatr": 0.47, "atrpct": 7.61, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 19.5, "p_base": 23.2, "dist_sigma": 1.8, "dir": "up", "horizon_sessions": 3, "level": 117100, "src": "line"}, "dn": {"p": 13.0, "p_base": 15.7, "dist_sigma": 2.234, "dir": "dn", "horizon_sessions": 3, "level": 85500, "src": "zone"}}, "p_probe": {"0p5": {"up": 32.6, "dn": 29.1, "up_base": 43.0, "dn_base": 39.1, "up_level": 106917, "dn_level": 99083}, "1p0": {"up": 11.4, "dn": 8.0, "up_base": 16.8, "dn_base": 11.9, "up_level": 110834, "dn_level": 95166}}, "excess": -0.737, "badge": "중립", "badge_sigma": -0.1, "clsloc": 0.32, "volx": 0.36, "streak": -3, "hi": 105500, "lo": 101800, "vol": 76369},
+        {"code": "241710", "name": "코스메카코리아", "market": "KOSDAQ", "close": 141200, "atr": 10603, "chg": -5.74, "line_provenance": "carry", "resist": null, "support": 126000, "src": "zone", "sigma": [null, 1.434], "call": "down_test", "distance_sigma": 1.434, "horizon": "2~3세션", "prior": 17.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -4.79%p(β0.44) · 배지 약세(-0.64σ) · 거래량 0.64배 · 지지 126,000(1.43σ·존·17.7%) · 없는 쪽 — 위 후보 없음", "model_inputs": {"volx": 0.64, "rngatr": 1.4, "atrpct": 7.51, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"dn": {"p": 17.7, "p_base": 17.7, "dist_sigma": 1.434, "dir": "dn", "horizon_sessions": 3, "level": 126000, "src": "zone"}}, "p_probe": {"0p5": {"up": 43.1, "dn": 39.2, "up_base": 43.0, "dn_base": 39.1, "up_level": 146502, "dn_level": 135898}, "1p0": {"up": 16.9, "dn": 12.0, "up_base": 16.8, "dn_base": 11.9, "up_level": 151803, "dn_level": 130597}}, "excess": -4.792, "badge": "약세", "badge_sigma": -0.64, "clsloc": 0.33, "volx": 0.64, "streak": -2, "hi": 151100, "lo": 136300, "vol": 133074},
+        {"code": "267250", "name": "HD현대", "market": "KOSPI", "close": 219000, "atr": 12891, "chg": 0, "line_provenance": "carry", "resist": 229500, "support": 204500, "src": "line", "sigma": [0.815, 1.125], "call": "up_test", "distance_sigma": 0.815, "horizon": "2~3세션", "prior": 47.9, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -0.13%p(β0.39) · 배지 중립(-0.02σ) · 거래량 0.74배 · 저항 229,500(0.81σ·라인·47.1%) / 지지 204,500(1.12σ·존·27.4%)", "model_inputs": {"volx": 0.74, "rngatr": 1.05, "atrpct": 5.89, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 47.1, "p_base": 47.9, "dist_sigma": 0.815, "dir": "up", "horizon_sessions": 3, "level": 229500, "src": "line"}, "dn": {"p": 27.4, "p_base": 28.0, "dist_sigma": 1.125, "dir": "dn", "horizon_sessions": 3, "level": 204500, "src": "zone"}}, "p_probe": {"0p5": {"up": 41.5, "dn": 37.7, "up_base": 43.0, "dn_base": 39.1, "up_level": 225446, "dn_level": 212554}, "1p0": {"up": 16.0, "dn": 11.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 231891, "dn_level": 206109}}, "excess": -0.132, "badge": "중립", "badge_sigma": -0.02, "clsloc": 0.44, "volx": 0.74, "streak": -1, "hi": 226500, "lo": 213000, "vol": 93663},
+        {"code": "267790", "name": "배럴", "market": "KOSDAQ", "close": 3460, "atr": 178, "chg": 1.02, "line_provenance": "carry", "resist": 3480, "support": 3365, "src": "zone", "sigma": [0.112, 0.534], "call": "up_test", "distance_sigma": 0.112, "horizon": "1~2세션", "prior": 84.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +1.74%p(β0.23) · 배지 중립(0.34σ) · 거래량 0.35배 · 저항 3,480(0.11σ·존·82.6%) / 지지 3,365(0.53σ·존·46.6%)", "model_inputs": {"volx": 0.35, "rngatr": 0.9, "atrpct": 5.15, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 82.6, "p_base": 84.7, "dist_sigma": 0.112, "dir": "up", "horizon_sessions": 2, "level": 3480, "src": "zone"}, "dn": {"p": 46.6, "p_base": 50.5, "dist_sigma": 0.534, "dir": "dn", "horizon_sessions": 2, "level": 3365, "src": "zone"}}, "p_probe": {"0p5": {"up": 37.7, "dn": 34.0, "up_base": 43.0, "dn_base": 39.1, "up_level": 3549, "dn_level": 3371}, "1p0": {"up": 13.9, "dn": 9.8, "up_base": 16.8, "dn_base": 11.9, "up_level": 3638, "dn_level": 3282}}, "excess": 1.739, "badge": "중립", "badge_sigma": 0.34, "clsloc": 0.63, "volx": 0.35, "streak": 1, "hi": 3520, "lo": 3360, "vol": 4792},
+        {"code": "278470", "name": "에이피알", "market": "KOSPI", "close": 432500, "atr": 26577, "chg": -6.89, "line_provenance": "fresh", "resist": 469500, "support": 414500, "src": "line", "sigma": [1.392, 0.677], "call": "down_test", "distance_sigma": 0.677, "horizon": "2~3세션", "prior": 49.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -7.00%p(β0.26) · 배지 약세(-1.14σ) · 거래량 0.77배 · 저항 469,500(1.39σ·라인·27.8%) / 지지 414,500(0.68σ·라인·51.9%)", "model_inputs": {"volx": 0.77, "rngatr": 1.67, "atrpct": 6.14, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 27.8, "p_base": 26.1, "dist_sigma": 1.392, "dir": "up", "horizon_sessions": 3, "level": 469500, "src": "line"}, "dn": {"p": 51.9, "p_base": 49.7, "dist_sigma": 0.677, "dir": "dn", "horizon_sessions": 3, "level": 414500, "src": "line"}}, "p_probe": {"0p5": {"up": 47.3, "dn": 43.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 445788, "dn_level": 419212}, "1p0": {"up": 19.4, "dn": 13.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 459077, "dn_level": 405923}}, "excess": -7.001, "badge": "약세", "badge_sigma": -1.14, "clsloc": 0.04, "volx": 0.77, "streak": -1, "hi": 475000, "lo": 430500, "vol": 252080},
+        {"code": "289930", "name": "웨이비스", "market": "KOSDAQ", "close": 6670, "atr": 476, "chg": 0.76, "line_provenance": "carry", "resist": 7420, "support": 5630, "src": "line", "sigma": [1.576, 2.185], "call": "up_test", "distance_sigma": 1.576, "horizon": "2~3세션", "prior": 23.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +2.35%p(β1.03) · 배지 중립(0.33σ) · 거래량 0.69배 · 저항 7,420(1.58σ·라인·20.6%) / 지지 5,630(2.19σ·라인·13.8%)", "model_inputs": {"volx": 0.69, "rngatr": 0.53, "atrpct": 7.14, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 20.6, "p_base": 23.2, "dist_sigma": 1.576, "dir": "up", "horizon_sessions": 3, "level": 7420, "src": "line"}, "dn": {"p": 13.8, "p_base": 15.7, "dist_sigma": 2.185, "dir": "dn", "horizon_sessions": 3, "level": 5630, "src": "line"}}, "p_probe": {"0p5": {"up": 35.8, "dn": 32.2, "up_base": 43.0, "dn_base": 39.1, "up_level": 6908, "dn_level": 6432}, "1p0": {"up": 13.0, "dn": 9.1, "up_base": 16.8, "dn_base": 11.9, "up_level": 7146, "dn_level": 6194}}, "excess": 2.353, "badge": "중립", "badge_sigma": 0.33, "clsloc": 0.72, "volx": 0.69, "streak": 1, "hi": 6740, "lo": 6490, "vol": 44435},
+        {"code": "348210", "name": "넥스틴", "market": "KOSDAQ", "close": 31400, "atr": 2558, "chg": -0.32, "line_provenance": "carry", "resist": 38200, "support": null, "src": "line", "sigma": [2.658, null], "call": "up_test", "distance_sigma": 2.658, "horizon": "2~3세션", "prior": 23.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +1.63%p(β1.36) · 배지 중립(0.20σ) · 거래량 0.82배 · 저항 38,200(2.66σ·라인·20.9%) · 없는 쪽 — 아래 후보 없음", "model_inputs": {"volx": 0.82, "rngatr": 0.61, "atrpct": 8.15, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 20.9, "p_base": 23.2, "dist_sigma": 2.658, "dir": "up", "horizon_sessions": 3, "level": 38200, "src": "line"}}, "p_probe": {"0p5": {"up": 36.6, "dn": 33.0, "up_base": 43.0, "dn_base": 39.1, "up_level": 32679, "dn_level": 30121}, "1p0": {"up": 13.4, "dn": 9.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 33958, "dn_level": 28842}}, "excess": 1.633, "badge": "중립", "badge_sigma": 0.2, "clsloc": 0.65, "volx": 0.82, "streak": -3, "hi": 31950, "lo": 30400, "vol": 54266},
+        {"code": "352820", "name": "하이브", "market": "KOSPI", "close": 178000, "atr": 9044, "chg": -0.78, "line_provenance": "carry", "resist": null, "support": 162300, "src": "line", "sigma": [null, 1.736], "call": "down_test", "distance_sigma": 1.736, "horizon": "2~3세션", "prior": 15.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -0.90%p(β0.29) · 배지 중립(-0.18σ) · 거래량 0.52배 · 지지 162,300(1.74σ·라인·13.9%) · 없는 쪽 — 위 3σ 밖", "model_inputs": {"volx": 0.52, "rngatr": 0.55, "atrpct": 5.08, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"dn": {"p": 13.9, "p_base": 15.7, "dist_sigma": 1.736, "dir": "dn", "horizon_sessions": 3, "level": 162300, "src": "line"}}, "p_probe": {"0p5": {"up": 36.2, "dn": 32.6, "up_base": 43.0, "dn_base": 39.1, "up_level": 182522, "dn_level": 173478}, "1p0": {"up": 13.2, "dn": 9.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 187044, "dn_level": 168956}}, "excess": -0.896, "badge": "중립", "badge_sigma": -0.18, "clsloc": 0.18, "volx": 0.52, "streak": -2, "hi": 182100, "lo": 177100, "vol": 116492},
+        {"code": "402340", "name": "SK스퀘어", "market": "KOSPI", "close": 1067000, "atr": 99587, "chg": 2.89, "line_provenance": "carry", "resist": 1231000, "support": null, "src": "line", "sigma": [1.647, null], "call": "up_test", "distance_sigma": 1.647, "horizon": "2~3세션", "prior": 23.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +2.57%p(β1.54) · 배지 중립(0.28σ) · 거래량 0.72배 · 저항 1,231,000(1.65σ·라인·20.6%) · 없는 쪽 — 아래 3σ 밖", "model_inputs": {"volx": 0.72, "rngatr": 0.62, "atrpct": 9.33, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 20.6, "p_base": 23.2, "dist_sigma": 1.647, "dir": "up", "horizon_sessions": 3, "level": 1231000, "src": "line"}}, "p_probe": {"0p5": {"up": 35.7, "dn": 32.1, "up_base": 43.0, "dn_base": 39.1, "up_level": 1116794, "dn_level": 1017206}, "1p0": {"up": 12.9, "dn": 9.0, "up_base": 16.8, "dn_base": 11.9, "up_level": 1166587, "dn_level": 967413}}, "excess": 2.573, "badge": "중립", "badge_sigma": 0.28, "clsloc": 0.92, "volx": 0.72, "streak": 2, "hi": 1072000, "lo": 1010000, "vol": 461669},
+        {"code": "403870", "name": "HPSP", "market": "KOSDAQ", "close": 51000, "atr": 3733, "chg": 1.59, "line_provenance": "carry", "resist": null, "support": 45600, "src": "line", "sigma": [null, 1.447], "call": "down_test", "distance_sigma": 1.447, "horizon": "2~3세션", "prior": 17.3, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +3.61%p(β1.42) · 배지 중립(0.49σ) · 거래량 0.63배 · 지지 45,600(1.45σ·라인·16.2%) · 없는 쪽 — 위 3σ 밖", "model_inputs": {"volx": 0.63, "rngatr": 0.95, "atrpct": 7.32, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"dn": {"p": 16.2, "p_base": 17.3, "dist_sigma": 1.447, "dir": "dn", "horizon_sessions": 3, "level": 45600, "src": "line"}}, "p_probe": {"0p5": {"up": 39.1, "dn": 35.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 52866, "dn_level": 49134}, "1p0": {"up": 14.6, "dn": 10.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 54733, "dn_level": 47267}}, "excess": 3.609, "badge": "중립", "badge_sigma": 0.49, "clsloc": 0.79, "volx": 0.63, "streak": 1, "hi": 51750, "lo": 48200, "vol": 1734635},
+        {"code": "456040", "name": "OCI", "market": "KOSPI", "close": 80700, "atr": 4144, "chg": -2.65, "line_provenance": "carry", "resist": 80900, "support": 77000, "src": "zone", "sigma": [0.048, 0.893], "call": "up_test", "distance_sigma": 0.048, "horizon": "1~2세션", "prior": 88.7, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -2.79%p(β0.45) · 배지 약세(-0.54σ) · 거래량 0.67배 · 저항 80,900(0.05σ·존·88.0%) / 지지 77,000(0.89σ·존·27.9%)", "model_inputs": {"volx": 0.67, "rngatr": 0.92, "atrpct": 5.14, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 88.0, "p_base": 88.7, "dist_sigma": 0.048, "dir": "up", "horizon_sessions": 2, "level": 80900, "src": "zone"}, "dn": {"p": 27.9, "p_base": 29.4, "dist_sigma": 0.893, "dir": "dn", "horizon_sessions": 2, "level": 77000, "src": "zone"}}, "p_probe": {"0p5": {"up": 40.5, "dn": 36.7, "up_base": 43.0, "dn_base": 39.1, "up_level": 82772, "dn_level": 78628}, "1p0": {"up": 15.4, "dn": 10.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 84844, "dn_level": 76556}}, "excess": -2.791, "badge": "약세", "badge_sigma": -0.54, "clsloc": 0.13, "volx": 0.67, "streak": -1, "hi": 84000, "lo": 80200, "vol": 31155},
+        {"code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 207500, "atr": 17033, "chg": -5.68, "line_provenance": "carry", "resist": 228000, "support": 202000, "src": "zone", "sigma": [1.204, 0.323], "call": "down_test", "distance_sigma": 0.323, "horizon": "1~2세션", "prior": 65.9, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -5.76%p(β0.09) · 배지 약세(-0.70σ) · 거래량 1.01배 · 저항 228,000(1.20σ·존·22.2%) / 지지 202,000(0.32σ·존·64.4%)", "model_inputs": {"volx": 1.01, "rngatr": 0.97, "atrpct": 8.21, "atr_bars": 170, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 22.2, "p_base": 23.4, "dist_sigma": 1.204, "dir": "up", "horizon_sessions": 2, "level": 228000, "src": "zone"}, "dn": {"p": 64.4, "p_base": 65.9, "dist_sigma": 0.323, "dir": "dn", "horizon_sessions": 2, "level": 202000, "src": "zone"}}, "p_probe": {"0p5": {"up": 40.7, "dn": 36.9, "up_base": 43.0, "dn_base": 39.1, "up_level": 216016, "dn_level": 198984}, "1p0": {"up": 15.5, "dn": 10.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 224533, "dn_level": 190467}}, "excess": -5.763, "badge": "약세", "badge_sigma": -0.7, "clsloc": 0.12, "volx": 1.01, "streak": -2, "hi": 222000, "lo": 205500, "vol": 162531}
       ]
   }
  ],
@@ -5366,949 +6264,6 @@
   },
   "active": [
    {
-    "opened": "2026-08-27",
-    "code": "000660",
-    "name": "SK하이닉스",
-    "dir": "up",
-    "level": 1855000,
-    "dist_sigma": 0.807,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 43.7,
-    "p_base": 48.3,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.58,
-     "rngatr": 0.52,
-     "atrpct": 8.95,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 1725000,
-    "run_lo": 1577000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "000660",
-    "name": "SK하이닉스",
-    "dir": "dn",
-    "level": 1455000,
-    "dist_sigma": 1.776,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 13.4,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.58,
-     "rngatr": 0.52,
-     "atrpct": 8.95,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 1725000,
-    "run_lo": 1577000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "002380",
-    "name": "KCC",
-    "dir": "up",
-    "level": 493500,
-    "dist_sigma": 0.881,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 43.4,
-    "p_base": 44.9,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.81,
-     "rngatr": 0.84,
-     "atrpct": 5.8,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 476000,
-    "run_lo": 456000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "005930",
-    "name": "삼성전자",
-    "dir": "up",
-    "level": 276000,
-    "dist_sigma": 0.51,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 59.9,
-    "p_base": 64.4,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.56,
-     "rngatr": 0.43,
-     "atrpct": 7.37,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 266000,
-    "run_lo": 246000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "005930",
-    "name": "삼성전자",
-    "dir": "dn",
-    "level": 243000,
-    "dist_sigma": 1.173,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 22.7,
-    "p_base": 26.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.56,
-     "rngatr": 0.43,
-     "atrpct": 7.37,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 266000,
-    "run_lo": 246000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "010140",
-    "name": "삼성중공업",
-    "dir": "up",
-    "level": 21850,
-    "dist_sigma": 0.859,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 42.2,
-    "p_base": 45.9,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.54,
-     "rngatr": 0.46,
-     "atrpct": 4.71,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 21500,
-    "run_lo": 20300
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "010140",
-    "name": "삼성중공업",
-    "dir": "dn",
-    "level": 18990,
-    "dist_sigma": 2.032,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 13.8,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.54,
-     "rngatr": 0.46,
-     "atrpct": 4.71,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 21500,
-    "run_lo": 20300
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "011760",
-    "name": "현대코퍼레이션",
-    "dir": "up",
-    "level": 26200,
-    "dist_sigma": 0.556,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 62.5,
-    "p_base": 61.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.9,
-     "rngatr": 1.11,
-     "atrpct": 3.86,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 26000,
-    "run_lo": 25300
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "011760",
-    "name": "현대코퍼레이션",
-    "dir": "dn",
-    "level": 25150,
-    "dist_sigma": 0.506,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 61.3,
-    "p_base": 60.5,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.9,
-     "rngatr": 1.11,
-     "atrpct": 3.86,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 26000,
-    "run_lo": 25300
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "017670",
-    "name": "SK텔레콤",
-    "dir": "up",
-    "level": 112100,
-    "dist_sigma": 1.98,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 21.9,
-    "p_base": 23.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.55,
-     "rngatr": 1.01,
-     "atrpct": 6.62,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 102700,
-    "run_lo": 90800
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "017670",
-    "name": "SK텔레콤",
-    "dir": "dn",
-    "level": 86600,
-    "dist_sigma": 1.904,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 14.8,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.55,
-     "rngatr": 1.01,
-     "atrpct": 6.62,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 102700,
-    "run_lo": 90800
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "025860",
-    "name": "남해화학",
-    "dir": "dn",
-    "level": 5780,
-    "dist_sigma": 1.098,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 27.2,
-    "p_base": 29.1,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.54,
-     "rngatr": 0.71,
-     "atrpct": 4.2,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 6550,
-    "run_lo": 6010
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "035420",
-    "name": "NAVER",
-    "dir": "up",
-    "level": 245500,
-    "dist_sigma": 2.3,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 22.0,
-    "p_base": 23.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.65,
-     "rngatr": 0.91,
-     "atrpct": 5.82,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 229000,
-    "run_lo": 209000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "035420",
-    "name": "NAVER",
-    "dir": "dn",
-    "level": 189400,
-    "dist_sigma": 2.149,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 14.8,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.65,
-     "rngatr": 0.91,
-     "atrpct": 5.82,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 229000,
-    "run_lo": 209000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "039490",
-    "name": "키움증권",
-    "dir": "up",
-    "level": 319500,
-    "dist_sigma": 2.257,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 21.5,
-    "p_base": 23.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.55,
-     "rngatr": 0.87,
-     "atrpct": 6.34,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 281000,
-    "run_lo": 269000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "039490",
-    "name": "키움증권",
-    "dir": "dn",
-    "level": 246500,
-    "dist_sigma": 1.862,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 14.5,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.55,
-     "rngatr": 0.87,
-     "atrpct": 6.34,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 281000,
-    "run_lo": 269000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "049630",
-    "name": "재영솔루텍",
-    "dir": "up",
-    "level": 7750,
-    "dist_sigma": 0.994,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 34.6,
-    "p_base": 39.8,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.42,
-     "rngatr": 0.53,
-     "atrpct": 9.98,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 7150,
-    "run_lo": 6900
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "049630",
-    "name": "재영솔루텍",
-    "dir": "dn",
-    "level": 5200,
-    "dist_sigma": 2.628,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 13.0,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.42,
-     "rngatr": 0.53,
-     "atrpct": 9.98,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 7150,
-    "run_lo": 6900
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "086520",
-    "name": "에코프로",
-    "dir": "up",
-    "level": 96000,
-    "dist_sigma": 0.597,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 58.7,
-    "p_base": 59.3,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.2,
-     "rngatr": 0.96,
-     "atrpct": 7.28,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 91500,
-    "run_lo": 86600
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "086520",
-    "name": "에코프로",
-    "dir": "dn",
-    "level": 75900,
-    "dist_sigma": 2.403,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 15.4,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.2,
-     "rngatr": 0.96,
-     "atrpct": 7.28,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 91500,
-    "run_lo": 86600
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "105560",
-    "name": "KB금융",
-    "dir": "dn",
-    "level": 153000,
-    "dist_sigma": 2.351,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 15.0,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.76,
-     "rngatr": 0.72,
-     "atrpct": 3.82,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 175300,
-    "run_lo": 164600
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "192820",
-    "name": "코스맥스",
-    "dir": "dn",
-    "level": 262000,
-    "dist_sigma": 1.327,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 20.5,
-    "p_base": 20.9,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.79,
-     "rngatr": 1.04,
-     "atrpct": 5.59,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 306000,
-    "run_lo": 282500
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "196170",
-    "name": "알테오젠",
-    "dir": "up",
-    "level": 367307,
-    "dist_sigma": 2.473,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 20.8,
-    "p_base": 23.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.64,
-     "rngatr": 0.62,
-     "atrpct": 7.24,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 324500,
-    "run_lo": 293000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "200670",
-    "name": "휴메딕스",
-    "dir": "up",
-    "level": 27600,
-    "dist_sigma": 0.941,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 45.0,
-    "p_base": 42.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 2.25,
-     "rngatr": 1.27,
-     "atrpct": 5.25,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 26500,
-    "run_lo": 25450
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "214450",
-    "name": "파마리서치",
-    "dir": "dn",
-    "level": 418000,
-    "dist_sigma": 0.532,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 54.4,
-    "p_base": 58.8,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.38,
-     "rngatr": 0.59,
-     "atrpct": 6.31,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 465500,
-    "run_lo": 424500
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "237690",
-    "name": "에스티팜",
-    "dir": "up",
-    "level": 117100,
-    "dist_sigma": 0.732,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 47.6,
-    "p_base": 51.9,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.67,
-     "rngatr": 0.47,
-     "atrpct": 7.64,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 112800,
-    "run_lo": 102000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "237690",
-    "name": "에스티팜",
-    "dir": "dn",
-    "level": 85500,
-    "dist_sigma": 2.997,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 13.6,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.67,
-     "rngatr": 0.47,
-     "atrpct": 7.64,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 112800,
-    "run_lo": 102000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "241710",
-    "name": "코스메카코리아",
-    "dir": "dn",
-    "level": 126000,
-    "dist_sigma": 1.382,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 16.9,
-    "p_base": 19.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.44,
-     "rngatr": 0.69,
-     "atrpct": 6.77,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 155500,
-    "run_lo": 139000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "267250",
-    "name": "HD현대",
-    "dir": "up",
-    "level": 229500,
-    "dist_sigma": 1.025,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 36.0,
-    "p_base": 38.5,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.55,
-     "rngatr": 0.8,
-     "atrpct": 6.1,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 223000,
-    "run_lo": 209500
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "267250",
-    "name": "HD현대",
-    "dir": "dn",
-    "level": 204500,
-    "dist_sigma": 0.873,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 36.7,
-    "p_base": 39.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.55,
-     "rngatr": 0.8,
-     "atrpct": 6.1,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 223000,
-    "run_lo": 209500
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "278470",
-    "name": "에이피알",
-    "dir": "up",
-    "level": 469500,
-    "dist_sigma": 1.386,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 24.5,
-    "p_base": 26.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.62,
-     "rngatr": 0.81,
-     "atrpct": 5.81,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 466500,
-    "run_lo": 435500
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "278470",
-    "name": "에이피알",
-    "dir": "dn",
-    "level": 388000,
-    "dist_sigma": 1.841,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 14.6,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.62,
-     "rngatr": 0.81,
-     "atrpct": 5.81,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 466500,
-    "run_lo": 435500
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "289930",
-    "name": "웨이비스",
-    "dir": "up",
-    "level": 7420,
-    "dist_sigma": 1.329,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 23.4,
-    "p_base": 27.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.37,
-     "rngatr": 0.44,
-     "atrpct": 7.47,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 6900,
-    "run_lo": 6370
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "289930",
-    "name": "웨이비스",
-    "dir": "dn",
-    "level": 5630,
-    "dist_sigma": 2.222,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 12.9,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.37,
-     "rngatr": 0.44,
-     "atrpct": 7.47,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 6900,
-    "run_lo": 6370
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "348210",
-    "name": "넥스틴",
-    "dir": "up",
-    "level": 38200,
-    "dist_sigma": 1.848,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 20.1,
-    "p_base": 23.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.5,
-     "rngatr": 0.57,
-     "atrpct": 8.43,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 33450,
-    "run_lo": 30350
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "352820",
-    "name": "하이브",
-    "dir": "dn",
-    "level": 162300,
-    "dist_sigma": 1.64,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 15.9,
-    "p_base": 15.7,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.99,
-     "rngatr": 1.13,
-     "atrpct": 5.53,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 180900,
-    "run_lo": 172900
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "402340",
-    "name": "SK스퀘어",
-    "dir": "up",
-    "level": 1231000,
-    "dist_sigma": 1.494,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 20.3,
-    "p_base": 23.4,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.63,
-     "rngatr": 0.56,
-     "atrpct": 10.22,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 1075000,
-    "run_lo": 974000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "403870",
-    "name": "HPSP",
-    "dir": "dn",
-    "level": 45600,
-    "dist_sigma": 1.241,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 22.0,
-    "p_base": 23.5,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.03,
-     "rngatr": 0.75,
-     "atrpct": 7.82,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 53000,
-    "run_lo": 49100
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "456040",
-    "name": "OCI",
-    "dir": "up",
-    "level": 90600,
-    "dist_sigma": 2.424,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 19.9,
-    "p_base": 23.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.45,
-     "rngatr": 0.35,
-     "atrpct": 5.41,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 83600,
-    "run_lo": 79600
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "483650",
-    "name": "달바글로벌",
-    "dir": "up",
-    "level": 258500,
-    "dist_sigma": 1.978,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 20.0,
-    "p_base": 23.2,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.49,
-     "rngatr": 0.55,
-     "atrpct": 8.18,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 229500,
-    "run_lo": 218000
-   },
-   {
-    "opened": "2026-08-27",
-    "code": "483650",
-    "name": "달바글로벌",
-    "dir": "dn",
-    "level": 202000,
-    "dist_sigma": 1.126,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 24.4,
-    "p_base": 28.0,
-    "sessions_elapsed": 2,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.49,
-     "rngatr": 0.55,
-     "atrpct": 8.18,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 229500,
-    "run_lo": 218000
-   },
-   {
     "opened": "2026-08-28",
     "code": "000660",
     "name": "SK하이닉스",
@@ -6319,7 +6274,7 @@
     "expiry_after_sessions": 3,
     "p": 23.7,
     "p_base": 27.1,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.71,
@@ -6328,7 +6283,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 1674000,
+    "run_hi": 1713000,
     "run_lo": 1577000
    },
    {
@@ -6342,7 +6297,7 @@
     "expiry_after_sessions": 3,
     "p": 18.1,
     "p_base": 20.9,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.71,
@@ -6351,54 +6306,8 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 1674000,
+    "run_hi": 1713000,
     "run_lo": 1577000
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "002380",
-    "name": "KCC",
-    "dir": "up",
-    "level": 493500,
-    "dist_sigma": 0.75,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 48.9,
-    "p_base": 50.9,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.82,
-     "rngatr": 0.71,
-     "atrpct": 5.63,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 476000,
-    "run_lo": 462000
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "003230",
-    "name": "삼양식품",
-    "dir": "up",
-    "level": 1587000,
-    "dist_sigma": 0.534,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 53.9,
-    "p_base": 54.9,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.65,
-     "rngatr": 1.03,
-     "atrpct": 4.84,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 1553000,
-    "run_lo": 1497000
    },
    {
     "opened": "2026-08-28",
@@ -6411,7 +6320,7 @@
     "expiry_after_sessions": 3,
     "p": 35.3,
     "p_base": 39.3,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.55,
@@ -6420,7 +6329,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 260000,
+    "run_hi": 262500,
     "run_lo": 246000
    },
    {
@@ -6434,7 +6343,7 @@
     "expiry_after_sessions": 3,
     "p": 41.6,
     "p_base": 45.9,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.55,
@@ -6443,7 +6352,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 260000,
+    "run_hi": 262500,
     "run_lo": 246000
    },
    {
@@ -6457,7 +6366,7 @@
     "expiry_after_sessions": 3,
     "p": 52.6,
     "p_base": 54.9,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.71,
@@ -6466,7 +6375,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 20950,
+    "run_hi": 21050,
     "run_lo": 20300
    },
    {
@@ -6480,7 +6389,7 @@
     "expiry_after_sessions": 3,
     "p": 14.5,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.71,
@@ -6489,7 +6398,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 20950,
+    "run_hi": 21050,
     "run_lo": 20300
    },
    {
@@ -6503,7 +6412,7 @@
     "expiry_after_sessions": 3,
     "p": 21.7,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.49,
@@ -6512,7 +6421,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 25800,
+    "run_hi": 25900,
     "run_lo": 25300
    },
    {
@@ -6526,7 +6435,7 @@
     "expiry_after_sessions": 3,
     "p": 44.8,
     "p_base": 47.0,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.49,
@@ -6535,31 +6444,8 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 25800,
+    "run_hi": 25900,
     "run_lo": 25300
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "012330",
-    "name": "현대모비스",
-    "dir": "up",
-    "level": 485500,
-    "dist_sigma": 1.192,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 20.1,
-    "p_base": 23.8,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.08,
-     "rngatr": 0.26,
-     "atrpct": 6.52,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 459000,
-    "run_lo": 433500
    },
    {
     "opened": "2026-08-28",
@@ -6572,7 +6458,7 @@
     "expiry_after_sessions": 3,
     "p": 21.8,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.77,
@@ -6595,7 +6481,7 @@
     "expiry_after_sessions": 3,
     "p": 14.7,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.77,
@@ -6609,29 +6495,6 @@
    },
    {
     "opened": "2026-08-28",
-    "code": "018260",
-    "name": "삼성에스디에스",
-    "dir": "up",
-    "level": 250000,
-    "dist_sigma": 0.535,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 52.6,
-    "p_base": 54.9,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1,
-     "rngatr": 0.69,
-     "atrpct": 5.39,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 241500,
-    "run_lo": 230000
-   },
-   {
-    "opened": "2026-08-28",
     "code": "035420",
     "name": "NAVER",
     "dir": "up",
@@ -6641,7 +6504,7 @@
     "expiry_after_sessions": 3,
     "p": 22.2,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.85,
@@ -6650,7 +6513,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 218000,
+    "run_hi": 218500,
     "run_lo": 209000
    },
    {
@@ -6664,7 +6527,7 @@
     "expiry_after_sessions": 3,
     "p": 15.0,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.85,
@@ -6673,7 +6536,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 218000,
+    "run_hi": 218500,
     "run_lo": 209000
    },
    {
@@ -6687,7 +6550,7 @@
     "expiry_after_sessions": 3,
     "p": 19.8,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.52,
@@ -6696,7 +6559,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 281000,
+    "run_hi": 284500,
     "run_lo": 269000
    },
    {
@@ -6710,7 +6573,7 @@
     "expiry_after_sessions": 3,
     "p": 13.2,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.52,
@@ -6719,7 +6582,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 281000,
+    "run_hi": 284500,
     "run_lo": 269000
    },
    {
@@ -6733,7 +6596,7 @@
     "expiry_after_sessions": 3,
     "p": 30.9,
     "p_base": 37.4,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.32,
@@ -6742,7 +6605,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 7150,
+    "run_hi": 7650,
     "run_lo": 6900
    },
    {
@@ -6756,7 +6619,7 @@
     "expiry_after_sessions": 3,
     "p": 12.2,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.32,
@@ -6765,7 +6628,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 7150,
+    "run_hi": 7650,
     "run_lo": 6900
    },
    {
@@ -6779,7 +6642,7 @@
     "expiry_after_sessions": 3,
     "p": 39.9,
     "p_base": 44.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.6,
@@ -6788,7 +6651,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 91500,
+    "run_hi": 91900,
     "run_lo": 86600
    },
    {
@@ -6802,7 +6665,7 @@
     "expiry_after_sessions": 3,
     "p": 13.5,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.6,
@@ -6811,7 +6674,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 91500,
+    "run_hi": 91900,
     "run_lo": 86600
    },
    {
@@ -6825,7 +6688,7 @@
     "expiry_after_sessions": 3,
     "p": 30.1,
     "p_base": 29.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.88,
@@ -6835,7 +6698,7 @@
      "atr_method": "wilder14"
     },
     "run_hi": 151500,
-    "run_lo": 142600
+    "run_lo": 134400
    },
    {
     "opened": "2026-08-28",
@@ -6848,7 +6711,7 @@
     "expiry_after_sessions": 3,
     "p": 58.2,
     "p_base": 57.0,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 1.09,
@@ -6858,7 +6721,7 @@
      "atr_method": "wilder14"
     },
     "run_hi": 85700,
-    "run_lo": 81800
+    "run_lo": 79900
    },
    {
     "opened": "2026-08-28",
@@ -6871,7 +6734,7 @@
     "expiry_after_sessions": 3,
     "p": 16.2,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.92,
@@ -6881,30 +6744,7 @@
      "atr_method": "wilder14"
     },
     "run_hi": 175300,
-    "run_lo": 169700
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "192820",
-    "name": "코스맥스",
-    "dir": "dn",
-    "level": 287000,
-    "dist_sigma": 0.977,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 37.2,
-    "p_base": 34.0,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 2.11,
-     "rngatr": 1.43,
-     "atrpct": 5.41,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 304500,
-    "run_lo": 291500
+    "run_lo": 168900
    },
    {
     "opened": "2026-08-28",
@@ -6917,7 +6757,7 @@
     "expiry_after_sessions": 3,
     "p": 22.4,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 1.08,
@@ -6940,7 +6780,7 @@
     "expiry_after_sessions": 3,
     "p": 38.4,
     "p_base": 39.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.96,
@@ -6949,31 +6789,8 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 26150,
+    "run_hi": 26650,
     "run_lo": 25450
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "214150",
-    "name": "클래시스",
-    "dir": "dn",
-    "level": 32400,
-    "dist_sigma": 0.35,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 59.3,
-    "p_base": 63.9,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.73,
-     "rngatr": 0.58,
-     "atrpct": 7.3,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 34450,
-    "run_lo": 32500
    },
    {
     "opened": "2026-08-28",
@@ -6986,7 +6803,7 @@
     "expiry_after_sessions": 3,
     "p": 38.4,
     "p_base": 39.1,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.98,
@@ -6996,7 +6813,7 @@
      "atr_method": "wilder14"
     },
     "run_hi": 462500,
-    "run_lo": 424500
+    "run_lo": 400000
    },
    {
     "opened": "2026-08-28",
@@ -7009,7 +6826,7 @@
     "expiry_after_sessions": 3,
     "p": 42.7,
     "p_base": 46.5,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.76,
@@ -7019,30 +6836,7 @@
      "atr_method": "wilder14"
     },
     "run_hi": 108500,
-    "run_lo": 102000
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "241710",
-    "name": "코스메카코리아",
-    "dir": "dn",
-    "level": 137900,
-    "dist_sigma": 1.632,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 16.1,
-    "p_base": 15.7,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.7,
-     "rngatr": 1.42,
-     "atrpct": 6.37,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 155500,
-    "run_lo": 139000
+    "run_lo": 101800
    },
    {
     "opened": "2026-08-28",
@@ -7055,7 +6849,7 @@
     "expiry_after_sessions": 3,
     "p": 42.1,
     "p_base": 44.5,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.66,
@@ -7064,7 +6858,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 221500,
+    "run_hi": 226500,
     "run_lo": 209500
    },
    {
@@ -7078,7 +6872,7 @@
     "expiry_after_sessions": 3,
     "p": 29.0,
     "p_base": 31.1,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.66,
@@ -7087,54 +6881,8 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 221500,
+    "run_hi": 226500,
     "run_lo": 209500
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "267790",
-    "name": "배럴",
-    "dir": "up",
-    "level": 3720,
-    "dist_sigma": 1.32,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 17.3,
-    "p_base": 20.2,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.78,
-     "rngatr": 0.39,
-     "atrpct": 5.1,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 3625,
-    "run_lo": 3420
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "278470",
-    "name": "에이피알",
-    "dir": "dn",
-    "level": 443000,
-    "dist_sigma": 0.723,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 47.5,
-    "p_base": 46.9,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.1,
-     "rngatr": 1.13,
-     "atrpct": 5.55,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 466500,
-    "run_lo": 446500
    },
    {
     "opened": "2026-08-28",
@@ -7147,7 +6895,7 @@
     "expiry_after_sessions": 3,
     "p": 21.3,
     "p_base": 23.6,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.3,
@@ -7156,7 +6904,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 6710,
+    "run_hi": 6740,
     "run_lo": 6370
    },
    {
@@ -7170,7 +6918,7 @@
     "expiry_after_sessions": 3,
     "p": 14.0,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.3,
@@ -7179,7 +6927,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 6710,
+    "run_hi": 6740,
     "run_lo": 6370
    },
    {
@@ -7193,7 +6941,7 @@
     "expiry_after_sessions": 3,
     "p": 20.1,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.56,
@@ -7202,7 +6950,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 31800,
+    "run_hi": 31950,
     "run_lo": 30350
    },
    {
@@ -7216,7 +6964,7 @@
     "expiry_after_sessions": 3,
     "p": 13.6,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.43,
@@ -7225,7 +6973,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 179700,
+    "run_hi": 182100,
     "run_lo": 172900
    },
    {
@@ -7239,7 +6987,7 @@
     "expiry_after_sessions": 3,
     "p": 19.8,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.62,
@@ -7248,7 +6996,7 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 1046000,
+    "run_hi": 1072000,
     "run_lo": 974000
    },
    {
@@ -7262,7 +7010,7 @@
     "expiry_after_sessions": 3,
     "p": 17.0,
     "p_base": 18.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.93,
@@ -7271,31 +7019,8 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     },
-    "run_hi": 51000,
-    "run_lo": 49100
-   },
-   {
-    "opened": "2026-08-28",
-    "code": "456040",
-    "name": "OCI",
-    "dir": "up",
-    "level": 90600,
-    "dist_sigma": 2.044,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 14.0,
-    "p_base": 16.0,
-    "sessions_elapsed": 1,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.66,
-     "rngatr": 0.62,
-     "atrpct": 5.13,
-     "atr_bars": 200,
-     "atr_method": "wilder14"
-    },
-    "run_hi": 83600,
-    "run_lo": 79900
+    "run_hi": 51750,
+    "run_lo": 48200
    },
    {
     "opened": "2026-08-28",
@@ -7308,7 +7033,7 @@
     "expiry_after_sessions": 3,
     "p": 20.7,
     "p_base": 23.2,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.81,
@@ -7318,7 +7043,7 @@
      "atr_method": "wilder14"
     },
     "run_hi": 229000,
-    "run_lo": 218000
+    "run_lo": 205500
    },
    {
     "opened": "2026-08-28",
@@ -7331,7 +7056,7 @@
     "expiry_after_sessions": 3,
     "p": 13.8,
     "p_base": 15.7,
-    "sessions_elapsed": 1,
+    "sessions_elapsed": 2,
     "status": "open",
     "model_inputs": {
      "volx": 0.81,
@@ -7341,7 +7066,7 @@
      "atr_method": "wilder14"
     },
     "run_hi": 229000,
-    "run_lo": 218000
+    "run_lo": 205500
    },
    {
     "opened": "2026-08-31",
@@ -7354,7 +7079,7 @@
     "expiry_after_sessions": 3,
     "p": 32.2,
     "p_base": 31.5,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 2.33,
@@ -7362,7 +7087,9 @@
      "atrpct": 9.08,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 212000,
+    "run_lo": 203500
    },
    {
     "opened": "2026-08-31",
@@ -7375,7 +7102,7 @@
     "expiry_after_sessions": 3,
     "p": 38.4,
     "p_base": 37.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 2.33,
@@ -7383,7 +7110,9 @@
      "atrpct": 9.08,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 212000,
+    "run_lo": 203500
    },
    {
     "opened": "2026-08-31",
@@ -7396,7 +7125,7 @@
     "expiry_after_sessions": 3,
     "p": 27.5,
     "p_base": 30.1,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.8,
@@ -7404,7 +7133,9 @@
      "atrpct": 8.7,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 1713000,
+    "run_lo": 1652000
    },
    {
     "opened": "2026-08-31",
@@ -7417,7 +7148,7 @@
     "expiry_after_sessions": 3,
     "p": 14.1,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.8,
@@ -7425,28 +7156,9 @@
      "atrpct": 8.7,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "002380",
-    "name": "KCC",
-    "dir": "up",
-    "level": 493500,
-    "dist_sigma": 0.757,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 47.8,
-    "p_base": 50.6,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.8,
-     "rngatr": 0.54,
-     "atrpct": 5.43,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 1713000,
+    "run_lo": 1652000
    },
    {
     "opened": "2026-08-31",
@@ -7459,7 +7171,7 @@
     "expiry_after_sessions": 2,
     "p": 39.0,
     "p_base": 41.5,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.69,
@@ -7467,28 +7179,9 @@
      "atrpct": 4.81,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "003230",
-    "name": "삼양식품",
-    "dir": "dn",
-    "level": 1523000,
-    "dist_sigma": 0.109,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 78.7,
-    "p_base": 80.4,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.69,
-     "rngatr": 0.76,
-     "atrpct": 4.81,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 1537000,
+    "run_lo": 1461000
    },
    {
     "opened": "2026-08-31",
@@ -7501,7 +7194,7 @@
     "expiry_after_sessions": 3,
     "p": 43.0,
     "p_base": 45.8,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.66,
@@ -7509,7 +7202,9 @@
      "atrpct": 7.14,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 262500,
+    "run_lo": 254000
    },
    {
     "opened": "2026-08-31",
@@ -7522,7 +7217,7 @@
     "expiry_after_sessions": 3,
     "p": 34.5,
     "p_base": 37.1,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.66,
@@ -7530,7 +7225,9 @@
      "atrpct": 7.14,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 262500,
+    "run_lo": 254000
    },
    {
     "opened": "2026-08-31",
@@ -7543,7 +7240,7 @@
     "expiry_after_sessions": 3,
     "p": 38.0,
     "p_base": 39.8,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.76,
@@ -7551,7 +7248,9 @@
      "atrpct": 4.58,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 21050,
+    "run_lo": 20550
    },
    {
     "opened": "2026-08-31",
@@ -7564,7 +7263,7 @@
     "expiry_after_sessions": 3,
     "p": 14.7,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.76,
@@ -7572,7 +7271,9 @@
      "atrpct": 4.58,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 21050,
+    "run_lo": 20550
    },
    {
     "opened": "2026-08-31",
@@ -7585,7 +7286,7 @@
     "expiry_after_sessions": 3,
     "p": 21.4,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.61,
@@ -7593,7 +7294,9 @@
      "atrpct": 3.66,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 25900,
+    "run_lo": 25300
    },
    {
     "opened": "2026-08-31",
@@ -7606,7 +7309,7 @@
     "expiry_after_sessions": 3,
     "p": 56.3,
     "p_base": 58.8,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.61,
@@ -7614,7 +7317,9 @@
      "atrpct": 3.66,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 25900,
+    "run_lo": 25300
    },
    {
     "opened": "2026-08-31",
@@ -7627,7 +7332,7 @@
     "expiry_after_sessions": 2,
     "p": 26.8,
     "p_base": 26.9,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.63,
@@ -7635,28 +7340,9 @@
      "atrpct": 6.41,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "012330",
-    "name": "현대모비스",
-    "dir": "dn",
-    "level": 447000,
-    "dist_sigma": 0.223,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 72.9,
-    "p_base": 73.0,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.63,
-     "rngatr": 0.88,
-     "atrpct": 6.41,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 460000,
+    "run_lo": 438500
    },
    {
     "opened": "2026-08-31",
@@ -7669,7 +7355,7 @@
     "expiry_after_sessions": 3,
     "p": 22.0,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.41,
@@ -7677,7 +7363,9 @@
      "atrpct": 6.97,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 94900,
+    "run_lo": 92500
    },
    {
     "opened": "2026-08-31",
@@ -7690,7 +7378,7 @@
     "expiry_after_sessions": 3,
     "p": 25.5,
     "p_base": 26.8,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.41,
@@ -7698,7 +7386,9 @@
      "atrpct": 6.97,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 94900,
+    "run_lo": 92500
    },
    {
     "opened": "2026-08-31",
@@ -7711,7 +7401,7 @@
     "expiry_after_sessions": 2,
     "p": 41.7,
     "p_base": 41.3,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.66,
@@ -7719,49 +7409,9 @@
      "atrpct": 5.45,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "018260",
-    "name": "삼성에스디에스",
-    "dir": "dn",
-    "level": 238500,
-    "dist_sigma": 0.115,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 80.3,
-    "p_base": 80.0,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.66,
-     "rngatr": 0.88,
-     "atrpct": 5.45,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "025860",
-    "name": "남해화학",
-    "dir": "up",
-    "level": 6470,
-    "dist_sigma": 0.576,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 61.3,
-    "p_base": 60.5,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.74,
-     "rngatr": 1.26,
-     "atrpct": 4.4,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 246000,
+    "run_lo": 234000
    },
    {
     "opened": "2026-08-31",
@@ -7774,7 +7424,7 @@
     "expiry_after_sessions": 3,
     "p": 21.5,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.67,
@@ -7782,7 +7432,9 @@
      "atrpct": 5.77,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 218500,
+    "run_lo": 213500
    },
    {
     "opened": "2026-08-31",
@@ -7795,7 +7447,7 @@
     "expiry_after_sessions": 3,
     "p": 14.4,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.67,
@@ -7803,7 +7455,9 @@
      "atrpct": 5.77,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 218500,
+    "run_lo": 213500
    },
    {
     "opened": "2026-08-31",
@@ -7816,7 +7470,7 @@
     "expiry_after_sessions": 3,
     "p": 21.9,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.9,
@@ -7824,7 +7478,9 @@
      "atrpct": 5.94,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 284500,
+    "run_lo": 273000
    },
    {
     "opened": "2026-08-31",
@@ -7837,7 +7493,7 @@
     "expiry_after_sessions": 3,
     "p": 14.7,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.9,
@@ -7845,7 +7501,9 @@
      "atrpct": 5.94,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 284500,
+    "run_lo": 273000
    },
    {
     "opened": "2026-08-31",
@@ -7858,7 +7516,7 @@
     "expiry_after_sessions": 3,
     "p": 36.1,
     "p_base": 42.1,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.35,
@@ -7866,7 +7524,9 @@
      "atrpct": 8.89,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 7650,
+    "run_lo": 6940
    },
    {
     "opened": "2026-08-31",
@@ -7879,7 +7539,7 @@
     "expiry_after_sessions": 3,
     "p": 49.5,
     "p_base": 51.4,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.96,
@@ -7887,7 +7547,9 @@
      "atrpct": 6.96,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 91900,
+    "run_lo": 86700
    },
    {
     "opened": "2026-08-31",
@@ -7900,7 +7562,7 @@
     "expiry_after_sessions": 3,
     "p": 14.7,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.96,
@@ -7908,7 +7570,9 @@
      "atrpct": 6.96,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 91900,
+    "run_lo": 86700
    },
    {
     "opened": "2026-08-31",
@@ -7921,7 +7585,7 @@
     "expiry_after_sessions": 3,
     "p": 21.7,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.48,
@@ -7929,28 +7593,9 @@
      "atrpct": 6.3,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "093320",
-    "name": "케이아이엔엑스",
-    "dir": "dn",
-    "level": 138000,
-    "dist_sigma": 0.787,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 41.4,
-    "p_base": 43.5,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.48,
-     "rngatr": 0.97,
-     "atrpct": 6.3,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 146500,
+    "run_lo": 134400
    },
    {
     "opened": "2026-08-31",
@@ -7963,7 +7608,7 @@
     "expiry_after_sessions": 2,
     "p": 34.5,
     "p_base": 37.4,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.63,
@@ -7971,28 +7616,9 @@
      "atrpct": 5.9,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "103140",
-    "name": "풍산",
-    "dir": "dn",
-    "level": 81000,
-    "dist_sigma": 0.186,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 73.0,
-    "p_base": 75.4,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.63,
-     "rngatr": 0.81,
-     "atrpct": 5.9,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 83000,
+    "run_lo": 79900
    },
    {
     "opened": "2026-08-31",
@@ -8005,7 +7631,7 @@
     "expiry_after_sessions": 3,
     "p": 32.9,
     "p_base": 35.1,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.63,
@@ -8013,49 +7639,9 @@
      "atrpct": 11.29,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "119850",
-    "name": "지엔씨에너지",
-    "dir": "dn",
-    "level": 43450,
-    "dist_sigma": 0.509,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 58.0,
-    "p_base": 60.3,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.63,
-     "rngatr": 1.07,
-     "atrpct": 11.29,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "192820",
-    "name": "코스맥스",
-    "dir": "dn",
-    "level": 287000,
-    "dist_sigma": 0.806,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 41.8,
-    "p_base": 42.5,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 1.19,
-     "rngatr": 0.81,
-     "atrpct": 5.38,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 46700,
+    "run_lo": 42550
    },
    {
     "opened": "2026-08-31",
@@ -8068,7 +7654,7 @@
     "expiry_after_sessions": 3,
     "p": 22.1,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.11,
@@ -8076,7 +7662,9 @@
      "atrpct": 7.37,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 306000,
+    "run_lo": 297500
    },
    {
     "opened": "2026-08-31",
@@ -8089,7 +7677,7 @@
     "expiry_after_sessions": 3,
     "p": 52.6,
     "p_base": 54.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.11,
@@ -8097,7 +7685,9 @@
      "atrpct": 7.37,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 306000,
+    "run_lo": 297500
    },
    {
     "opened": "2026-08-31",
@@ -8110,7 +7700,7 @@
     "expiry_after_sessions": 3,
     "p": 32.7,
     "p_base": 35.5,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.67,
@@ -8118,7 +7708,9 @@
      "atrpct": 5.03,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 26650,
+    "run_lo": 25900
    },
    {
     "opened": "2026-08-31",
@@ -8131,7 +7723,7 @@
     "expiry_after_sessions": 3,
     "p": 52.3,
     "p_base": 53.9,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.98,
@@ -8139,7 +7731,9 @@
      "atrpct": 7.07,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 34100,
+    "run_lo": 32500
    },
    {
     "opened": "2026-08-31",
@@ -8152,7 +7746,7 @@
     "expiry_after_sessions": 3,
     "p": 39.3,
     "p_base": 39.4,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.59,
@@ -8160,28 +7754,9 @@
      "atrpct": 6.67,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "214450",
-    "name": "파마리서치",
-    "dir": "dn",
-    "level": 410500,
-    "dist_sigma": 0.545,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 57.8,
-    "p_base": 57.9,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.59,
-     "rngatr": 1.34,
-     "atrpct": 6.67,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 423000,
+    "run_lo": 400000
    },
    {
     "opened": "2026-08-31",
@@ -8194,7 +7769,7 @@
     "expiry_after_sessions": 3,
     "p": 22.1,
     "p_base": 24.3,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.55,
@@ -8202,7 +7777,9 @@
      "atrpct": 7.75,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 105500,
+    "run_lo": 101800
    },
    {
     "opened": "2026-08-31",
@@ -8215,7 +7792,7 @@
     "expiry_after_sessions": 3,
     "p": 14.1,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.55,
@@ -8223,28 +7800,9 @@
      "atrpct": 7.75,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "241710",
-    "name": "코스메카코리아",
-    "dir": "dn",
-    "level": 137900,
-    "dist_sigma": 1.158,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 27.6,
-    "p_base": 26.8,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.57,
-     "rngatr": 1.6,
-     "atrpct": 6.86,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 105500,
+    "run_lo": 101800
    },
    {
     "opened": "2026-08-31",
@@ -8257,7 +7815,7 @@
     "expiry_after_sessions": 3,
     "p": 47.7,
     "p_base": 47.8,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.34,
@@ -8265,7 +7823,9 @@
      "atrpct": 5.86,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 226500,
+    "run_lo": 213000
    },
    {
     "opened": "2026-08-31",
@@ -8278,7 +7838,7 @@
     "expiry_after_sessions": 3,
     "p": 27.9,
     "p_base": 27.9,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.34,
@@ -8286,70 +7846,9 @@
      "atrpct": 5.86,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "267790",
-    "name": "배럴",
-    "dir": "up",
-    "level": 3480,
-    "dist_sigma": 0.306,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 74.7,
-    "p_base": 71.0,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 3.8,
-     "rngatr": 1.14,
-     "atrpct": 5.25,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "267790",
-    "name": "배럴",
-    "dir": "dn",
-    "level": 3365,
-    "dist_sigma": 0.333,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 69.4,
-    "p_base": 65.2,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 3.8,
-     "rngatr": 1.14,
-     "atrpct": 5.25,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "278470",
-    "name": "에이피알",
-    "dir": "dn",
-    "level": 443000,
-    "dist_sigma": 0.853,
-    "horizon_sessions": 3,
-    "expiry_after_sessions": 3,
-    "p": 38.6,
-    "p_base": 40.2,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.79,
-     "rngatr": 0.79,
-     "atrpct": 5.42,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 226500,
+    "run_lo": 213000
    },
    {
     "opened": "2026-08-31",
@@ -8362,7 +7861,7 @@
     "expiry_after_sessions": 3,
     "p": 20.8,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.59,
@@ -8370,7 +7869,9 @@
      "atrpct": 7.46,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 6740,
+    "run_lo": 6490
    },
    {
     "opened": "2026-08-31",
@@ -8383,7 +7884,7 @@
     "expiry_after_sessions": 3,
     "p": 14.0,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.59,
@@ -8391,7 +7892,9 @@
      "atrpct": 7.46,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 6740,
+    "run_lo": 6490
    },
    {
     "opened": "2026-08-31",
@@ -8404,7 +7907,7 @@
     "expiry_after_sessions": 3,
     "p": 21.0,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 1.05,
@@ -8412,7 +7915,9 @@
      "atrpct": 8.37,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 31950,
+    "run_lo": 30400
    },
    {
     "opened": "2026-08-31",
@@ -8425,7 +7930,7 @@
     "expiry_after_sessions": 3,
     "p": 14.9,
     "p_base": 15.7,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.94,
@@ -8433,7 +7938,9 @@
      "atrpct": 5.21,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 182100,
+    "run_lo": 177100
    },
    {
     "opened": "2026-08-31",
@@ -8446,7 +7953,7 @@
     "expiry_after_sessions": 3,
     "p": 21.1,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.95,
@@ -8454,7 +7961,9 @@
      "atrpct": 9.88,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 1072000,
+    "run_lo": 1010000
    },
    {
     "opened": "2026-08-31",
@@ -8467,7 +7976,7 @@
     "expiry_after_sessions": 3,
     "p": 21.1,
     "p_base": 24.1,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.58,
@@ -8475,7 +7984,9 @@
      "atrpct": 7.46,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 51750,
+    "run_lo": 48200
    },
    {
     "opened": "2026-08-31",
@@ -8488,7 +7999,7 @@
     "expiry_after_sessions": 2,
     "p": 15.1,
     "p_base": 16.0,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.7,
@@ -8496,28 +8007,9 @@
      "atrpct": 5.03,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
-   },
-   {
-    "opened": "2026-08-31",
-    "code": "456040",
-    "name": "OCI",
-    "dir": "dn",
-    "level": 80900,
-    "dist_sigma": 0.48,
-    "horizon_sessions": 2,
-    "expiry_after_sessions": 2,
-    "p": 52.6,
-    "p_base": 54.4,
-    "sessions_elapsed": 0,
-    "status": "open",
-    "model_inputs": {
-     "volx": 0.7,
-     "rngatr": 0.89,
-     "atrpct": 5.03,
-     "atr_bars": 160,
-     "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 84000,
+    "run_lo": 80200
    },
    {
     "opened": "2026-08-31",
@@ -8530,7 +8022,7 @@
     "expiry_after_sessions": 3,
     "p": 20.9,
     "p_base": 23.2,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.71,
@@ -8538,7 +8030,9 @@
      "atrpct": 7.76,
      "atr_bars": 160,
      "atr_method": "wilder14"
-    }
+    },
+    "run_hi": 222000,
+    "run_lo": 205500
    },
    {
     "opened": "2026-08-31",
@@ -8551,13 +8045,1254 @@
     "expiry_after_sessions": 3,
     "p": 28.0,
     "p_base": 30.8,
-    "sessions_elapsed": 0,
+    "sessions_elapsed": 1,
     "status": "open",
     "model_inputs": {
      "volx": 0.71,
      "rngatr": 0.64,
      "atrpct": 7.76,
      "atr_bars": 160,
+     "atr_method": "wilder14"
+    },
+    "run_hi": 222000,
+    "run_lo": 205500
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "000500",
+    "name": "가온전선",
+    "dir": "up",
+    "level": 233000,
+    "dist_sigma": 1.338,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 23.7,
+    "p_base": 27.5,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.58,
+     "rngatr": 0.46,
+     "atrpct": 8.78,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "000500",
+    "name": "가온전선",
+    "dir": "dn",
+    "level": 192778,
+    "dist_sigma": 0.859,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 35.3,
+    "p_base": 39.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.58,
+     "rngatr": 0.46,
+     "atrpct": 8.78,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "000660",
+    "name": "SK하이닉스",
+    "dir": "up",
+    "level": 1855000,
+    "dist_sigma": 1.161,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 29.3,
+    "p_base": 33.3,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.63,
+     "rngatr": 0.44,
+     "atrpct": 8.24,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "000660",
+    "name": "SK하이닉스",
+    "dir": "dn",
+    "level": 1455000,
+    "dist_sigma": 1.706,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 13.4,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.63,
+     "rngatr": 0.44,
+     "atrpct": 8.24,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "002380",
+    "name": "KCC",
+    "dir": "up",
+    "level": 510000,
+    "dist_sigma": 0.652,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 55.5,
+    "p_base": 56.3,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.16,
+     "rngatr": 0.77,
+     "atrpct": 5.13,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "002380",
+    "name": "KCC",
+    "dir": "dn",
+    "level": 477000,
+    "dist_sigma": 0.652,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 50.4,
+    "p_base": 51.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.16,
+     "rngatr": 0.77,
+     "atrpct": 5.13,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "003230",
+    "name": "삼양식품",
+    "dir": "up",
+    "level": 1523000,
+    "dist_sigma": 0.42,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 61.8,
+    "p_base": 62.6,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.69,
+     "rngatr": 1.03,
+     "atrpct": 4.94,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "005930",
+    "name": "삼성전자",
+    "dir": "up",
+    "level": 276000,
+    "dist_sigma": 0.84,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 42.8,
+    "p_base": 46.8,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.64,
+     "rngatr": 0.48,
+     "atrpct": 6.84,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "005930",
+    "name": "삼성전자",
+    "dir": "dn",
+    "level": 243000,
+    "dist_sigma": 1.008,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 29.1,
+    "p_base": 32.6,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.64,
+     "rngatr": 0.48,
+     "atrpct": 6.84,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "010140",
+    "name": "삼성중공업",
+    "dir": "up",
+    "level": 21850,
+    "dist_sigma": 0.92,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 40.5,
+    "p_base": 43.1,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.68,
+     "rngatr": 0.54,
+     "atrpct": 4.4,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "010140",
+    "name": "삼성중공업",
+    "dir": "dn",
+    "level": 18990,
+    "dist_sigma": 2.175,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 14.3,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.68,
+     "rngatr": 0.54,
+     "atrpct": 4.4,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "011760",
+    "name": "현대코퍼레이션",
+    "dir": "up",
+    "level": 28050,
+    "dist_sigma": 2.514,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 22.2,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.77,
+     "rngatr": 0.66,
+     "atrpct": 3.55,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "011760",
+    "name": "현대코퍼레이션",
+    "dir": "dn",
+    "level": 25150,
+    "dist_sigma": 0.656,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 49.5,
+    "p_base": 50.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.77,
+     "rngatr": 0.66,
+     "atrpct": 3.55,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "012330",
+    "name": "현대모비스",
+    "dir": "up",
+    "level": 447000,
+    "dist_sigma": 0.123,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 82.4,
+    "p_base": 83.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.94,
+     "rngatr": 0.75,
+     "atrpct": 6.44,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "012330",
+    "name": "현대모비스",
+    "dir": "dn",
+    "level": 443000,
+    "dist_sigma": 0.018,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 93.6,
+    "p_base": 94.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.94,
+     "rngatr": 0.75,
+     "atrpct": 6.44,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "017670",
+    "name": "SK텔레콤",
+    "dir": "up",
+    "level": 112100,
+    "dist_sigma": 2.791,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 19.7,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.46,
+     "rngatr": 0.38,
+     "atrpct": 6.63,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "017670",
+    "name": "SK텔레콤",
+    "dir": "dn",
+    "level": 86600,
+    "dist_sigma": 1.276,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 19.0,
+    "p_base": 22.4,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.46,
+     "rngatr": 0.38,
+     "atrpct": 6.63,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "018260",
+    "name": "삼성에스디에스",
+    "dir": "up",
+    "level": 250000,
+    "dist_sigma": 0.385,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 62.9,
+    "p_base": 65.0,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.59,
+     "rngatr": 0.92,
+     "atrpct": 5.31,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "018260",
+    "name": "삼성에스디에스",
+    "dir": "dn",
+    "level": 238500,
+    "dist_sigma": 0.5,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 50.7,
+    "p_base": 53.0,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.59,
+     "rngatr": 0.92,
+     "atrpct": 5.31,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "025860",
+    "name": "남해화학",
+    "dir": "up",
+    "level": 6640,
+    "dist_sigma": 0.58,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 50.8,
+    "p_base": 51.8,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.81,
+     "rngatr": 0.87,
+     "atrpct": 4.25,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "025860",
+    "name": "남해화학",
+    "dir": "dn",
+    "level": 6470,
+    "dist_sigma": 0.036,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 88.0,
+    "p_base": 88.4,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.81,
+     "rngatr": 0.87,
+     "atrpct": 4.25,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "035420",
+    "name": "NAVER",
+    "dir": "up",
+    "level": 245500,
+    "dist_sigma": 2.545,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 19.8,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.37,
+     "rngatr": 0.42,
+     "atrpct": 5.57,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "035420",
+    "name": "NAVER",
+    "dir": "dn",
+    "level": 189400,
+    "dist_sigma": 2.136,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 13.2,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.37,
+     "rngatr": 0.42,
+     "atrpct": 5.57,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "039490",
+    "name": "키움증권",
+    "dir": "up",
+    "level": 319500,
+    "dist_sigma": 2.327,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 21.2,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.56,
+     "rngatr": 0.71,
+     "atrpct": 5.71,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "039490",
+    "name": "키움증권",
+    "dir": "dn",
+    "level": 246500,
+    "dist_sigma": 2.203,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 14.2,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.56,
+     "rngatr": 0.71,
+     "atrpct": 5.71,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "049630",
+    "name": "재영솔루텍",
+    "dir": "up",
+    "level": 7750,
+    "dist_sigma": 0.842,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 45.2,
+    "p_base": 46.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.7,
+     "rngatr": 1.11,
+     "atrpct": 8.89,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "086520",
+    "name": "에코프로",
+    "dir": "up",
+    "level": 96000,
+    "dist_sigma": 1.403,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 24.5,
+    "p_base": 25.8,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.96,
+     "rngatr": 0.83,
+     "atrpct": 7.19,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "086520",
+    "name": "에코프로",
+    "dir": "dn",
+    "level": 75900,
+    "dist_sigma": 1.802,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 14.8,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.96,
+     "rngatr": 0.83,
+     "atrpct": 7.19,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "093320",
+    "name": "케이아이엔엑스",
+    "dir": "up",
+    "level": 138000,
+    "dist_sigma": 0.363,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 67.6,
+    "p_base": 66.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.03,
+     "rngatr": 1.29,
+     "atrpct": 6.95,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "093320",
+    "name": "케이아이엔엑스",
+    "dir": "dn",
+    "level": 130000,
+    "dist_sigma": 0.491,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 54.6,
+    "p_base": 53.6,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.03,
+     "rngatr": 1.29,
+     "atrpct": 6.95,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "103140",
+    "name": "풍산",
+    "dir": "up",
+    "level": 81000,
+    "dist_sigma": 0.021,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 94.2,
+    "p_base": 95.0,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.65,
+     "rngatr": 0.66,
+     "atrpct": 5.82,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "103140",
+    "name": "풍산",
+    "dir": "dn",
+    "level": 76300,
+    "dist_sigma": 0.977,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 22.5,
+    "p_base": 25.4,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.65,
+     "rngatr": 0.66,
+     "atrpct": 5.82,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "105560",
+    "name": "KB금융",
+    "dir": "dn",
+    "level": 153000,
+    "dist_sigma": 2.905,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 16.0,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.97,
+     "rngatr": 0.69,
+     "atrpct": 3.66,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "119850",
+    "name": "지엔씨에너지",
+    "dir": "up",
+    "level": 51900,
+    "dist_sigma": 1.589,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 20.8,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.69,
+     "rngatr": 0.81,
+     "atrpct": 11.72,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "119850",
+    "name": "지엔씨에너지",
+    "dir": "dn",
+    "level": 32100,
+    "dist_sigma": 2.271,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 13.9,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.69,
+     "rngatr": 0.81,
+     "atrpct": 11.72,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "192820",
+    "name": "코스맥스",
+    "dir": "dn",
+    "level": 270000,
+    "dist_sigma": 1.031,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 32.0,
+    "p_base": 31.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.73,
+     "rngatr": 1.27,
+     "atrpct": 5.74,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "200670",
+    "name": "휴메딕스",
+    "dir": "up",
+    "level": 27600,
+    "dist_sigma": 0.784,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 47.4,
+    "p_base": 49.3,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.96,
+     "rngatr": 0.59,
+     "atrpct": 4.79,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "214150",
+    "name": "클래시스",
+    "dir": "dn",
+    "level": 32400,
+    "dist_sigma": 0.193,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 71.1,
+    "p_base": 75.0,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.55,
+     "rngatr": 0.68,
+     "atrpct": 7.11,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "214450",
+    "name": "파마리서치",
+    "dir": "up",
+    "level": 454500,
+    "dist_sigma": 1.434,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 23.4,
+    "p_base": 24.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.78,
+     "rngatr": 0.81,
+     "atrpct": 6.82,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "214450",
+    "name": "파마리서치",
+    "dir": "dn",
+    "level": 397500,
+    "dist_sigma": 0.584,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 53.3,
+    "p_base": 55.4,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.78,
+     "rngatr": 0.81,
+     "atrpct": 6.82,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "237690",
+    "name": "에스티팜",
+    "dir": "up",
+    "level": 117100,
+    "dist_sigma": 1.8,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 19.5,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.36,
+     "rngatr": 0.47,
+     "atrpct": 7.61,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "237690",
+    "name": "에스티팜",
+    "dir": "dn",
+    "level": 85500,
+    "dist_sigma": 2.234,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 13.0,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.36,
+     "rngatr": 0.47,
+     "atrpct": 7.61,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "241710",
+    "name": "코스메카코리아",
+    "dir": "dn",
+    "level": 126000,
+    "dist_sigma": 1.434,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 17.7,
+    "p_base": 17.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.64,
+     "rngatr": 1.4,
+     "atrpct": 7.51,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "267250",
+    "name": "HD현대",
+    "dir": "up",
+    "level": 229500,
+    "dist_sigma": 0.815,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 47.1,
+    "p_base": 47.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.74,
+     "rngatr": 1.05,
+     "atrpct": 5.89,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "267250",
+    "name": "HD현대",
+    "dir": "dn",
+    "level": 204500,
+    "dist_sigma": 1.125,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 27.4,
+    "p_base": 28.0,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.74,
+     "rngatr": 1.05,
+     "atrpct": 5.89,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "267790",
+    "name": "배럴",
+    "dir": "up",
+    "level": 3480,
+    "dist_sigma": 0.112,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 82.6,
+    "p_base": 84.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.35,
+     "rngatr": 0.9,
+     "atrpct": 5.15,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "267790",
+    "name": "배럴",
+    "dir": "dn",
+    "level": 3365,
+    "dist_sigma": 0.534,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 46.6,
+    "p_base": 50.5,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.35,
+     "rngatr": 0.9,
+     "atrpct": 5.15,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "278470",
+    "name": "에이피알",
+    "dir": "up",
+    "level": 469500,
+    "dist_sigma": 1.392,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 27.8,
+    "p_base": 26.1,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.77,
+     "rngatr": 1.67,
+     "atrpct": 6.14,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "278470",
+    "name": "에이피알",
+    "dir": "dn",
+    "level": 414500,
+    "dist_sigma": 0.677,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 51.9,
+    "p_base": 49.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.77,
+     "rngatr": 1.67,
+     "atrpct": 6.14,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "289930",
+    "name": "웨이비스",
+    "dir": "up",
+    "level": 7420,
+    "dist_sigma": 1.576,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 20.6,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.69,
+     "rngatr": 0.53,
+     "atrpct": 7.14,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "289930",
+    "name": "웨이비스",
+    "dir": "dn",
+    "level": 5630,
+    "dist_sigma": 2.185,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 13.8,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.69,
+     "rngatr": 0.53,
+     "atrpct": 7.14,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "348210",
+    "name": "넥스틴",
+    "dir": "up",
+    "level": 38200,
+    "dist_sigma": 2.658,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 20.9,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.82,
+     "rngatr": 0.61,
+     "atrpct": 8.15,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "352820",
+    "name": "하이브",
+    "dir": "dn",
+    "level": 162300,
+    "dist_sigma": 1.736,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 13.9,
+    "p_base": 15.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.52,
+     "rngatr": 0.55,
+     "atrpct": 5.08,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "402340",
+    "name": "SK스퀘어",
+    "dir": "up",
+    "level": 1231000,
+    "dist_sigma": 1.647,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 20.6,
+    "p_base": 23.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.72,
+     "rngatr": 0.62,
+     "atrpct": 9.33,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "403870",
+    "name": "HPSP",
+    "dir": "dn",
+    "level": 45600,
+    "dist_sigma": 1.447,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 16.2,
+    "p_base": 17.3,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.63,
+     "rngatr": 0.95,
+     "atrpct": 7.32,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "456040",
+    "name": "OCI",
+    "dir": "up",
+    "level": 80900,
+    "dist_sigma": 0.048,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 88.0,
+    "p_base": 88.7,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.67,
+     "rngatr": 0.92,
+     "atrpct": 5.14,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "456040",
+    "name": "OCI",
+    "dir": "dn",
+    "level": 77000,
+    "dist_sigma": 0.893,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 27.9,
+    "p_base": 29.4,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 0.67,
+     "rngatr": 0.92,
+     "atrpct": 5.14,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "483650",
+    "name": "달바글로벌",
+    "dir": "up",
+    "level": 228000,
+    "dist_sigma": 1.204,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 22.2,
+    "p_base": 23.4,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.01,
+     "rngatr": 0.97,
+     "atrpct": 8.21,
+     "atr_bars": 170,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-09-01",
+    "code": "483650",
+    "name": "달바글로벌",
+    "dir": "dn",
+    "level": 202000,
+    "dist_sigma": 0.323,
+    "horizon_sessions": 2,
+    "expiry_after_sessions": 2,
+    "p": 64.4,
+    "p_base": 65.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "volx": 1.01,
+     "rngatr": 0.97,
+     "atrpct": 8.21,
+     "atr_bars": 170,
      "atr_method": "wilder14"
     }
    }
