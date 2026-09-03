@@ -1,0 +1,499 @@
+{
+ "rows": [
+  {
+   "name": "가온전선",
+   "code": "000500",
+   "badge": "중립",
+   "sig": 0.41,
+   "volx": 1.18,
+   "room_up": 1.392,
+   "near_dn": 2.66,
+   "close": 208500,
+   "chg": 3.73,
+   "score": 79.5,
+   "missing": []
+  },
+  {
+   "name": "KB금융",
+   "code": "105560",
+   "badge": "강세",
+   "sig": 1.36,
+   "volx": 1.42,
+   "room_up": 0.722,
+   "near_dn": 0.812,
+   "close": 177900,
+   "chg": 5.2,
+   "score": 79.2,
+   "missing": []
+  },
+  {
+   "name": "삼성중공업",
+   "code": "010140",
+   "badge": "강세",
+   "sig": 1.8,
+   "volx": 2.92,
+   "room_up": 0.198,
+   "near_dn": 0.792,
+   "close": 21650,
+   "chg": 8.58,
+   "score": 79.0,
+   "missing": []
+  },
+  {
+   "name": "현대모비스",
+   "code": "012330",
+   "badge": "중립",
+   "sig": 0.27,
+   "volx": 1.13,
+   "room_up": null,
+   "near_dn": 1.321,
+   "close": 423500,
+   "chg": 1.93,
+   "score": 78.9,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "현대코퍼레이션",
+   "code": "011760",
+   "badge": "중립",
+   "sig": 0.3,
+   "volx": 0.73,
+   "room_up": 2.455,
+   "near_dn": null,
+   "close": 25850,
+   "chg": 1.17,
+   "score": 78.2,
+   "missing": []
+  },
+  {
+   "name": "OCI",
+   "code": "456040",
+   "badge": "중립",
+   "sig": 0.32,
+   "volx": 0.52,
+   "room_up": 2.684,
+   "near_dn": null,
+   "close": 79800,
+   "chg": 1.79,
+   "score": 71.9,
+   "missing": []
+  },
+  {
+   "name": "웨이비스",
+   "code": "289930",
+   "badge": "중립",
+   "sig": 0.03,
+   "volx": 0.89,
+   "room_up": 2.276,
+   "near_dn": 1.641,
+   "close": 6380,
+   "chg": -1.54,
+   "score": 69.4,
+   "missing": []
+  },
+  {
+   "name": "HD현대",
+   "code": "267250",
+   "badge": "중립",
+   "sig": 0.3,
+   "volx": 0.79,
+   "room_up": 1.281,
+   "near_dn": null,
+   "close": 213500,
+   "chg": 1.91,
+   "score": 66.7,
+   "missing": []
+  },
+  {
+   "name": "에코프로",
+   "code": "086520",
+   "badge": "중립",
+   "sig": 0.23,
+   "volx": 0.62,
+   "room_up": 2.38,
+   "near_dn": 0.965,
+   "close": 81700,
+   "chg": -0.37,
+   "score": 65.9,
+   "missing": []
+  },
+  {
+   "name": "KCC",
+   "code": "002380",
+   "badge": "중립",
+   "sig": 0.18,
+   "volx": 1.25,
+   "room_up": 1.035,
+   "near_dn": null,
+   "close": 485000,
+   "chg": 1.15,
+   "score": 65.9,
+   "missing": []
+  },
+  {
+   "name": "휴메딕스",
+   "code": "200670",
+   "badge": "중립",
+   "sig": -0.15,
+   "volx": 1.58,
+   "room_up": 1.923,
+   "near_dn": null,
+   "close": 25200,
+   "chg": -2.14,
+   "score": 63.5,
+   "missing": []
+  },
+  {
+   "name": "HPSP",
+   "code": "403870",
+   "badge": "중립",
+   "sig": 0.25,
+   "volx": 0.65,
+   "room_up": null,
+   "near_dn": 0.666,
+   "close": 50200,
+   "chg": -0.4,
+   "score": 63.0,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "넥스틴",
+   "code": "348210",
+   "badge": "중립",
+   "sig": -0.11,
+   "volx": 1.23,
+   "room_up": null,
+   "near_dn": null,
+   "close": 29850,
+   "chg": -3.08,
+   "score": 61.0,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "하이브",
+   "code": "352820",
+   "badge": "중립",
+   "sig": 0.01,
+   "volx": 0.76,
+   "room_up": null,
+   "near_dn": 1.57,
+   "close": 176000,
+   "chg": 0.17,
+   "score": 57.8,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "지엔씨에너지",
+   "code": "119850",
+   "badge": "중립",
+   "sig": 0.18,
+   "volx": 0.49,
+   "room_up": 2.088,
+   "near_dn": 2.025,
+   "close": 41850,
+   "chg": 0,
+   "score": 53.5,
+   "missing": []
+  },
+  {
+   "name": "SK스퀘어",
+   "code": "402340",
+   "badge": "중립",
+   "sig": -0.05,
+   "volx": 0.67,
+   "room_up": null,
+   "near_dn": null,
+   "close": 981000,
+   "chg": -0.1,
+   "score": 52.8,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "풍산",
+   "code": "103140",
+   "badge": "중립",
+   "sig": 0.29,
+   "volx": 0.55,
+   "room_up": 0.532,
+   "near_dn": 0.51,
+   "close": 78600,
+   "chg": 1.81,
+   "score": 51.6,
+   "missing": []
+  },
+  {
+   "name": "알테오젠",
+   "code": "196170",
+   "badge": "중립",
+   "sig": -0.42,
+   "volx": 1.91,
+   "room_up": 1.656,
+   "near_dn": null,
+   "close": 283000,
+   "chg": -5.19,
+   "score": 48.5,
+   "missing": []
+  },
+  {
+   "name": "에이피알",
+   "code": "278470",
+   "badge": "중립",
+   "sig": -0.47,
+   "volx": 1.21,
+   "room_up": 2.261,
+   "near_dn": 0.125,
+   "close": 406000,
+   "chg": -3.1,
+   "score": 47.1,
+   "missing": []
+  },
+  {
+   "name": "SK하이닉스",
+   "code": "000660",
+   "badge": "중립",
+   "sig": -0.17,
+   "volx": 0.65,
+   "room_up": 1.959,
+   "near_dn": 1.067,
+   "close": 1596000,
+   "chg": -1.05,
+   "score": 46.1,
+   "missing": []
+  },
+  {
+   "name": "삼성전자",
+   "code": "005930",
+   "badge": "중립",
+   "sig": -0.08,
+   "volx": 0.61,
+   "room_up": 1.528,
+   "near_dn": 0.411,
+   "close": 250000,
+   "chg": -0.2,
+   "score": 45.5,
+   "missing": []
+  },
+  {
+   "name": "에스티팜",
+   "code": "237690",
+   "badge": "중립",
+   "sig": -0.09,
+   "volx": 0.31,
+   "room_up": 2.451,
+   "near_dn": 1.828,
+   "close": 99000,
+   "chg": -2.17,
+   "score": 44.8,
+   "missing": []
+  },
+  {
+   "name": "키움증권",
+   "code": "039490",
+   "badge": "중립",
+   "sig": -0.39,
+   "volx": 1.02,
+   "room_up": null,
+   "near_dn": 1.418,
+   "close": 268500,
+   "chg": -2.01,
+   "score": 40.7,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "코스맥스",
+   "code": "192820",
+   "badge": "중립",
+   "sig": -0.22,
+   "volx": 0.69,
+   "room_up": null,
+   "near_dn": 0.713,
+   "close": 282000,
+   "chg": -1.23,
+   "score": 39.7,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "케이아이엔엑스",
+   "code": "093320",
+   "badge": "중립",
+   "sig": 0.17,
+   "volx": 0.34,
+   "room_up": 0.249,
+   "near_dn": 0.657,
+   "close": 135800,
+   "chg": 0.07,
+   "score": 36.5,
+   "missing": []
+  },
+  {
+   "name": "NAVER",
+   "code": "035420",
+   "badge": "중립",
+   "sig": -0.16,
+   "volx": 0.57,
+   "room_up": null,
+   "near_dn": 1.583,
+   "close": 207500,
+   "chg": -0.72,
+   "score": 34.5,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "클래시스",
+   "code": "214150",
+   "badge": "중립",
+   "sig": -0.07,
+   "volx": 0.37,
+   "room_up": 0.316,
+   "near_dn": 0.136,
+   "close": 31700,
+   "chg": -1.86,
+   "score": 33.0,
+   "missing": []
+  },
+  {
+   "name": "SK텔레콤",
+   "code": "017670",
+   "badge": "중립",
+   "sig": -0.41,
+   "volx": 0.83,
+   "room_up": null,
+   "near_dn": 0.401,
+   "close": 89000,
+   "chg": -2.63,
+   "score": 32.8,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "코스메카코리아",
+   "code": "241710",
+   "badge": "중립",
+   "sig": -0.34,
+   "volx": 0.62,
+   "room_up": null,
+   "near_dn": 2.868,
+   "close": 134200,
+   "chg": -3.73,
+   "score": 30.8,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "삼양식품",
+   "code": "003230",
+   "badge": "약세",
+   "sig": -0.66,
+   "volx": 0.95,
+   "room_up": 1.297,
+   "near_dn": 2.607,
+   "close": 1424000,
+   "chg": -3.46,
+   "score": 30.7,
+   "missing": []
+  },
+  {
+   "name": "파마리서치",
+   "code": "214450",
+   "badge": "중립",
+   "sig": -0.23,
+   "volx": 0.61,
+   "room_up": null,
+   "near_dn": 1.858,
+   "close": 381000,
+   "chg": -2.93,
+   "score": 30.3,
+   "missing": [
+    "room_up"
+   ]
+  },
+  {
+   "name": "재영솔루텍",
+   "code": "049630",
+   "badge": "중립",
+   "sig": -0.38,
+   "volx": 0.5,
+   "room_up": 1.591,
+   "near_dn": 2.549,
+   "close": 6770,
+   "chg": -5.18,
+   "score": 28.9,
+   "missing": []
+  },
+  {
+   "name": "달바글로벌",
+   "code": "483650",
+   "badge": "약세",
+   "sig": -0.66,
+   "volx": 0.85,
+   "room_up": 0.15,
+   "near_dn": 0.06,
+   "close": 190500,
+   "chg": -5.69,
+   "score": 20.1,
+   "missing": []
+  },
+  {
+   "name": "삼성에스디에스",
+   "code": "018260",
+   "badge": "약세",
+   "sig": -0.54,
+   "volx": 0.78,
+   "room_up": 0.075,
+   "near_dn": 1.086,
+   "close": 226000,
+   "chg": -3,
+   "score": 19.3,
+   "missing": []
+  },
+  {
+   "name": "남해화학",
+   "code": "025860",
+   "badge": "중립",
+   "sig": -0.35,
+   "volx": 0.52,
+   "room_up": 0.184,
+   "near_dn": null,
+   "close": 6420,
+   "chg": -1.38,
+   "score": 19.1,
+   "missing": []
+  },
+  {
+   "name": "배럴",
+   "code": "267790",
+   "badge": "중립",
+   "sig": -0.41,
+   "volx": 0.32,
+   "room_up": 1.306,
+   "near_dn": 0.028,
+   "close": 3485,
+   "chg": -2.92,
+   "score": 18.5,
+   "missing": []
+  }
+ ],
+ "n_up": 2,
+ "n_mid": 31,
+ "n_dn": 3,
+ "n_kp": 22,
+ "n_kq": 14
+}
