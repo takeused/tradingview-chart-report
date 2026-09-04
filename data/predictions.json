@@ -8423,7 +8423,7 @@
    },
    "scored": null,
    "roster_change": null,
-   "_note": "로스터·수집·확률 전 과정 v6.1. 금요일이라 주봉 확률까지 함께 냈다(weekly_entries 2026-09-04). 이번 회차부터 **라인을 36종목 전부 새로 읽는다** — 지금까지는 컨텍스트 비용 때문에 직전 회차에서 고른 레벨 하나만 이월하고 1σ 이상 움직인 종목만 새로 받았는데, 수집을 CDP 직결로 바꿔 비용이 0이 됐다. 종목당 평균 372개 스윙 라인을 통째로 다시 읽은 결과 어제 \"유효 레벨 없음\"이던 18종목에 레벨이 생겼고, 레벨 출처가 존 11 · 라인 61로 뒤집혔으며, 거리 중앙값이 1.30σ에서 0.60σ로 줄었다(72개 중 55개가 0.7σ 이내). 가까워진 것은 시장이 아니라 자다 — 회차 간 거리 비교는 여기서 끊긴다. 라인 격자가 촘촘해 \"0.5σ 이상 떨어진 최근접\"이 사실상 0.5σ 언저리로 고정되므로 레벨 선정 규칙 자체가 다음 과제다. 지수는 KOSPI +1.64% · KOSDAQ +2.95%로 함께 반등했으나 거래는 말랐다(배수 중앙값 0.71, 1배 초과 6종목). 그래서 72개 레벨 중 조건부가 기준선보다 높은 것은 6건뿐이다. 존 소진·신설로 SK스퀘어 위 존이 다시 생겼다.",
+   "_note": "로스터·수집·확률 전 과정 v6.2(확률표 격자를 3.0σ까지 확장한 회차). 금요일이라 주봉 확률까지 함께 냈다(weekly_entries 2026-09-04). 이번 회차부터 **라인을 36종목 전부 새로 읽는다** — 지금까지는 컨텍스트 비용 때문에 직전 회차에서 고른 레벨 하나만 이월하고 1σ 이상 움직인 종목만 새로 받았는데, 수집을 CDP 직결로 바꿔 비용이 0이 됐다. 종목당 평균 372개 스윙 라인을 통째로 다시 읽은 결과 어제 \"유효 레벨 없음\"이던 18종목에 레벨이 생겼고, 레벨 출처가 존 11 · 라인 61로 뒤집혔으며, 거리 중앙값이 1.30σ에서 0.60σ로 줄었다(72개 중 55개가 0.7σ 이내). 가까워진 것은 시장이 아니라 자다 — 회차 간 거리 비교는 여기서 끊긴다. 라인 격자가 촘촘해 \"0.5σ 이상 떨어진 최근접\"이 사실상 0.5σ 언저리로 고정되므로 레벨 선정 규칙 자체가 다음 과제다. 지수는 KOSPI +1.64% · KOSDAQ +2.95%로 함께 반등했으나 거래는 말랐다(배수 중앙값 0.71, 1배 초과 6종목). 그래서 72개 레벨 중 조건부가 기준선보다 높은 것은 6건뿐이다. 존 소진·신설로 SK스퀘어 위 존이 다시 생겼다. 같은 날 감사에서 확률표의 1.5σ 절벽을 찾아 고쳤다 — 격자가 1.5σ에서 끝나 그 밖 거리가 전부 1.5σ 확률을 받고 있었고, 종결 콜 521건 중 150건이 예측 17.2% 대 실제 4.0%였다. 오늘 회차에서 실제로 바뀐 값은 일봉 1건(코스메카코리아 위 19.9→10.3)과 주봉 5건이다. 이미 열려 있는 콜은 그때 표로 기록된 값 그대로 채점한다.",
    "items": [
         {"code": "000500", "name": "가온전선", "market": "KOSPI", "close": 212000, "atr": 17732, "chg": 1.68, "line_provenance": "fresh", "resist": 233000, "support": 192778, "src": "line", "sigma": [1.184, 1.084], "call": "down_test", "distance_sigma": 1.084, "horizon": "2~3세션", "prior": 29.6, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.15%p(β0.90) · 배지 중립(0.02σ) · 거래량 1.65배 · 저항 233,000(1.18σ·라인·32.8%) / 지지 192,778(1.08σ·라인·30.0%)", "model_inputs": {"volx": 1.65, "rngatr": 1.1, "atrpct": 8.36, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 32.8, "p_base": 32.4, "dist_sigma": 1.184, "dir": "up", "horizon_sessions": 3, "level": 233000, "src": "line"}, "dn": {"p": 30.0, "p_base": 29.6, "dist_sigma": 1.084, "dir": "dn", "horizon_sessions": 3, "level": 192778, "src": "line"}}, "p_probe": {"0p5": {"up": 43.8, "dn": 39.9, "up_base": 43.0, "dn_base": 39.1, "up_level": 220866, "dn_level": 203134}, "1p0": {"up": 17.3, "dn": 12.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 229732, "dn_level": 194268}}, "excess": 0.153, "badge": "중립", "badge_sigma": 0.02, "clsloc": 0.18, "volx": 1.65, "streak": 2, "hi": 228000, "lo": 208500, "vol": 308808},
         {"code": "000660", "name": "SK하이닉스", "market": "KOSPI", "close": 1647000, "atr": 128960, "chg": 3.2, "line_provenance": "fresh", "resist": 1718000, "support": 1557000, "src": "line", "sigma": [0.551, 0.698], "call": "up_test", "distance_sigma": 0.551, "horizon": "2~3세션", "prior": 62.0, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.92%p(β1.55) · 배지 중립(0.12σ) · 거래량 0.71배 · 저항 1,718,000(0.55σ·라인·58.1%) / 지지 1,557,000(0.70σ·라인·44.3%)", "model_inputs": {"volx": 0.71, "rngatr": 0.49, "atrpct": 7.83, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 58.1, "p_base": 62.0, "dist_sigma": 0.551, "dir": "up", "horizon_sessions": 3, "level": 1718000, "src": "line"}, "dn": {"p": 44.3, "p_base": 48.4, "dist_sigma": 0.698, "dir": "dn", "horizon_sessions": 3, "level": 1557000, "src": "line"}}, "p_probe": {"0p5": {"up": 35.2, "dn": 31.6, "up_base": 43.0, "dn_base": 39.1, "up_level": 1711480, "dn_level": 1582520}, "1p0": {"up": 12.7, "dn": 8.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 1775960, "dn_level": 1518040}}, "excess": 0.924, "badge": "중립", "badge_sigma": 0.12, "clsloc": 0.43, "volx": 0.71, "streak": 1, "hi": 1683000, "lo": 1620000, "vol": 2827892},
@@ -8450,7 +8450,7 @@
         {"code": "214150", "name": "클래시스", "market": "KOSDAQ", "close": 31800, "atr": 2135, "chg": 0.32, "line_provenance": "fresh", "resist": 33300, "support": 30300, "src": "line", "sigma": [0.703, 0.703], "call": "up_test", "distance_sigma": 0.703, "horizon": "2~3세션", "prior": 53.5, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -2.01%p(β0.70) · 배지 중립(-0.30σ) · 거래량 0.39배 · 저항 33,300(0.70σ·라인·48.6%) / 지지 30,300(0.70σ·라인·43.2%)", "model_inputs": {"volx": 0.39, "rngatr": 0.52, "atrpct": 6.71, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 48.6, "p_base": 53.5, "dist_sigma": 0.703, "dir": "up", "horizon_sessions": 3, "level": 33300, "src": "line"}, "dn": {"p": 43.2, "p_base": 48.1, "dist_sigma": 0.703, "dir": "dn", "horizon_sessions": 3, "level": 30300, "src": "line"}}, "p_probe": {"0p5": {"up": 33.8, "dn": 30.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 32868, "dn_level": 30732}, "1p0": {"up": 12.0, "dn": 8.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 33935, "dn_level": 29665}}, "excess": -2.008, "badge": "중립", "badge_sigma": -0.3, "clsloc": 0.73, "volx": 0.39, "streak": 1, "hi": 32100, "lo": 31000, "vol": 148648},
         {"code": "214450", "name": "파마리서치", "market": "KOSDAQ", "close": 386500, "atr": 27128, "chg": 1.44, "line_provenance": "fresh", "resist": 402000, "support": 370000, "src": "line", "sigma": [0.571, 0.608], "call": "up_test", "distance_sigma": 0.571, "horizon": "2~3세션", "prior": 60.8, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -0.73%p(β0.62) · 배지 중립(-0.10σ) · 거래량 0.31배 · 저항 402,000(0.57σ·라인·56.4%) / 지지 370,000(0.61σ·라인·49.3%)", "model_inputs": {"volx": 0.31, "rngatr": 0.72, "atrpct": 7.02, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 56.4, "p_base": 60.8, "dist_sigma": 0.571, "dir": "up", "horizon_sessions": 3, "level": 402000, "src": "line"}, "dn": {"p": 49.3, "p_base": 53.8, "dist_sigma": 0.608, "dir": "dn", "horizon_sessions": 3, "level": 370000, "src": "line"}}, "p_probe": {"0p5": {"up": 34.4, "dn": 30.9, "up_base": 43.0, "dn_base": 39.1, "up_level": 400064, "dn_level": 372936}, "1p0": {"up": 12.3, "dn": 8.6, "up_base": 16.8, "dn_base": 11.9, "up_level": 413628, "dn_level": 359372}}, "excess": -0.728, "badge": "중립", "badge_sigma": -0.1, "clsloc": 0.59, "volx": 0.31, "streak": 1, "hi": 394500, "lo": 375000, "vol": 55756},
         {"code": "237690", "name": "에스티팜", "market": "KOSDAQ", "close": 101200, "atr": 7065, "chg": 2.22, "line_provenance": "fresh", "resist": 105300, "support": 97600, "src": "line", "sigma": [0.58, 0.51], "call": "down_test", "distance_sigma": 0.51, "horizon": "2~3세션", "prior": 60.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -0.36%p(β0.82) · 배지 중립(-0.05σ) · 거래량 0.22배 · 저항 105,300(0.58σ·라인·53.8%) / 지지 97,600(0.51σ·라인·53.7%)", "model_inputs": {"volx": 0.22, "rngatr": 0.41, "atrpct": 6.98, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 53.8, "p_base": 60.3, "dist_sigma": 0.58, "dir": "up", "horizon_sessions": 3, "level": 105300, "src": "line"}, "dn": {"p": 53.7, "p_base": 60.2, "dist_sigma": 0.51, "dir": "dn", "horizon_sessions": 3, "level": 97600, "src": "line"}}, "p_probe": {"0p5": {"up": 30.6, "dn": 27.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 104732, "dn_level": 97668}, "1p0": {"up": 10.6, "dn": 7.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 108265, "dn_level": 94135}}, "excess": -0.364, "badge": "중립", "badge_sigma": -0.05, "clsloc": 0.83, "volx": 0.22, "streak": 1, "hi": 101700, "lo": 98800, "vol": 45260},
-        {"code": "241710", "name": "코스메카코리아", "market": "KOSDAQ", "close": 134500, "atr": 10072, "chg": 0.22, "line_provenance": "fresh", "resist": 155500, "support": 126000, "src": "line", "sigma": [2.085, 0.844], "call": "down_test", "distance_sigma": 0.844, "horizon": "2~3세션", "prior": 40.6, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.58%p(β0.45) · 배지 중립(-0.21σ) · 거래량 0.41배 · 저항 155,500(2.08σ·라인·19.9%) / 지지 126,000(0.84σ·존·36.0%)", "model_inputs": {"volx": 0.41, "rngatr": 0.55, "atrpct": 7.49, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 19.9, "p_base": 23.2, "dist_sigma": 2.085, "dir": "up", "horizon_sessions": 3, "level": 155500, "src": "line"}, "dn": {"p": 36.0, "p_base": 40.6, "dist_sigma": 0.844, "dir": "dn", "horizon_sessions": 3, "level": 126000, "src": "zone"}}, "p_probe": {"0p5": {"up": 33.8, "dn": 30.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 139536, "dn_level": 129464}, "1p0": {"up": 12.0, "dn": 8.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 144572, "dn_level": 124428}}, "excess": -1.585, "badge": "중립", "badge_sigma": -0.21, "clsloc": 0.71, "volx": 0.41, "streak": 1, "hi": 136100, "lo": 130600, "vol": 87987},
+        {"code": "241710", "name": "코스메카코리아", "market": "KOSDAQ", "close": 134500, "atr": 10072, "chg": 0.22, "line_provenance": "fresh", "resist": 155500, "support": 126000, "src": "line", "sigma": [2.085, 0.844], "call": "down_test", "distance_sigma": 0.844, "horizon": "2~3세션", "prior": 40.6, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.58%p(β0.45) · 배지 중립(-0.21σ) · 거래량 0.41배 · 저항 155,500(2.08σ·라인·10.3%) / 지지 126,000(0.84σ·존·36.0%)", "model_inputs": {"volx": 0.41, "rngatr": 0.55, "atrpct": 7.49, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 10.3, "p_base": 12.3, "dist_sigma": 2.085, "dir": "up", "horizon_sessions": 3, "level": 155500, "src": "line"}, "dn": {"p": 36.0, "p_base": 40.6, "dist_sigma": 0.844, "dir": "dn", "horizon_sessions": 3, "level": 126000, "src": "zone"}}, "p_probe": {"0p5": {"up": 33.8, "dn": 30.3, "up_base": 43.0, "dn_base": 39.1, "up_level": 139536, "dn_level": 129464}, "1p0": {"up": 12.0, "dn": 8.4, "up_base": 16.8, "dn_base": 11.9, "up_level": 144572, "dn_level": 124428}}, "excess": -1.585, "badge": "중립", "badge_sigma": -0.21, "clsloc": 0.71, "volx": 0.41, "streak": 1, "hi": 136100, "lo": 130600, "vol": 87987},
         {"code": "267250", "name": "HD현대", "market": "KOSPI", "close": 240500, "atr": 13669, "chg": 12.65, "line_provenance": "fresh", "resist": 249000, "support": 233500, "src": "line", "sigma": [0.622, 0.512], "call": "down_test", "distance_sigma": 0.512, "horizon": "2~3세션", "prior": 60.1, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +11.69%p(β0.41) · 배지 강세(2.06σ) · 거래량 2.23배 · 저항 249,000(0.62σ·라인·64.3%) / 지지 233,500(0.51σ·라인·66.3%)", "model_inputs": {"volx": 2.23, "rngatr": 2.12, "atrpct": 5.68, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 64.3, "p_base": 57.9, "dist_sigma": 0.622, "dir": "up", "horizon_sessions": 3, "level": 249000, "src": "line"}, "dn": {"p": 66.3, "p_base": 60.1, "dist_sigma": 0.512, "dir": "dn", "horizon_sessions": 3, "level": 233500, "src": "line"}}, "p_probe": {"0p5": {"up": 56.4, "dn": 52.4, "up_base": 43.0, "dn_base": 39.1, "up_level": 247334, "dn_level": 233666}, "1p0": {"up": 25.7, "dn": 18.8, "up_base": 16.8, "dn_base": 11.9, "up_level": 254169, "dn_level": 226831}}, "excess": 11.692, "badge": "강세", "badge_sigma": 2.06, "clsloc": 0.95, "volx": 2.23, "streak": 2, "hi": 242000, "lo": 213000, "vol": 272287},
         {"code": "267790", "name": "배럴", "market": "KOSDAQ", "close": 3450, "atr": 173, "chg": -1, "line_provenance": "fresh", "resist": 3480, "support": 3365, "src": "zone", "sigma": [0.173, 0.491], "call": "up_test", "distance_sigma": 0.173, "horizon": "1~2세션", "prior": 80.5, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -2.34%p(β0.22) · 배지 중립(-0.46σ) · 거래량 0.08배 · 저항 3,480(0.17σ·존·75.1%) / 지지 3,365(0.49σ·존·45.8%)", "model_inputs": {"volx": 0.08, "rngatr": 0.49, "atrpct": 5.03, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 75.1, "p_base": 80.5, "dist_sigma": 0.173, "dir": "up", "horizon_sessions": 2, "level": 3480, "src": "zone"}, "dn": {"p": 45.8, "p_base": 53.6, "dist_sigma": 0.491, "dir": "dn", "horizon_sessions": 2, "level": 3365, "src": "zone"}}, "p_probe": {"0p5": {"up": 32.5, "dn": 29.1, "up_base": 43.0, "dn_base": 39.1, "up_level": 3536, "dn_level": 3364}, "1p0": {"up": 11.4, "dn": 7.9, "up_base": 16.8, "dn_base": 11.9, "up_level": 3623, "dn_level": 3277}}, "excess": -2.336, "badge": "중립", "badge_sigma": -0.46, "clsloc": 0.53, "volx": 0.08, "streak": -2, "hi": 3490, "lo": 3405, "vol": 1076},
         {"code": "278470", "name": "에이피알", "market": "KOSPI", "close": 394000, "atr": 27466, "chg": -2.96, "line_provenance": "fresh", "resist": 414500, "support": 388000, "src": "line", "sigma": [0.746, 0.218], "call": "down_test", "distance_sigma": 0.218, "horizon": "1~2세션", "prior": 73.4, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -3.75%p(β0.26) · 배지 약세(-0.54σ) · 거래량 0.75배 · 저항 414,500(0.75σ·라인·38.6%) / 지지 388,000(0.22σ·존·70.3%)", "model_inputs": {"volx": 0.75, "rngatr": 0.71, "atrpct": 6.97, "atr_bars": 150, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 38.6, "p_base": 42.2, "dist_sigma": 0.746, "dir": "up", "horizon_sessions": 2, "level": 414500, "src": "line"}, "dn": {"p": 70.3, "p_base": 73.4, "dist_sigma": 0.218, "dir": "dn", "horizon_sessions": 2, "level": 388000, "src": "zone"}}, "p_probe": {"0p5": {"up": 37.8, "dn": 34.1, "up_base": 43.0, "dn_base": 39.1, "up_level": 407733, "dn_level": 380267}, "1p0": {"up": 14.0, "dn": 9.8, "up_base": 16.8, "dn_base": 11.9, "up_level": 421466, "dn_level": 366534}}, "excess": -3.749, "badge": "약세", "badge_sigma": -0.54, "clsloc": 0.08, "volx": 0.75, "streak": -4, "hi": 412000, "lo": 392500, "vol": 223630},
@@ -11362,8 +11362,8 @@
     "dist_sigma": 2.085,
     "horizon_sessions": 3,
     "expiry_after_sessions": 3,
-    "p": 19.9,
-    "p_base": 23.2,
+    "p": 10.3,
+    "p_base": 12.3,
     "sessions_elapsed": 0,
     "status": "open",
     "model_inputs": {
@@ -13190,8 +13190,8 @@
     "dist_sigma": 2.163,
     "horizon_weeks": 3,
     "expiry_after_weeks": 3,
-    "p": 21.3,
-    "p_base": 27.1,
+    "p": 11.7,
+    "p_base": 15.4,
     "weeks_elapsed": 0,
     "status": "open",
     "model_inputs": {
@@ -13830,8 +13830,8 @@
     "dist_sigma": 1.517,
     "horizon_weeks": 3,
     "expiry_after_weeks": 3,
-    "p": 25.5,
-    "p_base": 27.1,
+    "p": 25.1,
+    "p_base": 26.7,
     "weeks_elapsed": 0,
     "status": "open",
     "model_inputs": {
@@ -14130,8 +14130,8 @@
     "dist_sigma": 1.677,
     "horizon_weeks": 3,
     "expiry_after_weeks": 3,
-    "p": 17.4,
-    "p_base": 15.8,
+    "p": 13.3,
+    "p_base": 12.0,
     "weeks_elapsed": 0,
     "status": "open",
     "model_inputs": {
@@ -14150,8 +14150,8 @@
     "dist_sigma": 2.307,
     "horizon_weeks": 3,
     "expiry_after_weeks": 3,
-    "p": 26.1,
-    "p_base": 27.1,
+    "p": 13.0,
+    "p_base": 13.6,
     "weeks_elapsed": 0,
     "status": "open",
     "model_inputs": {
@@ -14170,8 +14170,8 @@
     "dist_sigma": 1.689,
     "horizon_weeks": 3,
     "expiry_after_weeks": 3,
-    "p": 15.1,
-    "p_base": 15.8,
+    "p": 11.3,
+    "p_base": 11.8,
     "weeks_elapsed": 0,
     "status": "open",
     "model_inputs": {
@@ -19915,14 +19915,14 @@
    "asof": "2026-09-04",
    "next_week": "2026-09-11",
    "timeframe": "1W",
-   "model": "v6.1-W",
+   "model": "v6.2-W",
    "index": {
     "KOSPI_wchg": -1.5,
     "KOSDAQ_wchg": -2.97
    },
    "scored": null,
    "roster_change": null,
-   "_note": "주봉 3회차(8/21 · 8/28 다음). 주간 지수는 KOSPI -1.50% · KOSDAQ -2.97%로 둘 다 마이너스이고 36종목 중 27종목이 주간 하락이다. **이번 회차부터 주봉 p_probe 를 1주 확률로 낸다(결함 수정).** 지금까지는 3주 확률을 적어 놓고 score_probe 가 다음 한 주의 고저로만 채점해 지평이 어긋나 있었다 — 8/28 회차 신뢰도 곡선이 전 구간 과대평가(65~80% 구간 예측 67.1% 대 실제 18.8%)였던 원인이 이것이다. 조건부와 기준선이 같은 지평을 썼으므로 과거 두 회차의 상대 비교는 유효하지만 절대 수치는 부풀려져 있다. validate_predictions 에 \"프로브 확률이 1기간 표에서 재현되는가\" 검사를 일봉·주봉 양쪽에 추가했고 주입 시험으로 검출을 확인했다. 주봉 라인도 36종목 전부 새로 받았다. 위쪽 3σ 안 레벨이 없는 종목은 다섯(삼성전자·SK하이닉스·코스맥스·코스메카코리아·SK스퀘어)이고 전부 위 후보가 3σ 밖이다. 웨이비스(98주)·달바글로벌(68주)은 ATR 창 120주 미달이라 레벨만 표시하고 확률은 내지 않았다. 거리 σ는 전부 주봉 ATR 기준이다 — 일봉 σ와 섞어 읽으면 안 된다.",
+   "_note": "주봉 3회차(v6.2-W)(8/21 · 8/28 다음). 주간 지수는 KOSPI -1.50% · KOSDAQ -2.97%로 둘 다 마이너스이고 36종목 중 27종목이 주간 하락이다. **이번 회차부터 주봉 p_probe 를 1주 확률로 낸다(결함 수정).** 지금까지는 3주 확률을 적어 놓고 score_probe 가 다음 한 주의 고저로만 채점해 지평이 어긋나 있었다 — 8/28 회차 신뢰도 곡선이 전 구간 과대평가(65~80% 구간 예측 67.1% 대 실제 18.8%)였던 원인이 이것이다. 조건부와 기준선이 같은 지평을 썼으므로 과거 두 회차의 상대 비교는 유효하지만 절대 수치는 부풀려져 있다. validate_predictions 에 \"프로브 확률이 1기간 표에서 재현되는가\" 검사를 일봉·주봉 양쪽에 추가했고 주입 시험으로 검출을 확인했다. 주봉 라인도 36종목 전부 새로 받았다. 위쪽 3σ 안 레벨이 없는 종목은 다섯(삼성전자·SK하이닉스·코스맥스·코스메카코리아·SK스퀘어)이고 전부 위 후보가 3σ 밖이다. 웨이비스(98주)·달바글로벌(68주)은 ATR 창 120주 미달이라 레벨만 표시하고 확률은 내지 않았다. 거리 σ는 전부 주봉 ATR 기준이다 — 일봉 σ와 섞어 읽으면 안 된다. 확률표 격자를 3.0σ까지 늘리면서 이 회차의 1.5σ 밖 레벨 5건(가온전선 위 21.3→11.7 등)이 내려갔다. 1.5σ 이하 값은 바뀌지 않았다.",
    "items": [
     {
      "code": "000500",
@@ -19948,7 +19948,7 @@
      "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
      "conf": "low",
      "atr_insufficient": null,
-     "note": "주간 +3.92% · 4주 +43.5% · 12주 +51.4% · 12주위치 48% · 연속 2주 · 저항 326,000(2.16σ·라인·21.3%) / 지지 136,945(1.42σ·라인·13.9%)",
+     "note": "주간 +3.92% · 4주 +43.5% · 12주 +51.4% · 12주위치 48% · 연속 2주 · 저항 326,000(2.16σ·라인·11.7%) / 지지 136,945(1.42σ·라인·13.9%)",
      "model_inputs": {
       "wrngatr": 0.57,
       "watrpct": 24.86,
@@ -19957,8 +19957,8 @@
      },
      "p_touch": {
       "up": {
-       "p": 21.3,
-       "p_base": 27.1,
+       "p": 11.7,
+       "p_base": 15.4,
        "dist_sigma": 2.163,
        "dir": "up",
        "horizon_weeks": 3,
@@ -21237,7 +21237,7 @@
      "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
      "conf": "low",
      "atr_insufficient": null,
-     "note": "주간 +0.23% · 4주 -2.2% · 12주 +6.7% · 12주위치 55% · 연속 2주 · 저항 194,500(1.52σ·라인·25.5%) / 지지 156,000(1.08σ·라인·28.7%)",
+     "note": "주간 +0.23% · 4주 -2.2% · 12주 +6.7% · 12주위치 55% · 연속 2주 · 저항 194,500(1.52σ·라인·25.1%) / 지지 156,000(1.08σ·라인·28.7%)",
      "model_inputs": {
       "wrngatr": 0.81,
       "watrpct": 8.63,
@@ -21246,8 +21246,8 @@
      },
      "p_touch": {
       "up": {
-       "p": 25.5,
-       "p_base": 27.1,
+       "p": 25.1,
+       "p_base": 26.7,
        "dist_sigma": 1.517,
        "dir": "up",
        "horizon_weeks": 3,
@@ -21837,13 +21837,13 @@
      "call": "down_test",
      "distance_sigma": 1.677,
      "horizon": "2~3주",
-     "prior": 15.8,
+     "prior": 12.0,
      "direction_prob": 0.5,
      "expected_fret": 0.0,
      "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
      "conf": "low",
      "atr_insufficient": null,
-     "note": "주간 -12.61% · 4주 +40.3% · 12주 +95.5% · 12주위치 79% · 연속 -1주 · 지지 106,400(1.68σ·라인·17.4%) · 없는 쪽 — 위 후보 없음",
+     "note": "주간 -12.61% · 4주 +40.3% · 12주 +95.5% · 12주위치 79% · 연속 -1주 · 지지 106,400(1.68σ·라인·13.3%) · 없는 쪽 — 위 후보 없음",
      "model_inputs": {
       "wrngatr": 1.49,
       "watrpct": 12.46,
@@ -21852,8 +21852,8 @@
      },
      "p_touch": {
       "dn": {
-       "p": 17.4,
-       "p_base": 15.8,
+       "p": 13.3,
+       "p_base": 12.0,
        "dist_sigma": 1.677,
        "dir": "dn",
        "horizon_weeks": 3,
@@ -21904,13 +21904,13 @@
      "call": "down_test",
      "distance_sigma": 1.689,
      "horizon": "2~3주",
-     "prior": 15.8,
+     "prior": 11.8,
      "direction_prob": 0.5,
      "expected_fret": 0.0,
      "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
      "conf": "low",
      "atr_insufficient": null,
-     "note": "주간 +10.32% · 4주 +6.9% · 12주 -1.4% · 12주위치 60% · 연속 2주 · 저항 317,000(2.31σ·라인·26.1%) / 지지 184,500(1.69σ·라인·15.1%)",
+     "note": "주간 +10.32% · 4주 +6.9% · 12주 -1.4% · 12주위치 60% · 연속 2주 · 저항 317,000(2.31σ·라인·13.0%) / 지지 184,500(1.69σ·라인·11.3%)",
      "model_inputs": {
       "wrngatr": 1.07,
       "watrpct": 13.79,
@@ -21919,8 +21919,8 @@
      },
      "p_touch": {
       "up": {
-       "p": 26.1,
-       "p_base": 27.1,
+       "p": 13.0,
+       "p_base": 13.6,
        "dist_sigma": 2.307,
        "dir": "up",
        "horizon_weeks": 3,
@@ -21929,8 +21929,8 @@
        "lap": 1
       },
       "dn": {
-       "p": 15.1,
-       "p_base": 15.8,
+       "p": 11.3,
+       "p_base": 11.8,
        "dist_sigma": 1.689,
        "dir": "dn",
        "horizon_weeks": 3,

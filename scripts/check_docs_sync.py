@@ -150,7 +150,16 @@ def main():
     need('weekly_entries' in rep_w, 'check_report.py 가 주봉 레벨표를 대조하지 않는다')
 
     # 8) 버전 표기
-    need('phase: v6.1' in skill, 'SKILL.md frontmatter phase 가 v6.1 이 아니다')
+    need('phase: v6.2' in skill, 'SKILL.md frontmatter phase 가 v6.2 가 아니다')
+    # 8-b) 격자 상한 (2026-09-05 v6.2) — 표가 1.5σ 에서 끊기면 3σ 레벨이 1.5σ 확률을 받는다
+    need(tm.GRID[-1] == 3.0, '확률표 격자가 3.0σ 까지 오지 않는다 — 레벨 상한과 어긋난다')
+    need(all(len(tm.TABLE[h][d]) == len(tm.GRID) and len(tm.TABLE_W[h][d]) == len(tm.GRID)
+             for h in (1, 2, 3) for d in ('up', 'dn')),
+         '확률표 행 길이가 격자와 다르다 — 보간이 조용히 어긋난다')
+    for h, d_, expect in ((3, 'up', 5.3), (1, 'dn', 0.3)):
+        need(abs(tm.base_p(3.0, d_, h) - expect) < 0.05,
+             '일봉표 3.0σ %d세션 %s = %s (문서 기준 %s)' % (h, d_, tm.base_p(3.0, d_, h), expect))
+        need(has_num(const, expect), '3.0σ 값 %s 가 v6-constants.md 에 없다' % expect)
     need('model_v6_1' in pred['_scoring'], 'predictions.json 에 model_v6_1 규격이 없다')
 
     print('문서-코드 동기화 검사 — 실패 %d건 (모델 %s)' % (len(fail), tm.META['version']))

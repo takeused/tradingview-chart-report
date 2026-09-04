@@ -100,7 +100,7 @@ def main():
         raise SystemExit('주봉 원장 등록 수 불일치 — 레벨 있는 방향 %d, 등록분 %d'
                          % (want, len(wcalls)))
 
-    entry = {'asof': a.date, 'next_week': a.next, 'timeframe': '1W', 'model': 'v6.1-W',
+    entry = {'asof': a.date, 'next_week': a.next, 'timeframe': '1W', 'model': 'v6.2-W',
              'index': {'KOSPI_wchg': a.kospi, 'KOSDAQ_wchg': a.kosdaq},
              'scored': None, 'roster_change': None, '_note': a.note, 'items': rows}
 

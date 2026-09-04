@@ -93,7 +93,7 @@ def main():
              'index': {'KOSPI': int(round(md['KOSPI']['close'])),
                        'KOSDAQ': int(round(md['KOSDAQ']['close']))},
              'scored': None, 'roster_change': a.roster_change,
-             '_note': '로스터·수집·확률 전 과정 v6.1. 주봉 확률은 금요일에만 낸다(오늘은 %s요일).'
+             '_note': '로스터·수집·확률 전 과정 v6.2. 주봉 확률은 금요일에만 낸다(오늘은 %s요일).'
                       % a.weekday,
              'items': items}
 

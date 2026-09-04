@@ -161,7 +161,7 @@ def rank_block(items, rows, date):
     s47 = rows[3]['score'] - rows[6]['score'] if len(rows) > 6 else 0.0
     return '''
   <div class="secsum" style="border-color:rgba(255,215,0,.5);">
-    <h3>🔁 순위 — %d종목 전체 <span class="muted">(%s 종가 기준 · v6.1 · β조정)</span></h3>
+    <h3>🔁 순위 — %d종목 전체 <span class="muted">(%s 종가 기준 · v6.2 · β조정)</span></h3>
     <p style="margin:0 0 10px;font-size:13px;color:var(--muted);">
       <b>위험조정 초과수익 47 · 거래량 배수 29 · 위쪽 여유 24</b>를 각각 %d종목 안 백분위로
       환산해 합산합니다. <b>레벨이 없으면 그 항목은 결측으로 빼고 남은 가중치로 재정규화</b>합니다 —

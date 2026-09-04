@@ -33,6 +33,9 @@ LEVEL_CALLS = ('up_test', 'down_test')
 # 2026-08-20 회차부터 도입한 근거 필드(chg · p_touch.src · line_provenance)를 필수로 본다.
 # 그 이전 회차는 필드가 없으므로 해당 검사를 건너뛴다.
 V62_FROM = '2026-08-20'
+# 확률표 격자를 3.0σ까지 늘린 회차(v6.2). 그 전 회차의 1.5σ 밖 확률은 당시 표로는
+# 옳으므로 표 대조에서 뺀다 — 안 빼면 옛 회차마다 거짓 오류가 나 진짜 오류가 묻힌다.
+TABLE_V62_FROM = '2026-09-04'
 MIN_ATR_BARS = 120      # 확률표(300봉)와의 오차가 0.004% 이하로 떨어지는 지점
 MAX_SIGMA = 3.0         # 존·라인 표시 상한
 MIN_LINE_SIGMA = 0.5    # 라인은 이보다 가까우면 노이즈라 쓰지 않는다
@@ -85,12 +88,14 @@ def check_entry(e, ledger, strict_ledger=True):
                     err.append('%s — p_touch.%s horizon %s != item horizon %s(%d세션)'
                                % (nm, dirn, blk.get('horizon_sessions'), it.get('horizon'), h))
                 # 4) 모델 재현 검증 — 저장값이 모듈 계산과 일치하는가
+                cur_table = tag >= TABLE_V62_FROM
                 exp = tm.base_p(blk.get('dist_sigma'), dirn, h)
-                if exp is not None and blk.get('p_base') is not None and abs(exp - blk['p_base']) > 0.15:
+                if cur_table and exp is not None and blk.get('p_base') is not None \
+                        and abs(exp - blk['p_base']) > 0.15:
                     err.append('%s — p_base %s != 모듈 계산 %s (표 불일치)' % (nm, blk['p_base'], exp))
                 # 4-b) 조건부 p 도 저장된 입력으로 재현되는가
                 mi = it.get('model_inputs')
-                if mi and blk.get('p') is not None:
+                if cur_table and mi and blk.get('p') is not None:
                     rep = tm.cond_p(blk.get('dist_sigma'), dirn, mi.get('volx'),
                                     mi.get('rngatr'), mi.get('atrpct'), h)
                     if rep is not None and abs(rep - blk['p']) > 0.15:
@@ -140,7 +145,7 @@ def check_entry(e, ledger, strict_ledger=True):
                 and it['call'] in LEVEL_CALLS:
             dirn = 'up' if it['call'] == 'up_test' else 'dn'
             exp = round(tm.base_p(it['distance_sigma'], dirn, h))
-            if abs(exp - it['prior']) > 1:
+            if tag >= TABLE_V62_FROM and abs(exp - it['prior']) > 1:
                 err.append('%s — prior %s != 기저표 %s (거리 %.2fσ, %d세션)'
                            % (nm, it['prior'], exp, it['distance_sigma'], h))
 
@@ -169,9 +174,13 @@ def check_entry(e, ledger, strict_ledger=True):
                 #   score_probe 는 다음 한 기간의 고저로만 채점한다. 지평이 어긋나면
                 #   확률이 통째로 과대평가되고 신뢰도 곡선이 거짓말을 한다 —
                 #   주봉에서 실제로 3주 확률을 1주로 채점하고 있었다.
-                if k and mi:
+                # model_inputs 는 **여기서 다시 꺼낸다**(2026-09-05 수정).
+                # 위쪽 p_touch 루프의 mi 를 그대로 쓰면, 레벨이 없어 그 루프를 한 번도
+                # 돌지 않은 항목에서 **직전 종목의 mi** 가 남아 엉뚱한 값으로 대조한다.
+                pmi = it.get('model_inputs')
+                if k and pmi:
                     for side, dirn in (('up', 'up'), ('dn', 'dn')):
-                        rep = tm.predict(k, dirn, mi, 1)
+                        rep = tm.predict(k, dirn, pmi, 1)
                         for fld, want2 in ((side, rep['p']), (side + '_base', rep['p_base'])):
                             got2 = blk.get(fld)
                             if got2 is not None and abs(got2 - want2) > 0.15:
@@ -262,11 +271,13 @@ def check_weekly(e, ledger):
             if blk.get('horizon_weeks') != h:
                 err.append('%s — p_touch.%s horizon_weeks %s != item horizon %s(%d주)'
                            % (nm, dirn, blk.get('horizon_weeks'), it.get('horizon'), h))
+            cur_table = tag >= TABLE_V62_FROM
             exp = tm.base_p_w(blk.get('dist_sigma'), dirn, h)
-            if exp is not None and blk.get('p_base') is not None and abs(exp - blk['p_base']) > 0.15:
+            if cur_table and exp is not None and blk.get('p_base') is not None \
+                    and abs(exp - blk['p_base']) > 0.15:
                 err.append('%s — p_base %s != 주봉표 %s' % (nm, blk['p_base'], exp))
             rep = tm.cond_p_w(blk.get('dist_sigma'), dirn, mi.get('wrngatr'), mi.get('watrpct'), h)
-            if rep is not None and blk.get('p') is not None and abs(rep - blk['p']) > 0.15:
+            if cur_table and rep is not None and blk.get('p') is not None and abs(rep - blk['p']) > 0.15:
                 err.append('%s — p %s 가 저장된 입력으로 재현되지 않는다(계산 %s)' % (nm, blk['p'], rep))
 
             lvl, cl, atr, ds = it.get(fld), it.get('close'), it.get('atr'), blk.get('dist_sigma')
@@ -314,7 +325,7 @@ def check_weekly(e, ledger):
                 and it['call'] in LEVEL_CALLS:
             dirn = 'up' if it['call'] == 'up_test' else 'dn'
             exp = round(tm.base_p_w(it['distance_sigma'], dirn, h))
-            if abs(exp - it['prior']) > 1:
+            if tag >= TABLE_V62_FROM and abs(exp - it['prior']) > 1:
                 err.append('%s — prior %s != 주봉표 %s' % (nm, it['prior'], exp))
 
         # 방향 단위로 센다(2026-08-22 수정) — 일봉 9)번과 같은 이유다.

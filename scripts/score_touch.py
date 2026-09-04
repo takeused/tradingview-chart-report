@@ -128,18 +128,21 @@ def close_open_calls(ledger, actuals, session_date,
     반드시 어긋난다. 주봉 콜을 일봉 원장에 넣으면 하루마다 만기가 깎여 1~3'일'만에 닫힌다.
     """
     closed, still_open, scored_pairs, base_pairs = [], [], [], []
+    no_data = []
     for c in ledger.get('active', []):
         a = actuals.get(c['code'])
-        if not a:
-            c['status'] = 'no_data'
-            closed.append(c)
-            continue
-        hi, lo = _hl(a)
+        hi, lo = _hl(a) if a else (None, None)
         if hi is None or lo is None:
-            c['status'] = 'no_data'
-            closed.append(c)
+            # 로스터에서 빠졌거나 값이 없는 콜은 **닫지 않는다**(2026-09-05 수정).
+            # 예전에는 status='no_data' 로 종결해 채점 없이 사라졌는데, 성적이 나쁜 종목을
+            # 로스터에서 빼면 표본이 저절로 좋아지는 구조였다. 열어 두고 세어서 보고한다.
+            c['no_data_sessions'] = c.get('no_data_sessions', 0) + 1
+            no_data.append('%s/%s' % (c.get('name', c.get('code')), c.get('dir')))
+            still_open.append(c)
             continue
         c[ekey] = c.get(ekey, 0) + 1
+        # 실제로 반영한 세션을 남긴다 — 회차를 건너뛰면 여기 날짜가 비어 증거가 된다
+        c.setdefault('sessions_seen', []).append(session_date)
         c.setdefault('run_hi', hi)
         c.setdefault('run_lo', lo)
         c['run_hi'] = max(c['run_hi'], hi)
@@ -156,13 +159,15 @@ def close_open_calls(ledger, actuals, session_date,
         else:
             still_open.append(c)
         # 만기에 도달한 건만 확률 채점에 넣는다(중도 종결은 편향)
+        # **쌍으로만 넣는다**(2026-09-05 수정) — 한쪽만 있으면 두 리스트 길이가 어긋나
+        # shift_null 이 조용히 None 이 되고, 귀무모형 판정이 사라진 줄도 모르게 된다.
         if c['status'] in ('touched', 'expired'):
             y = 1 if c['status'] == 'touched' else 0
-            if c.get('p') is not None:
+            if c.get('p') is not None and c.get('p_base') is not None:
                 scored_pairs.append((c['p'] / 100, y))
-            if c.get('p_base') is not None:
                 base_pairs.append((c['p_base'] / 100, y))
     ledger['active'] = still_open
+    assert len(scored_pairs) == len(base_pairs)
     bc, bb = brier(scored_pairs), brier(base_pairs)
     sn = shift_null(scored_pairs, base_pairs)
     bu = (sn or {}).get('brier_uniform_shift')
@@ -172,6 +177,8 @@ def close_open_calls(ledger, actuals, session_date,
         'verdict': _verdict(bc, bb, sn),
         'closed': len(closed),
         'still_open': len(still_open),
+        'no_data_open': len(no_data),
+        'no_data_calls': sorted(set(no_data))[:20],
         'touched': sum(1 for c in closed if c['status'] == 'touched'),
         'expired': sum(1 for c in closed if c['status'] == 'expired'),
         'brier_conditional': bc,
@@ -198,6 +205,9 @@ def main():
 
     # 날짜 가드 — 엉뚱한 회차를 조용히 채점하는 사고를 막는다
     expected = entry.get('next_session')
+    if not session:
+        print('[경고] --session 이 없다. 회차의 next_session(%s)으로 간주한다 — '
+              '거래일을 건너뛴 채점이면 그 세션의 고저가 도달 판정에서 통째로 빠진다.' % expected)
     if session and expected and session != expected:
         print('[중단] 채점 대상 회차의 next_session은 %s인데 --session %s가 들어왔다.' % (expected, session))
         print('       직전 회차를 채점하려는 것이 맞는지 확인할 것. 신규 entry를 먼저 추가했다면 순서가 잘못됐다.')
