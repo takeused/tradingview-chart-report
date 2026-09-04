@@ -165,6 +165,18 @@ def check_entry(e, ledger, strict_ledger=True):
                             err.append('%s — p_probe[%s].%s %s != 종가±%.1fσ %s'
                                        % (nm, key, side, '{:,}'.format(got), k,
                                           '{:,}'.format(int(round(want)))))
+                # 10-b) 프로브 확률은 **1세션** 표에서 나와야 한다 (2026-09-04 신설).
+                #   score_probe 는 다음 한 기간의 고저로만 채점한다. 지평이 어긋나면
+                #   확률이 통째로 과대평가되고 신뢰도 곡선이 거짓말을 한다 —
+                #   주봉에서 실제로 3주 확률을 1주로 채점하고 있었다.
+                if k and mi:
+                    for side, dirn in (('up', 'up'), ('dn', 'dn')):
+                        rep = tm.predict(k, dirn, mi, 1)
+                        for fld, want2 in ((side, rep['p']), (side + '_base', rep['p_base'])):
+                            got2 = blk.get(fld)
+                            if got2 is not None and abs(got2 - want2) > 0.15:
+                                err.append('%s — p_probe[%s].%s %s 가 1세션 표(%s)와 다르다'
+                                           % (nm, key, fld, got2, want2))
 
         # 8) 확률 범위
         for label, v in [('direction_prob', it.get('direction_prob'))]:
@@ -289,6 +301,14 @@ def check_weekly(e, ledger):
                         if got is not None and abs(got - want) > max(1.0, it['atr'] * 0.005):
                             err.append('%s — p_probe[%s].%s 가 종가±%.1f주봉ATR 과 다르다'
                                        % (nm, key, side, k))
+                if k:
+                    for side, dirn in (('up', 'up'), ('dn', 'dn')):
+                        rep = tm.predict_w(k, dirn, mi, 1)
+                        for fld, want2 in ((side, rep['p']), (side + '_base', rep['p_base'])):
+                            got2 = blk.get(fld)
+                            if got2 is not None and abs(got2 - want2) > 0.15:
+                                err.append('%s — p_probe[%s].%s %s 가 1주 표(%s)와 다르다'
+                                           % (nm, key, fld, got2, want2))
 
         if it.get('prior') is not None and it.get('distance_sigma') is not None \
                 and it['call'] in LEVEL_CALLS:

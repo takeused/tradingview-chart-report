@@ -166,9 +166,13 @@ def main():
                                'p_base': pr['p_base'], 'weeks_elapsed': 0,
                                'status': 'open', 'model_inputs': wmi})
             wprobe = {}
+            # 프로브는 **1주** 확률이다(2026-09-04 수정). score_probe 는 다음 한 기간의
+            # 고저로만 채점하는데 여기서 3주 확률을 넣어 두는 바람에, 주봉 프로브는
+            # 회차마다 체계적으로 과대평가됐다(8/28 회차 65~80% 구간 예측 67.1% 대 실제 18.8%).
+            # 일봉 프로브는 처음부터 1세션이라 같은 문제가 없었다.
             for tag, k in (('0p5', 0.5), ('1p0', 1.0)):
-                pu = tm.predict_w(k, 'up', wmi, WEEKS)
-                pdn = tm.predict_w(k, 'dn', wmi, WEEKS)
+                pu = tm.predict_w(k, 'up', wmi, 1)
+                pdn = tm.predict_w(k, 'dn', wmi, 1)
                 wprobe[tag] = {'up': pu['p'], 'dn': pdn['p'], 'up_base': pu['p_base'],
                                'dn_base': pdn['p_base'],
                                'up_level': int(round(close + k * watr)),
