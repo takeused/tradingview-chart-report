@@ -39,6 +39,10 @@ TABLE_V62_FROM = '2026-09-04'
 MIN_ATR_BARS = 120      # 확률표(300봉)와의 오차가 0.004% 이하로 떨어지는 지점
 MAX_SIGMA = 3.0         # 존·라인 표시 상한
 MIN_LINE_SIGMA = 0.5    # 라인은 이보다 가까우면 노이즈라 쓰지 않는다
+MIN_ZONE_SIGMA = 0.3    # 존 하한 — 2026-09-09 회차부터
+# 존 하한을 넣은 회차. 그 전 회차에는 존에 하한이 없었으므로 검사에서 뺀다 —
+# 안 빼면 옛 회차마다 거짓 오류가 나 진짜가 묻힌다(TABLE_V62_FROM 과 같은 처리).
+ZONE_FLOOR_FROM = '2026-09-09'
 SIG_TOL = 0.02          # dist_sigma 는 소수 둘째 자리 반올림이라 이 정도는 허용
 
 
@@ -130,6 +134,10 @@ def check_entry(e, ledger, strict_ledger=True):
                 if src == 'line' and ds is not None and ds < MIN_LINE_SIGMA:
                     err.append('%s — 라인인데 %.2fσ 로 하한 %.1fσ 미만 (노이즈 레벨)'
                                % (nm, ds, MIN_LINE_SIGMA))
+                if (src == 'zone' and ds is not None and tag >= ZONE_FLOOR_FROM
+                        and ds < MIN_ZONE_SIGMA):
+                    err.append('%s — 존인데 %.2fσ 로 하한 %.1fσ 미만 (동어반복 레벨)'
+                               % (nm, ds, MIN_ZONE_SIGMA))
 
         # 5) sigma 와 레벨 필드의 대응
         for i, (fld, dirn) in enumerate((('resist', 'up'), ('support', 'dn'))):

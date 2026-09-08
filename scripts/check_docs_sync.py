@@ -67,6 +67,7 @@ def main():
     for kw, label in (('120봉', 'ATR 120봉 규격'),
                       ('model_inputs', '모델 입력 기록 규칙'),
                       ('가장 좁은', '존 동점 규칙'),
+                      ('존 0.3σ 하한', '존 하한 규칙'),
                       ('1σ 이상 움직였으면', '라인 이월 유효성 규칙'),
                       # 2026-08-20 감사 산물 — 한쪽만 적혀 있으면 다음 세션이 규칙을 모른다
                       ('line_provenance', '라인 출처 기록 규칙'),
@@ -81,6 +82,9 @@ def main():
     need('line_provenance' in val, 'validate_predictions.py 에 라인 이월 검사가 없다')
     need('MIN_ATR_BARS' in val, 'validate_predictions.py 에 ATR 창 검사가 없다')
     need('MIN_LINE_SIGMA' in val, 'validate_predictions.py 에 라인 0.5σ 하한 검사가 없다')
+    need('MIN_ZONE_SIGMA' in val, 'validate_predictions.py 에 존 0.3σ 하한 검사가 없다')
+    bi = read(os.path.join(ROOT, 'scripts', 'build_items.py'))
+    need('MIN_ZONE_SIGMA' in bi, 'build_items.py 에 존 하한 상수가 없다')
     need('shift_null' in sc, 'score_touch.py 에 일괄이동 귀무모형이 없다')
     need(os.path.exists(os.path.join(ROOT, 'scripts', 'check_report.py')),
          'scripts/check_report.py 가 없다')

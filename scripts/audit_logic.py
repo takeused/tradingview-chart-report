@@ -17,9 +17,12 @@ import json, math, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import touch_model as tm
+import build_items as bi          # 존·라인 하한의 SSOT
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 PRED = os.path.join(ROOT, 'data', 'predictions.json')
+# 존 하한을 넣은 회차 — 그 전 회차는 존에 하한이 없었으므로 검사에서 뺀다
+ZONE_FLOOR_FROM = '2026-09-09'
 
 
 def main():
@@ -91,10 +94,15 @@ def main():
                         need(pr['level'] > it['close'], '%s up 레벨이 종가 아래다' % nm)
                     else:
                         need(pr['level'] < it['close'], '%s dn 레벨이 종가 위다' % nm)
-                # 존·라인 규칙
+                # 존·라인 규칙 — 하한은 build_items 가 진실이다(둘로 적으면 어긋난다)
                 if pr.get('src') == 'line':
-                    need(ds >= 0.5, '%s %s — 라인인데 %.3fσ (0.5σ 하한 위반)' % (nm, dirn, ds))
-                need(ds <= 3.0, '%s %s — %.3fσ (3σ 상한 위반)' % (nm, dirn, ds))
+                    need(ds >= bi.MIN_LINE_SIGMA, '%s %s — 라인인데 %.3fσ (%.1fσ 하한 위반)'
+                         % (nm, dirn, ds, bi.MIN_LINE_SIGMA))
+                if pr.get('src') == 'zone' and date >= ZONE_FLOOR_FROM:
+                    need(ds >= bi.MIN_ZONE_SIGMA, '%s %s — 존인데 %.3fσ (%.1fσ 하한 위반)'
+                         % (nm, dirn, ds, bi.MIN_ZONE_SIGMA))
+                need(ds <= bi.MAX_SIGMA, '%s %s — %.3fσ (%.1fσ 상한 위반)'
+                     % (nm, dirn, ds, bi.MAX_SIGMA))
 
     # ── 5) p_probe 레벨 검산 ───────────────────────────────────────────────
     for it in ent['items']:

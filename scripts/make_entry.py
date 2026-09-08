@@ -14,29 +14,49 @@ import argparse, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import json_io
+import build_items as bi          # 하한·상한은 레벨을 고르는 쪽이 진실이다
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 PRED = os.path.join(ROOT, 'data', 'predictions.json')
 
 
 def why_missing(close, atr, zones, lines, direction):
-    """레벨이 없을 때 그 이유를 문장으로 돌려준다."""
-    near, far = [], []
+    """레벨이 없을 때 그 이유를 문장으로 돌려준다.
+
+    후보 열거는 build_items.pick_level 과 **같은 규칙**이어야 한다 — 여기서만 다르게 세면
+    "왜 없는지"가 거짓말이 된다. 그래서 하한도 그 모듈에서 가져온다.
+    (2026-09-09: 존에도 하한이 생겨 사유가 셋으로 갈린다 — 존 0.3σ · 라인 0.5σ · 3σ 밖.)
+    """
+    near_z, near_l, far = [], [], []
     for hi, lo in zones or []:
-        lvl = lo if direction == 'up' else hi
+        lvl = (hi if direction == 'up' else lo) if lo <= close <= hi else \
+              (lo if direction == 'up' else hi)
         if (direction == 'up' and lvl <= close) or (direction == 'dn' and lvl >= close):
             continue
-        (far if abs(lvl - close) / atr > 3.0 else near).append(lvl)
+        d = abs(lvl - close) / atr
+        if d < bi.MIN_ZONE_SIGMA:
+            near_z.append(lvl)
+        elif d > bi.MAX_SIGMA:
+            far.append(lvl)
     for lv in lines or []:
         if (direction == 'up' and lv <= close) or (direction == 'dn' and lv >= close):
             continue
         d = abs(lv - close) / atr
-        if d < 0.5:
-            near.append(lv)
-        elif d > 3.0:
+        if d < bi.MIN_LINE_SIGMA:
+            near_l.append(lv)
+        elif d > bi.MAX_SIGMA:
             far.append(lv)
-    if near:
-        return '0.5σ 하한 미달(최근접 %s)' % format(int(round(min(near, key=lambda x: abs(x - close)))), ',')
+
+    def fmt(xs):
+        return format(int(round(min(xs, key=lambda x: abs(x - close)))), ',')
+
+    why = []
+    if near_z:
+        why.append('존 %.1fσ 하한 미달(최근접 %s)' % (bi.MIN_ZONE_SIGMA, fmt(near_z)))
+    if near_l:
+        why.append('라인 %.1fσ 하한 미달(최근접 %s)' % (bi.MIN_LINE_SIGMA, fmt(near_l)))
+    if why:
+        return ' · '.join(why)
     if far:
         return '3σ 밖'
     return '후보 없음'

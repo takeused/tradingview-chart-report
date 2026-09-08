@@ -12,14 +12,25 @@ import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import touch_model as tm
 
-SCR = sys.argv[sys.argv.index('--dir') + 1] if '--dir' in sys.argv else '.'
+def _arg(flag, default=None):
+    """argv 에서 플래그 값을 꺼낸다.
+
+    이 모듈은 make_entry.py 가 하한 상수를 가져다 쓰려고 **import** 하기도 한다
+    (2026-09-09). import 시점에 남의 argv 를 파싱하다 IndexError 로 죽지 않게 방어한다.
+    """
+    if flag in sys.argv and sys.argv.index(flag) + 1 < len(sys.argv):
+        return sys.argv[sys.argv.index(flag) + 1]
+    return default
+
+
+SCR = _arg('--dir', '.')
 # 종목은 --names "코드:이름,코드:이름" 으로 받는다. 하드코딩하면 다음 증설 때 또 고쳐야 한다.
-NAMES = (dict(x.split(':') for x in sys.argv[sys.argv.index('--names') + 1].split(','))
-         if '--names' in sys.argv else
+NAMES = (dict(x.split(':') for x in _arg('--names').split(','))
+         if _arg('--names') else
          {'403870': 'HPSP', '214450': '파마리서치', '241710': '코스메카코리아',
           '196170': '알테오젠', '039490': '키움증권', '003230': '삼양식품',
           '002380': 'KCC', '192820': '코스맥스'})
-OPENED = sys.argv[sys.argv.index('--date') + 1] if '--date' in sys.argv else '2026-08-21'
+OPENED = _arg('--date', '2026-08-21')
 SESSIONS = 3          # 기본 지평. 0.5σ 미만 근접 레벨은 2세션으로 줄인다(기존 회차 관행)
 
 
@@ -28,12 +39,29 @@ def load(name):
     return json.load(open(p, encoding='utf-8')) if os.path.exists(p) else None
 
 
+MAX_SIGMA = 3.0        # 존·라인 공통 상한
+MIN_LINE_SIGMA = 0.5   # 라인은 이보다 가까우면 노이즈다
+MIN_ZONE_SIGMA = 0.3   # 존 하한 (2026-09-09 신설) — 아래 주석 참조
+
+
+def _floor(src):
+    return MIN_ZONE_SIGMA if src == 'zone' else MIN_LINE_SIGMA
+
+
 def pick_level(close, atr, zones, lines, direction):
-    """존(3σ 이내)과 라인(0.5σ 이상) 중 **가까운 쪽**을 고른다.
+    """존(0.3~3σ)과 라인(0.5~3σ) 중 **가까운 쪽**을 고른다.
 
     존은 경계를 레벨로 쓴다(위쪽이면 zone low, 아래쪽이면 zone high).
     종가를 품는 존이 여러 개면 가장 좁은 것을 쓴다 — 동점 규칙을 정해 두지 않으면
     회차마다 결과가 달라진다.
+
+    **존 0.3σ 하한은 2026-09-09 회차부터다**(2026-09-08 검토). 그전에는 라인에만 하한이
+    있고 존에는 없어서, 드물게 나오는 0.0xσ 존이 매 회차 1번 관전 포인트를 차지했다
+    (9/7 풍산 0.05σ 88% · 9/8 코스메카 0.01σ 97%). 종가와 100원 떨어진 자리는 맞혀도
+    배울 것이 없다 — 결과의 분산 p(1-p)가 거의 남지 않고 조건부가 기준선과 갈라질 폭도 없다.
+    0.3σ 로 정한 이유는 0.5σ 까지 올리면 존이 출처인 레벨이 22 → 4로 줄어
+    "존 기본 · 라인 보조"라는 이 프로젝트의 분석 규격 자체가 뒤집히기 때문이다
+    (72 종목-일 표본: 하한 0.2σ 는 존 17건 · 0.3σ 는 14건 · 0.5σ 는 4건, 결측은 셋 다 0).
     """
     cands = []
     for hi, lo in zones or []:
@@ -46,7 +74,7 @@ def pick_level(close, atr, zones, lines, direction):
         if direction == 'dn' and lvl >= close:
             continue
         d = abs(lvl - close) / atr
-        if d <= 3.0:
+        if MIN_ZONE_SIGMA <= d <= MAX_SIGMA:
             cands.append((d, lvl, 'zone', hi - lo))
     for lv in lines or []:
         if direction == 'up' and lv <= close:
@@ -54,20 +82,23 @@ def pick_level(close, atr, zones, lines, direction):
         if direction == 'dn' and lv >= close:
             continue
         d = abs(lv - close) / atr
-        if 0.5 <= d <= 3.0:                        # 0.5σ 미만은 노이즈라 쓰지 않는다
+        if MIN_LINE_SIGMA <= d <= MAX_SIGMA:
             cands.append((d, lv, 'line', 0))
-    if not cands:
-        return None
     cands.sort(key=lambda x: (round(x[0], 6), x[3]))
-    d, lvl, src, _ = cands[0]
-    # 레벨은 정수 원으로 맞춘다 — 수정주가에서 온 소수점 레벨(333,076.59)은 호가로
-    # 존재하지 않고, 리포트·원장·채점기가 서로 다른 반올림을 하면 값이 갈린다.
-    lvl = int(round(lvl))          # float 로 두면 표기(7,750)와 값(7750.0)이 갈려 검사기가 잡는다
-    d = abs(lvl - close) / atr
-    n = 0
-    if src == 'line':
-        n = sum(1 for lv in lines if abs(lv - lvl) <= 0.15 * atr)
-    return {'level': lvl, 'dist_sigma': round(d, 3), 'src': src, 'stack': n}
+    for d, lvl, src, _ in cands:
+        # 레벨은 정수 원으로 맞춘다 — 수정주가에서 온 소수점 레벨(333,076.59)은 호가로
+        # 존재하지 않고, 리포트·원장·채점기가 서로 다른 반올림을 하면 값이 갈린다.
+        lvl = int(round(lvl))      # float 로 두면 표기(7,750)와 값(7750.0)이 갈려 검사기가 잡는다
+        d = abs(lvl - close) / atr
+        # 반올림 뒤에 하한 아래로 내려가면 버리고 다음 후보로 간다. 반올림 전 값으로만
+        # 걸러 두면 검사기가 보는 '반올림 뒤 거리'와 어긋나 하한 위반이 통과한다.
+        if d < _floor(src) or d > MAX_SIGMA:
+            continue
+        n = 0
+        if src == 'line':
+            n = sum(1 for lv in lines if abs(lv - lvl) <= 0.15 * atr)
+        return {'level': lvl, 'dist_sigma': round(d, 3), 'src': src, 'stack': n}
+    return None
 
 
 def main():
