@@ -58,6 +58,10 @@ def wrows_of(html):
     return _split(html[i:(j if j > 0 else len(html))])
 
 
+# 존 하한을 넣은 회차 — 그 전 리포트는 이 설명이 없는 것이 맞다
+ZONE_FLOOR_FROM = '2026-09-09'
+
+
 def main():
     asof = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith('-') else None
     d = json.load(open(PRED, encoding='utf-8'))
@@ -94,6 +98,19 @@ def main():
          '드롭다운 selected 가 %s 가 아니다 (%s)' % (asof, sel))
     need(html.count('stock_comparison_report_%s.html' % asof) >= 1,
          '드롭다운에 %s 항목이 없다' % asof)
+
+    # 3-b) 범례가 현행 레벨 규칙을 말하는가 (2026-09-09 존 하한부터)
+    #      코드만 고치고 범례를 두면 발행된 리포트가 규칙을 잘못 설명한다.
+    #      실제로 존 하한을 넣은 날 범례에는 라인 0.5σ 만 적혀 있었다.
+    if asof >= ZONE_FLOOR_FROM:
+        # **범례 블록 안에서** 태그까지 맞춰 찾는다. 문서 전체에서 '0.3σ' 를 찾으면
+        # 본문의 '30.3σ' 같은 부분문자열에 걸려 무엇을 넣어도 통과한다
+        # (0.55 가 0.552% 에 걸렸던 것과 같은 함정이다).
+        i = html.find('id="howto"')
+        j = html.find('</table>', i) if i >= 0 else -1
+        leg = html[i:j] if (i >= 0 and j > 0) else ''
+        need('<b>0.3σ</b>' in leg and '<b>0.5σ</b>' in leg,
+             '범례에 존 0.3σ / 라인 0.5σ 하한 설명이 없다 — 규칙과 서술이 어긋난다')
 
     # 4) 종목별 숫자 대조
     seg = rows_of(html)
