@@ -68,6 +68,7 @@ def main():
                       ('model_inputs', '모델 입력 기록 규칙'),
                       ('가장 좁은', '존 동점 규칙'),
                       ('존 0.3σ 하한', '존 하한 규칙'),
+                      ('존·라인 분리 기록', '존/라인 분리 기록 규칙'),
                       ('1σ 이상 움직였으면', '라인 이월 유효성 규칙'),
                       # 2026-08-20 감사 산물 — 한쪽만 적혀 있으면 다음 세션이 규칙을 모른다
                       ('line_provenance', '라인 출처 기록 규칙'),
@@ -85,6 +86,42 @@ def main():
     need('MIN_ZONE_SIGMA' in val, 'validate_predictions.py 에 존 0.3σ 하한 검사가 없다')
     bi = read(os.path.join(ROOT, 'scripts', 'build_items.py'))
     need('MIN_ZONE_SIGMA' in bi, 'build_items.py 에 존 하한 상수가 없다')
+    # 상수는 **import 해서 실제로 정의됐는지** 본다. 문자열 검색만 하면 주석에만 적혀
+    # 있어도 통과한다 — 주입 시험에서 실제로 그렇게 새어 나갔다(2026-09-09).
+    import importlib
+    for mod, cname in (('build_items', 'SPLIT_LEVELS_FROM'),
+                       ('build_items', 'MIN_ZONE_SIGMA'),
+                       ('build_items', 'MIN_LINE_SIGMA'),
+                       ('validate_predictions', 'SPLIT_LEVELS_FROM'),
+                       ('validate_predictions', 'ZONE_FLOOR_FROM'),
+                       ('check_report', 'SPLIT_LEVELS_FROM')):   # noqa — const 는 문서 본문이다
+        try:
+            m = importlib.import_module(mod)
+        except Exception as ex:                       # noqa: BLE001 — 어떤 예외든 실패다
+            need(False, '%s.py 를 import 할 수 없다 (%s)' % (mod, ex))
+            continue
+        need(hasattr(m, cname), '%s.py 에 %s 상수가 정의돼 있지 않다' % (mod, cname))
+    # 대체 레벨 검사는 **동작으로** 확인한다. 'p_alt' in val 같은 문자열 검사는
+    # 검출력을 보장하지 못한다 — 주입 시험에서 p_alt→p_altX 로 바꿔도 부분문자열이
+    # 남아 통과했다(2026-09-09). 나쁜 항목을 하나 만들어 실제로 걸리는지 본다.
+    try:
+        import validate_predictions as vp
+        probe_entry = {
+            'asof': '2999-01-01', 'items': [{
+                'code': '000000', 'name': '검사용', 'close': 10000, 'atr': 1000,
+                'horizon': '2~3세션', 'sigma': [None, None],
+                'model_inputs': {'volx': 1.0, 'rngatr': 1.0, 'atrpct': 10.0,
+                                 'atr_bars': 200, 'atr_method': 'wilder14'},
+                'p_touch': {}, 'p_probe': {},
+                # 존인데 하한 미달 + 레벨이 종가 반대쪽 — 둘 다 걸려야 한다
+                'p_alt': {'up': {'level': 9000, 'dist_sigma': 0.05, 'src': 'zone',
+                                 'horizon_sessions': 3, 'p': 90.0, 'p_base': 90.0}},
+            }]}
+        perr, _ = vp.check_entry(probe_entry, {'active': []}, strict_ledger=False)
+        need(any('p_alt' in x for x in perr),
+             'validate_predictions.check_entry 가 잘못된 p_alt 를 잡지 못한다')
+    except Exception as ex:                            # noqa: BLE001
+        need(False, 'p_alt 동작 검사를 돌릴 수 없다 (%s)' % ex)
     need('shift_null' in sc, 'score_touch.py 에 일괄이동 귀무모형이 없다')
     need(os.path.exists(os.path.join(ROOT, 'scripts', 'check_report.py')),
          'scripts/check_report.py 가 없다')

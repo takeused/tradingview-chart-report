@@ -103,6 +103,14 @@ def main():
         it['note'] = ('초과 %+.2f%%p(β%.2f) · 배지 %s(%.2fσ) · 거래량 %.2f배 · %s'
                       % (it['excess'], m['beta'], it['badge'], it['badge_sigma'],
                          m['volx'], ' / '.join(lv) if lv else '유효 레벨 없음'))
+        # 대체 레벨(같은 방향의 다른 출처)도 note 에 남긴다 — 원장에 올라간 콜이
+        # 항목 서술에 없으면 리포트만 읽는 사람은 그 콜의 존재를 모른다.
+        alt = [('%s %s(%.2fσ·%s·%s%%)'
+                % ('저항' if d0 == 'up' else '지지', format(p['level'], ','),
+                   p['dist_sigma'], '존' if p['src'] == 'zone' else '라인', p['p']))
+               for d0, p in sorted((it.get('p_alt') or {}).items())]
+        if alt:
+            it['note'] += ' · 대체 — ' + ' / '.join(alt)
         if miss:
             it['note'] += ' · 없는 쪽 — ' + ', '.join(miss)
         it['prob_reason'] = '검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값'
@@ -117,12 +125,17 @@ def main():
                       % a.weekday,
              'items': items}
 
-    want = sum(1 for it in items for k in it['p_touch'])
+    # 원장에는 p_touch(가까운 쪽)와 p_alt(같은 방향 다른 출처)가 **둘 다** 올라간다.
+    # 세는 쪽도 둘 다 세야 한다 — 한쪽만 세면 분리 기록분이 통째로 누락돼도 통과한다.
+    want = sum(1 for it in items for k in it['p_touch']) \
+        + sum(1 for it in items for k in (it.get('p_alt') or {}))
     if want != len(calls):
         raise SystemExit('원장 등록 수 불일치 — 레벨 있는 방향 %d, 등록분 %d' % (want, len(calls)))
 
     if a.dry:
-        print('dry — 항목 %d · 원장 %d건 · 지수 %s' % (len(items), len(calls), entry['index']))
+        n_alt = sum(1 for it in items for k in (it.get('p_alt') or {}))
+        print('dry — 항목 %d · 원장 %d건(가까운 쪽 %d · 대체 %d) · 지수 %s'
+              % (len(items), len(calls), len(calls) - n_alt, n_alt, entry['index']))
         return 0
 
     d['entries'].append(entry)

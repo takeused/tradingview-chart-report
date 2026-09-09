@@ -60,6 +60,9 @@ def wrows_of(html):
 
 # 존 하한을 넣은 회차 — 그 전 리포트는 이 설명이 없는 것이 맞다
 ZONE_FLOOR_FROM = '2026-09-09'
+# 존/라인 분리 기록을 시작한 회차. 규칙을 고치면 범례도 고친다 — 코드는 새 규칙,
+# 발행물은 옛 설명이 되는 것을 2026-09-08 에 실제로 겪었다.
+SPLIT_LEVELS_FROM = '2026-09-10'
 
 
 def main():
@@ -111,6 +114,9 @@ def main():
         leg = html[i:j] if (i >= 0 and j > 0) else ''
         need('<b>0.3σ</b>' in leg and '<b>0.5σ</b>' in leg,
              '범례에 존 0.3σ / 라인 0.5σ 하한 설명이 없다 — 규칙과 서술이 어긋난다')
+        if asof >= SPLIT_LEVELS_FROM:
+            need('<b>대체</b>' in leg,
+                 '범례가 대체 레벨(존/라인 분리 기록)을 설명하지 않는다')
 
     # 4) 종목별 숫자 대조
     seg = rows_of(html)
@@ -133,6 +139,16 @@ def main():
                  '%s — %s %s 가 표에 없다' % (nm, fld, '{:,}'.format(lvl)))
             need('<b>%.2fσ</b>' % blk['dist_sigma'] in g,
                  '%s — %s 거리 %.2fσ 가 표에 없다' % (nm, dirn, blk['dist_sigma']))
+        # 4-a-2) 대체 레벨(p_alt)도 표에 있어야 한다 — 원장에 올라간 콜이기 때문이다.
+        #        빠뜨리면 리포트가 자기가 낸 예측의 절반을 숨긴 채 발행된다.
+        for dirn, blk in sorted((it.get('p_alt') or {}).items()):
+            if blk.get('level') is None:
+                continue
+            need('{:,}'.format(blk['level']) in g,
+                 '%s — 대체 %s 레벨 %s 가 표에 없다'
+                 % (nm, dirn, '{:,}'.format(blk['level'])))
+            need('<b>%.2fσ</b>' % blk['dist_sigma'] in g,
+                 '%s — 대체 %s 거리 %.2fσ 가 표에 없다' % (nm, dirn, blk['dist_sigma']))
 
     # 4-b) 주봉 레벨표 대조 — 주봉 회차가 있으면 같은 숫자를 말해야 한다
     wents = d.get('weekly_entries', [])

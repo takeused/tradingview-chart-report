@@ -43,6 +43,8 @@ MIN_ZONE_SIGMA = 0.3    # 존 하한 — 2026-09-09 회차부터
 # 존 하한을 넣은 회차. 그 전 회차에는 존에 하한이 없었으므로 검사에서 뺀다 —
 # 안 빼면 옛 회차마다 거짓 오류가 나 진짜가 묻힌다(TABLE_V62_FROM 과 같은 처리).
 ZONE_FLOOR_FROM = '2026-09-09'
+# 존/라인 분리 기록을 시작한 회차. 그 전 회차에는 p_alt 가 없는 것이 정상이다.
+SPLIT_LEVELS_FROM = '2026-09-10'
 SIG_TOL = 0.02          # dist_sigma 는 소수 둘째 자리 반올림이라 이 정도는 허용
 
 
@@ -139,6 +141,53 @@ def check_entry(e, ledger, strict_ledger=True):
                     err.append('%s — 존인데 %.2fσ 로 하한 %.1fσ 미만 (동어반복 레벨)'
                                % (nm, ds, MIN_ZONE_SIGMA))
 
+        # 9-b) 대체 레벨(p_alt) — 같은 방향의 다른 출처. 2026-09-10 회차부터.
+        #      p_touch 와 같은 검사를 받되 resist/support·sigma[] 와는 무관하다
+        #      (그 필드는 '가까운 쪽'만 가리킨다).
+        for dirn, blk in sorted((it.get('p_alt') or {}).items()):
+            if tag < SPLIT_LEVELS_FROM:
+                err.append('%s — p_alt 는 %s 회차부터인데 %s 회차에 있다'
+                           % (nm, SPLIT_LEVELS_FROM, tag))
+                break
+            if blk.get('level') is None:
+                err.append('%s — p_alt.%s 에 level 이 없다 (채점 불가)' % (nm, dirn))
+                continue
+            if blk.get('p') is None or blk.get('p_base') is None:
+                err.append('%s — p_alt.%s 에 p/p_base 짝이 없다' % (nm, dirn))
+            if blk.get('horizon_sessions') != h:
+                err.append('%s — p_alt.%s horizon %s != item horizon %s(%d세션)'
+                           % (nm, dirn, blk.get('horizon_sessions'), it.get('horizon'), h))
+            src, ds = blk.get('src'), blk.get('dist_sigma')
+            near = (it.get('p_touch') or {}).get(dirn) or {}
+            if src is None:
+                err.append('%s — p_alt.%s 에 src 없음' % (nm, dirn))
+            elif near.get('src') == src:
+                # 분리 기록의 뜻이 '다른 출처'다. 같으면 같은 자리를 두 번 세는 것이다.
+                err.append('%s — p_alt.%s 출처가 가까운 쪽과 같다(%s) — 중복 등록'
+                           % (nm, dirn, src))
+            if ds is not None and ds > MAX_SIGMA:
+                err.append('%s — p_alt.%s 거리 %.2fσ 가 상한 %.1fσ 초과' % (nm, dirn, ds, MAX_SIGMA))
+            if src == 'line' and ds is not None and ds < MIN_LINE_SIGMA:
+                err.append('%s — p_alt.%s 라인인데 %.2fσ 로 하한 %.1fσ 미만'
+                           % (nm, dirn, ds, MIN_LINE_SIGMA))
+            if src == 'zone' and ds is not None and ds < MIN_ZONE_SIGMA:
+                err.append('%s — p_alt.%s 존인데 %.2fσ 로 하한 %.1fσ 미만'
+                           % (nm, dirn, ds, MIN_ZONE_SIGMA))
+            cl, atr, lvl = it.get('close'), it.get('atr'), blk.get('level')
+            if None not in (lvl, cl, atr, ds) and atr:
+                signed = (lvl - cl) / atr if dirn == 'up' else (cl - lvl) / atr
+                if signed < 0:
+                    err.append('%s — p_alt.%s 레벨 %s 가 종가의 반대쪽에 있다'
+                               % (nm, dirn, '{:,}'.format(lvl)))
+                elif abs(signed - ds) > SIG_TOL:
+                    err.append('%s — p_alt.%s dist_sigma %.2f != (레벨−종가)/ATR %.3f'
+                               % (nm, dirn, ds, signed))
+            if tag >= TABLE_V62_FROM and ds is not None and blk.get('p_base') is not None:
+                exp = tm.base_p(ds, dirn, h)
+                if exp is not None and abs(exp - blk['p_base']) > 0.15:
+                    err.append('%s — p_alt.%s p_base %s != 모듈 계산 %s'
+                               % (nm, dirn, blk['p_base'], exp))
+
         # 5) sigma 와 레벨 필드의 대응
         for i, (fld, dirn) in enumerate((('resist', 'up'), ('support', 'dn'))):
             has_sig = isinstance(sg[i], (int, float))
@@ -205,15 +254,18 @@ def check_entry(e, ledger, strict_ledger=True):
     #    내고 원장에는 주 방향만 넣어도 통과했고, 그 바람에 예측의 절반이 영원히 채점되지
     #    않았다(8/21 회차만 일봉 15건·주봉 15건). 확률을 냈으면 채점해야 한다.
     if strict_ledger:
-        lv = [(it['code'], d) for it in e['items']
-              for d, pr in (it.get('p_touch') or {}).items()
+        # 2026-09-10 부터는 한 방향에 레벨이 둘(가까운 쪽 + 대체)이라 **(코드·방향·레벨)**
+        # 로 센다. (코드·방향)으로 세면 분리 기록분이 통째로 빠져도 통과한다.
+        lv = [(it['code'], d, pr['level']) for it in e['items']
+              for grp in ('p_touch', 'p_alt')
+              for d, pr in (it.get(grp) or {}).items()
               if pr.get('level') is not None]
         reg = [c for c in ledger.get('active', []) if c.get('opened') == e['asof']]
         if len(reg) != len(lv):
-            miss = sorted(set(lv) - {(c.get('code'), c.get('dir')) for c in reg})
-            err.append('%s — 레벨 콜 %d방향인데 원장 등록 %d건 (채점기가 못 본다)%s'
+            miss = sorted(set(lv) - {(c.get('code'), c.get('dir'), c.get('level')) for c in reg})
+            err.append('%s — 레벨 콜 %d건인데 원장 등록 %d건 (채점기가 못 본다)%s'
                        % (tag, len(lv), len(reg),
-                          ' · 누락 ' + ', '.join('%s/%s' % m for m in miss[:6]) if miss else ''))
+                          ' · 누락 ' + ', '.join('%s/%s/%s' % m for m in miss[:6]) if miss else ''))
         by_code = {it['code']: it for it in e['items']}
         for c in reg:
             for k in ('code', 'dir', 'level', 'horizon_sessions', 'p', 'p_base', 'status'):
@@ -224,10 +276,14 @@ def check_entry(e, ledger, strict_ledger=True):
             if it is None:
                 err.append('%s — 원장에 로스터 밖 종목 %s 가 있다' % (tag, c.get('code')))
                 continue
-            blk = (it.get('p_touch') or {}).get(c.get('dir'))
+            # 레벨로 짝을 찾는다 — 같은 방향에 p_touch·p_alt 둘이 있을 수 있다.
+            cands = [b for grp in ('p_touch', 'p_alt')
+                     for d0, b in ((it.get(grp) or {}).items())
+                     if d0 == c.get('dir') and b.get('level') == c.get('level')]
+            blk = cands[0] if cands else None
             if blk is None:
-                err.append('%s — 원장 %s %s 방향에 대응하는 p_touch 가 없다'
-                           % (tag, it.get('name'), c.get('dir')))
+                err.append('%s — 원장 %s %s %s 에 대응하는 항목 레벨이 없다'
+                           % (tag, it.get('name'), c.get('dir'), c.get('level')))
                 continue
             for k in ('level', 'p', 'p_base', 'horizon_sessions'):
                 if c.get(k) != blk.get(k):

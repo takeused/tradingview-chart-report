@@ -43,6 +43,24 @@ MAX_SIGMA = 3.0        # 존·라인 공통 상한
 MIN_LINE_SIGMA = 0.5   # 라인은 이보다 가까우면 노이즈다
 MIN_ZONE_SIGMA = 0.3   # 존 하한 (2026-09-09 신설) — 아래 주석 참조
 
+# 존·라인 분리 기록 (2026-09-10 신설)
+#
+# 왜: 「가까운 쪽 하나」 규칙이 라인 격자에 눌려 **존을 굶기고 있었다.** 2026-09-09 회차
+#   실측 — 방향 72개 중 존 후보가 있는 것이 34개인데 존이 이긴 것은 **4개**뿐이고
+#   나머지 30개는 라인이 덮었다(거리 중앙 라인 0.636σ · 존 1.277σ).
+#   그 결과 ① 2026-09-08 에 못 박은 "존 하한 적용 후 20회차 누적 존 잔차" 발동 조건이
+#   회차당 4건으로는 사실상 실행 불가였고, ② 원장의 거리 분포가 라인 하한(0.5σ)에
+#   달라붙어(오늘 72건 중 48.6%가 0.5~0.6σ) 먼 거리 표본이 사라졌다.
+#
+#   그래서 방향마다 **존 레벨과 라인 레벨을 각각** 기록한다. `p_touch` 는 지금까지처럼
+#   '가까운 쪽'이고(리포트 표·순위·관전 포인트가 그대로 쓴다), `p_alt` 가 같은 방향의
+#   **다른 출처** 레벨이다. 원장에는 둘 다 올라가며 `src`·`slot` 로 구분한다.
+#
+#   이것은 새 신호 주장이 아니라 **표본 구성을 고정하는 변경**이다 — 도달률이 좋아지지
+#   않고 측정할 수 있는 것이 늘어날 뿐이다. 그래서 검정이 아니라 적용일 선언으로 넣는다
+#   (존 하한·v6.2 표와 같은 처리). 이 날짜 앞 회차는 옛 규칙 그대로 채점한다.
+SPLIT_LEVELS_FROM = '2026-09-10'
+
 
 def _floor(src):
     return MIN_ZONE_SIGMA if src == 'zone' else MIN_LINE_SIGMA
@@ -118,23 +136,41 @@ def main():
         mi = {'volx': m['volx'], 'rngatr': m['rngatr'], 'atrpct': m['atrpct'],
               'atr_bars': m['bars'], 'atr_method': 'wilder14'}
 
-        pt = {}
+        pt, palt = {}, {}
         # 지평은 **항목당 하나**다. 방향별로 따로 정하면 위·아래가 0.5σ 를 사이에 두고
         # 갈릴 때 item['horizon'] 과 p_touch 의 세션 수가 어긋난다(2026-08-24 삼양식품).
+        # 대체 레벨(p_alt)도 같은 지평을 쓴다 — 항목당 하나라는 규칙 그대로다.
         near = min([s['dist_sigma'] for s in (up, dn) if s] or [9.9])
         sess = 2 if near < 0.5 else SESSIONS
-        for d, sel in (('up', up), ('dn', dn)):
-            if not sel:
-                continue
+
+        def add(d, sel, slot):
             pr = tm.predict(sel['dist_sigma'], d, mi, sess)
             pr['level'] = sel['level']
             pr['src'] = sel['src']
-            pt[d] = pr
             calls.append({'opened': OPENED, 'code': code, 'name': NAMES[code], 'dir': d,
                           'level': sel['level'], 'dist_sigma': sel['dist_sigma'],
                           'horizon_sessions': sess, 'expiry_after_sessions': sess,
                           'p': pr['p'], 'p_base': pr['p_base'], 'sessions_elapsed': 0,
-                          'status': 'open', 'model_inputs': mi})
+                          'status': 'open', 'src': sel['src'], 'slot': slot,
+                          'model_inputs': mi})
+            return pr
+
+        for d, sel in (('up', up), ('dn', dn)):
+            if not sel:
+                continue
+            pt[d] = add(d, sel, 'near')
+            if OPENED < SPLIT_LEVELS_FROM:
+                continue
+            # 같은 방향의 **다른 출처** 최근접 레벨. 후보를 한쪽만 넘겨 출처를 고정한다.
+            other = 'line' if sel['src'] == 'zone' else 'zone'
+            o = pick_level(close, atr,
+                           zl.get('zones') if other == 'zone' else [],
+                           zl.get('lines') if other == 'line' else [], d)
+            # 존 경계와 스윙 라인이 **같은 값으로 반올림되는** 경우가 있다
+            # (2026-09-09 예행: 삼양식품 아래 1,225,000 · 배럴 아래 3,060).
+            # 그대로 두면 같은 관측을 두 번 세어 원장이 부풀고 채점이 이중 계산된다.
+            if o and o['level'] != sel['level']:
+                palt[d] = add(d, o, 'alt')
 
         probe = {}
         for tag, k in (('0p5', 0.5), ('1p0', 1.0)):
@@ -163,7 +199,7 @@ def main():
               'conf': 'mid',
               'note': '신규 편입. 초과 %+.2f%%p(β%.2f) · 배지 %s(%.2fσ) · 거래량 %.2f배'
                       % (exc, m['beta'], bdg, sig, m['volx']),
-              'model_inputs': mi, 'p_touch': pt, 'p_probe': probe,
+              'model_inputs': mi, 'p_touch': pt, 'p_alt': palt, 'p_probe': probe,
               'excess': exc, 'badge': bdg, 'badge_sigma': sig,
               'clsloc': m['clsloc'], 'volx': m['volx'], 'streak': m['streak'],
               'hi': m['hi'], 'lo': m['lo'], 'vol': m['vol']}

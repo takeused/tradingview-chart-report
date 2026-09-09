@@ -60,7 +60,9 @@ def main():
     for led, label in ((d['open_calls'], '일봉'), (d['weekly_calls'], '주봉')):
         seen = {}
         for c in led['active']:
-            k = (c.get('opened'), c.get('code'), c.get('dir'))
+            # 2026-09-10 부터 한 방향에 레벨이 둘(가까운 쪽·대체)이라 **레벨까지** 키에 넣는다.
+            # 방향까지만 세면 같은 자리를 두 번 등록해도 잡히지 않는다.
+            k = (c.get('opened'), c.get('code'), c.get('dir'), c.get('level'))
             seen[k] = seen.get(k, 0) + 1
         for k, n in seen.items():
             need(n == 1, '%s 원장 중복 콜 %s x%d' % (label, k, n))
@@ -71,7 +73,10 @@ def main():
         for it in items:
             nm = '%s %s' % (label, it.get('name'))
             mi = it.get('model_inputs') or {}
-            for dirn, pr in (it.get('p_touch') or {}).items():
+            # p_alt(대체 레벨)도 같은 검산을 받는다 — 원장에 올라가는 콜이기 때문이다.
+            blocks = [(dd, pr) for dd, pr in (it.get('p_touch') or {}).items()]
+            blocks += [(dd, pr) for dd, pr in (it.get('p_alt') or {}).items()]
+            for dirn, pr in blocks:
                 ds = pr.get('dist_sigma')
                 if ds is None:
                     continue
@@ -136,13 +141,15 @@ def main():
     # ── 7) 항목-원장 1:1 ───────────────────────────────────────────────────
     for items, led, label in ((ent['items'], d['open_calls'], '일봉'),
                               (went['items'] if went else [], d['weekly_calls'], '주봉')):
-        want = {(i['code'], dd) for i in items
-                for dd, pr in (i.get('p_touch') or {}).items() if pr.get('level') is not None}
-        have = {(c['code'], c['dir']) for c in led['active'] if c.get('opened') == date}
+        want = {(i['code'], dd, pr['level']) for i in items
+                for grp in ('p_touch', 'p_alt')
+                for dd, pr in (i.get(grp) or {}).items() if pr.get('level') is not None}
+        have = {(c['code'], c['dir'], c['level']) for c in led['active']
+                if c.get('opened') == date}
         for k in sorted(want - have):
-            need(False, '%s — 항목에 있는데 원장에 없다: %s/%s' % (label, k[0], k[1]))
+            need(False, '%s — 항목에 있는데 원장에 없다: %s/%s/%s' % (label, k[0], k[1], k[2]))
         for k in sorted(have - want):
-            need(False, '%s — 원장에 있는데 항목에 없다: %s/%s' % (label, k[0], k[1]))
+            need(False, '%s — 원장에 있는데 항목에 없다: %s/%s/%s' % (label, k[0], k[1], k[2]))
 
     # ── 8) call 라벨 ───────────────────────────────────────────────────────
     OK = ('up_test', 'down_test', 'no_level')

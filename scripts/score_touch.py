@@ -183,9 +183,11 @@ def close_open_calls(ledger, actuals, session_date,
         'expired': sum(1 for c in closed if c['status'] == 'expired'),
         'brier_conditional': bc,
         'brier_distance_only': bb,
+        # src/slot 을 함께 남긴다 — 존·라인을 나눠 채점하려면 종결 기록에 출처가 있어야
+        # 한다(2026-09-08 에 못 박은 '존 잔차 20회차 누적' 발동 조건이 이 필드를 쓴다).
         'rows': [{k: c.get(k) for k in
                   ('opened', 'code', 'name', 'dir', 'level', 'dist_sigma',
-                   hkey, 'p', 'p_base', 'status')} for c in closed],
+                   hkey, 'p', 'p_base', 'status', 'src', 'slot')} for c in closed],
     }
 
 

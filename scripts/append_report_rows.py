@@ -41,6 +41,15 @@ def daily_row(it):
     tail = ' / '.join(filter(None, [
         '위 %s <b>%.2fσ</b>' % ('존' if up['src'] == 'zone' else '라인', up['dist_sigma']) if up else '',
         '아래 %s <b>%.2fσ</b>' % ('존' if dn['src'] == 'zone' else '라인', dn['dist_sigma']) if dn else '']))
+    # 대체 레벨(같은 방향의 다른 출처) — 2026-09-10 회차부터. 원장에 올라간 콜이므로
+    # 표에도 드러나야 한다. 안 그리면 리포트가 자기가 낸 예측의 절반을 숨긴다.
+    alt = ' / '.join('%s %s %s(<b>%.2fσ</b>·%.1f%%)'
+                     % ('위' if d == 'up' else '아래',
+                        '존' if pr['src'] == 'zone' else '라인',
+                        fmt(pr['level']), pr['dist_sigma'], pr['p'])
+                     for d, pr in sorted((it.get('p_alt') or {}).items()))
+    if alt:
+        tail += '<br>대체 · ' + alt
     return ('      <tr>\n'
             '        <td class="name">%s <span class="code">(%s)</span></td>\n'
             '        <td>%s</td><td class="%s">%+.2f%%<br><span class="rel %s">β조정 초과 %+.2f%%p</span></td>'
