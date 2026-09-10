@@ -75,8 +75,6 @@ def main():
 
     new = json.load(open(os.path.join(a.dir, 'items_new.json'), encoding='utf-8'))
     md = json.load(open(os.path.join(a.dir, 'metrics_daily.json'), encoding='utf-8'))
-    fp = os.path.join(a.dir, 'lines_fresh.json')
-    fresh = set(json.load(open(fp, encoding='utf-8'))) if os.path.exists(fp) else set()
 
     items = new['items'] if isinstance(new, dict) else new
     calls = new.get('open_calls', []) if isinstance(new, dict) else []
@@ -86,7 +84,21 @@ def main():
         m = md[code]
         zl = json.load(open(os.path.join(a.dir, '%s.json' % code), encoding='utf-8'))
         close, atr = float(m['close']), float(m['atr'])
-        it['line_provenance'] = 'fresh' if code in fresh else 'carry'
+
+        # 라인 출처는 **라인을 담은 파일에서** 읽는다(2026-09-10 개정).
+        #
+        # 전에는 스크래치패드에 `lines_fresh.json` 이 있는지로 갈랐는데, 2026-09-04부터
+        # 라인은 매 회차 전 종목 새로 읽으므로 그 파일이 없을 이유가 없다 — 그런데도
+        # 없으면 조용히 36종목 전부 'carry' 가 됐다(2026-09-10 회차에 발생).
+        # **없는 파일이 거짓을 만드는 구조**였으므로, 판정을 수집물 쪽으로 옮기고
+        # 키가 없으면 **멈춘다**. 기본값으로 메우면 같은 거짓말이 되돌아온다.
+        if 'line_src' not in zl:
+            raise SystemExit(
+                '%s.json 에 line_src 가 없다 — 수집물을 scripts/split_graphics.py (전 종목 '
+                '새로 읽은 회차) 또는 scripts/prep_round.py (이월 회차) 로 나눌 것.' % code)
+        if zl['line_src'] not in ('fresh', 'carry'):
+            raise SystemExit('%s.json 의 line_src 값이 이상하다 — %r' % (code, zl['line_src']))
+        it['line_provenance'] = zl['line_src']
 
         miss = []
         for d, key in (('up', 'resist'), ('dn', 'support')):

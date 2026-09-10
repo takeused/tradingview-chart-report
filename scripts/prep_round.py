@@ -56,7 +56,10 @@ def main():
                     dropped.append('%s %s %s' % (p.get('name', code), d, lv))
             carried += 1
 
-        json.dump({'zones': zones.get(code, []), 'lines': sorted(lines)},
+        # 라인 출처를 **라인과 같은 파일에** 적는다(2026-09-10). make_entry.py 가 이 값을
+        # 그대로 읽으므로, 별도 목록 파일을 만들었는지 여부에 판정이 매달리지 않는다.
+        json.dump({'zones': zones.get(code, []), 'lines': sorted(lines),
+                   'line_src': 'fresh' if code in fresh else 'carry'},
                   open(os.path.join(a.dir, '%s.json' % code), 'w', encoding='utf-8'))
 
     json.dump(md, open(os.path.join(a.dir, 'metrics_daily.json'), 'w', encoding='utf-8'),
