@@ -30,7 +30,12 @@ NAMES = (dict(x.split(':') for x in _arg('--names').split(','))
          {'403870': 'HPSP', '214450': '파마리서치', '241710': '코스메카코리아',
           '196170': '알테오젠', '039490': '키움증권', '003230': '삼양식품',
           '002380': 'KCC', '192820': '코스맥스'})
-OPENED = _arg('--date', '2026-08-21')
+# --date 는 **기본값을 주지 않는다** (2026-09-17). 빠뜨리면 조용히 '2026-08-21' 이 되어
+# 원장의 opened 가 과거로 찍히고, SPLIT_LEVELS_FROM 비교가 뒤집혀 대체 레벨(p_alt)이
+# 통째로 사라진다 — 실제로 이날 그렇게 69건만 등록됐다(정상 107건). 기본값이 거짓을
+# 만든 2026-09-10 line_provenance 사고와 같은 종류라 main() 에서 멈춘다.
+# (모듈은 audit_logic.py 가 하한 상수만 쓰려고 import 하기도 하므로 import 시점엔 안 죽는다.)
+OPENED = _arg('--date')
 SESSIONS = 3          # 기본 지평. 0.5σ 미만 근접 레벨은 2세션으로 줄인다(기존 회차 관행)
 
 
@@ -120,6 +125,8 @@ def pick_level(close, atr, zones, lines, direction):
 
 
 def main():
+    if not OPENED:
+        raise SystemExit('--date 를 반드시 준다 — 원장 opened 와 대체 레벨 적용일이 여기서 갈린다')
     md = load('metrics_daily.json')
     mw = load('metrics_weekly.json')
     idx = {'P': md['KOSPI']['chg'], 'Q': md['KOSDAQ']['chg']}
