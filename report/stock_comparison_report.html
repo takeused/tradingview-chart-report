@@ -61,6 +61,17 @@
   .zn b.r{background:rgba(193,53,21,.1);color:var(--down);}
   .zn b.s{background:rgba(10,138,47,.1);color:var(--up);}
   .zn .na{color:var(--muted);font-style:italic;}
+  .rkfilter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 2px;}
+  .rkfilter input[type=search]{padding:8px 16px;border-radius:999px;border:1px solid var(--hairline);
+    background-color:var(--canvas);color:var(--ink);font-size:13px;font-family:inherit;min-width:160px;}
+  .rkfilter input[type=search]:focus{outline:none;border-color:var(--ink);}
+  .rkfilter select{padding:8px 34px 8px 14px;font-size:12.5px;}
+  .rkfilter button{padding:8px 14px;border-radius:999px;border:1px solid var(--hairline);
+    background-color:var(--canvas);color:var(--ink);font-size:12.5px;font-weight:600;
+    font-family:inherit;cursor:pointer;}
+  .rkfilter button:hover{border-color:var(--ink);}
+  .rkcount{font-size:12px;color:var(--muted);margin-left:2px;}
+  table.score thead th{cursor:pointer;user-select:none;}
   .zn .inzone{color:var(--rausch);font-size:11px;}
   .zn .ln{display:inline-block;margin-top:4px;padding-top:4px;border-top:1px dashed var(--hairline);font-size:11px;color:var(--muted);white-space:normal;max-width:180px;}
   .zn .ln em{font-style:normal;font-weight:700;color:var(--muted);margin-right:4px;}
@@ -477,50 +488,62 @@
     <p style="margin:0 0 8px;font-size:13px;"><b>1. 가온전선 (000500)</b> — 종가 327,000 · <b class="up">+25.53%</b> · β조정 초과 <b class="up">+22.85%p</b>(강세 +3.17σ) · 거래량 5.30배 · <b>합산 95.6점</b><br><span class="vr">위 352,778(라인 1.09σ · 47.5%) · 아래 283,500(라인 1.84σ · 15.1%)</span> 세 항목이 <b>모두 채워진</b> 점수입니다.</p>
     <p style="margin:0 0 8px;font-size:13px;"><b>2. SK하이닉스 (000660)</b> — 종가 1,857,000 · <b class="up">+6.42%</b> · β조정 초과 <b class="up">+2.70%p</b>(중립 +0.46σ) · 거래량 1.42배 · <b>합산 86.7점</b><br><span class="vr">위 1,995,000(라인 1.27σ · 27.5%) · 아래 1,792,000(라인 0.60σ · 52.3%)</span> 세 항목이 <b>모두 채워진</b> 점수입니다.</p>
     <p style="margin:0 0 8px;font-size:13px;"><b>3. 달바글로벌 (483650)</b> — 종가 180,300 · <b class="up">+4.40%</b> · β조정 초과 <b class="up">+3.53%p</b>(강세 +0.50σ) · 거래량 2.27배 · <b>합산 85.6점</b><br><span class="vr">위 189,400(라인 0.72σ · 54.5%) · 아래 173,600(라인 0.53σ · 60.8%)</span> 세 항목이 <b>모두 채워진</b> 점수입니다.</p>
-    <table class="score" style="width:100%;">
+    <div class="rkfilter">
+      <input type="search" id="rk-q" placeholder="종목명 · 코드 검색" aria-label="종목 검색">
+      <select id="rk-mkt"><option value="">시장 전체</option><option value="KOSPI">코스피</option><option value="KOSDAQ">코스닥</option></select>
+      <select id="rk-badge"><option value="">배지 전체</option><option value="강세">강세</option><option value="중립">중립</option><option value="약세">약세</option></select>
+      <select id="rk-vol"><option value="0">거래량 전체</option><option value="1">1배 이상</option><option value="2">2배 이상</option></select>
+      <button type="button" id="rk-reset">초기화</button>
+      <span class="rkcount" id="rk-count"></span>
+    </div>
+    <table class="score" id="rank-table" style="width:100%;">
       <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
         <th>위 여유<br><span class="vr">멀수록 가점</span></th>
         <th>아래 지지<br><span class="vr">참고용 · 점수 미반영</span></th></tr></thead>
       <tbody>
-      <tr><td><b>1</b></td><td class="name">가온전선 <span class="code">(000500)</span></td><td><b>95.6</b></td><td>+3.17σ</td><td>5.30배</td><td>1.09σ</td><td>1.84σ</td></tr>
-      <tr><td><b>2</b></td><td class="name">SK하이닉스 <span class="code">(000660)</span></td><td><b>86.7</b></td><td>+0.46σ</td><td>1.42배</td><td>1.27σ</td><td>0.60σ</td></tr>
-      <tr><td><b>3</b></td><td class="name">달바글로벌 <span class="code">(483650)</span></td><td><b>85.6</b></td><td>+0.50σ</td><td>2.27배</td><td>0.72σ</td><td>0.53σ</td></tr>
-      <tr><td><b>4</b></td><td class="name">SK스퀘어 <span class="code">(402340)</span></td><td><b>79.1</b></td><td>+0.47σ</td><td>1.11배</td><td>0.87σ</td><td>1.05σ</td></tr>
-      <tr><td><b>5</b></td><td class="name">에이피알 <span class="code">(278470)</span></td><td><b>78.3</b></td><td>+0.44σ</td><td>1.09배</td><td>1.12σ</td><td>1.07σ</td></tr>
-      <tr><td><b>6</b></td><td class="name">지엔씨에너지 <span class="code">(119850)</span></td><td><b>75.5</b></td><td>+0.57σ</td><td>2.32배</td><td>0.53σ</td><td>0.45σ</td></tr>
-      <tr><td><b>7</b></td><td class="name">케이아이엔엑스 <span class="code">(093320)</span></td><td><b>66.3</b></td><td>+0.30σ</td><td>1.14배</td><td>0.61σ</td><td>0.71σ</td></tr>
-      <tr><td><b>8</b></td><td class="name">SK텔레콤 <span class="code">(017670)</span></td><td><b>65.0</b></td><td>+0.07σ</td><td>1.73배</td><td>0.56σ</td><td>0.51σ</td></tr>
-      <tr><td><b>9</b></td><td class="name">삼성전자 <span class="code">(005930)</span></td><td><b>64.8</b></td><td>+0.02σ</td><td>0.98배</td><td>1.20σ</td><td>1.16σ</td></tr>
-      <tr><td><b>10</b></td><td class="name">HPSP <span class="code">(403870)</span></td><td><b>58.5</b></td><td>+0.12σ</td><td>0.48배</td><td>1.07σ</td><td>0.58σ</td></tr>
-      <tr><td><b>11</b></td><td class="name">재영솔루텍 <span class="code">(049630)</span></td><td><b>56.5</b></td><td>+0.09σ</td><td>0.69배</td><td>0.69σ</td><td>0.58σ</td></tr>
-      <tr><td><b>12</b></td><td class="name">넥스틴 <span class="code">(348210)</span></td><td><b>51.9</b></td><td>+0.47σ</td><td>0.59배</td><td>0.55σ</td><td>0.72σ</td></tr>
-      <tr><td><b>13</b></td><td class="name">KCC <span class="code">(002380)</span></td><td><b>49.9</b></td><td>-0.21σ</td><td>1.29배</td><td>0.68σ</td><td>0.55σ</td></tr>
-      <tr><td><b>14</b></td><td class="name">클래시스 <span class="code">(214150)</span></td><td><b>47.9</b></td><td>-0.19σ</td><td>1.30배</td><td>0.60σ</td><td>0.64σ</td></tr>
-      <tr><td><b>15</b></td><td class="name">에스티팜 <span class="code">(237690)</span></td><td><b>46.9</b></td><td>+0.06σ</td><td>0.98배</td><td>0.52σ</td><td>0.52σ</td></tr>
-      <tr><td><b>16</b></td><td class="name">파마리서치 <span class="code">(214450)</span></td><td><b>46.6</b></td><td>-0.16σ</td><td>0.82배</td><td>0.82σ</td><td>0.33σ</td></tr>
-      <tr><td><b>17</b></td><td class="name">코스맥스 <span class="code">(192820)</span></td><td><b>46.0</b></td><td>-0.10σ</td><td>0.58배</td><td>0.89σ</td><td>0.51σ</td></tr>
-      <tr><td><b>18</b></td><td class="name">웨이비스 <span class="code">(289930)</span></td><td><b>44.1</b></td><td>-0.11σ</td><td>0.94배</td><td>0.63σ</td><td>0.57σ</td></tr>
-      <tr><td><b>19</b></td><td class="name">풍산 <span class="code">(103140)</span></td><td><b>43.7</b></td><td>-0.02σ</td><td>0.69배</td><td>0.67σ</td><td>0.53σ</td></tr>
-      <tr><td><b>20</b></td><td class="name">삼성에스디에스 <span class="code">(018260)</span></td><td><b>43.3</b></td><td>-0.06σ</td><td>1.05배</td><td>0.52σ</td><td>0.57σ</td></tr>
-      <tr><td><b>21</b></td><td class="name">삼양식품 <span class="code">(003230)</span></td><td><b>43.2</b></td><td>+0.03σ</td><td>0.94배</td><td>0.51σ</td><td>0.53σ</td></tr>
-      <tr><td><b>22</b></td><td class="name">휴메딕스 <span class="code">(200670)</span></td><td><b>41.6</b></td><td>-0.37σ</td><td>6.27배</td><td>0.51σ</td><td>0.51σ</td></tr>
-      <tr><td><b>23</b></td><td class="name">OCI <span class="code">(456040)</span></td><td><b>41.1</b></td><td>-0.25σ</td><td>0.80배</td><td>0.82σ</td><td>0.76σ</td></tr>
-      <tr><td><b>24</b></td><td class="name">코스메카코리아 <span class="code">(241710)</span></td><td><b>39.9</b></td><td>+0.01σ</td><td>0.31배</td><td>0.68σ</td><td>1.95σ</td></tr>
-      <tr><td><b>25</b></td><td class="name">HD현대 <span class="code">(267250)</span></td><td><b>39.5</b></td><td>-1.18σ</td><td>2.88배</td><td>0.68σ</td><td>0.63σ</td></tr>
-      <tr><td><b>26</b></td><td class="name">현대코퍼레이션 <span class="code">(011760)</span></td><td><b>39.2</b></td><td>-0.71σ</td><td>12.77배</td><td>0.55σ</td><td>0.55σ</td></tr>
-      <tr><td><b>27</b></td><td class="name">삼성중공업 <span class="code">(010140)</span></td><td><b>37.7</b></td><td>-1.01σ</td><td>1.19배</td><td>0.69σ</td><td>0.59σ</td></tr>
-      <tr><td><b>28</b></td><td class="name">NAVER <span class="code">(035420)</span></td><td><b>36.9</b></td><td>-0.55σ</td><td>1.87배</td><td>0.53σ</td><td>0.64σ</td></tr>
-      <tr><td><b>29</b></td><td class="name">하이브 <span class="code">(352820)</span></td><td><b>35.9</b></td><td>-0.25σ</td><td>0.88배</td><td>0.64σ</td><td>0.52σ</td></tr>
-      <tr><td><b>30</b></td><td class="name">에코프로 <span class="code">(086520)</span></td><td><b>35.3</b></td><td>-0.38σ</td><td>0.78배</td><td>0.81σ</td><td>1.13σ</td></tr>
-      <tr><td><b>31</b></td><td class="name">배럴 <span class="code">(267790)</span></td><td><b>34.9</b></td><td>-0.71σ</td><td>0.79배</td><td>1.13σ</td><td>0.61σ</td></tr>
-      <tr><td><b>32</b></td><td class="name">남해화학 <span class="code">(025860)</span></td><td><b>34.1</b></td><td>+0.06σ</td><td>0.49배</td><td>0.51σ</td><td>0.64σ</td></tr>
-      <tr><td><b>33</b></td><td class="name">알테오젠 <span class="code">(196170)</span></td><td><b>26.5</b></td><td>-0.13σ</td><td>0.36배</td><td>0.54σ</td><td>0.69σ</td></tr>
-      <tr><td><b>34</b></td><td class="name">현대모비스 <span class="code">(012330)</span></td><td><b>25.1</b></td><td>-0.50σ</td><td>1.05배</td><td>0.42σ</td><td>0.36σ</td></tr>
-      <tr><td><b>35</b></td><td class="name">KB금융 <span class="code">(105560)</span></td><td><b>23.8</b></td><td>-1.03σ</td><td>0.99배</td><td>0.56σ</td><td>0.62σ</td></tr>
-      <tr><td><b>36</b></td><td class="name">키움증권 <span class="code">(039490)</span></td><td><b>22.0</b></td><td>-0.59σ</td><td>0.67배</td><td>0.62σ</td><td>1.41σ</td></tr>
+      <tr data-market="KOSPI" data-badge="강세" data-q="가온전선 000500"><td><b>1</b></td><td class="name">가온전선 <span class="code">(000500)</span></td><td><b>95.6</b></td><td>+3.17σ</td><td>5.30배</td><td>1.09σ</td><td>1.84σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="SK하이닉스 000660"><td><b>2</b></td><td class="name">SK하이닉스 <span class="code">(000660)</span></td><td><b>86.7</b></td><td>+0.46σ</td><td>1.42배</td><td>1.27σ</td><td>0.60σ</td></tr>
+      <tr data-market="KOSPI" data-badge="강세" data-q="달바글로벌 483650"><td><b>3</b></td><td class="name">달바글로벌 <span class="code">(483650)</span></td><td><b>85.6</b></td><td>+0.50σ</td><td>2.27배</td><td>0.72σ</td><td>0.53σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="SK스퀘어 402340"><td><b>4</b></td><td class="name">SK스퀘어 <span class="code">(402340)</span></td><td><b>79.1</b></td><td>+0.47σ</td><td>1.11배</td><td>0.87σ</td><td>1.05σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="에이피알 278470"><td><b>5</b></td><td class="name">에이피알 <span class="code">(278470)</span></td><td><b>78.3</b></td><td>+0.44σ</td><td>1.09배</td><td>1.12σ</td><td>1.07σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="강세" data-q="지엔씨에너지 119850"><td><b>6</b></td><td class="name">지엔씨에너지 <span class="code">(119850)</span></td><td><b>75.5</b></td><td>+0.57σ</td><td>2.32배</td><td>0.53σ</td><td>0.45σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="케이아이엔엑스 093320"><td><b>7</b></td><td class="name">케이아이엔엑스 <span class="code">(093320)</span></td><td><b>66.3</b></td><td>+0.30σ</td><td>1.14배</td><td>0.61σ</td><td>0.71σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="SK텔레콤 017670"><td><b>8</b></td><td class="name">SK텔레콤 <span class="code">(017670)</span></td><td><b>65.0</b></td><td>+0.07σ</td><td>1.73배</td><td>0.56σ</td><td>0.51σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="삼성전자 005930"><td><b>9</b></td><td class="name">삼성전자 <span class="code">(005930)</span></td><td><b>64.8</b></td><td>+0.02σ</td><td>0.98배</td><td>1.20σ</td><td>1.16σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="HPSP 403870"><td><b>10</b></td><td class="name">HPSP <span class="code">(403870)</span></td><td><b>58.5</b></td><td>+0.12σ</td><td>0.48배</td><td>1.07σ</td><td>0.58σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="재영솔루텍 049630"><td><b>11</b></td><td class="name">재영솔루텍 <span class="code">(049630)</span></td><td><b>56.5</b></td><td>+0.09σ</td><td>0.69배</td><td>0.69σ</td><td>0.58σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="넥스틴 348210"><td><b>12</b></td><td class="name">넥스틴 <span class="code">(348210)</span></td><td><b>51.9</b></td><td>+0.47σ</td><td>0.59배</td><td>0.55σ</td><td>0.72σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="KCC 002380"><td><b>13</b></td><td class="name">KCC <span class="code">(002380)</span></td><td><b>49.9</b></td><td>-0.21σ</td><td>1.29배</td><td>0.68σ</td><td>0.55σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="클래시스 214150"><td><b>14</b></td><td class="name">클래시스 <span class="code">(214150)</span></td><td><b>47.9</b></td><td>-0.19σ</td><td>1.30배</td><td>0.60σ</td><td>0.64σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="에스티팜 237690"><td><b>15</b></td><td class="name">에스티팜 <span class="code">(237690)</span></td><td><b>46.9</b></td><td>+0.06σ</td><td>0.98배</td><td>0.52σ</td><td>0.52σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="파마리서치 214450"><td><b>16</b></td><td class="name">파마리서치 <span class="code">(214450)</span></td><td><b>46.6</b></td><td>-0.16σ</td><td>0.82배</td><td>0.82σ</td><td>0.33σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="코스맥스 192820"><td><b>17</b></td><td class="name">코스맥스 <span class="code">(192820)</span></td><td><b>46.0</b></td><td>-0.10σ</td><td>0.58배</td><td>0.89σ</td><td>0.51σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="웨이비스 289930"><td><b>18</b></td><td class="name">웨이비스 <span class="code">(289930)</span></td><td><b>44.1</b></td><td>-0.11σ</td><td>0.94배</td><td>0.63σ</td><td>0.57σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="풍산 103140"><td><b>19</b></td><td class="name">풍산 <span class="code">(103140)</span></td><td><b>43.7</b></td><td>-0.02σ</td><td>0.69배</td><td>0.67σ</td><td>0.53σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="삼성에스디에스 018260"><td><b>20</b></td><td class="name">삼성에스디에스 <span class="code">(018260)</span></td><td><b>43.3</b></td><td>-0.06σ</td><td>1.05배</td><td>0.52σ</td><td>0.57σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="삼양식품 003230"><td><b>21</b></td><td class="name">삼양식품 <span class="code">(003230)</span></td><td><b>43.2</b></td><td>+0.03σ</td><td>0.94배</td><td>0.51σ</td><td>0.53σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="휴메딕스 200670"><td><b>22</b></td><td class="name">휴메딕스 <span class="code">(200670)</span></td><td><b>41.6</b></td><td>-0.37σ</td><td>6.27배</td><td>0.51σ</td><td>0.51σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="OCI 456040"><td><b>23</b></td><td class="name">OCI <span class="code">(456040)</span></td><td><b>41.1</b></td><td>-0.25σ</td><td>0.80배</td><td>0.82σ</td><td>0.76σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="코스메카코리아 241710"><td><b>24</b></td><td class="name">코스메카코리아 <span class="code">(241710)</span></td><td><b>39.9</b></td><td>+0.01σ</td><td>0.31배</td><td>0.68σ</td><td>1.95σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="HD현대 267250"><td><b>25</b></td><td class="name">HD현대 <span class="code">(267250)</span></td><td><b>39.5</b></td><td>-1.18σ</td><td>2.88배</td><td>0.68σ</td><td>0.63σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="현대코퍼레이션 011760"><td><b>26</b></td><td class="name">현대코퍼레이션 <span class="code">(011760)</span></td><td><b>39.2</b></td><td>-0.71σ</td><td>12.77배</td><td>0.55σ</td><td>0.55σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="삼성중공업 010140"><td><b>27</b></td><td class="name">삼성중공업 <span class="code">(010140)</span></td><td><b>37.7</b></td><td>-1.01σ</td><td>1.19배</td><td>0.69σ</td><td>0.59σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="NAVER 035420"><td><b>28</b></td><td class="name">NAVER <span class="code">(035420)</span></td><td><b>36.9</b></td><td>-0.55σ</td><td>1.87배</td><td>0.53σ</td><td>0.64σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="하이브 352820"><td><b>29</b></td><td class="name">하이브 <span class="code">(352820)</span></td><td><b>35.9</b></td><td>-0.25σ</td><td>0.88배</td><td>0.64σ</td><td>0.52σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="에코프로 086520"><td><b>30</b></td><td class="name">에코프로 <span class="code">(086520)</span></td><td><b>35.3</b></td><td>-0.38σ</td><td>0.78배</td><td>0.81σ</td><td>1.13σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="약세" data-q="배럴 267790"><td><b>31</b></td><td class="name">배럴 <span class="code">(267790)</span></td><td><b>34.9</b></td><td>-0.71σ</td><td>0.79배</td><td>1.13σ</td><td>0.61σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="남해화학 025860"><td><b>32</b></td><td class="name">남해화학 <span class="code">(025860)</span></td><td><b>34.1</b></td><td>+0.06σ</td><td>0.49배</td><td>0.51σ</td><td>0.64σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="알테오젠 196170"><td><b>33</b></td><td class="name">알테오젠 <span class="code">(196170)</span></td><td><b>26.5</b></td><td>-0.13σ</td><td>0.36배</td><td>0.54σ</td><td>0.69σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="현대모비스 012330"><td><b>34</b></td><td class="name">현대모비스 <span class="code">(012330)</span></td><td><b>25.1</b></td><td>-0.50σ</td><td>1.05배</td><td>0.42σ</td><td>0.36σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="KB금융 105560"><td><b>35</b></td><td class="name">KB금융 <span class="code">(105560)</span></td><td><b>23.8</b></td><td>-1.03σ</td><td>0.99배</td><td>0.56σ</td><td>0.62σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="키움증권 039490"><td><b>36</b></td><td class="name">키움증권 <span class="code">(039490)</span></td><td><b>22.0</b></td><td>-0.59σ</td><td>0.67배</td><td>0.62σ</td><td>1.41σ</td></tr>
       </tbody>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
+      ※ <b>열 제목을 누르면 그 열로 정렬</b>되고(오름 → 내림 → 원래 순서), 필터를 건 상태에서
+      정렬하면 <b>남은 종목 안에서만</b> 줄을 세웁니다. 맨 왼쪽 <b>#</b> 칸은 정렬·필터와 무관하게
+      <b>합산 점수 기준 원래 순위</b>를 그대로 답니다 — 골라 본 뒤에도 전체에서 몇 등인지 알아야
+      하기 때문입니다.<br>
       ※ 상위 3종목은 <b>10.0점</b>, 4~7위는 <b>12.8점</b> 안에 몰려 있어 <b>서열이 아니라
       "상위 그룹"</b>으로만 읽어야 합니다. 「아래 지지 근접」 항목은 <b>2026-08-22에
       제거</b>했습니다 — 단기반전이 우리 검정에서 −0.79~−0.98%/월(t −2.1~−2.3)로 음수였고,
@@ -1052,6 +1075,8 @@ function cellNum(s){
   else if(/^\s*[Kk]/.test(rest)) n*=1e3;
   return n;
 }
+// 필터로 숨긴 행은 정렬해도 숨은 채로 둔다 — 정렬이 필터를 조용히 풀면 안 된다.
+function vis(r){ return r.getAttribute('data-filtered')==='0' ? 'none' : ''; }
 function sortTable(table, col){
   var tbody=table.querySelector('tbody');
   var allRows=[].slice.call(tbody.querySelectorAll('tr'));
@@ -1064,7 +1089,7 @@ function sortTable(table, col){
   if(dir==='none'){
     table.setAttribute('data-sortcol',''); table.setAttribute('data-sortdir','');
     allRows.sort(function(a,b){return (+a.getAttribute('data-ord'))-(+b.getAttribute('data-ord'));});
-    allRows.forEach(function(r){r.style.display=''; tbody.appendChild(r);});
+    allRows.forEach(function(r){r.style.display=vis(r); tbody.appendChild(r);});
     return;
   }
   table.setAttribute('data-sortcol',String(col)); table.setAttribute('data-sortdir',dir);
@@ -1072,22 +1097,31 @@ function sortTable(table, col){
   allRows.filter(function(r){return r.classList.contains('sector');}).forEach(function(r){r.style.display='none';});
   var mul=dir==='asc'?1:-1;
   var isDir=stock.length&&/강세|중립|약세|상승|하락|혼조/.test(stock[0].children[col].textContent);
-  var isNum=!isDir&&stock.every(function(r){var s=r.children[col].textContent;return /\d/.test(s)&&s.replace(/[\d.,\s~%+\/\-만억조MKmk배지수比pσ주연속상하락]/g,'')==='';});
+  // '없음'(유효 레벨 없음) 칸이 섞여 있어도 숫자 열로 본다 — 없는 값은 늘 맨 뒤로 보낸다.
+  var numOK=function(s){return /\d/.test(s)&&s.replace(/[\d.,\s~%+\/\-만억조MKmk배지수比pσ주연속상하락]/g,'')==='';};
+  var vals=stock.map(function(r){return r.children[col].textContent;});
+  var isNum=!isDir&&vals.some(numOK)&&vals.every(function(s){return numOK(s)||/없음/.test(s);});
   function rank(s){return (s.indexOf('강세')>-1||s.indexOf('상승')>-1)?0:((s.indexOf('중립')>-1||s.indexOf('혼조')>-1)?1:2);}
   stock.sort(function(a,b){
     var ta=a.children[col].textContent, tb=b.children[col].textContent, cmp;
     if(isDir) cmp=rank(ta)-rank(tb);
-    else if(isNum) cmp=cellNum(ta)-cellNum(tb);
+    else if(isNum){
+      var na=cellNum(ta), nb=cellNum(tb);
+      if(na===null&&nb===null) return 0;
+      if(na===null) return 1;          // 결측은 방향과 무관하게 맨 뒤
+      if(nb===null) return -1;
+      cmp=na-nb;
+    }
     else cmp=ta.localeCompare(tb,'ko');
     return cmp*mul;
   });
-  stock.forEach(function(r){r.style.display=''; tbody.appendChild(r);});
+  stock.forEach(function(r){r.style.display=vis(r); tbody.appendChild(r);});
   var th=table.querySelectorAll('thead tr:first-child th')[col];
   var ind=th && th.querySelector('.sort-ind');
   if(ind) ind.textContent = dir==='asc'?' ▲':' ▼';
 }
 function initSort(){
-  document.querySelectorAll('table:not(.score)').forEach(function(table){
+  document.querySelectorAll('table:not(.score), table#rank-table').forEach(function(table){
     var tbody=table.querySelector('tbody'); if(!tbody) return;
     [].slice.call(tbody.querySelectorAll('tr')).forEach(function(tr,i){tr.setAttribute('data-ord',i);});
     table.querySelectorAll('thead tr:first-child th').forEach(function(th,i){
@@ -1097,6 +1131,37 @@ function initSort(){
   });
 }
 initSort();
+
+function initRankFilter(){
+  var t=document.getElementById('rank-table'); if(!t) return;
+  var q=document.getElementById('rk-q'), mkt=document.getElementById('rk-mkt'),
+      bdg=document.getElementById('rk-badge'), vol=document.getElementById('rk-vol'),
+      rst=document.getElementById('rk-reset'), cnt=document.getElementById('rk-count');
+  if(!q||!mkt||!bdg||!vol) return;
+  var rows=[].slice.call(t.querySelectorAll('tbody tr'));
+  function apply(){
+    var s=q.value.trim().toLowerCase(), m=mkt.value, b=bdg.value, v=parseFloat(vol.value)||0, n=0;
+    rows.forEach(function(r){
+      var ok = (!s || (r.getAttribute('data-q')||'').toLowerCase().indexOf(s)>-1)
+            && (!m || r.getAttribute('data-market')===m)
+            && (!b || r.getAttribute('data-badge')===b)
+            && (!v || (cellNum(r.children[4].textContent)||0) >= v);
+      r.setAttribute('data-filtered', ok?'1':'0');
+      r.style.display = ok?'':'none';
+      if(ok) n++;
+    });
+    cnt.textContent = n===rows.length ? (rows.length+'종목 전체') : (n+' / '+rows.length+'종목');
+  }
+  [q,mkt,bdg,vol].forEach(function(el){
+    el.addEventListener('input', apply); el.addEventListener('change', apply);
+  });
+  if(rst) rst.addEventListener('click', function(){
+    q.value=''; mkt.value=''; bdg.value=''; vol.value='0'; apply();
+  });
+  apply();
+}
+initRankFilter();
+
 </script>
 </body>
 </html>

@@ -129,10 +129,15 @@ def rank_block(items, rows, date):
 
     body = []
     for k, r in enumerate(rows, 1):
+        # 필터는 표에 안 보이는 값(시장·배지)으로도 걸린다 — 그래서 행에 함께 박는다.
+        # 화면에 없는 기준으로 거를 수 있어야 「코스닥 강세만」 같은 질문에 답이 된다.
+        it = by[r['code']]
         body.append(
-            '      <tr><td><b>%d</b></td><td class="name">%s <span class="code">(%s)</span></td>'
+            '      <tr data-market="%s" data-badge="%s" data-q="%s %s">'
+            '<td><b>%d</b></td><td class="name">%s <span class="code">(%s)</span></td>'
             '<td><b>%.1f</b></td><td>%+.2fσ</td><td>%.2f배</td><td>%s</td><td>%s</td></tr>'
-            % (k, r['name'], r['code'], r['score'], r['sig'], r['volx'],
+            % (it['market'], it['badge'], r['name'], r['code'],
+               k, r['name'], r['code'], r['score'], r['sig'], r['volx'],
                sg(r['room_up']), sg(r['near_dn'])))
 
     tops = []
@@ -173,7 +178,15 @@ def rank_block(items, rows, date):
       환산해 합산합니다. <b>레벨이 없으면 그 항목은 결측으로 빼고 남은 가중치로 재정규화</b>합니다 —
       없는 것은 "여유가 최대"가 아니라 <b>정보가 없는</b> 것입니다.</p>
 %s
-    <table class="score" style="width:100%%;">
+    <div class="rkfilter">
+      <input type="search" id="rk-q" placeholder="종목명 · 코드 검색" aria-label="종목 검색">
+      <select id="rk-mkt"><option value="">시장 전체</option><option value="KOSPI">코스피</option><option value="KOSDAQ">코스닥</option></select>
+      <select id="rk-badge"><option value="">배지 전체</option><option value="강세">강세</option><option value="중립">중립</option><option value="약세">약세</option></select>
+      <select id="rk-vol"><option value="0">거래량 전체</option><option value="1">1배 이상</option><option value="2">2배 이상</option></select>
+      <button type="button" id="rk-reset">초기화</button>
+      <span class="rkcount" id="rk-count"></span>
+    </div>
+    <table class="score" id="rank-table" style="width:100%%;">
       <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
         <th>위 여유<br><span class="vr">멀수록 가점</span></th>
         <th>아래 지지<br><span class="vr">참고용 · 점수 미반영</span></th></tr></thead>
@@ -182,6 +195,10 @@ def rank_block(items, rows, date):
       </tbody>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
+      ※ <b>열 제목을 누르면 그 열로 정렬</b>되고(오름 → 내림 → 원래 순서), 필터를 건 상태에서
+      정렬하면 <b>남은 종목 안에서만</b> 줄을 세웁니다. 맨 왼쪽 <b>#</b> 칸은 정렬·필터와 무관하게
+      <b>합산 점수 기준 원래 순위</b>를 그대로 답니다 — 골라 본 뒤에도 전체에서 몇 등인지 알아야
+      하기 때문입니다.<br>
       ※ 상위 3종목은 <b>%.1f점</b>, 4~7위는 <b>%.1f점</b> 안에 몰려 있어 <b>서열이 아니라
       "상위 그룹"</b>으로만 읽어야 합니다. 「아래 지지 근접」 항목은 <b>2026-08-22에
       제거</b>했습니다 — 단기반전이 우리 검정에서 −0.79~−0.98%%/월(t −2.1~−2.3)로 음수였고,
