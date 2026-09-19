@@ -66,19 +66,22 @@ def daily_row(it):
 
 
 def weekly_desc_row(w):
+    # 모멘텀 칸에 data-sort(12주)를 박는다 — 이 칸은 '4주 …'로 시작해서 정렬기가
+    # 전 행을 같은 값(4)으로 읽었고, 그래서 눌러도 순서가 바뀌지 않았다.
+    # 보이는 글자가 값이 아닌 칸은 표가 정렬 키를 직접 줘야 한다.
     tr = '상승' if w['wstreak'] > 0 else '하락'
     return ('      <tr>\n'
             '        <td class="name">%s <span class="code">(%s)</span></td>\n'
             '        <td>%s</td><td class="%s">%+.2f%%</td>\n'
             '        <td><span class="badge %s">%s</span><br><span class="vr">%d주 연속 %s</span></td>\n'
             '        <td class="%s">%d%%<br><span class="vr">12주 range</span></td>\n'
-            '        <td><span class="%s">4주 %+.1f%%</span><br><span class="%s">12주 %+.1f%%</span></td>\n'
+            '        <td data-sort="%.1f"><span class="%s">4주 %+.1f%%</span><br><span class="%s">12주 %+.1f%%</span></td>\n'
             '        <td>%.1f%%</td>\n'
             '      </tr>\n'
             % (w['name'], w['code'], fmt(w['close']), cls(w['wchg']), w['wchg'],
                cls(w['wstreak']), tr, abs(w['wstreak']), tr,
                cls(w['pos12'] - 50), w['pos12'],
-               cls(w['m4']), w['m4'], cls(w['m12']), w['m12'], w['watrpct']))
+               w['m12'], cls(w['m4']), w['m4'], cls(w['m12']), w['m12'], w['watrpct']))
 
 
 def weekly_level_row(w):

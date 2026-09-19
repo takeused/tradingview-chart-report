@@ -565,7 +565,7 @@
     <thead>
       <tr>
         <th>종목</th><th>주간 종가</th><th>주간 등락</th><th>추세(연속주)</th>
-        <th>12주 위치 / range</th><th>모멘텀(4주·12주)</th><th>주간 ATR%</th>
+        <th>12주 위치 / range</th><th>모멘텀(4주·12주)<br><span class="vr">정렬은 12주 기준</span></th><th>주간 ATR%</th>
       </tr>
     </thead>
     <tbody>
@@ -575,7 +575,7 @@
         <td>261,000</td><td class="up">+0.58%</td>
         <td><span class="badge up">상승</span><br><span class="vr">2주 연속 상승</span></td>
         <td class="down">41%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -7.3%</span><br><span class="down">12주 -23.1%</span></td>
+        <td data-sort="-23.1"><span class="down">4주 -7.3%</span><br><span class="down">12주 -23.1%</span></td>
         <td>13.5%</td>
       </tr>
       <tr>
@@ -583,7 +583,7 @@
         <td>1,857,000</td><td class="up">+2.48%</td>
         <td><span class="badge up">상승</span><br><span class="vr">2주 연속 상승</span></td>
         <td class="down">35%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +7.3%</span><br><span class="down">12주 -30.5%</span></td>
+        <td data-sort="-30.5"><span class="up">4주 +7.3%</span><br><span class="down">12주 -30.5%</span></td>
         <td>16.0%</td>
       </tr>
       <tr>
@@ -591,7 +591,7 @@
         <td>32,650</td><td class="up">+3.49%</td>
         <td><span class="badge up">상승</span><br><span class="vr">2주 연속 상승</span></td>
         <td class="down">27%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -1.2%</span><br><span class="down">12주 -25.5%</span></td>
+        <td data-sort="-25.5"><span class="down">4주 -1.2%</span><br><span class="down">12주 -25.5%</span></td>
         <td>23.1%</td>
       </tr>
       <tr class="sector"><td colspan="7">지주 · 통신</td></tr>
@@ -600,7 +600,7 @@
         <td>1,079,000</td><td class="down">-0.92%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="down">22%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -3.9%</span><br><span class="down">12주 -37.3%</span></td>
+        <td data-sort="-37.3"><span class="down">4주 -3.9%</span><br><span class="down">12주 -37.3%</span></td>
         <td>20.6%</td>
       </tr>
       <tr>
@@ -608,7 +608,7 @@
         <td>89,200</td><td class="down">-1.87%</td>
         <td><span class="badge down">하락</span><br><span class="vr">4주 연속 하락</span></td>
         <td class="down">43%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -12.7%</span><br><span class="down">12주 -1.6%</span></td>
+        <td data-sort="-1.6"><span class="down">4주 -12.7%</span><br><span class="down">12주 -1.6%</span></td>
         <td>13.6%</td>
       </tr>
       <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
@@ -617,7 +617,7 @@
         <td>197,700</td><td class="down">-4.26%</td>
         <td><span class="badge down">하락</span><br><span class="vr">5주 연속 하락</span></td>
         <td class="down">31%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -10.9%</span><br><span class="up">12주 +0.7%</span></td>
+        <td data-sort="0.7"><span class="down">4주 -10.9%</span><br><span class="up">12주 +0.7%</span></td>
         <td>12.9%</td>
       </tr>
       <tr>
@@ -625,7 +625,7 @@
         <td>219,500</td><td class="down">-1.35%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
         <td class="up">59%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -3.7%</span><br><span class="up">12주 +15.6%</span></td>
+        <td data-sort="15.6"><span class="down">4주 -3.7%</span><br><span class="up">12주 +15.6%</span></td>
         <td>14.1%</td>
       </tr>
       <tr>
@@ -633,7 +633,7 @@
         <td>140,000</td><td class="up">+1.16%</td>
         <td><span class="badge up">상승</span><br><span class="vr">2주 연속 상승</span></td>
         <td class="up">62%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -5.0%</span><br><span class="up">12주 +39.2%</span></td>
+        <td data-sort="39.2"><span class="down">4주 -5.0%</span><br><span class="up">12주 +39.2%</span></td>
         <td>11.4%</td>
       </tr>
       <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
@@ -642,7 +642,7 @@
         <td>174,900</td><td class="down">-1.69%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="up">60%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +6.5%</span><br><span class="up">12주 +17.1%</span></td>
+        <td data-sort="17.1"><span class="up">4주 +6.5%</span><br><span class="up">12주 +17.1%</span></td>
         <td>8.0%</td>
       </tr>
       <tr class="sector"><td colspan="7">2차전지 · 화학</td></tr>
@@ -651,7 +651,7 @@
         <td>81,100</td><td class="down">-3.91%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="down">32%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -0.7%</span><br><span class="down">12주 -15.0%</span></td>
+        <td data-sort="-15.0"><span class="down">4주 -0.7%</span><br><span class="down">12주 -15.0%</span></td>
         <td>19.7%</td>
       </tr>
       <tr>
@@ -659,7 +659,7 @@
         <td>75,800</td><td class="down">-5.49%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="down">37%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -5.4%</span><br><span class="down">12주 -7.3%</span></td>
+        <td data-sort="-7.3"><span class="down">4주 -5.4%</span><br><span class="down">12주 -7.3%</span></td>
         <td>16.3%</td>
       </tr>
       <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
@@ -668,7 +668,7 @@
         <td>20,800</td><td class="down">-2.80%</td>
         <td><span class="badge down">하락</span><br><span class="vr">2주 연속 하락</span></td>
         <td class="down">26%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +3.0%</span><br><span class="down">12주 -9.6%</span></td>
+        <td data-sort="-9.6"><span class="up">4주 +3.0%</span><br><span class="down">12주 -9.6%</span></td>
         <td>13.8%</td>
       </tr>
       <tr class="sector"><td colspan="7">엔터테인먼트</td></tr>
@@ -677,7 +677,7 @@
         <td>165,900</td><td class="down">-4.10%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
         <td class="down">10%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -1.2%</span><br><span class="down">12주 -6.7%</span></td>
+        <td data-sort="-6.7"><span class="down">4주 -1.2%</span><br><span class="down">12주 -6.7%</span></td>
         <td>16.2%</td>
       </tr>
       <tr class="sector"><td colspan="7">자동차 부품</td></tr>
@@ -686,7 +686,7 @@
         <td>379,000</td><td class="down">-8.78%</td>
         <td><span class="badge down">하락</span><br><span class="vr">5주 연속 하락</span></td>
         <td class="down">-13%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -23.6%</span><br><span class="down">12주 -22.1%</span></td>
+        <td data-sort="-22.1"><span class="down">4주 -23.6%</span><br><span class="down">12주 -22.1%</span></td>
         <td>18.6%</td>
       </tr>
       <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
@@ -695,7 +695,7 @@
         <td>31,300</td><td class="down">-2.34%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="down">6%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -2.6%</span><br><span class="down">12주 -30.8%</span></td>
+        <td data-sort="-30.8"><span class="down">4주 -2.6%</span><br><span class="down">12주 -30.8%</span></td>
         <td>17.7%</td>
       </tr>
       <tr>
@@ -703,7 +703,7 @@
         <td>367,000</td><td class="down">-1.34%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
         <td class="down">36%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -4.7%</span><br><span class="up">12주 +1.1%</span></td>
+        <td data-sort="1.1"><span class="down">4주 -4.7%</span><br><span class="up">12주 +1.1%</span></td>
         <td>14.5%</td>
       </tr>
       <tr>
@@ -711,7 +711,7 @@
         <td>92,700</td><td class="up">+3.00%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="down">16%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -7.0%</span><br><span class="down">12주 -21.0%</span></td>
+        <td data-sort="-21.0"><span class="down">4주 -7.0%</span><br><span class="down">12주 -21.0%</span></td>
         <td>18.4%</td>
       </tr>
       <tr>
@@ -719,7 +719,7 @@
         <td>24,800</td><td class="down">-4.80%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="down">49%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -1.2%</span><br><span class="down">12주 -2.0%</span></td>
+        <td data-sort="-2.0"><span class="down">4주 -1.2%</span><br><span class="down">12주 -2.0%</span></td>
         <td>12.8%</td>
       </tr>
       <tr>
@@ -727,7 +727,7 @@
         <td>180,300</td><td class="up">+7.58%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="down">13%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -16.7%</span><br><span class="down">12주 -24.1%</span></td>
+        <td data-sort="-24.1"><span class="down">4주 -16.7%</span><br><span class="down">12주 -24.1%</span></td>
         <td>19.5%</td>
       </tr>
       <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
@@ -736,7 +736,7 @@
         <td>7,770</td><td class="up">+11.96%</td>
         <td><span class="badge up">상승</span><br><span class="vr">4주 연속 상승</span></td>
         <td class="down">44%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +22.0%</span><br><span class="down">12주 -4.8%</span></td>
+        <td data-sort="-4.8"><span class="up">4주 +22.0%</span><br><span class="down">12주 -4.8%</span></td>
         <td>24.4%</td>
       </tr>
       <tr class="sector"><td colspan="7">에너지 · 전력설비</td></tr>
@@ -745,7 +745,7 @@
         <td>54,200</td><td class="up">+7.11%</td>
         <td><span class="badge up">상승</span><br><span class="vr">2주 연속 상승</span></td>
         <td class="up">90%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +12.3%</span><br><span class="up">12주 +183.6%</span></td>
+        <td data-sort="183.6"><span class="up">4주 +12.3%</span><br><span class="up">12주 +183.6%</span></td>
         <td>17.2%</td>
       </tr>
       <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
@@ -754,7 +754,7 @@
         <td>3,095</td><td class="down">-5.50%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
         <td class="down">24%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -7.2%</span><br><span class="down">12주 -0.3%</span></td>
+        <td data-sort="-0.3"><span class="down">4주 -7.2%</span><br><span class="down">12주 -0.3%</span></td>
         <td>10.9%</td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-08-22 증설)</td></tr>
@@ -763,7 +763,7 @@
         <td>7,350</td><td class="up">+5.15%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="down">49%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -0.1%</span><br><span class="up">12주 +7.3%</span></td>
+        <td data-sort="7.3"><span class="down">4주 -0.1%</span><br><span class="up">12주 +7.3%</span></td>
         <td>78.1%</td>
       </tr>
       <tr>
@@ -771,7 +771,7 @@
         <td>468,000</td><td class="down">-3.60%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="up">60%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -3.3%</span><br><span class="down">12주 -5.4%</span></td>
+        <td data-sort="-5.4"><span class="down">4주 -3.3%</span><br><span class="down">12주 -5.4%</span></td>
         <td>12.7%</td>
       </tr>
       <tr>
@@ -779,7 +779,7 @@
         <td>1,300,000</td><td class="up">+1.72%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="up">53%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -4.8%</span><br><span class="up">12주 +17.0%</span></td>
+        <td data-sort="17.0"><span class="down">4주 -4.8%</span><br><span class="up">12주 +17.0%</span></td>
         <td>11.7%</td>
       </tr>
       <tr>
@@ -787,7 +787,7 @@
         <td>262,500</td><td class="down">-5.58%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="down">15%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -2.0%</span><br><span class="down">12주 -14.4%</span></td>
+        <td data-sort="-14.4"><span class="down">4주 -2.0%</span><br><span class="down">12주 -14.4%</span></td>
         <td>16.7%</td>
       </tr>
       <tr>
@@ -795,7 +795,7 @@
         <td>273,000</td><td class="up">+0.92%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="up">80%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +0.7%</span><br><span class="up">12주 +88.4%</span></td>
+        <td data-sort="88.4"><span class="up">4주 +0.7%</span><br><span class="up">12주 +88.4%</span></td>
         <td>10.0%</td>
       </tr>
       <tr>
@@ -803,7 +803,7 @@
         <td>253,500</td><td class="down">-5.41%</td>
         <td><span class="badge down">하락</span><br><span class="vr">4주 연속 하락</span></td>
         <td class="down">36%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -20.8%</span><br><span class="down">12주 -4.1%</span></td>
+        <td data-sort="-4.1"><span class="down">4주 -20.8%</span><br><span class="down">12주 -4.1%</span></td>
         <td>16.2%</td>
       </tr>
       <tr>
@@ -811,7 +811,7 @@
         <td>327,500</td><td class="down">-4.24%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
         <td class="down">27%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -18.2%</span><br><span class="up">12주 +1.1%</span></td>
+        <td data-sort="1.1"><span class="down">4주 -18.2%</span><br><span class="up">12주 +1.1%</span></td>
         <td>15.9%</td>
       </tr>
       <tr>
@@ -819,7 +819,7 @@
         <td>131,400</td><td class="up">+4.53%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="up">74%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -4.3%</span><br><span class="up">12주 +98.8%</span></td>
+        <td data-sort="98.8"><span class="down">4주 -4.3%</span><br><span class="up">12주 +98.8%</span></td>
         <td>12.9%</td>
       </tr>
       <tr>
@@ -827,7 +827,7 @@
         <td>53,900</td><td class="up">+1.13%</td>
         <td><span class="badge up">상승</span><br><span class="vr">2주 연속 상승</span></td>
         <td class="up">73%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +20.0%</span><br><span class="up">12주 +2.3%</span></td>
+        <td data-sort="2.3"><span class="up">4주 +20.0%</span><br><span class="up">12주 +2.3%</span></td>
         <td>17.6%</td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-08-27 증설)</td></tr>
@@ -836,7 +836,7 @@
         <td>26,500</td><td class="down">-1.49%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="up">79%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +1.7%</span><br><span class="up">12주 +23.5%</span></td>
+        <td data-sort="23.5"><span class="up">4주 +1.7%</span><br><span class="up">12주 +23.5%</span></td>
         <td>8.2%</td>
       </tr>
       <tr>
@@ -844,7 +844,7 @@
         <td>6,190</td><td class="up">+0.49%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="up">65%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +4.9%</span><br><span class="up">12주 +10.1%</span></td>
+        <td data-sort="10.1"><span class="up">4주 +4.9%</span><br><span class="up">12주 +10.1%</span></td>
         <td>11.9%</td>
       </tr>
       <tr>
@@ -852,7 +852,7 @@
         <td>79,300</td><td class="up">+2.32%</td>
         <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
         <td class="up">67%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +1.9%</span><br><span class="up">12주 +25.5%</span></td>
+        <td data-sort="25.5"><span class="up">4주 +1.9%</span><br><span class="up">12주 +25.5%</span></td>
         <td>13.2%</td>
       </tr>
       <tr>
@@ -860,7 +860,7 @@
         <td>208,000</td><td class="down">-15.96%</td>
         <td><span class="badge down">하락</span><br><span class="vr">1주 연속 하락</span></td>
         <td class="down">36%<br><span class="vr">12주 range</span></td>
-        <td><span class="down">4주 -2.4%</span><br><span class="up">12주 +7.9%</span></td>
+        <td data-sort="7.9"><span class="down">4주 -2.4%</span><br><span class="up">12주 +7.9%</span></td>
         <td>16.0%</td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-08-31 증설)</td></tr>
@@ -869,7 +869,7 @@
         <td>327,000</td><td class="up">+28.74%</td>
         <td><span class="badge up">상승</span><br><span class="vr">4주 연속 상승</span></td>
         <td class="up">100%<br><span class="vr">12주 range</span></td>
-        <td><span class="up">4주 +106.7%</span><br><span class="up">12주 +78.9%</span></td>
+        <td data-sort="78.9"><span class="up">4주 +106.7%</span><br><span class="up">12주 +78.9%</span></td>
         <td>17.3%</td>
       </tr>
     </tbody>
@@ -1096,7 +1096,11 @@ function sortTable(table, col){
   var stock=allRows.filter(function(r){return !r.classList.contains('sector');});
   allRows.filter(function(r){return r.classList.contains('sector');}).forEach(function(r){r.style.display='none';});
   var mul=dir==='asc'?1:-1;
-  var isDir=stock.length&&/강세|중립|약세|상승|하락|혼조/.test(stock[0].children[col].textContent);
+  // 칸에 data-sort 가 있으면 그 값으로 센다 — 보이는 글자가 값이 아닌 칸
+  // (주봉 '모멘텀(4주·12주)'처럼 숫자 앞에 이름표가 붙는 칸)을 위해서다.
+  var key=function(r){var td=r.children[col], v=td.getAttribute('data-sort'); return v===null?td.textContent:v;};
+  var keyed=!!(stock.length&&stock[0].children[col].getAttribute('data-sort')!==null);
+  var isDir=!keyed&&stock.length&&/강세|중립|약세|상승|하락|혼조/.test(stock[0].children[col].textContent);
   // 숫자 열 판정 — '숫자가 맨 앞에서 시작하는가'로 본다.
   // 예전에는 허용 문자 화이트리스트로 봤는데, 칸에 목록 밖 글자가 하나 섞이는 순간
   // 그 열이 통째로 문자열 정렬로 떨어졌다. 일봉 '등락 / β조정 초과'가 β 하나 때문에
@@ -1107,11 +1111,11 @@ function sortTable(table, col){
     var t=s.replace(/,/g,'').replace(/^[\s+]+/,''), m=t.match(/-?\d+(?:\.\d+)?/);
     return !!m&&m.index===0;
   };
-  var vals=stock.map(function(r){return r.children[col].textContent;});
+  var vals=stock.map(key);
   var isNum=!isDir&&vals.some(leadNum)&&vals.every(function(s){return !/\d/.test(s)||leadNum(s);});
   function rank(s){return (s.indexOf('강세')>-1||s.indexOf('상승')>-1)?0:((s.indexOf('중립')>-1||s.indexOf('혼조')>-1)?1:2);}
   stock.sort(function(a,b){
-    var ta=a.children[col].textContent, tb=b.children[col].textContent, cmp;
+    var ta=key(a), tb=key(b), cmp;
     if(isDir) cmp=rank(ta)-rank(tb);
     else if(isNum){
       var na=cellNum(ta), nb=cellNum(tb);
