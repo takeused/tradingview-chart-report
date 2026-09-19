@@ -1097,10 +1097,18 @@ function sortTable(table, col){
   allRows.filter(function(r){return r.classList.contains('sector');}).forEach(function(r){r.style.display='none';});
   var mul=dir==='asc'?1:-1;
   var isDir=stock.length&&/강세|중립|약세|상승|하락|혼조/.test(stock[0].children[col].textContent);
-  // '없음'(유효 레벨 없음) 칸이 섞여 있어도 숫자 열로 본다 — 없는 값은 늘 맨 뒤로 보낸다.
-  var numOK=function(s){return /\d/.test(s)&&s.replace(/[\d.,\s~%+\/\-만억조MKmk배지수比pσ주연속상하락]/g,'')==='';};
+  // 숫자 열 판정 — '숫자가 맨 앞에서 시작하는가'로 본다.
+  // 예전에는 허용 문자 화이트리스트로 봤는데, 칸에 목록 밖 글자가 하나 섞이는 순간
+  // 그 열이 통째로 문자열 정렬로 떨어졌다. 일봉 '등락 / β조정 초과'가 β 하나 때문에
+  // 그랬고(오름차순이 -0.13% → -0.19% → -0.48% 로 나왔다), 주봉 확률표는 다섯 열이
+  // 전부 그 상태였다. 두 줄짜리 칸은 첫 줄이 값이고 둘째 줄이 설명이라 이 규칙이 맞다.
+  // 숫자가 아예 없는 칸('유효 레벨 없음'·'—')은 결측으로 보고 늘 맨 뒤로 보낸다.
+  var leadNum=function(s){
+    var t=s.replace(/,/g,'').replace(/^[\s+]+/,''), m=t.match(/-?\d+(?:\.\d+)?/);
+    return !!m&&m.index===0;
+  };
   var vals=stock.map(function(r){return r.children[col].textContent;});
-  var isNum=!isDir&&vals.some(numOK)&&vals.every(function(s){return numOK(s)||/없음/.test(s);});
+  var isNum=!isDir&&vals.some(leadNum)&&vals.every(function(s){return !/\d/.test(s)||leadNum(s);});
   function rank(s){return (s.indexOf('강세')>-1||s.indexOf('상승')>-1)?0:((s.indexOf('중립')>-1||s.indexOf('혼조')>-1)?1:2);}
   stock.sort(function(a,b){
     var ta=a.children[col].textContent, tb=b.children[col].textContent, cmp;
