@@ -59,6 +59,8 @@ def main():
     ap.add_argument('--weekday', required=True)
     ap.add_argument('--add-sector', default=None,
                     help='직전 표에 없던 종목을 담을 섹터 라벨(증설 회차에만)')
+    ap.add_argument('--drop-missing', action='store_true',
+                    help='직전 표에 있는데 이번 로스터에 없는 종목을 표에서 뺀다(로스터 축소 회차에만)')
     a = ap.parse_args()
 
     d = json.load(open(os.path.join(ROOT, 'data', 'predictions.json'), encoding='utf-8'))
@@ -80,8 +82,15 @@ def main():
         order = order + [(a.add_sector, [c for c in items if c in missing])]
         seen = [c for _, cs in order for c in cs]
     gone = [c for c in seen if c not in items]
-    if gone:
+    if gone and not a.drop_missing:
         raise SystemExit('직전 표에 있는데 이번 항목에 없는 종목 — %s' % gone)
+    if gone:
+        # 로스터 축소 (2026-09-21). 빠진 종목을 빼고, 비게 된 섹터 묶음도 함께 버린다 —
+        # 종목 없는 섹터 헤더가 남으면 표에 빈 줄이 찍힌다.
+        order = [(lab, [c for c in cs if c in items]) for lab, cs in order]
+        order = [(lab, cs) for lab, cs in order if cs]
+        seen = [c for _, cs in order for c in cs]
+        print('로스터 축소 — %d종목 제외: %s' % (len(gone), ', '.join(gone)))
     if len(seen) != len(items):
         raise SystemExit('직전 표 %d행 != 이번 항목 %d개' % (len(seen), len(items)))
 
