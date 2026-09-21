@@ -21,3 +21,10 @@ __pycache__/
 /data/dart_corpcode.csv
 /data/*.bak
 /data/dart_accmt.csv
+
+# room_up 광역 수집 원자료 — 원격이 PUBLIC 이라 추적하지 않는다(패널과 같은 이유).
+# 유니버스·회차 목록은 재현에 필요하므로 추적한다.
+/data/room_up_wide/room_*.json
+/data/room_up_wide/BAD_room_*.json
+/data/room_up_wide/ohlc*.json
+/data/room_up_wide/progress.log
