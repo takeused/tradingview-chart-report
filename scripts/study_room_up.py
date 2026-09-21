@@ -50,6 +50,7 @@ import argparse, json, math, os, random, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from backtest import bh_reject, round_trip_cost, stat
+import build_items as bi          # 레벨 선정 규칙은 적용기와 **같은 코드**를 쓴다
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
@@ -127,6 +128,44 @@ def rounds_with_signal(pred, signal):
     return out
 
 
+def rounds_wide(dirpath, pred):
+    """광역 수집(room_<날짜>.json)에서 회차를 만든다 — 유니버스 300, 규칙은 오늘 규격 하나.
+
+    좁은 검정과 다른 점이 둘이다.
+      ① 유니버스가 로스터(20~36)가 아니라 시점별 시총 상위 300이다. 로스터의 선택편향이
+         빠지고, 무엇보다 회차별 표준오차가 줄어 **검출력이 올라간다.**
+      ② 레벨 선정 규칙을 **전 구간에 오늘 규격으로 통일**해서 다시 계산한다. 기록이 아니라
+         재계산이므로 9/4·9/9·9/10 의 규격 단절이 여기서는 생기지 않는다.
+         (대신 "그때 리포트가 인쇄한 값"과는 다를 수 있다 — 같은 것을 재는 것이 아니다.)
+    """
+    nxt = {e['asof']: e['next_session'] for e in pred['entries']}
+    out = []
+    for fn in sorted(os.listdir(dirpath)):
+        if not fn.startswith('room_') or not fn.endswith('.json'):
+            continue
+        asof = fn[5:-5]
+        if asof not in nxt:
+            continue
+        g = json.load(open(os.path.join(dirpath, fn), encoding='utf-8'))
+        sc, roster = {}, []
+        for code, v in g.items():
+            if v.get('err') or not v.get('a'):
+                continue
+            if v.get('sym', '').split(':')[-1] != code:   # 심볼 대조는 버리는 검사다
+                continue
+            # 마지막 봉이 그 회차여야 한다 — 거래정지 종목은 옛 봉이 남아
+            # 종가·ATR 이 그 시점 값이 아니다(2026-08-14 회차에 1종목 실제로 나왔다)
+            if v.get('t') and ymd(v['t']) != asof:
+                continue
+            roster.append(code)
+            pick = bi.pick_level(v['c'], v['a'], v.get('zones'), v.get('lines'), 'up')
+            if pick:
+                sc[code] = pick['dist_sigma']
+        if len(sc) >= 9:
+            out.append((asof, nxt[asof], sc, roster))
+    return out
+
+
 def one_run(rnds, bars, cal, h, offset, cost):
     """비중첩 표본으로 (전략초과, 하위3분위초과, 스프레드) 회차별 계열을 만든다."""
     top, bot, bench = [], [], []
@@ -193,6 +232,8 @@ def control(rnds, bars, cal, cost, h):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--ohlc', required=True)
+    ap.add_argument('--wide', default=None,
+                    help='광역 수집 디렉터리(room_<날짜>.json) — 주면 유니버스 300으로 검정한다')
     ap.add_argument('--cost', type=float, default=None, help='왕복 비용 %% (기본 비용모델)')
     ap.add_argument('--json', default=None)
     a = ap.parse_args()
@@ -208,7 +249,11 @@ def main():
     def room_dn(it):
         return ((it.get('p_touch') or {}).get('dn') or {}).get('dist_sigma')
 
-    allr = rounds_with_signal(pred, room_up)
+    if a.wide:
+        allr = rounds_wide(a.wide, pred)
+        print('광역 모드 — 유니버스 300 · 레벨 규칙은 전 구간 오늘 규격으로 재계산')
+    else:
+        allr = rounds_with_signal(pred, room_up)
     fixed = [r for r in allr if r[0] >= SPLIT_FIXED_FROM]
     print('왕복 비용 %.3f%% · 회차 전체 %d (%s~%s) · 규격 고정 후 %d (%s~)'
           % (cost, len(allr), allr[0][0], allr[-1][0], len(fixed), SPLIT_FIXED_FROM))
