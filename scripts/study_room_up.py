@@ -59,6 +59,7 @@ HORIZONS = [1, 3, 5]
 FRAC = 1.0 / 3.0                 # 상위/하위 3분위
 SPLIT_FIXED_FROM = '2026-09-10'  # 존·라인 분리 적용일 — 규격이 고정된 구간
 N_CONTROL = 200                  # 음성 대조군(무작위 신호) 반복 수
+STALE_MAX = 0.10                 # 낡은 봉이 이 비율을 넘으면 그 회차는 버린다
 SEED = 20260921
 
 
@@ -147,6 +148,15 @@ def rounds_wide(dirpath, pred):
         if asof not in nxt:
             continue
         g = json.load(open(os.path.join(dirpath, fn), encoding='utf-8'))
+        # 회차 도중 리플레이 시점이 되돌아가는 일이 있다(2026-08-27 회차에서 인덱스 198~299,
+        # 101종목이 하루 전 봉이었다). 낡은 것만 빼면 **남는 유니버스가 시총 상위쪽으로
+        # 치우쳐** 회차 간 비교가 깨지므로, 비율이 높으면 회차를 통째로 버린다.
+        dated = [v for v in g.values() if v.get('t')]
+        stale = sum(1 for v in dated if ymd(v['t']) != asof)
+        if dated and stale / float(len(dated)) > STALE_MAX:
+            print('  [건너뜀] %s — 낡은 봉 %d/%d (%.0f%%) · 리플레이가 회차 도중 되돌아갔다'
+                  % (asof, stale, len(dated), 100.0 * stale / len(dated)))
+            continue
         sc, roster = {}, []
         for code, v in g.items():
             if v.get('err') or not v.get('a'):
