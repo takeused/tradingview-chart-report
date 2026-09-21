@@ -28,3 +28,4 @@ __pycache__/
 /data/room_up_wide/BAD_room_*.json
 /data/room_up_wide/ohlc*.json
 /data/room_up_wide/progress.log
+/data/room_up_wide/result.json
