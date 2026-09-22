@@ -123,10 +123,23 @@ def compare_block(items, rows, date):
     by = {i['code']: i for i in items}
     n_all = len(rows)
 
-    def sg(v, p):
+    def topdog(vals, v):
+        """위에서 몇 %인가 — (자기 이상인 종목 수) / (값이 있는 종목 수).
+
+        백분위를 그대로 뒤집어(100 - p) 쓰면 **최상위가 "상위 0%"** 로 찍힌다.
+        1위는 27종목 중 1등이니 "상위 4%" 가 맞다. 0% 는 읽는 사람을 헷갈리게 한다.
+        """
+        xs = [x for x in vals if x is not None]
+        return 100.0 * sum(1 for x in xs if x >= v) / len(xs)
+
+    sigs = [r['sig'] for r in rows]
+    volxs = [r['volx'] for r in rows]
+    rooms = [r['room_up'] for r in rows]
+
+    def sg(v):
         if v is None:
             return '<span class="na">없음</span>'
-        return '%.2fσ<br><span class="vr">상위 %.0f%%</span>' % (v, 100.0 - p)
+        return '%.2fσ<br><span class="vr">상위 %.0f%%</span>' % (v, topdog(rooms, v))
 
     body = []
     for r in rows:
@@ -139,9 +152,9 @@ def compare_block(items, rows, date):
             '<td>%s</td><td>%s</td></tr>'
             % (it['market'], it['badge'], r['name'], r['code'],
                r['name'], r['code'],
-               r['sig'], 100.0 - r['p_sig'],
-               r['volx'], 100.0 - r['p_volx'],
-               sg(r['room_up'], r['p_room_up']),
+               r['sig'], topdog(sigs, r['sig']),
+               r['volx'], topdog(volxs, r['volx']),
+               sg(r['room_up']),
                '%.2fσ' % r['near_dn'] if r['near_dn'] is not None
                else '<span class="na">없음</span>'))
 
@@ -165,7 +178,7 @@ def compare_block(items, rows, date):
     </div>
     <table class="score" id="rank-table" style="width:100%%;">
       <thead><tr><th>종목</th>
-        <th>위험조정 초과<br><span class="vr">배지 σ</span></th>
+        <th>위험조정 초과<br><span class="vr">배지 기준</span></th>
         <th>거래량 배수</th>
         <th>위 여유<br><span class="vr">저항까지 거리</span></th>
         <th>아래 지지<br><span class="vr">참고용</span></th></tr></thead>
