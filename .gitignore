@@ -33,3 +33,4 @@ __pycache__/
 /data/room_up_wide/run*.err
 /data/room_up_wide/ohlc300_new.json
 /data/room_up_wide/*.err
+/data/room_up_wide/*.log
