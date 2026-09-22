@@ -9,22 +9,27 @@
 # 그래서 배지 분포·시장 분포·상위 순위를 **발행된 표에서 파싱해** 다시 계산하고,
 #   본문의 해당 숫자를 바꾼다. 손으로 고치면 다음 증설 때 또 어긋난다.
 #
-# 순위 정의(리포트에 함께 인쇄한다 — 재현 가능해야 순위다)
-#   위험조정 초과 47 · 거래량 배수 29 · 위쪽 여유 24, 각 항목 백분위 합산.
+# 순위 합산을 폐지했다 (2026-09-22)
+#   예전에는 위험조정 초과 47 · 거래량 29 · 위쪽 여유 24 를 백분위로 합산해 등수를 매겼다.
+#   **그 가중치 셋 중 검정을 통과한 것이 하나도 없다.**
+#     · 「위쪽 여유」 24점 — 2026-09-22 판정. 유니버스 300 · 유효 23회차에서
+#       신호 기여 +0.066%p(단측 p 0.125)로 **왕복 비용 0.280%의 24%** 에 그쳤다.
+#       자기 거래비용도 못 벌고 벤치마크 보유에 -0.204%/회차로 진다(scripts/study_room_up.py).
+#     · 「거래량 배수」 29점 — 2026-08-21 검정에서 거래량급증 계열은 **음수**였다
+#       (승률 35.7%에 -2.37%).
+#     · 「위험조정 초과」 47점 — 단기 모멘텀 계열로 같은 검정에서 통과하지 못했다.
+#   근거 없는 가중치로 100점 만점을 만들면 **없는 정보를 준 것**이 된다. 실제로 2026-09-21
+#   회차에서 배럴이 「위쪽 여유」 한 항목의 23.0점으로 3위에 올랐다.
 #
-#   **「아래 지지 근접」15점을 뺐다 (2026-08-22).** 세 가지 이유다.
-#     (1) 방향에 근거가 없다. "지지에 가깝다"는 대체로 "최근 밀렸다"와 같은 말인데,
-#         무수정 유니버스 검정에서 **단기반전(최근 하락 매수)은 −0.79~−0.98%/월
-#         (t −2.1~−2.3)로 뚜렷한 음수**였다. 가점을 줄 근거가 없다.
-#     (2) 결측 처리가 순위를 지배했다. 레벨이 없는 종목을 3.0σ 로 채웠더니
-#         코스메카코리아(양쪽 레벨 없음)가 현행 최저점 ↔ 방향 반전 시 최고점이 된다.
-#     (3) 이 항목 하나로 1위가 바뀐다 — 현행 코스맥스 / 제거 코스메카코리아 /
-#         반전 코스메카코리아. 순위가 가정에 지배되면 그건 순위가 아니다.
+#   그래서 **합산과 등수를 버리고 세 항목의 백분위를 나란히 인쇄**한다. 독자가 열을 골라
+#   정렬할 수 있으므로 "오늘 어디가 눈에 띄는가"는 그대로 읽히고, 우리가 만들지 않은
+#   서열은 인쇄하지 않는다.
 #
-#   위쪽 여유(저항까지 거리, 멀수록 유리)는 남긴다. 다만 **레벨이 없으면 3.0σ 로 채우지
-#   않고 결측으로 두고, 그 종목은 남은 항목의 가중치로 재정규화**한다. 채워 넣으면
-#   "정보가 없다"가 "최고값"으로 둔갑한다 — 실제로 코스메카코리아(위·아래 레벨 없음)가
-#   그 처리 때문에 1위로 올라왔었다. **없는 것은 좋은 것이 아니다.**
+#   결측 처리는 그대로다 — 레벨이 없으면 **3.0σ 로 채우지 않고 빈칸**으로 둔다.
+#   채워 넣으면 "정보가 없다"가 "여유 최대"로 둔갑한다.
+#   (2026-08-22에 「아래 지지 근접」 15점을 뺀 것도 같은 이유였다 — 단기반전이
+#    무수정 유니버스 검정에서 -0.79~-0.98%/월(t -2.1~-2.3)로 음수였고,
+#    결측을 3.0σ로 메우던 처리가 1위를 뒤집고 있었다.)
 #
 # 사용법
 #   python scripts/report_enrich.py --date 2026-08-21 [--dry]
@@ -32,7 +37,7 @@
 import json, os, re, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-W = {'badge': 47, 'volx': 29, 'room_up': 24}       # 합 100. near_dn 은 위 주석 참조
+# 가중치 상수는 없앴다 — 합산을 하지 않는다(위 머리말 참조).
 
 
 def find_table(html, header_text):
@@ -65,7 +70,12 @@ def pct(vals):
     return [100.0 * sum(1 for x in srt if x < v) / (n - 1) if n > 1 else 50.0 for v in vals]
 
 
-def score(rows, items):
+def metrics(rows, items):
+    """세 항목의 값과 백분위를 붙인다. **합산도 정렬도 하지 않는다.**
+
+    행 순서는 일봉 표에서 읽은 그대로(섹터 순) 둔다 — 등수를 매기지 않기로 했으므로
+    기본 순서는 표와 맞추는 것이 독자가 대조하기 쉽다. 정렬은 독자가 열로 한다.
+    """
     by = {i['code']: i for i in items}
     for r in rows:
         it = by[r['code']]
@@ -81,17 +91,10 @@ def score(rows, items):
     cols['room_up'] = [None] * len(rows)
     for k, i in enumerate(have):
         cols['room_up'][i] = ru[k]
-    pair = (('badge', 'sig'), ('volx', 'volx'), ('room_up', 'room_up'))
     for i, r in enumerate(rows):
-        num = den = 0.0
-        for wk, ck in pair:
-            if cols[ck][i] is None:
-                continue                      # 결측 항목은 빼고 나머지로 재정규화한다
-            num += W[wk] * cols[ck][i] / 100
-            den += W[wk]
-        r['score'] = round(num / den * 100, 1) if den else 0.0
-        r['missing'] = [ck for wk, ck in pair if cols[ck][i] is None]
-    rows.sort(key=lambda r: -r['score'])
+        for ck in ('sig', 'volx', 'room_up'):
+            v = cols[ck][i]
+            r['p_' + ck] = round(v, 1) if v is not None else None
     return rows
 
 
@@ -106,7 +109,7 @@ def main():
     rows = parse_rows(html)
     if len(rows) != len(ent['items']):
         raise SystemExit('표 %d행 != 항목 %d개' % (len(rows), len(ent['items'])))
-    rows = score(rows, ent['items'])
+    rows = metrics(rows, ent['items'])
 
     n_up = sum(1 for r in rows if r['badge'] == '강세')
     n_mid = sum(1 for r in rows if r['badge'] == '중립')
@@ -116,12 +119,14 @@ def main():
 
     print('배지 — 강세 %d · 중립 %d · 약세 %d' % (n_up, n_mid, n_dn))
     print('시장 — KOSPI %d · KOSDAQ %d' % (n_kp, n_kq))
-    print('상위 6 (재현 가능 합산)')
-    for r in rows[:6]:
-        sg = lambda v: '%.2fσ' % v if v is not None else '없음'
-        print('  %5.1f점  %-10s %+.2fσ · 거래량 %.2f배 · 위 %s · 아래 %s%s'
-              % (r['score'], r['name'], r['sig'], r['volx'], sg(r['room_up']),
-                 sg(r['near_dn']), ' · 결측 ' + ','.join(r['missing']) if r['missing'] else ''))
+    print('세 항목 백분위 (합산하지 않는다) — 각 항목 상위 3종목')
+    for key, lab in (('p_sig', '위험조정 초과'), ('p_volx', '거래량 배수'),
+                     ('p_room_up', '위쪽 여유')):
+        top = sorted([r for r in rows if r[key] is not None],
+                     key=lambda r: -r[key])[:3]
+        print('  %-8s %s' % (lab, ' · '.join('%s %.0f' % (r['name'], r[key]) for r in top)))
+    nmiss = sum(1 for r in rows if r['p_room_up'] is None)
+    print('  위쪽 여유 결측 %d종목' % nmiss)
     if dry:
         return 0
 

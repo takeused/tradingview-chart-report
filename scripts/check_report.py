@@ -33,8 +33,15 @@ def rows_of(html):
     2026-09-01에 순위 블록을 주봉 구획(wkhead) **앞**으로 옮기면서, 그 표의 36행이
     같은 `class="name">…(코드)` 형태라 일봉 행을 통째로 덮어썼다 — 36종목 전부
     "표에 없다"로 잡혔다. 구간의 끝은 **먼저 나오는 경계**로 잡는다.
+
+    **경계를 블록 제목으로 잡으면 안 된다 (2026-09-22).** 순위 합산을 폐지하면서 제목을
+    「🔁 순위」 → 「📊 지표 비교」로 바꿨더니 경계가 사라져 같은 사고가 그대로 재현됐다.
+    제목은 문구라서 언제든 바뀐다. **표 자체의 id** 를 1순위 경계로 쓰고, 제목은
+    옛 회차 HTML 을 위한 보조 경계로만 남긴다.
     """
-    ends = [x for x in (html.find('<div class="wkhead">'), html.find('🔁 순위')) if x > 0]
+    ends = [x for x in (html.find('<div class="wkhead">'),
+                        html.find('id="rank-table"'),
+                        html.find('🔁 순위'), html.find('📊 지표 비교')) if x > 0]
     day = html[:min(ends)] if ends else html
     marks = [(m.start(), m.group(1)) for m in
              re.finditer(r'class="name">[^<]+? <span class="code">\((\d{6})\)', day)]
@@ -212,7 +219,7 @@ def main():
     #      나오고 산식을 세 번 설명하고 있었다). 「🆕 신규 편입」 블록도 없앴다 — 표에 있는
     #      값을 다시 읽어 줬을 뿐이고, 편입 시점은 표의 섹터 라벨이 밝힌다.
     for sec in ('📖 표 읽는 법', '지난 회차', '섹터별 한 줄 요약', '오늘의 시장 관전 포인트',
-                '🔁 순위', '주봉으로 보면', '주봉 도달확률'):
+                '📊 지표 비교', '주봉으로 보면', '주봉 도달확률'):
         need(sec in html, '필수 섹션이 리포트에 없다 — 「%s」' % sec)
 
     # 5) 플레이스홀더

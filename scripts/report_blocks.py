@@ -110,74 +110,51 @@ def legend_block(items):
 '''
 
 
-def rank_block(items, rows, date):
-    """순위 블록 — 상위 3종목 한 줄 + 로스터 전체 표.
+def compare_block(items, rows, date):
+    """지표 비교 블록 — 세 항목을 나란히 싣는다. **합산도 등수도 없다.**
 
-    2026-09-01에 「⭐ 베스트3」를 여기로 합쳤다. 상위 3종목이 두 블록에 두 번 나왔고,
-    같은 산식을 세 번 설명하고 있었다. 상위 3종목 코멘트도 **손으로 쓰지 않고 생성**한다 —
-    손으로 쓰면 다음 회차에 낡고, 지금까지 실제로 매번 낡았다.
+    2026-09-22에 순위 합산을 폐지하면서 바꿨다. 예전에는 47·29·24 가중치로 100점을
+    만들어 1위부터 줄을 세웠는데, **그 세 항목 중 검정을 통과한 것이 하나도 없다**
+    (경위는 report_enrich.py 머리말). 근거 없는 가중치로 만든 서열은 **없는 정보를
+    준 것**이고, 실제로 2026-09-21 회차에서 배럴이 「위쪽 여유」 한 항목으로 3위에 올랐다.
 
-    표는 **로스터 전체**를 싣는다. 5행만 실으면서 제목에 「N종목 전체 순위」라고 쓰면
-    제목이 거짓말을 한다(2026-09-01 이전까지 그랬다).
+    행 순서는 일봉 표와 같다(섹터 순). 독자가 열 제목을 눌러 원하는 기준으로 정렬한다.
     """
     by = {i['code']: i for i in items}
     n_all = len(rows)
-    MISS = {'room_up': '위쪽 여유', 'volx': '거래량', 'sig': '초과'}
 
-    def sg(v):
-        return '%.2fσ' % v if v is not None else '<span class="na">없음</span>'
+    def sg(v, p):
+        if v is None:
+            return '<span class="na">없음</span>'
+        return '%.2fσ<br><span class="vr">상위 %.0f%%</span>' % (v, 100.0 - p)
 
     body = []
-    for k, r in enumerate(rows, 1):
-        # 필터는 표에 안 보이는 값(시장·배지)으로도 걸린다 — 그래서 행에 함께 박는다.
-        # 화면에 없는 기준으로 거를 수 있어야 「코스닥 강세만」 같은 질문에 답이 된다.
+    for r in rows:
         it = by[r['code']]
         body.append(
             '      <tr data-market="%s" data-badge="%s" data-q="%s %s">'
-            '<td><b>%d</b></td><td class="name">%s <span class="code">(%s)</span></td>'
-            '<td><b>%.1f</b></td><td>%+.2fσ</td><td>%.2f배</td><td>%s</td><td>%s</td></tr>'
+            '<td class="name">%s <span class="code">(%s)</span></td>'
+            '<td>%+.2fσ<br><span class="vr">상위 %.0f%%</span></td>'
+            '<td>%.2f배<br><span class="vr">상위 %.0f%%</span></td>'
+            '<td>%s</td><td>%s</td></tr>'
             % (it['market'], it['badge'], r['name'], r['code'],
-               k, r['name'], r['code'], r['score'], r['sig'], r['volx'],
-               sg(r['room_up']), sg(r['near_dn'])))
+               r['name'], r['code'],
+               r['sig'], 100.0 - r['p_sig'],
+               r['volx'], 100.0 - r['p_volx'],
+               sg(r['room_up'], r['p_room_up']),
+               '%.2fσ' % r['near_dn'] if r['near_dn'] is not None
+               else '<span class="na">없음</span>'))
 
-    tops = []
-    for k, r in enumerate(rows[:3], 1):
-        it = by[r['code']]
-        pt = it.get('p_touch') or {}
-        lv = []
-        for d, lab in (('up', '위'), ('dn', '아래')):
-            v = pt.get(d)
-            if v:
-                lv.append('%s %s(%s %.2fσ · %.1f%%)'
-                          % (lab, f(v['level']), '존' if v['src'] == 'zone' else '라인',
-                             v['dist_sigma'], v['p']))
-            else:
-                # 없는 쪽을 적지 않으면 독자가 "아래는?" 하고 표를 뒤진다.
-                # 걸릴 자리가 없다는 사실 자체가 정보다.
-                lv.append('<b>%s 유효 레벨 없음</b>' % lab)
-        tail = ' · '.join(lv)
-        # 결측이 있으면 그 사실을 밝힌다 — 없는 것을 좋은 것으로 읽으면 안 된다.
-        note = ('<b>「%s」가 결측</b>이라 남은 가중치로 재정규화한 점수입니다.'
-                % '」·「'.join(MISS.get(m, m) for m in r['missing'])) if r['missing'] else                '세 항목이 <b>모두 채워진</b> 점수입니다.'
-        tops.append(
-            '    <p style="margin:0 0 8px;font-size:13px;"><b>%d. %s (%s)</b> — 종가 %s · '
-            '<b class="%s">%+.2f%%</b> · β조정 초과 <b class="%s">%+.2f%%p</b>(%s %+.2fσ) · '
-            '거래량 %.2f배 · <b>합산 %.1f점</b><br><span class="vr">%s</span> %s</p>'
-            % (k, it['name'], r['code'], f(it['close']),
-               'up' if it['chg'] > 0 else 'down' if it['chg'] < 0 else '', it['chg'],
-               'up' if it['excess'] > 0 else 'down', it['excess'],
-               it['badge'], it['badge_sigma'], r['volx'], r['score'], tail, note))
-
-    s3 = rows[0]['score'] - rows[2]['score']
-    s47 = rows[3]['score'] - rows[6]['score'] if len(rows) > 6 else 0.0
+    nmiss = sum(1 for r in rows if r['room_up'] is None)
     return '''
   <div class="secsum" style="border-color:rgba(255,215,0,.5);">
-    <h3>🔁 순위 — %d종목 전체 <span class="muted">(%s 종가 기준 · v6.2 · β조정)</span></h3>
+    <h3>📊 지표 비교 — %d종목 전체 <span class="muted">(%s 종가 기준 · v6.2 · β조정)</span></h3>
     <p style="margin:0 0 10px;font-size:13px;color:var(--muted);">
-      <b>위험조정 초과수익 47 · 거래량 배수 29 · 위쪽 여유 24</b>를 각각 %d종목 안 백분위로
-      환산해 합산합니다. <b>레벨이 없으면 그 항목은 결측으로 빼고 남은 가중치로 재정규화</b>합니다 —
-      없는 것은 "여유가 최대"가 아니라 <b>정보가 없는</b> 것입니다.</p>
-%s
+      <b>2026-09-22부터 합산 점수와 등수를 인쇄하지 않습니다.</b> 예전에는 아래 세 항목을
+      <b>47 · 29 · 24</b>로 합산해 1위부터 줄을 세웠는데, <b>그 세 항목 중 검정을 통과한 것이
+      하나도 없습니다</b>. 근거 없는 가중치로 만든 서열은 <b>없는 정보를 드리는 것</b>이라
+      판단해 <b>세 항목을 나란히</b>만 싣습니다. 보고 싶은 기준이 있으면 <b>열 제목을 눌러
+      정렬</b>하십시오.</p>
     <div class="rkfilter">
       <input type="search" id="rk-q" placeholder="종목명 · 코드 검색" aria-label="종목 검색">
       <select id="rk-mkt"><option value="">시장 전체</option><option value="KOSPI">코스피</option><option value="KOSDAQ">코스닥</option></select>
@@ -187,25 +164,30 @@ def rank_block(items, rows, date):
       <span class="rkcount" id="rk-count"></span>
     </div>
     <table class="score" id="rank-table" style="width:100%%;">
-      <thead><tr><th>#</th><th>종목</th><th>합산</th><th>초과(배지)</th><th>거래량</th>
-        <th>위 여유<br><span class="vr">멀수록 가점</span></th>
-        <th>아래 지지<br><span class="vr">참고용 · 점수 미반영</span></th></tr></thead>
+      <thead><tr><th>종목</th>
+        <th>위험조정 초과<br><span class="vr">배지 σ</span></th>
+        <th>거래량 배수</th>
+        <th>위 여유<br><span class="vr">저항까지 거리</span></th>
+        <th>아래 지지<br><span class="vr">참고용</span></th></tr></thead>
       <tbody>
 %s
       </tbody>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
-      ※ <b>열 제목을 누르면 그 열로 정렬</b>되고(오름 → 내림 → 원래 순서), 필터를 건 상태에서
-      정렬하면 <b>남은 종목 안에서만</b> 줄을 세웁니다. 맨 왼쪽 <b>#</b> 칸은 정렬·필터와 무관하게
-      <b>합산 점수 기준 원래 순위</b>를 그대로 답니다 — 골라 본 뒤에도 전체에서 몇 등인지 알아야
-      하기 때문입니다.<br>
-      ※ 상위 3종목은 <b>%.1f점</b>, 4~7위는 <b>%.1f점</b> 안에 몰려 있어 <b>서열이 아니라
-      "상위 그룹"</b>으로만 읽어야 합니다. 「아래 지지 근접」 항목은 <b>2026-08-22에
-      제거</b>했습니다 — 단기반전이 우리 검정에서 −0.79~−0.98%%/월(t −2.1~−2.3)로 음수였고,
-      결측을 3.0σ로 메우던 처리가 1위를 뒤집고 있었습니다. 위쪽 여유도 검정된 것이 아니라
-      <b>합리적 가정</b>입니다. 기계적 종합이며 <b>투자 추천이 아닙니다</b>.</p>
+      ※ <b>「상위 N%%」는 오늘 %d종목 안에서의 백분위</b>일 뿐 좋고 나쁨의 판정이 아닙니다.
+      기본 순서는 <b>위 일봉 표와 같습니다</b>(섹터 순). 열 제목을 누르면 그 열로 정렬되고
+      (오름 → 내림 → 원래 순서), 필터를 건 상태에서 정렬하면 <b>남은 종목 안에서만</b> 줄을 세웁니다.<br>
+      ※ <b>세 항목의 검정 상태를 그대로 적습니다.</b>
+      <b>「위쪽 여유」</b> — 2026-09-22 판정, 유니버스 300·유효 23회차에서 신호 기여
+      <b>+0.066%%p(단측 p 0.125)</b>로 왕복 비용 0.280%%의 <b>24%%</b>에 그쳤습니다.
+      <b>「거래량 배수」</b> — 2026-08-21 검정에서 거래량급증 계열은 <b>음수</b>였습니다
+      (승률 35.7%%에 −2.37%%). <b>「위험조정 초과」</b> — 단기 모멘텀 계열로 같은 검정에서
+      통과하지 못했습니다. <b>셋 다 "오늘 상태를 재는 자"일 뿐 수익을 예측하는 신호가 아닙니다.</b><br>
+      ※ 「위쪽 여유」가 <b>없음</b>인 종목이 %d개입니다. 레벨이 없으면 <b>3.0σ로 채우지 않고
+      빈칸으로</b> 둡니다 — 없는 것은 "여유가 최대"가 아니라 <b>정보가 없는</b> 것입니다.
+      기계적 집계이며 <b>투자 추천이 아닙니다</b>.</p>
   </div>
-''' % (n_all, date, n_all, chr(10).join(tops), chr(10).join(body), s3, s47)
+''' % (n_all, date, chr(10).join(body), n_all, nmiss)
 
 
 def main():
@@ -220,7 +202,7 @@ def main():
     # 재실행 가능하게: 이미 있는 보완 블록을 지우고 다시 넣는다.
     # '🆕'·'투자유망 종목 베스트3' 은 2026-09-01에 없앤 블록이라, 옛 회차 스냅샷을
     # 템플릿으로 쓸 때 남아 있으면 여기서 걷어낸다.
-    for mark in ('📖 표 읽는 법', '🆕', '🔁 순위', '투자유망 종목 베스트3'):
+    for mark in ('📖 표 읽는 법', '🆕', '🔁 순위', '📊 지표 비교', '투자유망 종목 베스트3'):
         while mark in html:
             h = html.index(mark)
             st = html.rindex('<div class="secsum"', 0, h)
@@ -245,12 +227,12 @@ def main():
     # 순위 블록은 「관전 포인트」 뒤, 주봉 구획(wkhead) 앞에 넣는다.
     # 예전에는 주봉 툴바 **뒤**에 있어 일봉 순위가 「주봉」 배지 아래에 걸려 있었다.
     k = html.index('<div class="wkhead">')
-    html = html[:k] + rank_block(ent['items'], rows, date).strip() + '\n\n  ' + html[k:]
+    html = html[:k] + compare_block(ent['items'], rows, date).strip() + '\n\n  ' + html[k:]
 
     for q in ('index.html', 'stock_comparison_report_%s.html' % date,
               'stock_comparison_report.html'):
         open(os.path.join(ROOT, 'report', q), 'w', encoding='utf-8').write(html)
-    print('블록 2종 삽입 — 범례 · 순위 (%d자)' % len(html))
+    print('블록 2종 삽입 — 범례 · 지표 비교 (%d자)' % len(html))
     return 0
 
 
