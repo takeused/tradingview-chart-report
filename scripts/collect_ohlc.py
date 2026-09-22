@@ -17,6 +17,8 @@ else:
     pred = json.load(open(os.path.join(ROOT, 'data', 'predictions.json'), encoding='utf-8'))
     CODES = sorted({i['code'] for e in pred['entries'] for i in e['items']})
 OUT = sys.argv[sys.argv.index('--out') + 1] if '--out' in sys.argv else 'ohlc.json'
+# --out 에 절대경로를 주면 그대로 쓴다. 상대경로만 스크립트 폴더 기준이다 —
+# 예전에는 무조건 스크립트 폴더에 써서 calc_betas 처럼 손으로 옮겨야 했다.
 SYMS = ['KRX:' + c for c in CODES] + ['KRX:KOSPI', 'KRX:KOSDAQ']
 
 
@@ -76,7 +78,7 @@ if __name__ == '__main__':
         print('  %d/%d' % (st['i'], len(SYMS)))
         time.sleep(20)
     txt = ev(DUMP)
-    open(os.path.join(S, OUT), 'w', encoding='utf-8').write(txt)
+    open(OUT if os.path.isabs(OUT) else os.path.join(S, OUT), 'w', encoding='utf-8').write(txt)
     g = json.loads(txt)
     bad = [(c, s) for c, s in g['sym'].items() if s.split(':')[-1] != c]
     print('wrote %s (%d bytes) / sym mismatch %s' % (OUT, len(txt), bad))
