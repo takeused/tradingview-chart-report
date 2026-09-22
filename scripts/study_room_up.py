@@ -62,7 +62,7 @@
 #
 # 사용법
 #   python scripts/study_room_up.py --ohlc <ohlc.json 경로> [--json out.json]
-#   python scripts/study_room_up.py --ohlc data/room_up_wide/ohlc300.json #          --wide data/room_up_wide          # 광역 모드
+#   python scripts/study_room_up.py --ohlc data/room_up_wide/ohlc300.json \n#          --wide data/room_up_wide          # 광역 모드
 
 import argparse, json, math, os, random, sys
 
