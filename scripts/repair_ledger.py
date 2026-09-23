@@ -25,15 +25,17 @@ PRED = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'p
 def rows_for(items, date, key_h, elapsed_key):
     out = []
     for it in items:
-        for d, pr in (it.get('p_touch') or {}).items():
-            if pr.get('level') is None:
-                continue
-            row = {'opened': date, 'code': it['code'], 'name': it['name'], 'dir': d,
-                   'level': pr['level'], 'dist_sigma': pr['dist_sigma'],
-                   key_h: pr.get(key_h), 'expiry_after_' + key_h.split('_')[1]: pr.get(key_h),
-                   'p': pr['p'], 'p_base': pr['p_base'], elapsed_key: 0,
-                   'status': 'open', 'model_inputs': it.get('model_inputs')}
-            out.append(row)
+        for slot, src_key in (('near', 'p_touch'), ('alt', 'p_alt')):
+            for d, pr in (it.get(src_key) or {}).items():
+                if pr.get('level') is None:
+                    continue
+                row = {'opened': date, 'code': it['code'], 'name': it['name'], 'dir': d,
+                       'level': pr['level'], 'dist_sigma': pr['dist_sigma'],
+                       key_h: pr.get(key_h), 'expiry_after_' + key_h.split('_')[1]: pr.get(key_h),
+                       'p': pr['p'], 'p_base': pr['p_base'], elapsed_key: 0,
+                       'status': 'open', 'src': pr.get('src'), 'slot': slot,
+                       'model_inputs': it.get('model_inputs')}
+                out.append(row)
     return out
 
 
@@ -58,9 +60,9 @@ def main():
         if ent is None:
             continue
         led = d[lkey]
-        have = {(c['code'], c['dir']) for c in led['active'] if c.get('opened') == date}
+        have = {(c['code'], c['dir'], c['level']) for c in led['active'] if c.get('opened') == date}
         want = rows_for(ent['items'], date, hkey, elapsed)
-        add = [r for r in want if (r['code'], r['dir']) not in have]
+        add = [r for r in want if (r['code'], r['dir'], r['level']) not in have]
         print('%s — 항목 %d · 레벨 있는 방향 %d · 이미 등록 %d · 신규 등록 %d'
               % (label, len(ent['items']), len(want), len(have), len(add)))
         for r in add[:5]:

@@ -214,6 +214,11 @@ def main():
 
         # ── 주봉 ─────────────────────────────────────────────────────────────
         w = mw[code]
+        if w.get('err'):
+            # 수집기가 100주 미만이면 지표 자체를 계산하지 않는다(신규 상장 종목).
+            # MIN_WEEK_BARS(120) 미달은 항상 이보다 좁으므로 같은 분기로 처리한다.
+            wrows.append({'code': code, 'name': NAMES[code], 'atr_insufficient': True})
+            continue
         wz = load('w_%s.json' % code) or {}
         watr = float(w['watr'])
         wu = pick_level(close, watr, wz.get('zones'), wz.get('lines'), 'up')
