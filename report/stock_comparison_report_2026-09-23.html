@@ -79,7 +79,8 @@
   .zn .atr b{background:none;padding:0;margin:0;font-size:10.5px;font-weight:700;color:var(--ink);}
   thead th{cursor:pointer;user-select:none;-webkit-user-select:none;white-space:nowrap;}
   thead th:hover{color:var(--ink);}
-  .sort-ind{color:var(--rausch);font-size:10px;}
+  .sort-ind{color:var(--muted);font-size:10px;opacity:.5;margin-left:2px;}
+  .sort-ind.active{color:var(--rausch);opacity:1;}
   .note{font-size:13px;color:var(--muted);}
   .secsum{background:var(--canvas);border:1px solid var(--hairline);border-radius:14px;padding:20px 22px;margin-top:24px;font-size:14px;color:var(--body);}
   .secsum h3{margin:0 0 10px;font-size:16px;font-weight:600;color:var(--ink);}
@@ -886,7 +887,7 @@ function sortTable(table, col){
     var cur=table.getAttribute('data-sortdir');
     dir = cur==='asc' ? 'desc' : (cur==='desc' ? 'none' : 'asc');
   } else { dir='asc'; }
-  table.querySelectorAll('thead tr:first-child th .sort-ind').forEach(function(s){s.textContent='';});
+  table.querySelectorAll('thead tr:first-child th .sort-ind').forEach(function(s){s.textContent=' ⇅';s.classList.remove('active');});
   if(dir==='none'){
     table.setAttribute('data-sortcol',''); table.setAttribute('data-sortdir','');
     allRows.sort(function(a,b){return (+a.getAttribute('data-ord'))-(+b.getAttribute('data-ord'));});
@@ -931,14 +932,14 @@ function sortTable(table, col){
   stock.forEach(function(r){r.style.display=vis(r); tbody.appendChild(r);});
   var th=table.querySelectorAll('thead tr:first-child th')[col];
   var ind=th && th.querySelector('.sort-ind');
-  if(ind) ind.textContent = dir==='asc'?' ▲':' ▼';
+  if(ind){ ind.textContent = dir==='asc'?' ▲':' ▼'; ind.classList.add('active'); }
 }
 function initSort(){
   document.querySelectorAll('table:not(.score), table#rank-table').forEach(function(table){
     var tbody=table.querySelector('tbody'); if(!tbody) return;
     [].slice.call(tbody.querySelectorAll('tr')).forEach(function(tr,i){tr.setAttribute('data-ord',i);});
     table.querySelectorAll('thead tr:first-child th').forEach(function(th,i){
-      if(!th.querySelector('.sort-ind')){var sp=document.createElement('span');sp.className='sort-ind';th.appendChild(sp);}
+      if(!th.querySelector('.sort-ind')){var sp=document.createElement('span');sp.className='sort-ind';sp.textContent=' ⇅';th.appendChild(sp);}
       th.addEventListener('click',function(){sortTable(table,i);});
     });
   });
