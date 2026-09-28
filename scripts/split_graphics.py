@@ -30,6 +30,8 @@ def main():
     ap.add_argument('--dir', required=True)
     ap.add_argument('--kind', required=True, choices=['daily', 'weekly'])
     ap.add_argument('--date', required=True)
+    ap.add_argument('--accept-empty', action='store_true',
+                    help='비었거나 빠진 종목이 정말 비어 있음을 직접 확인했을 때만')
     a = ap.parse_args()
 
     S = a.dir
@@ -59,6 +61,32 @@ def main():
 
         json.dump({'zones': zones, 'lines': lines, 'line_src': 'fresh'},
                   open(os.path.join(S, '%s%s.json' % (pre, code)), 'w', encoding='utf-8'))
+
+    # 로스터 종목이 수집물에 없거나 박스·라인이 비었으면 멈춘다 (2026-09-28).
+    # 빠진 종목은 여기서 파일이 안 써지는데, build_items 는 파일이 없으면 {} 로 읽어
+    # "레벨 없음"을 만들고, 같은 스크래치패드에 옛 회차 파일이 남아 있으면 **그걸 읽는다.**
+    # 그날 배럴·넥스틴의 박스가 0개로 들어와 레벨이 양쪽 다 사라졌다.
+    roster = [c for c, _, _ in json.load(open(os.path.join(S, 'roster.json'),
+                                              encoding='utf-8'))['roster']]
+    bad = []
+    for code in roster:
+        v = g.get(code)
+        if v is None:
+            bad.append((code, '수집물에 없음'))
+        elif not v['boxes'].get(BOX) or not v['lines'].get(LINE):
+            bad.append((code, '박스 %d · 라인 %d' % (len(v['boxes'].get(BOX, [])),
+                                                  len(v['lines'].get(LINE, [])))))
+    if bad and not a.accept_empty:
+        print('비었거나 빠진 종목 — %s' % bad)
+        print('  수집기가 못 읽은 것일 가능성이 크다(없는 것과 구별이 안 된다). '
+              '다시 받거나, MCP 로 직접 확인해 정말 비어 있으면 --accept-empty 로 진행')
+        return 1
+    # 받아들이기로 했으면, 수집물에 없는 종목의 **옛 파일은 지운다** — 남겨 두면 그걸 읽는다.
+    for code, why in bad:
+        p = os.path.join(S, '%s%s.json' % (pre, code))
+        if why == '수집물에 없음' and os.path.exists(p):
+            os.remove(p)
+            print('옛 파일 삭제 — %s' % os.path.basename(p))
 
     if a.kind == 'daily':
         json.dump(zones_all, open(os.path.join(S, 'zones_%s.json' % a.date), 'w',

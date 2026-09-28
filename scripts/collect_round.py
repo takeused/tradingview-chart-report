@@ -163,17 +163,31 @@ GRAPHICS = """
     });
     return {boxes, lines, sym_actual: chart.symbol()};
   };
-  const MINW = 1200, MAXW = 12000, TICK = 300;
+  // 박스·라인이 빈 채로 MAXW 를 넘기면 **저장하지 않고 심볼을 다시 건다** (2026-09-28).
+  // 그날 에스티팜·티엘비·배럴·넥스틴 4종목이 박스 0개인 채 'max' 로 저장됐고,
+  // build_items 가 그걸 "존 없음"으로 받아 배럴·넥스틴은 레벨이 양쪽 다 사라졌다.
+  // 실측: 에스티팜은 처음 불러오면 **60초를 기다려도** 박스가 0개였는데, 다시 불러오니
+  // 1초 만에 5개가 찼다. 오래 기다리는 것으로는 안 되고 다시 걸어야 한다.
+  // 다른 심볼(BOUNCE)을 한 번 거쳐 오는 이유는 같은 심볼을 다시 set 하면 무시될 수 있어서다.
+  // RETRY 번 다시 걸어도 비면 G.err 로 보내고 data 에 넣지 않는다 — 없는 것과 못 읽은 것을
+  // 구별할 수 없으니, 조용히 '없음'으로 저장하지 않는다.
+  const MINW = 1200, MAXW = 12000, TICK = 300, RETRY = 2, BOUNCE = 'KRX:KOSPI';
   const step = (k) => {
     G.i = k;
     if (k >= SYMS.length) { G.state='done'; return; }
+    attempt(k, 0);
+  };
+  const attempt = (k, n) => {
     const before = sigOf().sig;
     let settled = false;
     const finish = (okFlag, why) => {
       if (settled) return; settled = true;
       if (okFlag) {
-        try { const r = grab(); r.w = why; G.data[SYMS[k].replace('KRX:','')] = r; }
+        try { const r = grab(); r.w = why; r.tries = n + 1; G.data[SYMS[k].replace('KRX:','')] = r; }
         catch(e){ G.err.push(SYMS[k]+':'+e.message); }
+      } else if (n < RETRY) {
+        chart.setSymbol(BOUNCE, () => setTimeout(() => attempt(k, n + 1), 800));
+        return;
       } else { G.err.push(SYMS[k]+':'+why); }
       step(k+1);
     };
@@ -186,7 +200,12 @@ GRAPHICS = """
         if (el >= MINW && s2.sig !== before && s2.nb > 0 && s2.nl > 0) {
           clearTimeout(guard); finish(true, el); return;
         }
-        if (el >= MAXW) { clearTimeout(guard); finish(true, 'max'+el); return; }
+        if (el >= MAXW) {
+          // 찼는데 서명이 그대로면 **직전 심볼의 그림**일 수 있다 — 이것도 저장하지 않는다.
+          clearTimeout(guard);
+          finish(false, (s2.sig === before ? 'stale' : 'empty') + '(box ' + s2.nb + ' · line ' + s2.nl + ')');
+          return;
+        }
         setTimeout(tick, TICK);
       };
       setTimeout(tick, MINW);
@@ -233,6 +252,24 @@ if __name__ == '__main__':
     print('3) 그래픽(존·라인)')
     gsyms = ['KRX:' + c for c, _ in ROSTER]
     print(' ', ev(GRAPHICS % json.dumps(gsyms)))
-    wait(GPOLL, len(gsyms))
-    write('graphics_%s.json' % TF, ev("JSON.stringify({data:window.__G.data})"))
+    st = wait(GPOLL, len(gsyms))
+    gdata = json.loads(ev("JSON.stringify(window.__G.data)"))
+    # 실패한 종목만 **새 패스로** 다시 받는다(최대 2패스). 같은 루프 안의 재시도만으로는
+    # 모자랐다 — 2026-09-28 실측에서 KOSPI 로 바꾼 직후 차트가 알테오젠의 그림(라인 505)을
+    # 5초 넘게 보여 줬다. 앞 심볼의 잔상과 엉키지 않게 순서를 바꿔 따로 돈다.
+    for p in range(2):
+        if not st['err']:
+            break
+        retry = [s for s in gsyms if any(e.startswith(s + ':') for e in st['err'])]
+        print('  재수집 패스 %d — %s' % (p + 1, retry))
+        print(' ', ev(GRAPHICS % json.dumps(retry)))
+        st = wait(GPOLL, len(retry))
+        gdata.update(json.loads(ev("JSON.stringify(window.__G.data)")))
+    write('graphics_%s.json' % TF, json.dumps({'data': gdata}))
+    if st['err']:
+        # 읽은 것은 파일에 남기되 **성공으로 끝내지 않는다**. 빠진 종목은 split_graphics 가
+        # 멈춰 세운다 — 조용히 '존 없음'으로 흘러가면 레벨이 통째로 사라진다(2026-09-28).
+        print('실패 %d종목 — %s' % (len(st['err']), st['err']))
+        print('  이 종목들만 다시 받거나(MCP data_get_pine_boxes 로 확인) 전체를 다시 돌릴 것')
+        sys.exit(1)
     print('완료')
