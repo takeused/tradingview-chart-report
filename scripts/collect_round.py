@@ -17,6 +17,10 @@ ROSTER = [(c, m) for c, n, m in _R['roster']]
 EXTRA = _R.get('extra_for_actuals', []) if TF == 'daily' else []   # 채점용 고저는 일봉만 필요
 SYMS = ['KRX:' + c for c, _ in ROSTER] + ['KRX:' + c for c in EXTRA] + ['KRX:KOSPI', 'KRX:KOSDAQ']
 KQ = [c for c, m in ROSTER if m == 'KOSDAQ']
+# 지표(Wilder ATR 시드 14 · v20 · mom12)에 실제로 필요한 봉은 20여 개다. 주봉은 신규 상장 종목이
+# 100개에 못 미쳐 지표가 통째로 빠졌고 손으로 메웠다(2026-09-29 달바글로벌). 확률 모델의 ATR 창
+# 규칙(MIN_WEEK_BARS)은 build_items 가 따로 걸러 atr_insufficient 로 처리한다.
+MINBARS = 30 if TF == 'weekly' else 100
 
 
 def ev(expr):
@@ -26,6 +30,7 @@ def ev(expr):
 LOADER = """
 (() => {
   const SYMS = %s;
+  const MINBARS = %d;
   window.__%s = { state:'run', i:0, total:SYMS.length, data:{}, sym:{}, err:[] };
   const W = window.__%s;
   const chart = window.TradingViewApi.activeChart();
@@ -35,16 +40,33 @@ LOADER = """
     bars.each((idx,v)=>{ arr.push([v[0], v[1], v[2], v[3], v[4], v[5]]); return false; });
     return arr.slice(-200);
   };
+  // 심볼을 바꾼 뒤 고정 2200ms 만 기다리면 **아직 안 바뀐 봉을 읽는다**(그림 쪽에서 2026-09-22 에
+  // 겪은 것과 같은 구조). 직전 심볼의 마지막 3봉 서명과 달라질 때까지 기다리고, 끝까지 같으면
+  // 저장하지 않고 err 로 보낸다.
+  const sigBars = () => { const r = grab(); return r.slice(-3).map(b => b.join(',')).join('|'); };
+  const MINW = 2200, MAXW = 15000, TICK = 300;
+  let prevSig = '';
   const step = (k) => {
     W.i = k;
     if (k >= SYMS.length) { W.state='done'; return; }
-    chart.setSymbol(SYMS[k], () => setTimeout(() => {
-      try { const r = grab();
-            if (r.length < 100) W.err.push(SYMS[k]+':short'+r.length);
-            W.data[SYMS[k]] = r; W.sym[SYMS[k]] = chart.symbol(); }
-      catch(e){ W.err.push(SYMS[k]+':'+e.message); }
-      step(k+1);
-    }, 2200));
+    chart.setSymbol(SYMS[k], () => {
+      const t0 = Date.now();
+      const tick = () => {
+        const el = Date.now() - t0;
+        let sg = '';
+        try { sg = sigBars(); } catch(e) {}
+        if (el >= MINW && sg && sg !== prevSig) {
+          try { const r = grab();
+                if (r.length < MINBARS) W.err.push(SYMS[k]+':short'+r.length);
+                W.data[SYMS[k]] = r; W.sym[SYMS[k]] = chart.symbol(); prevSig = sg; }
+          catch(e){ W.err.push(SYMS[k]+':'+e.message); }
+          step(k+1); return;
+        }
+        if (el >= MAXW) { W.err.push(SYMS[k]+':stale'); step(k+1); return; }
+        setTimeout(tick, TICK);
+      };
+      setTimeout(tick, MINW);
+    });
   };
   step(0);
   return 'started '+SYMS.length;
@@ -57,11 +79,12 @@ METRICS = """
 (() => {
   const D = window.__%s.data, SY = window.__%s.sym;
   const KQ = new Set(%s);
+  const MINBARS = %d;
   const out = {};
   const ymd = t => { const z=new Date(t*1000); return z.getUTCFullYear()*10000+(z.getUTCMonth()+1)*100+z.getUTCDate(); };
   Object.keys(D).forEach(sym => {
     const code = sym.replace('KRX:',''), b = D[sym], n = b.length;
-    if (n < 100) { out[code]={err:'short'+n}; return; }
+    if (n < MINBARS) { out[code]={err:'short'+n}; return; }
     const i = n-1, C=b[i][4], PC=b[i-1][4], H=b[i][2], L=b[i][3], V=b[i][5];
     const TR=[]; for(let k=1;k<n;k++) TR.push(Math.max(b[k][2]-b[k][3], Math.abs(b[k][2]-b[k-1][4]), Math.abs(b[k][3]-b[k-1][4])));
     let atr=0; for(let k=0;k<14;k++) atr+=TR[k]; atr/=14;
@@ -71,7 +94,8 @@ METRICS = """
       if(st===0) st=up?1:-1; else if((st>0)===up) st+=up?1:-1; else break; if(Math.abs(st)>20) break; }
     const c4=b[i-4]?b[i-4][4]:null, c12=b[i-12]?b[i-12][4]:null;
     let hi12=-1e18, lo12=1e18;
-    for(let k=Math.max(0,i-12);k<i;k++){ if(b[k][2]>hi12)hi12=b[k][2]; if(b[k][3]<lo12)lo12=b[k][3]; }
+    for(let k=Math.max(0,i-12);k<=i;k++){ if(b[k][2]>hi12)hi12=b[k][2]; if(b[k][3]<lo12)lo12=b[k][3]; }
+    // 당일 봉 포함(2026-09-29) — 빼면 신고가·신저가에서 0~100 을 벗어난다(-29 · 122).
     const pos12 = hi12>lo12 ? Math.round((C-lo12)/(hi12-lo12)*100) : 50;
     out[code] = { mkt: KQ.has(code)?'Q':'P', date: ymd(b[i][0]), sym_actual: SY[sym]||'',
       bars: n,
@@ -140,10 +164,12 @@ GRAPHICS = """
   const sigOf = () => {
     const bx = read('dwgboxes','boxes')[BOXN] || [];
     const ln = read('dwglines','lines')[LINEN] || [];
-    let h = bx.length*1e6 + ln.length;
-    for (let i=0;i<bx.length && i<5;i++) h += (bx[i].y1||0);
-    for (let i=0;i<ln.length && i<5;i++) h += (ln[i].y1||0);
-    return {sig: Math.round(h*100)/100, nb: bx.length, nl: ln.length};
+    // 박스와 라인의 서명을 **따로** 낸다 — 합치면 한쪽만 새로 그려져도 바뀐 것으로 보여,
+    // 라인이 직전 종목 것인 채 저장될 수 있다(심볼 대조로는 못 잡는다).
+    let hb = bx.length, hl = ln.length;
+    for (let i=0;i<bx.length && i<5;i++) hb += (bx[i].y1||0) + (bx[i].y2||0);
+    for (let i=0;i<ln.length && i<5;i++) hl += (ln[i].y1||0);
+    return {sb: Math.round(hb*100)/100, sl: Math.round(hl*100)/100, nb: bx.length, nl: ln.length};
   };
   const grab = () => {
     const boxesRaw = read('dwgboxes','boxes'), linesRaw = read('dwglines','lines');
@@ -175,38 +201,58 @@ GRAPHICS = """
   const step = (k) => {
     G.i = k;
     if (k >= SYMS.length) { G.state='done'; return; }
-    attempt(k, 0);
+    attempt(k, 0, lastAcc || sigOf());
   };
-  const attempt = (k, n) => {
-    const before = sigOf().sig;
+  let lastAcc = null;   // 직전에 채택한 종목의 그림 — 재시도에서도 이것과는 달라야 한다
+  // 재시도는 BOUNCE(KOSPI)를 거치는데, 그 그림이 **늦게** 그려지면 대상 종목으로 넘어간 뒤에
+  // KOSPI 의 존·라인이 뒤늦게 나타나 '바뀌었고 비어 있지 않다'를 만족한다. 그래서
+  // (a) BOUNCE 그림이 두 틱 연속 같아질 때까지 기다려 그 서명을 before 로 삼고,
+  // (b) 채택은 박스·라인이 **둘 다** before 와 다르고 두 틱 연속 같을 때만 한다.
+  // BOUNCE 가 실제로 그려지기 전(=from 과 같은 그림)에는 '안정'으로 치지 않는다 — 안 그려진 채
+  // 안정해 보이는 것이 곧 늦게 그려질 KOSPI 의 잔상이다. MAXW 까지 안 바뀌면 그대로 진행한다.
+  const settle = (cb, from) => {
+    const t0 = Date.now(); let prev = null;
+    const tick = () => {
+      const s2 = sigOf(), el = Date.now() - t0;
+      const moved = s2.sb !== from.sb && s2.sl !== from.sl;
+      if ((el >= MINW && moved && prev && s2.sb === prev.sb && s2.sl === prev.sl) || el >= MAXW) { cb(s2); return; }
+      prev = s2; setTimeout(tick, TICK);
+    };
+    setTimeout(tick, TICK);
+  };
+  const attempt = (k, n, before) => {
     let settled = false;
     const finish = (okFlag, why) => {
       if (settled) return; settled = true;
       if (okFlag) {
-        try { const r = grab(); r.w = why; r.tries = n + 1; G.data[SYMS[k].replace('KRX:','')] = r; }
+        try { const r = grab(); r.w = why; r.tries = n + 1; G.data[SYMS[k].replace('KRX:','')] = r; lastAcc = sigOf(); }
         catch(e){ G.err.push(SYMS[k]+':'+e.message); }
       } else if (n < RETRY) {
-        chart.setSymbol(BOUNCE, () => setTimeout(() => attempt(k, n + 1), 800));
+        chart.setSymbol(BOUNCE, () => settle((b2) => attempt(k, n + 1, b2), before));
         return;
       } else { G.err.push(SYMS[k]+':'+why); }
       step(k+1);
     };
     const guard = setTimeout(() => finish(false, 'timeout'), MAXW + 8000);
     chart.setSymbol(SYMS[k], () => {
-      const t0 = Date.now();
+      const t0 = Date.now(); let prev = null;
       const tick = () => {
         if (settled) return;
         const el = Date.now() - t0, s2 = sigOf();
-        if (el >= MINW && s2.sig !== before && s2.nb > 0 && s2.nl > 0) {
+        const changed = s2.sb !== before.sb && s2.sl !== before.sl &&
+                        (!lastAcc || (s2.sb !== lastAcc.sb && s2.sl !== lastAcc.sl));
+        const stable = prev && s2.sb === prev.sb && s2.sl === prev.sl;
+        if (el >= MINW && changed && stable && s2.nb > 0 && s2.nl > 0) {
           clearTimeout(guard); finish(true, el); return;
         }
         if (el >= MAXW) {
-          // 찼는데 서명이 그대로면 **직전 심볼의 그림**일 수 있다 — 이것도 저장하지 않는다.
+          // 찼는데 한쪽이라도 그대로면 **직전 그림**일 수 있다 — 이것도 저장하지 않는다.
           clearTimeout(guard);
-          finish(false, (s2.sig === before ? 'stale' : 'empty') + '(box ' + s2.nb + ' · line ' + s2.nl + ')');
+          const why = s2.sb === before.sb ? 'stale-box' : s2.sl === before.sl ? 'stale-line' : 'empty';
+          finish(false, why + '(box ' + s2.nb + ' · line ' + s2.nl + ')');
           return;
         }
-        setTimeout(tick, TICK);
+        prev = s2; setTimeout(tick, TICK);
       };
       setTimeout(tick, MINW);
     });
@@ -240,11 +286,11 @@ def write(name, text):
 
 if __name__ == '__main__':
     print('1) 봉 적재 (%s, %d심볼)' % (TF, len(SYMS)))
-    print(' ', ev(LOADER % (json.dumps(SYMS), PRE, PRE)))
+    print(' ', ev(LOADER % (json.dumps(SYMS), MINBARS, PRE, PRE)))
     wait(POLL % (PRE, PRE, PRE, PRE), len(SYMS))
 
     print('2) 지표 계산')
-    write('metrics_%s.json' % TF, ev(METRICS % (PRE, PRE, json.dumps(KQ))))
+    write('metrics_%s.json' % TF, ev(METRICS % (PRE, PRE, json.dumps(KQ), MINBARS)))
     write('bars_%s.json' % TF, ev(BARS % PRE))
     if TF == 'daily':
         write('actuals.json', ev(ACTUALS % PRE))
@@ -256,7 +302,7 @@ if __name__ == '__main__':
     gdata = json.loads(ev("JSON.stringify(window.__G.data)"))
     # 실패한 종목만 **새 패스로** 다시 받는다(최대 2패스). 같은 루프 안의 재시도만으로는
     # 모자랐다 — 2026-09-28 실측에서 KOSPI 로 바꾼 직후 차트가 알테오젠의 그림(라인 505)을
-    # 5초 넘게 보여 줬다. 앞 심볼의 잔상과 엉키지 않게 순서를 바꿔 따로 돈다.
+    # 5초 넘게 보여 줬다. 앞 심볼의 잔상과 엉키지 않게 실패한 종목만 따로 돈다.
     for p in range(2):
         if not st['err']:
             break
