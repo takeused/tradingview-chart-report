@@ -24,12 +24,20 @@ def _arg(flag, default=None):
 
 
 SCR = _arg('--dir', '.')
-# 종목은 --names "코드:이름,코드:이름" 으로 받는다. 하드코딩하면 다음 증설 때 또 고쳐야 한다.
-NAMES = (dict(x.split(':') for x in _arg('--names').split(','))
-         if _arg('--names') else
-         {'403870': 'HPSP', '214450': '파마리서치', '241710': '코스메카코리아',
-          '196170': '알테오젠', '039490': '키움증권', '003230': '삼양식품',
-          '002380': 'KCC', '192820': '코스맥스'})
+# 종목은 <dir>/roster.json 에서 읽는다(회차 수집기가 같은 파일을 쓴다). 증설용으로
+# --names "코드:이름,코드:이름" 을 주면 그것이 우선한다. **옛 하드코딩 기본값은 없앴다**
+# (2026-10-01) — --names 를 빠뜨리면 8/21 증설 8종목으로 조용히 돌다 KeyError 로 죽었다.
+# import 시점에는 안 죽는다(make_entry·audit_logic 이 상수만 쓰려고 import 한다) — main() 에서 멈춘다.
+def _load_names():
+    if _arg('--names'):
+        return dict(x.split(':') for x in _arg('--names').split(','))
+    p = os.path.join(SCR, 'roster.json')
+    if os.path.exists(p):
+        return {c: n for c, n, _ in json.load(open(p, encoding='utf-8'))['roster']}
+    return {}
+
+
+NAMES = _load_names()
 # --date 는 **기본값을 주지 않는다** (2026-09-17). 빠뜨리면 조용히 '2026-08-21' 이 되어
 # 원장의 opened 가 과거로 찍히고, SPLIT_LEVELS_FROM 비교가 뒤집혀 대체 레벨(p_alt)이
 # 통째로 사라진다 — 실제로 이날 그렇게 69건만 등록됐다(정상 107건). 기본값이 거짓을
@@ -127,6 +135,8 @@ def pick_level(close, atr, zones, lines, direction):
 def main():
     if not OPENED:
         raise SystemExit('--date 를 반드시 준다 — 원장 opened 와 대체 레벨 적용일이 여기서 갈린다')
+    if not NAMES:
+        raise SystemExit('종목이 없다 — <dir>/roster.json 이 없거나 --names 를 주지 않았다')
     md = load('metrics_daily.json')
     mw = load('metrics_weekly.json')
     idx = {'P': md['KOSPI']['chg'], 'Q': md['KOSDAQ']['chg']}
