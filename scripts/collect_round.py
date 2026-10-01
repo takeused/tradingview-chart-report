@@ -117,6 +117,13 @@ JSON.stringify(Object.fromEntries(Object.entries(window.__%s.data).map(([s,b])=>
 })))
 """
 
+# 직전 봉(주봉이면 지난주) 고저 — 연휴 등으로 주봉 채점이 두 주치일 때 쓴다
+ACTUALS_PREV = """
+JSON.stringify(Object.fromEntries(Object.entries(window.__%s.data).map(([s,b])=>{
+  const i=b.length-2; return [s.replace('KRX:',''), {hi:b[i][2], lo:b[i][3], close:b[i][4], time:b[i][0]}];
+})))
+"""
+
 # 원봉 전체를 파일로 (베타 계산용)
 BARS = """
 JSON.stringify(Object.fromEntries(Object.entries(window.__%s.data).map(([s,b])=>[s.replace('KRX:',''), b.map(r=>[r[0],r[4]])])))
@@ -294,6 +301,8 @@ if __name__ == '__main__':
     write('bars_%s.json' % TF, ev(BARS % PRE))
     # 일봉 채점은 actuals.json, 주봉 채점(score_weekly.py)은 actuals_weekly.json — 그 주 주봉 고저
     write('actuals.json' if TF == 'daily' else 'actuals_weekly.json', ev(ACTUALS % PRE))
+    if TF == 'weekly':
+        write('actuals_weekly_prev.json', ev(ACTUALS_PREV % PRE))
 
     print('3) 그래픽(존·라인)')
     gsyms = ['KRX:' + c for c, _ in ROSTER]
