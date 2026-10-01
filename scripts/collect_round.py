@@ -14,7 +14,7 @@ PRE = 'W' if TF == 'weekly' else 'D'
 # (선택편향 방지). 그래픽(존/라인)은 오늘 로스터에만 받는다.
 _R = json.load(open(os.path.join(S, 'roster.json'), encoding='utf-8'))
 ROSTER = [(c, m) for c, n, m in _R['roster']]
-EXTRA = _R.get('extra_for_actuals', []) if TF == 'daily' else []   # 채점용 고저는 일봉만 필요
+EXTRA = _R.get('extra_for_actuals', [])   # 채점용 고저는 일봉·주봉 모두 필요(주봉 콜은 제외 종목에도 열려 있다)
 SYMS = ['KRX:' + c for c, _ in ROSTER] + ['KRX:' + c for c in EXTRA] + ['KRX:KOSPI', 'KRX:KOSDAQ']
 KQ = [c for c, m in ROSTER if m == 'KOSDAQ']
 # 지표(Wilder ATR 시드 14 · v20 · mom12)에 실제로 필요한 봉은 20여 개다. 주봉은 신규 상장 종목이
@@ -292,8 +292,8 @@ if __name__ == '__main__':
     print('2) 지표 계산')
     write('metrics_%s.json' % TF, ev(METRICS % (PRE, PRE, json.dumps(KQ), MINBARS)))
     write('bars_%s.json' % TF, ev(BARS % PRE))
-    if TF == 'daily':
-        write('actuals.json', ev(ACTUALS % PRE))
+    # 일봉 채점은 actuals.json, 주봉 채점(score_weekly.py)은 actuals_weekly.json — 그 주 주봉 고저
+    write('actuals.json' if TF == 'daily' else 'actuals_weekly.json', ev(ACTUALS % PRE))
 
     print('3) 그래픽(존·라인)')
     gsyms = ['KRX:' + c for c, _ in ROSTER]
