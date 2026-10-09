@@ -28,7 +28,7 @@ json.dump(out, open(os.path.join(S, 'metrics_weekly.json'), 'w', encoding='utf-8
 
 # 주봉 지표가 없는 종목(신규 상장)은 직전 회차 서술값이 아니라 일봉 종가만으로는 못 채운다 — 알린다
 miss = [c for c in names if c not in desc]
-prev = json.load(open(os.path.join(ROOT, 'data', 'weekly_desc_2026-10-01.json'), encoding='utf-8'))
+prev = json.load(open(os.path.join(ROOT, 'data', 'weekly_desc_2026-10-07.json'), encoding='utf-8'))
 print('weekly_desc %d · 결측 %s · 직전 결측 %s' % (len(desc), miss, [c for c in names if c not in prev]))
 json.dump(desc, open(os.path.join(ROOT, 'data', 'weekly_desc_%s.json' % DATE), 'w', encoding='utf-8'),
           ensure_ascii=False, indent=0)
