@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- TradingView 일봉+주봉 v6.2 (ATR14 200봉·존3σ·베타조정 배지·도달확률 3.0σ 격자) 기반 24종목 비교 리포트 (2026-10-21 종가 기준) -->
+<!-- TradingView 일봉+주봉 v6.2 (ATR14 200봉·존3σ·베타조정 배지·도달확률 3.0σ 격자) 기반 24종목 비교 리포트 (2026-10-22 종가 기준) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>24종목 비교 리포트 · 2026-10-21</title>
+<title>24종목 비교 리포트 · 2026-10-22</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -100,7 +100,7 @@
 <body>
 <div class="wrap">
   <h1>트레이딩뷰 분석 리포트</h1>
-  <div class="sub">기준일 2026-10-21(수) · KRX · <b>24종목</b> · v6.2 (ATR14 200봉 · 존 3σ · <b>베타조정 배지</b> · 도달확률 <b>3.0σ 격자</b>) · <b>일봉 + 주봉</b></div>
+  <div class="sub">기준일 2026-10-22(목) · KRX · <b>24종목</b> · v6.2 (ATR14 200봉 · 존 3σ · <b>베타조정 배지</b> · 도달확률 <b>3.0σ 격자</b>) · <b>일봉 + 주봉</b></div>
 
   <div class="toolbar">
     <select class="date-select" onchange="if(this.value)location.href=this.value;" aria-label="날짜 선택">
@@ -167,13 +167,14 @@
       <option value="stock_comparison_report_2026-10-14.html">2026-10-14</option>
       <option value="stock_comparison_report_2026-10-16.html">2026-10-16</option>
       <option value="stock_comparison_report_2026-10-20.html">2026-10-20</option>
-      <option value="stock_comparison_report_2026-10-21.html" selected>2026-10-21 (최신)</option>
+      <option value="stock_comparison_report_2026-10-21.html">2026-10-21</option>
+      <option value="stock_comparison_report_2026-10-22.html" selected>2026-10-22 (최신)</option>
     </select>
     <div class="tfbadge">일봉</div>
     <div class="sumleg">
-      <span><span class="dot bg-up"></span><b class="up">0</b> 강세</span>
-      <span><span class="dot bg-neutral"></span><b class="neutral">18</b> 중립</span>
-      <span><span class="dot bg-down"></span><b class="down">6</b> 약세</span>
+      <span><span class="dot bg-up"></span><b class="up">1</b> 강세</span>
+      <span><span class="dot bg-neutral"></span><b class="neutral">22</b> 중립</span>
+      <span><span class="dot bg-down"></span><b class="down">1</b> 약세</span>
     </div>
   </div>
 
@@ -187,13 +188,13 @@
           <td><b>오늘 종가에서 그 레벨(저항·지지)까지의 간격</b>입니다. 목표가도 예상가도
               아니고 <b>지금 자리에서 걸릴 자리까지 몇 원 남았나</b>일 뿐입니다.
               위쪽은 저항까지, 아래쪽은 지지까지를 재며 방향과 무관하게 <b>절댓값</b>으로 씁니다.
-              예를 들어 배럴은 종가 2,790원에 위 레벨이 2,930원이니 거리는 <b>140원</b>이고,
-              이걸 ATR(136원)로 나눈 <b>1.03σ</b>가 표에 찍힙니다.
+              예를 들어 달바글로벌은 종가 164,000원에 위 레벨이 173,600원이니 거리는 <b>9,600원</b>이고,
+              이걸 ATR(10,110원)로 나눈 <b>0.95σ</b>가 표에 찍힙니다.
               도달확률도 이 거리에서 나옵니다 — <b>멀수록 낮고 가까울수록 높습니다.</b></td></tr>
       <tr><td><b>σ (시그마)</b></td>
           <td>거리를 <b>그 종목의 하루 변동폭(ATR)</b>으로 나눈 값입니다. 1σ = 평소 하루치.
-              1σ가 SK하이닉스는 <b>95,119원</b>인데 배럴은 <b>136원</b>이라, 같은 "5,000원 위"라도
-              SK하이닉스는 <b>0.05σ</b>이고 배럴은 <b>36.8σ</b>입니다 — 앞은 반나절이면 닿는 거리이고
+              1σ가 SK하이닉스는 <b>94,967원</b>인데 배럴은 <b>134원</b>이라, 같은 "5,000원 위"라도
+              SK하이닉스는 <b>0.05σ</b>이고 배럴은 <b>37.3σ</b>입니다 — 앞은 반나절이면 닿는 거리이고
               뒤는 몇 달치입니다. <b>종목 간 비교는 원이 아니라 σ로 합니다.</b></td></tr>
       <tr><td><b>존 / 라인</b></td>
           <td><b>존</b>은 매물이 쌓인 <b>구간</b>(SMC 박스), <b>라인</b>은 과거 고·저점이 만든
@@ -221,30 +222,30 @@
 
   <div class="secsum">
     <h3>📊 오늘 시장</h3>
-<p style="margin:0;font-size:13px;"><b>오늘 시장.</b> <b>KOSPI +3.29%</b>(5,553 → 5,736) · <b>KOSDAQ +1.38%</b>(782 → 793)로 직전 10/20 회차의 급락(코스피 -2.03% · 코스닥 -1.64%)을 되돌리는 반등이 나왔습니다. <b>로스터는 13종목 상승 · 10종목 하락 · 1종목 보합</b>(SK텔레콤)입니다 — 상승은 <b>SK하이닉스 +5.81% · 삼성전자 +5.67% · 알테오젠 +3.90% · 달바글로벌 +2.95% · 웨이비스 +2.82%</b> 순으로 컸고, 하락은 포스코인터내셔널 -3.06% · 넥스틴 -2.96% · 휴메딕스 -1.44% · 우리금융지주 -0.94% · 풍산 -0.65% · 현대모비스 -0.57% · 삼성SDI -0.36% · 남해화학 -0.34% · KB금융 -0.19% · 배럴 -0.18%입니다.
-배지는 <b>강세 0 · 중립 18 · 약세 6(현대모비스 · 남해화학 · 포스코인터내셔널 · 휴메딕스 · 우리금융지주 · 넥스틴)</b>입니다(직전 10/20 회차는 강세 1종목 · 약세 5종목). 배지는 지수를 걷어낸 초과수익이라 <b>지수가 +3.29%·+1.38% 오른 날에는 지수만큼 못 오른 종목이 중립이나 약세로 잡힙니다</b> — 오른 종목이 13개인데 강세 배지가 하나도 없는 이유입니다.
-<b>직전 회차와 등락 부호가 반대인 종목은 14개</b>(SK하이닉스 -4.23% → +5.81% · KCC -8.63% → +0.38% · 삼성전자 -2.98% → +5.67% · 삼성중공업 -5.36% → +2.08% · 현대코퍼레이션 -2.11% → +2.16% · NAVER -2.68% → +0.84% · 재영솔루텍 -5.06% → +0.33% · 에코프로 -7.74% → +0.12% · 알테오젠 -3.35% → +3.90% · 에스티팜 -2.43% → +0.65% · 웨이비스 -3.01% → +2.82% · 우리금융지주 +0.47% → -0.94% · OCI -4.24% → +0.79% · 달바글로벌 -4.13% → +2.95%)입니다 — 우리금융지주만 상승에서 하락으로 돌아섰고 나머지는 급락 뒤 반등한 종목입니다.
-거래량 배수 중앙값은 <b>0.82배</b>(직전 0.73배)이고, 1배를 넘긴 종목은 <b>7개</b>(현대모비스 1.34배 · SK하이닉스 1.23배 · 삼성SDI 1.12배 · 웨이비스 1.08배 등)입니다.</p>
+<p style="margin:0;font-size:13px;"><b>오늘 시장.</b> <b>KOSPI -3.52%</b>(5,736 → 5,534) · <b>KOSDAQ -3.62%</b>(793 → 764)로 직전 10/21 회차의 반등(코스피 +3.30% · 코스닥 +1.41%)을 하루 만에 되돌리는 재급락이 나왔습니다. <b>로스터는 1종목 상승 · 23종목 하락</b>이며 보합은 없습니다 — 오른 종목은 <b>현대코퍼레이션 +1.90%</b> 하나뿐이고, 하락은 삼성SDI -7.58% · 에코프로 -7.54% · SK하이닉스 -5.49% · 넥스틴 -4.23% · 삼성전자 -4.03% · 알테오젠 -3.75% · 웨이비스 -3.70% · 재영솔루텍 -3.48% · OCI -3.45% · 에스티팜 -3.23% · 현대모비스 -2.60% · KCC -2.16% · 삼성중공업 -2.04% · 달바글로벌 -2.03% · NAVER -1.73% · 포스코인터내셔널 -1.67% · KB금융 -1.49% · SK텔레콤 -1.42% · 남해화학 -1.38% · 휴메딕스 -1.26% · 배럴 -1.08% · 풍산 -0.82% · 우리금융지주 -0.79%입니다.
+배지는 <b>강세 1 · 중립 22 · 약세 1(삼성SDI)</b>입니다(직전 10/21 회차는 강세 0종목 · 약세 6종목). 배지는 지수를 걷어낸 초과수익이라 <b>지수가 -3.52%·-3.62% 빠진 날에는 지수만큼 빠지지 않은 종목이 중립이나 강세로 잡힙니다</b> — 23종목이 내렸는데도 약세 배지가 1종목뿐인 이유입니다.
+<b>직전 회차와 등락 부호가 반대인 종목은 12개</b>(SK하이닉스 +5.81% → -5.49% · KCC +0.38% → -2.16% · 삼성전자 +5.67% → -4.03% · 삼성중공업 +2.08% → -2.04% · NAVER +0.84% → -1.73% · 재영솔루텍 +0.33% → -3.48% · 에코프로 +0.12% → -7.54% · 알테오젠 +3.90% → -3.75% · 에스티팜 +0.65% → -3.23% · 웨이비스 +2.82% → -3.70% · OCI +0.79% → -3.45% · 달바글로벌 +2.95% → -2.03%)입니다 — 대부분 직전 반등에서 올랐다가 오늘 내린 종목입니다.
+거래량 배수 중앙값은 <b>0.62배</b>(직전 0.82배)이고, 1배를 넘긴 종목은 <b>2개</b>(에코프로 1.22배 · 삼성SDI 1.08배)입니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(0,200,120,.45);">
-    <h3>🧮 지난 회차 채점 — <span class="flip">기준선은 앞섰지만 일괄이동 귀무모형에는 밀렸습니다</span></h3>
-<p style="margin:0 0 10px;font-size:13px;">채점 대상은 "레벨을 맞혔나"가 아니라 <b>"도달 확률이 잘 보정됐나"</b>입니다. 직전(10/20) 일봉 회차를 <b>오늘(10/21) 고가·저가</b>로 채점했습니다. 주봉 콜은 일봉과 분리된 원장이라 <b>금요일(10/23)에만 채점</b>하므로 오늘은 채점 대상이 아닙니다.</p>
+    <h3>🧮 지난 회차 채점 — <span class="flip">프로브는 기준선·귀무모형을 모두 앞섰지만 원장은 기준선에 밀렸습니다</span></h3>
+<p style="margin:0 0 10px;font-size:13px;">채점 대상은 "레벨을 맞혔나"가 아니라 <b>"도달 확률이 잘 보정됐나"</b>입니다. 직전(10/21) 일봉 회차를 <b>오늘(10/22) 고가·저가</b>로 채점했습니다. 주봉 콜은 일봉과 분리된 원장이라 <b>금요일(10/23)에만 채점</b>하므로 오늘은 채점 대상이 아닙니다.</p>
     <table style="margin:0 0 10px;">
       <thead><tr><th>구분</th><th>건수</th><th>조건부</th><th>비교 대상</th><th>판정</th></tr></thead>
       <tbody>
-        <tr><td>일봉 도달확률 Brier — <code>p_probe</code></td><td>96건</td><td>0.14053</td><td>거리단독 0.14075</td><td class="up">기준선 대비 +0.16%</td></tr>
-        <tr><td>└ 일괄이동 귀무모형과 비교</td><td>96건</td><td>0.14053</td><td>귀무 0.13944</td><td class="down">귀무모형 대비 -0.78%</td></tr>
-        <tr><td>실제 도달률 (일봉 프로브)</td><td>96건</td><td>아래로 조정된 비율 68.8%</td><td>실제 19.8%</td><td>—</td></tr>
-        <tr><td>일봉 레벨 콜 원장 — 만기 종결</td><td>56건</td><td>0.15212</td><td>거리단독 0.15071</td><td class="down">기준선 대비 -0.94%</td></tr>
-        <tr><td>└ 일괄이동 귀무모형과 비교</td><td>56건</td><td>0.15212</td><td>귀무 0.15090</td><td class="down">귀무모형 대비 -0.81%</td></tr>
-        <tr><td>도달 / 미도달 (일봉 원장)</td><td>56건</td><td>도달 18건 · 만기 미도달 38건</td><td>실제 도달률 32.1%</td><td>—</td></tr>
+        <tr><td>일봉 도달확률 Brier — <code>p_probe</code></td><td>96건</td><td>0.16291</td><td>거리단독 0.16390</td><td class="up">기준선 대비 +0.60%</td></tr>
+        <tr><td>└ 일괄이동 귀무모형과 비교</td><td>96건</td><td>0.16291</td><td>귀무 0.16390</td><td class="up">귀무모형 대비 +0.60%</td></tr>
+        <tr><td>실제 도달률 (일봉 프로브)</td><td>96건</td><td>아래로 조정된 비율 91.7%</td><td>실제 25.0%</td><td>—</td></tr>
+        <tr><td>일봉 레벨 콜 원장 — 만기 종결</td><td>36건</td><td>0.22972</td><td>거리단독 0.22287</td><td class="down">기준선 대비 -3.07%</td></tr>
+        <tr><td>└ 일괄이동 귀무모형과 비교</td><td>36건</td><td>0.22972</td><td>귀무 0.23140</td><td class="up">귀무모형 대비 +0.73%</td></tr>
+        <tr><td>도달 / 미도달 (일봉 원장)</td><td>36건</td><td>도달 30건 · 만기 미도달 6건</td><td>실제 도달률 83.3%</td><td>—</td></tr>
       </tbody>
     </table>
-<p style="margin:0 0 10px;font-size:13px;">① <b>프로브는 기준선을 +0.16%로 앞섰지만 귀무모형에는 -0.78%로 밀렸습니다</b> — 기준선보다 나은 폭이 거의 없고 귀무모형에 지므로 <b>"이겼다"고 쓰지 않습니다</b>(조건부 조정이 종목별 구별이 아니라 수준 이동이었다는 뜻입니다). 보정표는 0~20%(47건) 예측 13.6%→실제 6.4% · 35~50%(43건) 예측 39.7%→실제 34.9%입니다.</p>
-<p style="margin:0 0 10px;font-size:13px;">② <b>원장은 기준선에 -0.94%, 귀무모형에 -0.81%로 둘 다 밀렸고</b> 종결 56건 중 도달 18건입니다. 방향별로 가르면 <b>아래쪽 레벨은 20건 중 5건이 닿았고 위쪽 레벨은 36건 중 13건이 닿았습니다</b> — 급락 뒤 반등일이라 위쪽 도달이 아래쪽보다 많았으며, 한 회차 표본이라 해석하지 않습니다. <b>누적 10회차 이전에는 추세를 말하지 않으며</b>, 아직 만기가 안 된 일봉 콜은 60건 남았습니다.</p>
+<p style="margin:0 0 10px;font-size:13px;">① <b>프로브는 기준선을 +0.60%, 귀무모형을 +0.60% 앞섰습니다</b> — 두 비교를 모두 넘었지만 한 회차에 0.6%라 <b>결론을 내리지 않습니다</b>(폭이 작고 회차 내 관측은 독립이 아닙니다). 보정표는 0~20%(48건) 예측 12.7%→실제 6.2% · 20~35%(11건) 예측 33.1%→실제 54.5% · 35~50%(37건) 예측 38.8%→실제 40.5%입니다.</p>
+<p style="margin:0 0 10px;font-size:13px;">② <b>원장은 기준선에 -3.07%로 밀렸고 귀무모형에는 +0.73% 앞섰습니다</b> — 기준선에 지므로 <b>"이겼다"고 쓰지 않습니다</b>. 종결 36건 중 도달 30건입니다. 방향별로 가르면 <b>아래쪽 레벨은 29건 중 27건이 닿았고 위쪽 레벨은 7건 중 3건이 닿았습니다</b> — 재급락일이라 아래쪽 도달이 위쪽보다 많았으며, 한 회차 표본이라 해석하지 않습니다. <b>누적 10회차 이전에는 추세를 말하지 않으며</b>, 아직 만기가 안 된 일봉 콜은 96건 남았습니다.</p>
     <p style="margin:0;font-size:12px;color:var(--muted);">※ 원장 도달률과 프로브 도달률을 <b>나란히 비교하면 안 됩니다</b> — 원장은 종목마다 거리가 다른 차트 레벨이고 프로브는 고정거리입니다.
-※ 오늘 신규로 <b>일봉 72건</b>(가까운 쪽 48 · 대체 24)을 등록해 진행 중인 콜이 <b>일봉 132건 · 주봉 93건</b>이 됐습니다(주봉은 금요일에만 신규 등록).
+※ 오늘 신규로 <b>일봉 69건</b>(가까운 쪽 47 · 대체 22)을 등록해 진행 중인 콜이 <b>일봉 165건 · 주봉 93건</b>이 됐습니다(주봉은 금요일에만 신규 등록).
 ※ 회차 내 관측은 서로 독립이 아닙니다(같은 날·같은 시장).</p>
   </div>
 
@@ -259,163 +260,163 @@
       <tr class="sector"><td colspan="7">반도체 · 부품</td></tr>
       <tr>
         <td class="name">삼성전자 <span class="code">(005930)</span></td>
-        <td>223,500</td><td class="up">+5.67%<br><span class="rel up">β조정 초과 +1.64%p</span></td><td>217,000~228,000</td>
-        <td>17.27M<br><span class="vr">0.93배</span></td><td><span class="badge neutral">중립(+0.28σ)</span></td><td class="zn"><b class="r">저</b>240,000<br><b class="s">지</b>214,500<span class="atr">ATR 13,119 · 위 라인 <b>1.26σ</b> / 아래 라인 <b>0.69σ</b></span></td>
+        <td>214,500</td><td class="down">-4.03%<br><span class="rel up">β조정 초과 +0.28%p</span></td><td>212,000~226,000</td>
+        <td>11.30M<br><span class="vr">0.60배</span></td><td><span class="badge neutral">중립(+0.05σ)</span></td><td class="zn"><b class="r">저</b>223,000<br><b class="s">지</b>204,500<span class="atr">ATR 13,182 · 위 라인 <b>0.65σ</b> / 아래 라인 <b>0.76σ</b></span></td>
       </tr>
       <tr>
         <td class="name">SK하이닉스 <span class="code">(000660)</span></td>
-        <td>1,294,000</td><td class="up">+5.81%<br><span class="rel up">β조정 초과 +1.23%p</span></td><td>1,254,000~1,329,000</td>
-        <td>4.23M<br><span class="vr">1.23배</span></td><td><span class="badge neutral">중립(+0.17σ)</span></td><td class="zn"><b class="r">저</b>1,373,000<br><b class="s">지</b>1,246,000<span class="atr">ATR 95,119 · 위 라인 <b>0.83σ</b> / 아래 라인 <b>0.51σ</b></span></td>
+        <td>1,223,000</td><td class="down">-5.49%<br><span class="rel down">β조정 초과 -0.59%p</span></td><td>1,204,000~1,297,000</td>
+        <td>2.52M<br><span class="vr">0.72배</span></td><td><span class="badge neutral">중립(-0.08σ)</span></td><td class="zn"><b class="r">저</b>1,373,000<br><b class="s">지</b>1,099,000<span class="atr">ATR 94,967 · 위 라인 <b>1.58σ</b> / 아래 라인 <b>1.31σ</b></span></td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
-        <td>29,550</td><td class="down">-2.96%<br><span class="rel down">β조정 초과 -4.72%p</span></td><td>29,500~31,900</td>
-        <td>5.5만<br><span class="vr">0.76배</span></td><td><span class="badge down">약세(-0.53σ)</span></td><td class="zn"><b class="r">저</b>31,100<br><b class="s">지</b>27,633<span class="atr">ATR 2,626 · 위 라인 <b>0.59σ</b> / 아래 라인 <b>0.73σ</b></span></td>
+        <td>28,300</td><td class="down">-4.23%<br><span class="rel up">β조정 초과 +0.38%p</span></td><td>28,150~29,850</td>
+        <td>6.1만<br><span class="vr">0.82배</span></td><td><span class="badge neutral">중립(+0.04σ)</span></td><td class="zn"><b class="r">저</b>30,150<br><b class="s">지</b>26,333<span class="atr">ATR 2,560 · 위 라인 <b>0.72σ</b> / 아래 라인 <b>0.77σ</b></span></td>
       </tr>
       <tr class="sector"><td colspan="7">지주 · 통신</td></tr>
       <tr>
         <td class="name">SK텔레콤 <span class="code">(017670)</span></td>
-        <td>77,300</td><td class="">+0.00%<br><span class="rel down">β조정 초과 -1.86%p</span></td><td>76,400~78,500</td>
-        <td>70.7만<br><span class="vr">1.01배</span></td><td><span class="badge neutral">중립(-0.43σ)</span></td><td class="zn"><b class="r">저</b>79,400<br><b class="s">지</b>73,900<span class="atr">ATR 3,331 · 위 라인 <b>0.63σ</b> / 아래 라인 <b>1.02σ</b></span></td>
+        <td>76,200</td><td class="down">-1.42%<br><span class="rel up">β조정 초과 +0.57%p</span></td><td>75,500~77,100</td>
+        <td>29.9만<br><span class="vr">0.42배</span></td><td><span class="badge neutral">중립(+0.14σ)</span></td><td class="zn"><b class="r">저</b>78,800<br><b class="s">지</b>73,900<span class="atr">ATR 3,222 · 위 라인 <b>0.81σ</b> / 아래 라인 <b>0.71σ</b></span></td>
       </tr>
       <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
       <tr>
         <td class="name">NAVER <span class="code">(035420)</span></td>
-        <td>179,500</td><td class="up">+0.84%<br><span class="rel down">β조정 초과 -1.09%p</span></td><td>177,700~180,700</td>
-        <td>36.1만<br><span class="vr">0.54배</span></td><td><span class="badge neutral">중립(-0.31σ)</span></td><td class="zn"><b class="r">저</b>185,000<br><b class="s">지</b>176,200<span class="atr">ATR 6,369 · 위 라인 <b>0.86σ</b> / 아래 라인 <b>0.52σ</b><br>대체 · 아래 존 171,800(<b>1.21σ</b>·22.6%)</span></td>
+        <td>176,400</td><td class="down">-1.73%<br><span class="rel up">β조정 초과 +0.34%p</span></td><td>175,500~179,300</td>
+        <td>43.3만<br><span class="vr">0.66배</span></td><td><span class="badge neutral">중립(+0.10σ)</span></td><td class="zn"><b class="r">저</b>179,500<br><b class="s">지</b>173,000<span class="atr">ATR 6,200 · 위 라인 <b>0.50σ</b> / 아래 라인 <b>0.55σ</b><br>대체 · 아래 존 171,800(<b>0.74σ</b>·43.9%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
       <tr>
         <td class="name">KB금융 <span class="code">(105560)</span></td>
-        <td>160,600</td><td class="down">-0.19%<br><span class="rel down">β조정 초과 -1.57%p</span></td><td>159,000~164,500</td>
-        <td>77.6만<br><span class="vr">0.89배</span></td><td><span class="badge neutral">중립(-0.47σ)</span></td><td class="zn"><b class="r">저</b>163,900<br><b class="s">지</b>157,700<span class="atr">ATR 5,334 · 위 라인 <b>0.62σ</b> / 아래 라인 <b>0.54σ</b><br>대체 · 아래 존 153,000(<b>1.43σ</b>·18.4%) / 위 존 174,700(<b>2.64σ</b>·7.5%)</span></td>
+        <td>158,200</td><td class="down">-1.49%<br><span class="rel down">β조정 초과 -0.01%p</span></td><td>157,200~161,100</td>
+        <td>56.7만<br><span class="vr">0.65배</span></td><td><span class="badge neutral">중립(-0.00σ)</span></td><td class="zn"><b class="r">저</b>162,000<br><b class="s">지</b>155,300<span class="atr">ATR 5,232 · 위 라인 <b>0.73σ</b> / 아래 라인 <b>0.55σ</b><br>대체 · 아래 존 153,000(<b>0.99σ</b>·32.1%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">2차전지 · 화학</td></tr>
       <tr>
         <td class="name">에코프로 <span class="code">(086520)</span></td>
-        <td>83,500</td><td class="up">+0.12%<br><span class="rel down">β조정 초과 -1.56%p</span></td><td>82,200~86,700</td>
-        <td>61.7만<br><span class="vr">0.80배</span></td><td><span class="badge neutral">중립(-0.23σ)</span></td><td class="zn"><b class="r">저</b>86,500<br><b class="s">지</b>81,000<span class="atr">ATR 5,704 · 위 라인 <b>0.53σ</b> / 아래 존 <b>0.44σ</b><br>대체 · 아래 라인 80,300(<b>0.56σ</b>·45.5%)</span></td>
+        <td>77,200</td><td class="down">-7.54%<br><span class="rel down">β조정 초과 -3.11%p</span></td><td>77,000~83,900</td>
+        <td>96.3만<br><span class="vr">1.22배</span></td><td><span class="badge neutral">중립(-0.41σ)</span></td><td class="zn"><b class="r">저</b>80,300<br><b class="s">지</b>74,100<span class="atr">ATR 5,790 · 위 라인 <b>0.54σ</b> / 아래 라인 <b>0.54σ</b><br>대체 · 위 존 89,300(<b>2.09σ</b>·12.4%)</span></td>
       </tr>
       <tr>
         <td class="name">OCI <span class="code">(456040)</span></td>
-        <td>63,700</td><td class="up">+0.79%<br><span class="rel down">β조정 초과 -1.26%p</span></td><td>62,900~65,300</td>
-        <td>2.7만<br><span class="vr">0.96배</span></td><td><span class="badge neutral">중립(-0.25σ)</span></td><td class="zn"><b class="r">저</b>66,100<br><b class="s">지</b>61,100<span class="atr">ATR 3,141 · 위 라인 <b>0.76σ</b> / 아래 라인 <b>0.83σ</b><br>대체 · 아래 존 55,700(<b>2.55σ</b>·3.5%)</span></td>
+        <td>61,500</td><td class="down">-3.45%<br><span class="rel down">β조정 초과 -1.26%p</span></td><td>60,800~63,300</td>
+        <td>2.2만<br><span class="vr">0.83배</span></td><td><span class="badge neutral">중립(-0.25σ)</span></td><td class="zn"><b class="r">저</b>63,800<br><b class="s">지</b>59,900<span class="atr">ATR 3,124 · 위 라인 <b>0.74σ</b> / 아래 라인 <b>0.51σ</b><br>대체 · 아래 존 55,700(<b>1.86σ</b>·9.2%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
       <tr>
         <td class="name">삼성중공업 <span class="code">(010140)</span></td>
-        <td>17,680</td><td class="up">+2.08%<br><span class="rel up">β조정 초과 +0.15%p</span></td><td>17,170~17,840</td>
-        <td>2.82M<br><span class="vr">0.85배</span></td><td><span class="badge neutral">중립(+0.03σ)</span></td><td class="zn"><b class="r">저</b>18,210<br><b class="s">지</b>17,210<span class="atr">ATR 869 · 위 라인 <b>0.61σ</b> / 아래 라인 <b>0.54σ</b><br>대체 · 위 존 19,650(<b>2.27σ</b>·9.7%)</span></td>
+        <td>17,320</td><td class="down">-2.04%<br><span class="rel up">β조정 초과 +0.03%p</span></td><td>17,200~17,720</td>
+        <td>1.93M<br><span class="vr">0.60배</span></td><td><span class="badge neutral">중립(+0.01σ)</span></td><td class="zn"><b class="r">저</b>18,000<br><b class="s">지</b>16,050<span class="atr">ATR 845 · 위 라인 <b>0.81σ</b> / 아래 라인 <b>1.50σ</b><br>대체 · 위 존 19,650(<b>2.76σ</b>·6.0%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">자동차 부품</td></tr>
       <tr>
         <td class="name">현대모비스 <span class="code">(012330)</span></td>
-        <td>346,000</td><td class="down">-0.57%<br><span class="rel down">β조정 초과 -2.98%p</span></td><td>340,000~351,000</td>
-        <td>37.9만<br><span class="vr">1.34배</span></td><td><span class="badge down">약세(-0.58σ)</span></td><td class="zn"><b class="r">저</b>362,000<br><b class="s">지</b>331,500<span class="atr">ATR 17,874 · 위 라인 <b>0.90σ</b> / 아래 라인 <b>0.81σ</b><br>대체 · 아래 존 296,000(<b>2.80σ</b>·2.7%) / 위 존 371,500(<b>1.43σ</b>·24.2%)</span></td>
+        <td>337,000</td><td class="down">-2.60%<br><span class="rel down">β조정 초과 -0.02%p</span></td><td>333,500~344,000</td>
+        <td>21.3만<br><span class="vr">0.74배</span></td><td><span class="badge neutral">중립(-0.00σ)</span></td><td class="zn"><b class="r">저</b>347,000<br><b class="s">지</b>327,000<span class="atr">ATR 17,490 · 위 라인 <b>0.57σ</b> / 아래 라인 <b>0.57σ</b><br>대체 · 아래 존 296,000(<b>2.34σ</b>·4.4%) / 위 존 371,500(<b>1.97σ</b>·12.6%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
       <tr>
         <td class="name">에스티팜 <span class="code">(237690)</span></td>
-        <td>92,800</td><td class="up">+0.65%<br><span class="rel down">β조정 초과 -0.53%p</span></td><td>92,000~95,800</td>
-        <td>5.0만<br><span class="vr">0.59배</span></td><td><span class="badge neutral">중립(-0.10σ)</span></td><td class="zn"><b class="r">저</b>95,400<br><b class="s">지</b>90,200<span class="atr">ATR 5,017 · 위 라인 <b>0.52σ</b> / 아래 라인 <b>0.52σ</b></span></td>
+        <td>89,800</td><td class="down">-3.23%<br><span class="rel down">β조정 초과 -0.14%p</span></td><td>88,700~92,900</td>
+        <td>5.6만<br><span class="vr">0.65배</span></td><td><span class="badge neutral">중립(-0.03σ)</span></td><td class="zn"><b class="r">저</b>92,500<br><b class="s">지</b>87,200<span class="atr">ATR 4,958 · 위 라인 <b>0.55σ</b> / 아래 라인 <b>0.52σ</b><br>대체 · 위 존 93,500(<b>0.75σ</b>·49.3%)</span></td>
       </tr>
       <tr>
         <td class="name">휴메딕스 <span class="code">(200670)</span></td>
-        <td>23,900</td><td class="down">-1.44%<br><span class="rel down">β조정 초과 -2.53%p</span></td><td>23,900~24,700</td>
-        <td>1.3만<br><span class="vr">0.48배</span></td><td><span class="badge down">약세(-0.62σ)</span></td><td class="zn"><b class="r">저</b>24,400<br><b class="s">지</b>23,400<span class="atr">ATR 981 · 위 라인 <b>0.51σ</b> / 아래 라인 <b>0.51σ</b><br>대체 · 위 존 25,800(<b>1.94σ</b>·13.5%)</span></td>
+        <td>23,600</td><td class="down">-1.26%<br><span class="rel up">β조정 초과 +1.60%p</span></td><td>23,200~24,100</td>
+        <td>1.1만<br><span class="vr">0.42배</span></td><td><span class="badge neutral">중립(+0.39σ)</span></td><td class="zn"><b class="r">저</b>24,150<br><b class="s">지</b>23,100<span class="atr">ATR 975 · 위 라인 <b>0.56σ</b> / 아래 라인 <b>0.51σ</b><br>대체 · 위 존 25,800(<b>2.26σ</b>·9.6%)</span></td>
       </tr>
       <tr>
         <td class="name">달바글로벌 <span class="code">(483650)</span></td>
-        <td>167,400</td><td class="up">+2.95%<br><span class="rel up">β조정 초과 +1.85%p</span></td><td>162,100~168,600</td>
-        <td>5.6만<br><span class="vr">0.43배</span></td><td><span class="badge neutral">중립(+0.30σ)</span></td><td class="zn"><b class="r">저</b>173,600<br><b class="s">지</b>161,800<span class="atr">ATR 10,449 · 위 라인 <b>0.59σ</b> / 아래 라인 <b>0.54σ</b><br>대체 · 아래 존 157,600(<b>0.94σ</b>·32.3%) / 위 존 185,500(<b>1.73σ</b>·15.6%)</span></td>
+        <td>164,000</td><td class="down">-2.03%<br><span class="rel down">β조정 초과 -0.85%p</span></td><td>163,200~168,900</td>
+        <td>5.3만<br><span class="vr">0.43배</span></td><td><span class="badge neutral">중립(-0.14σ)</span></td><td class="zn"><b class="r">저</b>173,600<br><b class="s">지</b>158,500<span class="atr">ATR 10,110 · 위 라인 <b>0.95σ</b> / 아래 라인 <b>0.54σ</b><br>대체 · 아래 존 157,600(<b>0.63σ</b>·48.0%) / 위 존 185,500(<b>2.13σ</b>·10.1%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
       <tr>
         <td class="name">웨이비스 <span class="code">(289930)</span></td>
-        <td>7,300</td><td class="up">+2.82%<br><span class="rel up">β조정 초과 +1.38%p</span></td><td>7,180~7,700</td>
-        <td>6.2만<br><span class="vr">1.08배</span></td><td><span class="badge neutral">중립(+0.22σ)</span></td><td class="zn"><b class="r">저</b>7,580<br><b class="s">지</b>6,980<span class="atr">ATR 468 · 위 라인 <b>0.60σ</b> / 아래 라인 <b>0.68σ</b><br>대체 · 아래 존 6,650(<b>1.39σ</b>·19.1%) / 위 존 8,260(<b>2.05σ</b>·12.8%)</span></td>
+        <td>7,030</td><td class="down">-3.70%<br><span class="rel up">β조정 초과 +0.07%p</span></td><td>7,010~7,400</td>
+        <td>2.8만<br><span class="vr">0.52배</span></td><td><span class="badge neutral">중립(+0.01σ)</span></td><td class="zn"><b class="r">저</b>7,420<br><b class="s">지</b>6,790<span class="atr">ATR 462 · 위 라인 <b>0.84σ</b> / 아래 라인 <b>0.52σ</b><br>대체 · 아래 존 6,650(<b>0.82σ</b>·39.1%) / 위 존 8,260(<b>2.66σ</b>·6.5%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
       <tr>
         <td class="name">배럴 <span class="code">(267790)</span></td>
-        <td>2,790</td><td class="down">-0.18%<br><span class="rel down">β조정 초과 -0.81%p</span></td><td>2,760~2,795</td>
-        <td>0.2만<br><span class="vr">0.38배</span></td><td><span class="badge neutral">중립(-0.17σ)</span></td><td class="zn"><b class="r">저</b>2,930<br><b class="s">지</b>2,700<span class="atr">ATR 136 · 위 라인 <b>1.03σ</b> / 아래 라인 <b>0.66σ</b></span></td>
+        <td>2,760</td><td class="down">-1.08%<br><span class="rel up">β조정 초과 +0.56%p</span></td><td>2,755~2,865</td>
+        <td>0.2만<br><span class="vr">0.39배</span></td><td><span class="badge neutral">중립(+0.12σ)</span></td><td class="zn"><b class="r">저</b>2,930<br><b class="s">지</b><span class="na">유효 레벨 없음</span><span class="atr">ATR 134 · 위 라인 <b>1.27σ</b></span></td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-08-22 증설)</td></tr>
       <tr>
         <td class="name">재영솔루텍 <span class="code">(049630)</span></td>
-        <td>6,030</td><td class="up">+0.33%<br><span class="rel down">β조정 초과 -1.16%p</span></td><td>6,010~6,190</td>
-        <td>6.4만<br><span class="vr">0.37배</span></td><td><span class="badge neutral">중립(-0.18σ)</span></td><td class="zn"><b class="r">저</b>6,380<br><b class="s">지</b>5,820<span class="atr">ATR 385 · 위 라인 <b>0.91σ</b> / 아래 라인 <b>0.55σ</b><br>대체 · 아래 존 5,200(<b>2.16σ</b>·5.2%)</span></td>
+        <td>5,820</td><td class="down">-3.48%<br><span class="rel up">β조정 초과 +0.42%p</span></td><td>5,820~6,090</td>
+        <td>9.2만<br><span class="vr">0.57배</span></td><td><span class="badge neutral">중립(+0.06σ)</span></td><td class="zn"><b class="r">저</b>6,380<br><b class="s">지</b>5,450<span class="atr">ATR 377 · 위 라인 <b>1.49σ</b> / 아래 라인 <b>0.98σ</b><br>대체 · 아래 존 5,200(<b>1.65σ</b>·11.8%)</span></td>
       </tr>
       <tr>
         <td class="name">KCC <span class="code">(002380)</span></td>
-        <td>393,000</td><td class="up">+0.38%<br><span class="rel down">β조정 초과 -2.36%p</span></td><td>390,000~402,000</td>
-        <td>2.1만<br><span class="vr">1.07배</span></td><td><span class="badge neutral">중립(-0.47σ)</span></td><td class="zn"><b class="r">저</b>403,500<br><b class="s">지</b>383,000<span class="atr">ATR 19,799 · 위 라인 <b>0.53σ</b> / 아래 라인 <b>0.51σ</b></span></td>
+        <td>384,500</td><td class="down">-2.16%<br><span class="rel up">β조정 초과 +0.74%p</span></td><td>381,500~396,500</td>
+        <td>1.7만<br><span class="vr">0.88배</span></td><td><span class="badge neutral">중립(+0.15σ)</span></td><td class="zn"><b class="r">저</b>395,500<br><b class="s">지</b>373,500<span class="atr">ATR 19,456 · 위 라인 <b>0.56σ</b> / 아래 라인 <b>0.56σ</b><br>대체 · 아래 존 327,000(<b>2.96σ</b>·2.2%)</span></td>
       </tr>
       <tr>
         <td class="name">알테오젠 <span class="code">(196170)</span></td>
-        <td>240,000</td><td class="up">+3.90%<br><span class="rel up">β조정 초과 +2.52%p</span></td><td>235,000~243,500</td>
-        <td>25.4만<br><span class="vr">0.81배</span></td><td><span class="badge neutral">중립(+0.45σ)</span></td><td class="zn"><b class="r">저</b>247,307<br><b class="s">지</b>229,615<span class="atr">ATR 13,584 · 위 라인 <b>0.54σ</b> / 아래 라인 <b>0.77σ</b><br>대체 · 아래 존 212,307(<b>2.04σ</b>·6.8%) / 위 존 257,000(<b>1.25σ</b>·27.8%)</span></td>
+        <td>231,000</td><td class="down">-3.75%<br><span class="rel down">β조정 초과 -0.13%p</span></td><td>229,000~239,000</td>
+        <td>17.7만<br><span class="vr">0.56배</span></td><td><span class="badge neutral">중립(-0.02σ)</span></td><td class="zn"><b class="r">저</b>241,538<br><b class="s">지</b>223,846<span class="atr">ATR 13,400 · 위 라인 <b>0.79σ</b> / 아래 라인 <b>0.53σ</b><br>대체 · 아래 존 212,307(<b>1.40σ</b>·17.2%) / 위 존 257,000(<b>1.94σ</b>·13.0%)</span></td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-08-27 증설)</td></tr>
       <tr>
         <td class="name">현대코퍼레이션 <span class="code">(011760)</span></td>
-        <td>23,700</td><td class="up">+2.16%<br><span class="rel up">β조정 초과 +0.71%p</span></td><td>23,300~23,850</td>
-        <td>2.6만<br><span class="vr">0.80배</span></td><td><span class="badge neutral">중립(+0.23σ)</span></td><td class="zn"><b class="r">저</b>24,100<br><b class="s">지</b>23,300<span class="atr">ATR 736 · 위 라인 <b>0.54σ</b> / 아래 라인 <b>0.54σ</b><br>대체 · 아래 존 22,250(<b>1.97σ</b>·7.9%) / 위 존 24,450(<b>1.02σ</b>·38.2%)</span></td>
+        <td>24,150</td><td class="up">+1.90%<br><span class="rel up">β조정 초과 +3.42%p</span></td><td>23,700~24,800</td>
+        <td>2.4만<br><span class="vr">0.75배</span></td><td><span class="badge up">강세(+1.09σ)</span></td><td class="zn"><b class="r">저</b>24,450<br><b class="s">지</b>23,750<span class="atr">ATR 762 · 위 존 <b>0.39σ</b> / 아래 라인 <b>0.53σ</b><br>대체 · 아래 존 22,250(<b>2.49σ</b>·2.5%) / 위 라인 24,650(<b>0.66σ</b>·50.8%)</span></td>
       </tr>
       <tr>
         <td class="name">남해화학 <span class="code">(025860)</span></td>
-        <td>5,780</td><td class="down">-0.34%<br><span class="rel down">β조정 초과 -1.58%p</span></td><td>5,700~5,840</td>
-        <td>11.0만<br><span class="vr">0.63배</span></td><td><span class="badge down">약세(-0.55σ)</span></td><td class="zn"><b class="r">저</b>5,950<br><b class="s">지</b>5,650<span class="atr">ATR 165 · 위 라인 <b>1.03σ</b> / 아래 라인 <b>0.79σ</b><br>대체 · 위 존 6,060(<b>1.70σ</b>·18.4%)</span></td>
+        <td>5,700</td><td class="down">-1.38%<br><span class="rel down">β조정 초과 -0.05%p</span></td><td>5,680~5,830</td>
+        <td>12.6만<br><span class="vr">0.73배</span></td><td><span class="badge neutral">중립(-0.02σ)</span></td><td class="zn"><b class="r">저</b>5,950<br><b class="s">지</b>5,560<span class="atr">ATR 164 · 위 라인 <b>1.52σ</b> / 아래 라인 <b>0.85σ</b><br>대체 · 위 존 6,060(<b>2.19σ</b>·11.1%)</span></td>
       </tr>
       <tr>
         <td class="name">풍산 <span class="code">(103140)</span></td>
-        <td>61,000</td><td class="down">-0.65%<br><span class="rel down">β조정 초과 -2.63%p</span></td><td>60,100~61,800</td>
-        <td>12.2만<br><span class="vr">1.04배</span></td><td><span class="badge neutral">중립(-0.49σ)</span></td><td class="zn"><b class="r">저</b>62,800<br><b class="s">지</b>58,900<span class="atr">ATR 3,291 · 위 라인 <b>0.55σ</b> / 아래 라인 <b>0.64σ</b></span></td>
+        <td>60,500</td><td class="down">-0.82%<br><span class="rel up">β조정 초과 +1.30%p</span></td><td>60,100~61,600</td>
+        <td>7.0만<br><span class="vr">0.60배</span></td><td><span class="badge neutral">중립(+0.25σ)</span></td><td class="zn"><b class="r">저</b>62,200<br><b class="s">지</b>58,900<span class="atr">ATR 3,163 · 위 라인 <b>0.54σ</b> / 아래 라인 <b>0.51σ</b></span></td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-09-21 증설)</td></tr>
       <tr>
         <td class="name">삼성SDI <span class="code">(006400)</span></td>
-        <td>554,000</td><td class="down">-0.36%<br><span class="rel down">β조정 초과 -2.87%p</span></td><td>547,000~574,000</td>
-        <td>54.4만<br><span class="vr">1.12배</span></td><td><span class="badge neutral">중립(-0.47σ)</span></td><td class="zn"><b class="r">저</b>573,000<br><b class="s">지</b>536,442<span class="atr">ATR 34,141 · 위 라인 <b>0.56σ</b> / 아래 라인 <b>0.51σ</b><br>대체 · 아래 존 518,000(<b>1.05σ</b>·29.8%) / 위 존 650,000(<b>2.81σ</b>·6.1%)</span></td>
+        <td>512,000</td><td class="down">-7.58%<br><span class="rel down">β조정 초과 -4.87%p</span></td><td>510,000~554,000</td>
+        <td>54.2만<br><span class="vr">1.08배</span></td><td><span class="badge down">약세(-0.72σ)</span></td><td class="zn"><b class="r">저</b>530,579<br><b class="s">지</b>493,500<span class="atr">ATR 34,845 · 위 라인 <b>0.53σ</b> / 아래 라인 <b>0.53σ</b></span></td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-10-01 증설)</td></tr>
       <tr>
         <td class="name">포스코인터내셔널 <span class="code">(047050)</span></td>
-        <td>53,900</td><td class="down">-3.06%<br><span class="rel down">β조정 초과 -4.32%p</span></td><td>53,300~55,800</td>
-        <td>39.0만<br><span class="vr">0.83배</span></td><td><span class="badge down">약세(-0.91σ)</span></td><td class="zn"><b class="r">저</b>54,700<br><b class="s">지</b>52,700<span class="atr">ATR 2,564 · 위 존 <b>0.31σ</b> / 아래 존 <b>0.47σ</b><br>대체 · 아래 라인 52,500(<b>0.55σ</b>·49.0%) / 위 라인 55,200(<b>0.51σ</b>·56.1%)</span></td>
+        <td>53,000</td><td class="down">-1.67%<br><span class="rel down">β조정 초과 -0.32%p</span></td><td>52,500~54,100</td>
+        <td>24.2만<br><span class="vr">0.55배</span></td><td><span class="badge neutral">중립(-0.07σ)</span></td><td class="zn"><b class="r">저</b>54,300<br><b class="s">지</b>51,700<span class="atr">ATR 2,495 · 위 라인 <b>0.52σ</b> / 아래 라인 <b>0.52σ</b><br>대체 · 아래 존 50,800(<b>0.88σ</b>·36.1%) / 위 존 56,700(<b>1.48σ</b>·21.6%)</span></td>
       </tr>
       <tr>
         <td class="name">우리금융지주 <span class="code">(316140)</span></td>
-        <td>31,500</td><td class="down">-0.94%<br><span class="rel down">β조정 초과 -2.13%p</span></td><td>31,300~32,100</td>
-        <td>1.56M<br><span class="vr">0.47배</span></td><td><span class="badge down">약세(-0.59σ)</span></td><td class="zn"><b class="r">저</b>32,200<br><b class="s">지</b>30,950<span class="atr">ATR 1,139 · 위 라인 <b>0.61σ</b> / 아래 존 <b>0.48σ</b><br>대체 · 아래 라인 30,300(<b>1.05σ</b>·20.2%)</span></td>
+        <td>31,250</td><td class="down">-0.79%<br><span class="rel up">β조정 초과 +0.49%p</span></td><td>31,100~31,700</td>
+        <td>1.20M<br><span class="vr">0.37배</span></td><td><span class="badge neutral">중립(+0.14σ)</span></td><td class="zn"><b class="r">저</b>31,950<br><b class="s">지</b>30,300<span class="atr">ATR 1,100 · 위 라인 <b>0.64σ</b> / 아래 라인 <b>0.86σ</b></span></td>
       </tr>
     </tbody>
   </table>
-  <div class="note">※ 등락률은 직전 거래일(10/20) 종가 대비 <b>10/21 종가</b> 기준이며, 초과수익은 <b>β<sub>adj</sub> = 1 + 0.7 × (β<sub>120일</sub> − 1)</b>로 지수를 걷어낸 값입니다(코스피 종목은 KOSPI, 코스닥 종목은 KOSDAQ에 대고 잽니다). β는 <b>매 회차 다시</b> 계산합니다. σ·존/라인·배지·도달확률을 읽는 법은 맨 위 <a href="#howto">「표 읽는 법」</a>에 있습니다.<br>
-  ※ 표에 실린 것은 <b>"가까운 쪽" 48개</b>입니다. 같은 방향의 <b>다른 출처 레벨(대체 24개)</b>도 원장에 함께 올리지만, <b>표·관전 포인트가 쓰는 값은 가까운 쪽</b>입니다. <b>레벨이 아예 없는 방향은 오늘 0개</b>입니다.<br>
-  ※ 존은 매 회차 새로 읽습니다. 오늘 잡힌 존은 <b>118개</b>이고, 종가가 <b>존 안</b>인 종목은 포스코인터내셔널입니다. 대체 레벨이 없는 방향은 <b>24개</b>입니다.<br>
-  ※ 라인도 24종목 전부 새로 읽었습니다(<b>종목당 평균 325개</b>). 오늘 가까운 쪽 48개의 출처는 <b>라인 44 · 존 4</b>으로, 직전 회차(라인 45 · 존 3)와 비교됩니다.<br>
-  ※ 다음 회차는 <b>10/22(목)</b>입니다.</div>
+  <div class="note">※ 등락률은 직전 거래일(10/21) 종가 대비 <b>10/22 종가</b> 기준이며, 초과수익은 <b>β<sub>adj</sub> = 1 + 0.7 × (β<sub>120일</sub> − 1)</b>로 지수를 걷어낸 값입니다(코스피 종목은 KOSPI, 코스닥 종목은 KOSDAQ에 대고 잽니다). β는 <b>매 회차 다시</b> 계산합니다. σ·존/라인·배지·도달확률을 읽는 법은 맨 위 <a href="#howto">「표 읽는 법」</a>에 있습니다.<br>
+  ※ 표에 실린 것은 <b>"가까운 쪽" 47개</b>입니다. 같은 방향의 <b>다른 출처 레벨(대체 22개)</b>도 원장에 함께 올리지만, <b>표·관전 포인트가 쓰는 값은 가까운 쪽</b>입니다. <b>레벨이 아예 없는 방향은 오늘 1개</b>입니다.<br>
+  ※ 존은 매 회차 새로 읽습니다. 오늘 잡힌 존은 <b>119개</b>이고, 종가가 <b>존 안</b>인 종목은 삼성SDI입니다. 대체 레벨이 없는 방향은 <b>25개</b>입니다.<br>
+  ※ 라인도 24종목 전부 새로 읽었습니다(<b>종목당 평균 325개</b>). 오늘 가까운 쪽 47개의 출처는 <b>라인 46 · 존 1</b>으로, 직전 회차(라인 44 · 존 4)와 비교됩니다.<br>
+  ※ 다음 회차는 <b>10/23(금)</b>이며 주봉 분석·채점이 함께 있습니다.</div>
 
   <div class="secsum">
     <h3>섹터별 한 줄 요약 (일봉)</h3>
-    <p style="margin:0 0 8px;font-size:12px;color:var(--muted);">종목별 숫자는 위 표에 있습니다. 여기에는 <b>표에서 읽히지 않는 것</b>(존 출처·종가가 존 안인 종목·가까운 자리와 먼 자리)만 적습니다. 오늘은 상승·하락이 섹터와 무관하게 갈려 섹터별로 묶을 이야기가 없습니다.</p>
-<p style="margin:0 0 8px;font-size:13px;"><b>가까운 쪽이 존인 자리 4개</b> — 포스코인터내셔널 위 54,700(0.31σ) · 포스코인터내셔널 아래 52,700(0.47σ) · 에코프로 아래 81,000(0.44σ) · 우리금융지주 아래 30,950(0.48σ). 직전 회차에는 3개였습니다.</p>
-<p style="margin:0 0 8px;font-size:13px;"><b>종가가 존 안인 종목</b> — 포스코인터내셔널. 존 안에 있으면 존의 위·아래 경계가 각각 0.3σ 하한을 넘는지에 따라 레벨이 정해집니다.</p>
-<p style="margin:0 0 8px;font-size:13px;"><b>약세 배지 여섯</b>은 <b>현대모비스 · 남해화학 · 포스코인터내셔널 · 휴메딕스 · 우리금융지주 · 넥스틴</b>입니다. 강세 배지는 오늘 0종목입니다. 현대코퍼레이션은 보합이라 배지와 무관하게 위·아래 자리가 표에 그대로 있습니다.</p>
-<p style="margin:0;font-size:13px;"><b>가까운 자리와 먼 자리</b> — 가장 가까운 자리는 <b>0.312σ(포스코인터내셔널 위 54,700)</b>이고 가장 먼 자리는 <b>1.258σ(삼성전자 위 240,000)</b>입니다.</p></div>
+    <p style="margin:0 0 8px;font-size:12px;color:var(--muted);">종목별 숫자는 위 표에 있습니다. 여기에는 <b>표에서 읽히지 않는 것</b>(존 출처·종가가 존 안인 종목·가까운 자리와 먼 자리)만 적습니다. 오늘은 23종목이 내려 섹터별로 묶을 이야기가 없습니다.</p>
+<p style="margin:0 0 8px;font-size:13px;"><b>가까운 쪽이 존인 자리 1개</b> — 현대코퍼레이션 위 24,450(0.39σ). 직전 회차에는 4개였습니다.</p>
+<p style="margin:0 0 8px;font-size:13px;"><b>종가가 존 안인 종목</b> — 삼성SDI. 존 안에 있으면 존의 위·아래 경계가 각각 0.3σ 하한을 넘는지에 따라 레벨이 정해집니다.</p>
+<p style="margin:0 0 8px;font-size:13px;"><b>약세 배지</b>는 <b>삼성SDI</b> 하나입니다. 강세 배지도 <b>현대코퍼레이션</b> 하나인데, 이는 로스터에서 유일하게 오른 종목입니다.</p>
+<p style="margin:0;font-size:13px;"><b>가까운 자리와 먼 자리</b> — 가장 가까운 자리는 <b>0.394σ(현대코퍼레이션 위 24,450)</b>이고 가장 먼 자리는 <b>1.579σ(SK하이닉스 위 1,373,000)</b>입니다.</p></div>
 
 
   <div class="secsum">
     <h3>오늘의 시장 관전 포인트</h3>
-<p style="margin:0 0 10px;font-size:13px;"><b>급락 다음 날 반등이 나온 날, 로스터 24종목 중 13종목이 오르고 10종목이 내렸으며 1종목은 보합이었습니다.</b> 배지는 강세 0 · 중립 18 · 약세 6입니다 — 배지는 지수를 걷어낸 값이라 상승 종목 수가 아니라 <b>지수 대비 얼마나 달랐는가</b>를 보여 줍니다.</p>
-<p style="margin:0 0 10px;font-size:13px;"><b>직전 회차와 부호가 반대인 종목은 14개</b>(SK하이닉스 · KCC · 삼성전자 · 삼성중공업 · 현대코퍼레이션 · NAVER · 재영솔루텍 · 에코프로 · 알테오젠 · 에스티팜 · 웨이비스 · 우리금융지주 · OCI · 달바글로벌)입니다. 급락 뒤 반등일에는 부호가 한꺼번에 바뀌기 쉬우며, 다음 날 방향은 이 리포트가 검정으로 확인한 신호가 아니므로 방향 확률은 0.5로 둡니다.</p>
-<p style="margin:0;font-size:13px;">가까운 쪽 48개의 출처는 <b>라인 44 · 존 4</b>이고, 확률 상위는 <b>포스코인터내셔널 위 54,700(0.312σ · 존 · 70.0%) · 휴메딕스 위 24,400(0.510σ · 라인 · 62.6%) · 현대코퍼레이션 위 24,100(0.543σ · 라인 · 61.9%)</b>입니다. 가장 가까운 자리는 <b>0.312σ(포스코인터내셔널 위 54,700)</b>이고 가장 먼 자리는 <b>1.258σ(삼성전자 위 240,000)</b>입니다. 확률이 높은 자리는 방향을 맞힌 것이 아니라 가까운 거리의 확률이 구조적으로 높게 나오는 것입니다.</p>
+<p style="margin:0 0 10px;font-size:13px;"><b>반등 다음 날 재급락이 나온 날, 로스터 24종목 중 1종목만 오르고 23종목이 내렸습니다.</b> 배지는 강세 1 · 중립 22 · 약세 1입니다 — 배지는 지수를 걷어낸 값이라 상승 종목 수가 아니라 <b>지수 대비 얼마나 달랐는가</b>를 보여 줍니다.</p>
+<p style="margin:0 0 10px;font-size:13px;"><b>직전 회차와 부호가 반대인 종목은 12개</b>(SK하이닉스 · KCC · 삼성전자 · 삼성중공업 · NAVER · 재영솔루텍 · 에코프로 · 알테오젠 · 에스티팜 · 웨이비스 · OCI · 달바글로벌)입니다. 큰 변동일 직후에는 부호가 한꺼번에 바뀌기 쉬우며, 다음 날 방향은 이 리포트가 검정으로 확인한 신호가 아니므로 방향 확률은 0.5로 둡니다.</p>
+<p style="margin:0;font-size:13px;">가까운 쪽 47개의 출처는 <b>라인 46 · 존 1</b>이고, 확률 상위는 <b>현대코퍼레이션 위 24,450(0.394σ · 존 · 67.5%) · 삼성SDI 위 530,579(0.533σ · 라인 · 63.8%) · 에코프로 위 80,300(0.535σ · 라인 · 63.3%)</b>입니다. 가장 가까운 자리는 <b>0.394σ(현대코퍼레이션 위 24,450)</b>이고 가장 먼 자리는 <b>1.579σ(SK하이닉스 위 1,373,000)</b>입니다. 확률이 높은 자리는 방향을 맞힌 것이 아니라 가까운 거리의 확률이 구조적으로 높게 나오는 것입니다.</p>
   </div>
 
   <div class="secsum" style="border-color:rgba(255,215,0,.5);">
-    <h3>📊 지표 비교 — 24종목 전체 <span class="muted">(2026-10-21 종가 기준 · v6.2 · β조정)</span></h3>
+    <h3>📊 지표 비교 — 24종목 전체 <span class="muted">(2026-10-22 종가 기준 · v6.2 · β조정)</span></h3>
     <p style="margin:0 0 10px;font-size:13px;color:var(--muted);">
       <b>2026-09-22부터 합산 점수와 등수를 인쇄하지 않습니다.</b> 예전에는 아래 세 항목을
       <b>47 · 29 · 24</b>로 합산해 1위부터 줄을 세웠는데, <b>그 세 항목 중 검정을 통과한 것이
@@ -437,30 +438,30 @@
         <th>위 여유<br><span class="vr">저항까지 거리</span></th>
         <th>아래 지지<br><span class="vr">참고용</span></th></tr></thead>
       <tbody>
-      <tr data-market="KOSPI" data-badge="중립" data-q="삼성전자 005930"><td class="name">삼성전자 <span class="code">(005930)</span></td><td>+0.28σ<br><span class="vr">상위 12%</span></td><td>0.93배<br><span class="vr">상위 38%</span></td><td>1.26σ<br><span class="vr">상위 4%</span></td><td>0.69σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="SK하이닉스 000660"><td class="name">SK하이닉스 <span class="code">(000660)</span></td><td>+0.17σ<br><span class="vr">상위 25%</span></td><td>1.23배<br><span class="vr">상위 8%</span></td><td>0.83σ<br><span class="vr">상위 29%</span></td><td>0.51σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="약세" data-q="넥스틴 348210"><td class="name">넥스틴 <span class="code">(348210)</span></td><td>-0.53σ<br><span class="vr">상위 79%</span></td><td>0.76배<br><span class="vr">상위 67%</span></td><td>0.59σ<br><span class="vr">상위 62%</span></td><td>0.73σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="SK텔레콤 017670"><td class="name">SK텔레콤 <span class="code">(017670)</span></td><td>-0.43σ<br><span class="vr">상위 58%</span></td><td>1.01배<br><span class="vr">상위 29%</span></td><td>0.63σ<br><span class="vr">상위 38%</span></td><td>1.02σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="NAVER 035420"><td class="name">NAVER <span class="code">(035420)</span></td><td>-0.31σ<br><span class="vr">상위 54%</span></td><td>0.54배<br><span class="vr">상위 79%</span></td><td>0.86σ<br><span class="vr">상위 25%</span></td><td>0.52σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="KB금융 105560"><td class="name">KB금융 <span class="code">(105560)</span></td><td>-0.47σ<br><span class="vr">상위 71%</span></td><td>0.89배<br><span class="vr">상위 42%</span></td><td>0.62σ<br><span class="vr">상위 42%</span></td><td>0.54σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="중립" data-q="에코프로 086520"><td class="name">에코프로 <span class="code">(086520)</span></td><td>-0.23σ<br><span class="vr">상위 46%</span></td><td>0.80배<br><span class="vr">상위 62%</span></td><td>0.53σ<br><span class="vr">상위 88%</span></td><td>0.44σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="OCI 456040"><td class="name">OCI <span class="code">(456040)</span></td><td>-0.25σ<br><span class="vr">상위 50%</span></td><td>0.96배<br><span class="vr">상위 33%</span></td><td>0.76σ<br><span class="vr">상위 33%</span></td><td>0.83σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="삼성중공업 010140"><td class="name">삼성중공업 <span class="code">(010140)</span></td><td>+0.03σ<br><span class="vr">상위 29%</span></td><td>0.85배<br><span class="vr">상위 46%</span></td><td>0.61σ<br><span class="vr">상위 50%</span></td><td>0.54σ</td></tr>
-      <tr data-market="KOSPI" data-badge="약세" data-q="현대모비스 012330"><td class="name">현대모비스 <span class="code">(012330)</span></td><td>-0.58σ<br><span class="vr">상위 88%</span></td><td>1.34배<br><span class="vr">상위 4%</span></td><td>0.90σ<br><span class="vr">상위 21%</span></td><td>0.81σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="중립" data-q="에스티팜 237690"><td class="name">에스티팜 <span class="code">(237690)</span></td><td>-0.10σ<br><span class="vr">상위 33%</span></td><td>0.59배<br><span class="vr">상위 75%</span></td><td>0.52σ<br><span class="vr">상위 92%</span></td><td>0.52σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="약세" data-q="휴메딕스 200670"><td class="name">휴메딕스 <span class="code">(200670)</span></td><td>-0.62σ<br><span class="vr">상위 96%</span></td><td>0.48배<br><span class="vr">상위 83%</span></td><td>0.51σ<br><span class="vr">상위 96%</span></td><td>0.51σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="달바글로벌 483650"><td class="name">달바글로벌 <span class="code">(483650)</span></td><td>+0.30σ<br><span class="vr">상위 8%</span></td><td>0.43배<br><span class="vr">상위 92%</span></td><td>0.59σ<br><span class="vr">상위 58%</span></td><td>0.54σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="중립" data-q="웨이비스 289930"><td class="name">웨이비스 <span class="code">(289930)</span></td><td>+0.22σ<br><span class="vr">상위 21%</span></td><td>1.08배<br><span class="vr">상위 17%</span></td><td>0.60σ<br><span class="vr">상위 54%</span></td><td>0.68σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="중립" data-q="배럴 267790"><td class="name">배럴 <span class="code">(267790)</span></td><td>-0.17σ<br><span class="vr">상위 38%</span></td><td>0.38배<br><span class="vr">상위 96%</span></td><td>1.03σ<br><span class="vr">상위 12%</span></td><td>0.66σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="중립" data-q="재영솔루텍 049630"><td class="name">재영솔루텍 <span class="code">(049630)</span></td><td>-0.18σ<br><span class="vr">상위 42%</span></td><td>0.37배<br><span class="vr">상위 100%</span></td><td>0.91σ<br><span class="vr">상위 17%</span></td><td>0.55σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="KCC 002380"><td class="name">KCC <span class="code">(002380)</span></td><td>-0.47σ<br><span class="vr">상위 71%</span></td><td>1.07배<br><span class="vr">상위 21%</span></td><td>0.53σ<br><span class="vr">상위 83%</span></td><td>0.51σ</td></tr>
-      <tr data-market="KOSDAQ" data-badge="중립" data-q="알테오젠 196170"><td class="name">알테오젠 <span class="code">(196170)</span></td><td>+0.45σ<br><span class="vr">상위 4%</span></td><td>0.81배<br><span class="vr">상위 54%</span></td><td>0.54σ<br><span class="vr">상위 79%</span></td><td>0.77σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="현대코퍼레이션 011760"><td class="name">현대코퍼레이션 <span class="code">(011760)</span></td><td>+0.23σ<br><span class="vr">상위 17%</span></td><td>0.80배<br><span class="vr">상위 62%</span></td><td>0.54σ<br><span class="vr">상위 75%</span></td><td>0.54σ</td></tr>
-      <tr data-market="KOSPI" data-badge="약세" data-q="남해화학 025860"><td class="name">남해화학 <span class="code">(025860)</span></td><td>-0.55σ<br><span class="vr">상위 83%</span></td><td>0.63배<br><span class="vr">상위 71%</span></td><td>1.03σ<br><span class="vr">상위 8%</span></td><td>0.79σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="풍산 103140"><td class="name">풍산 <span class="code">(103140)</span></td><td>-0.49σ<br><span class="vr">상위 75%</span></td><td>1.04배<br><span class="vr">상위 25%</span></td><td>0.55σ<br><span class="vr">상위 71%</span></td><td>0.64σ</td></tr>
-      <tr data-market="KOSPI" data-badge="중립" data-q="삼성SDI 006400"><td class="name">삼성SDI <span class="code">(006400)</span></td><td>-0.47σ<br><span class="vr">상위 71%</span></td><td>1.12배<br><span class="vr">상위 12%</span></td><td>0.56σ<br><span class="vr">상위 67%</span></td><td>0.51σ</td></tr>
-      <tr data-market="KOSPI" data-badge="약세" data-q="포스코인터내셔널 047050"><td class="name">포스코인터내셔널 <span class="code">(047050)</span></td><td>-0.91σ<br><span class="vr">상위 100%</span></td><td>0.83배<br><span class="vr">상위 50%</span></td><td>0.31σ<br><span class="vr">상위 100%</span></td><td>0.47σ</td></tr>
-      <tr data-market="KOSPI" data-badge="약세" data-q="우리금융지주 316140"><td class="name">우리금융지주 <span class="code">(316140)</span></td><td>-0.59σ<br><span class="vr">상위 92%</span></td><td>0.47배<br><span class="vr">상위 88%</span></td><td>0.61σ<br><span class="vr">상위 46%</span></td><td>0.48σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="삼성전자 005930"><td class="name">삼성전자 <span class="code">(005930)</span></td><td>+0.05σ<br><span class="vr">상위 42%</span></td><td>0.60배<br><span class="vr">상위 62%</span></td><td>0.65σ<br><span class="vr">상위 54%</span></td><td>0.76σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="SK하이닉스 000660"><td class="name">SK하이닉스 <span class="code">(000660)</span></td><td>-0.08σ<br><span class="vr">상위 83%</span></td><td>0.72배<br><span class="vr">상위 38%</span></td><td>1.58σ<br><span class="vr">상위 4%</span></td><td>1.31σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="넥스틴 348210"><td class="name">넥스틴 <span class="code">(348210)</span></td><td>+0.04σ<br><span class="vr">상위 46%</span></td><td>0.82배<br><span class="vr">상위 21%</span></td><td>0.72σ<br><span class="vr">상위 50%</span></td><td>0.77σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="SK텔레콤 017670"><td class="name">SK텔레콤 <span class="code">(017670)</span></td><td>+0.14σ<br><span class="vr">상위 25%</span></td><td>0.42배<br><span class="vr">상위 92%</span></td><td>0.81σ<br><span class="vr">상위 29%</span></td><td>0.71σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="NAVER 035420"><td class="name">NAVER <span class="code">(035420)</span></td><td>+0.10σ<br><span class="vr">상위 33%</span></td><td>0.66배<br><span class="vr">상위 42%</span></td><td>0.50σ<br><span class="vr">상위 96%</span></td><td>0.55σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="KB금융 105560"><td class="name">KB금융 <span class="code">(105560)</span></td><td>-0.00σ<br><span class="vr">상위 62%</span></td><td>0.65배<br><span class="vr">상위 50%</span></td><td>0.73σ<br><span class="vr">상위 46%</span></td><td>0.55σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="에코프로 086520"><td class="name">에코프로 <span class="code">(086520)</span></td><td>-0.41σ<br><span class="vr">상위 96%</span></td><td>1.22배<br><span class="vr">상위 4%</span></td><td>0.54σ<br><span class="vr">상위 83%</span></td><td>0.54σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="OCI 456040"><td class="name">OCI <span class="code">(456040)</span></td><td>-0.25σ<br><span class="vr">상위 92%</span></td><td>0.83배<br><span class="vr">상위 17%</span></td><td>0.74σ<br><span class="vr">상위 42%</span></td><td>0.51σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="삼성중공업 010140"><td class="name">삼성중공업 <span class="code">(010140)</span></td><td>+0.01σ<br><span class="vr">상위 54%</span></td><td>0.60배<br><span class="vr">상위 62%</span></td><td>0.81σ<br><span class="vr">상위 33%</span></td><td>1.50σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="현대모비스 012330"><td class="name">현대모비스 <span class="code">(012330)</span></td><td>-0.00σ<br><span class="vr">상위 62%</span></td><td>0.74배<br><span class="vr">상위 29%</span></td><td>0.57σ<br><span class="vr">상위 62%</span></td><td>0.57σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="에스티팜 237690"><td class="name">에스티팜 <span class="code">(237690)</span></td><td>-0.03σ<br><span class="vr">상위 75%</span></td><td>0.65배<br><span class="vr">상위 50%</span></td><td>0.55σ<br><span class="vr">상위 75%</span></td><td>0.52σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="휴메딕스 200670"><td class="name">휴메딕스 <span class="code">(200670)</span></td><td>+0.39σ<br><span class="vr">상위 8%</span></td><td>0.42배<br><span class="vr">상위 92%</span></td><td>0.56σ<br><span class="vr">상위 71%</span></td><td>0.51σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="달바글로벌 483650"><td class="name">달바글로벌 <span class="code">(483650)</span></td><td>-0.14σ<br><span class="vr">상위 88%</span></td><td>0.43배<br><span class="vr">상위 83%</span></td><td>0.95σ<br><span class="vr">상위 21%</span></td><td>0.54σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="웨이비스 289930"><td class="name">웨이비스 <span class="code">(289930)</span></td><td>+0.01σ<br><span class="vr">상위 54%</span></td><td>0.52배<br><span class="vr">상위 79%</span></td><td>0.84σ<br><span class="vr">상위 25%</span></td><td>0.52σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="배럴 267790"><td class="name">배럴 <span class="code">(267790)</span></td><td>+0.12σ<br><span class="vr">상위 29%</span></td><td>0.39배<br><span class="vr">상위 96%</span></td><td>1.27σ<br><span class="vr">상위 17%</span></td><td><span class="na">없음</span></td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="재영솔루텍 049630"><td class="name">재영솔루텍 <span class="code">(049630)</span></td><td>+0.06σ<br><span class="vr">상위 38%</span></td><td>0.57배<br><span class="vr">상위 67%</span></td><td>1.49σ<br><span class="vr">상위 12%</span></td><td>0.98σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="KCC 002380"><td class="name">KCC <span class="code">(002380)</span></td><td>+0.15σ<br><span class="vr">상위 17%</span></td><td>0.88배<br><span class="vr">상위 12%</span></td><td>0.56σ<br><span class="vr">상위 67%</span></td><td>0.56σ</td></tr>
+      <tr data-market="KOSDAQ" data-badge="중립" data-q="알테오젠 196170"><td class="name">알테오젠 <span class="code">(196170)</span></td><td>-0.02σ<br><span class="vr">상위 71%</span></td><td>0.56배<br><span class="vr">상위 71%</span></td><td>0.79σ<br><span class="vr">상위 38%</span></td><td>0.53σ</td></tr>
+      <tr data-market="KOSPI" data-badge="강세" data-q="현대코퍼레이션 011760"><td class="name">현대코퍼레이션 <span class="code">(011760)</span></td><td>+1.09σ<br><span class="vr">상위 4%</span></td><td>0.75배<br><span class="vr">상위 25%</span></td><td>0.39σ<br><span class="vr">상위 100%</span></td><td>0.53σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="남해화학 025860"><td class="name">남해화학 <span class="code">(025860)</span></td><td>-0.02σ<br><span class="vr">상위 71%</span></td><td>0.73배<br><span class="vr">상위 33%</span></td><td>1.52σ<br><span class="vr">상위 8%</span></td><td>0.85σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="풍산 103140"><td class="name">풍산 <span class="code">(103140)</span></td><td>+0.25σ<br><span class="vr">상위 12%</span></td><td>0.60배<br><span class="vr">상위 62%</span></td><td>0.54σ<br><span class="vr">상위 79%</span></td><td>0.51σ</td></tr>
+      <tr data-market="KOSPI" data-badge="약세" data-q="삼성SDI 006400"><td class="name">삼성SDI <span class="code">(006400)</span></td><td>-0.72σ<br><span class="vr">상위 100%</span></td><td>1.08배<br><span class="vr">상위 8%</span></td><td>0.53σ<br><span class="vr">상위 88%</span></td><td>0.53σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="포스코인터내셔널 047050"><td class="name">포스코인터내셔널 <span class="code">(047050)</span></td><td>-0.07σ<br><span class="vr">상위 79%</span></td><td>0.55배<br><span class="vr">상위 75%</span></td><td>0.52σ<br><span class="vr">상위 92%</span></td><td>0.52σ</td></tr>
+      <tr data-market="KOSPI" data-badge="중립" data-q="우리금융지주 316140"><td class="name">우리금융지주 <span class="code">(316140)</span></td><td>+0.14σ<br><span class="vr">상위 25%</span></td><td>0.37배<br><span class="vr">상위 100%</span></td><td>0.64σ<br><span class="vr">상위 58%</span></td><td>0.86σ</td></tr>
       </tbody>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">
@@ -481,12 +482,12 @@
   <div class="wkhead"></div>
   <div class="toolbar" style="margin-bottom:12px;">
     <div class="tfbadge wk">주봉</div>
-    <span class="note" style="margin:0;">진행 중인 주봉(10/19 시작 주)의 <b>사흘치</b> — 아래 서술 표는 이 주, 도달확률 표는 10/16(금) 회차 기준입니다</span>
+    <span class="note" style="margin:0;">진행 중인 주봉(10/19 시작 주)의 <b>나흘치</b> — 아래 서술 표는 이 주, 도달확률 표는 10/16(금) 회차 기준입니다</span>
   </div>
   <div class="secsum" style="border-color:rgba(120,200,255,.45);">
-    <h3>📆 주봉으로 보면 — <span class="flip">이번 주 봉은 아직 사흘치입니다</span></h3>
-<p style="margin:0 0 10px;font-size:13px;"><b>이번 주(10/19~)는 월·화·수 사흘만 거래된 봉</b>이고 사흘 동안 코스피 +1.19%·코스닥 -0.25%입니다. 아래 서술 표의 "주간 등락"·연속 주·12주 위치·모멘텀은 모두 이 사흘치가 얹힌 값입니다. <b>주봉 도달확률 표는 10/16(금) 회차 기준으로 그대로 둡니다</b> — 다음 주봉 분석과 채점은 <b>10/23(금)</b>입니다.</p>
-<p style="margin:0;font-size:13px;">진행 중인 봉으로 <b>24종목 중 9종목이 플러스</b>입니다. 12주 위치는 <b>삼성SDI 82% · 에코프로 60% · 포스코인터내셔널 56% · 웨이비스 51%</b>가 상단권, <b>현대모비스 6% · SK텔레콤 7% · 삼성중공업 9% · 달바글로벌 9%</b>가 하단권입니다. 12주 모멘텀은 <b>삼성SDI +39.5% · 재영솔루텍 +12.9% · 웨이비스 +11.4%</b>가 상위, <b>현대모비스 -27.3% · SK하이닉스 -24.7% · 달바글로벌 -24.2% · 삼성중공업 -17.2%</b>가 하위입니다. 주간 ATR%가 가장 큰 종목은 <b>재영솔루텍 69.2% · 넥스틴 23.9% · 웨이비스 21.7%</b>입니다 — 같은 1σ라도 종목마다 폭이 이만큼 다릅니다.</p></div>
+    <h3>📆 주봉으로 보면 — <span class="flip">이번 주 봉은 아직 나흘치입니다</span></h3>
+<p style="margin:0 0 10px;font-size:13px;"><b>이번 주(10/19~)는 월·화·수·목 나흘만 거래된 봉</b>이고 나흘 동안 코스피 -2.37%·코스닥 -3.86%입니다. 아래 서술 표의 "주간 등락"·연속 주·12주 위치·모멘텀은 모두 이 나흘치가 얹힌 값입니다. <b>주봉 도달확률 표는 10/16(금) 회차 기준으로 그대로 둡니다</b> — 다음 주봉 분석과 채점은 <b>10/23(금)</b>입니다.</p>
+<p style="margin:0;font-size:13px;">진행 중인 봉으로 <b>24종목 중 1종목이 플러스</b>입니다. 12주 위치는 <b>삼성SDI 66% · 포스코인터내셔널 48% · 웨이비스 43% · 현대코퍼레이션 42%</b>가 상단권, <b>현대모비스 2% · 삼성중공업 3% · SK텔레콤 4% · SK하이닉스 5%</b>가 하단권입니다. 12주 모멘텀은 <b>삼성SDI +29.0% · 재영솔루텍 +9.0% · 웨이비스 +7.3%</b>가 상위, <b>현대모비스 -29.2% · SK하이닉스 -28.8% · 달바글로벌 -25.8% · 삼성중공업 -18.9%</b>가 하위입니다. 주간 ATR%가 가장 큰 종목은 <b>재영솔루텍 71.8% · 넥스틴 25.2% · 웨이비스 22.5%</b>입니다 — 같은 1σ라도 종목마다 폭이 이만큼 다릅니다.</p></div>
 
   <table>
     <thead>
@@ -499,208 +500,208 @@
       <tr class="sector"><td colspan="7">반도체 · 부품</td></tr>
       <tr>
         <td class="name">삼성전자 <span class="code">(005930)</span></td>
-        <td>223,500</td><td class="up">+3.71%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="down">35%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-14.9"><span class="down">4주 -21.7%</span><br><span class="down">12주 -14.9%</span></td>
-        <td>14.9%</td>
+        <td>214,500</td><td class="down">-0.46%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">4주 연속 하락</span></td>
+        <td class="down">26%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-18.3"><span class="down">4주 -24.9%</span><br><span class="down">12주 -18.3%</span></td>
+        <td>15.5%</td>
       </tr>
       <tr>
         <td class="name">SK하이닉스 <span class="code">(000660)</span></td>
-        <td>1,294,000</td><td class="up">+1.73%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="down">15%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-24.7"><span class="down">4주 -30.5%</span><br><span class="down">12주 -24.7%</span></td>
-        <td>20.7%</td>
+        <td>1,223,000</td><td class="down">-3.85%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">4주 연속 하락</span></td>
+        <td class="down">5%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-28.8"><span class="down">4주 -34.3%</span><br><span class="down">12주 -28.8%</span></td>
+        <td>21.9%</td>
       </tr>
       <tr>
         <td class="name">넥스틴 <span class="code">(348210)</span></td>
-        <td>29,550</td><td class="down">-4.98%</td>
+        <td>28,300</td><td class="down">-9.00%</td>
         <td><span class="badge down">하락</span><br><span class="vr">2주 연속 하락</span></td>
-        <td class="down">27%<br><span class="vr">12주 range</span></td>
-        <td data-sort="2.4"><span class="down">4주 -11.4%</span><br><span class="up">12주 +2.4%</span></td>
-        <td>23.9%</td>
+        <td class="down">20%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-1.9"><span class="down">4주 -15.1%</span><br><span class="down">12주 -1.9%</span></td>
+        <td>25.2%</td>
       </tr>
       <tr class="sector"><td colspan="7">지주 · 통신</td></tr>
       <tr>
         <td class="name">SK텔레콤 <span class="code">(017670)</span></td>
-        <td>77,300</td><td class="down">-1.40%</td>
+        <td>76,200</td><td class="down">-2.81%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
-        <td class="down">7%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-5.0"><span class="down">4주 -11.2%</span><br><span class="down">12주 -5.0%</span></td>
-        <td>12.8%</td>
+        <td class="down">4%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-6.4"><span class="down">4주 -12.5%</span><br><span class="down">12주 -6.4%</span></td>
+        <td>13.0%</td>
       </tr>
       <tr class="sector"><td colspan="7">인터넷 · IT서비스</td></tr>
       <tr>
         <td class="name">NAVER <span class="code">(035420)</span></td>
-        <td>179,500</td><td class="down">-0.28%</td>
+        <td>176,400</td><td class="down">-2.00%</td>
         <td><span class="badge down">하락</span><br><span class="vr">10주 연속 하락</span></td>
-        <td class="down">13%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-13.7"><span class="down">4주 -7.8%</span><br><span class="down">12주 -13.7%</span></td>
-        <td>11.7%</td>
+        <td class="down">8%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-15.2"><span class="down">4주 -9.4%</span><br><span class="down">12주 -15.2%</span></td>
+        <td>11.9%</td>
       </tr>
       <tr class="sector"><td colspan="7">금융 · 보험</td></tr>
       <tr>
         <td class="name">KB금융 <span class="code">(105560)</span></td>
-        <td>160,600</td><td class="up">+0.38%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="down">22%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-4.7"><span class="down">4주 -7.3%</span><br><span class="down">12주 -4.7%</span></td>
-        <td>7.6%</td>
+        <td>158,200</td><td class="down">-1.13%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">6주 연속 하락</span></td>
+        <td class="down">14%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-6.1"><span class="down">4주 -8.7%</span><br><span class="down">12주 -6.1%</span></td>
+        <td>7.7%</td>
       </tr>
       <tr class="sector"><td colspan="7">2차전지 · 화학</td></tr>
       <tr>
         <td class="name">에코프로 <span class="code">(086520)</span></td>
-        <td>83,500</td><td class="up">+2.71%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="up">60%<br><span class="vr">12주 range</span></td>
-        <td data-sort="5.6"><span class="up">4주 +4.2%</span><br><span class="up">12주 +5.6%</span></td>
-        <td>17.1%</td>
+        <td>77,200</td><td class="down">-5.04%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">2주 연속 하락</span></td>
+        <td class="down">41%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-2.4"><span class="down">4주 -3.6%</span><br><span class="down">12주 -2.4%</span></td>
+        <td>18.6%</td>
       </tr>
       <tr>
         <td class="name">OCI <span class="code">(456040)</span></td>
-        <td>63,700</td><td class="down">-3.48%</td>
+        <td>61,500</td><td class="down">-6.82%</td>
         <td><span class="badge down">하락</span><br><span class="vr">4주 연속 하락</span></td>
-        <td class="down">18%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-7.5"><span class="down">4주 -17.2%</span><br><span class="down">12주 -7.5%</span></td>
-        <td>16.4%</td>
+        <td class="down">10%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-10.7"><span class="down">4주 -20.0%</span><br><span class="down">12주 -10.7%</span></td>
+        <td>17.2%</td>
       </tr>
       <tr class="sector"><td colspan="7">조선 · 중공업</td></tr>
       <tr>
         <td class="name">삼성중공업 <span class="code">(010140)</span></td>
-        <td>17,680</td><td class="down">-3.91%</td>
+        <td>17,320</td><td class="down">-5.87%</td>
         <td><span class="badge down">하락</span><br><span class="vr">7주 연속 하락</span></td>
-        <td class="down">9%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-17.2"><span class="down">4주 -12.7%</span><br><span class="down">12주 -17.2%</span></td>
-        <td>13.7%</td>
+        <td class="down">3%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-18.9"><span class="down">4주 -14.5%</span><br><span class="down">12주 -18.9%</span></td>
+        <td>14.0%</td>
       </tr>
       <tr class="sector"><td colspan="7">자동차 부품</td></tr>
       <tr>
         <td class="name">현대모비스 <span class="code">(012330)</span></td>
-        <td>346,000</td><td class="down">-1.84%</td>
+        <td>337,000</td><td class="down">-4.40%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
-        <td class="down">6%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-27.3"><span class="down">4주 -5.8%</span><br><span class="down">12주 -27.3%</span></td>
-        <td>16.6%</td>
+        <td class="down">2%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-29.2"><span class="down">4주 -8.3%</span><br><span class="down">12주 -29.2%</span></td>
+        <td>17.2%</td>
       </tr>
       <tr class="sector"><td colspan="7">제약 · 바이오 · 미용</td></tr>
       <tr>
         <td class="name">에스티팜 <span class="code">(237690)</span></td>
-        <td>92,800</td><td class="up">+1.64%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="down">25%<br><span class="vr">12주 range</span></td>
-        <td data-sort="4.9"><span class="up">4주 +1.6%</span><br><span class="up">12주 +4.9%</span></td>
-        <td>15.4%</td>
+        <td>89,800</td><td class="down">-1.64%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
+        <td class="down">18%<br><span class="vr">12주 range</span></td>
+        <td data-sort="1.5"><span class="down">4주 -1.6%</span><br><span class="up">12주 +1.5%</span></td>
+        <td>15.9%</td>
       </tr>
       <tr>
         <td class="name">휴메딕스 <span class="code">(200670)</span></td>
-        <td>23,900</td><td class="down">-2.25%</td>
+        <td>23,600</td><td class="down">-3.48%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
-        <td class="down">38%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-0.4"><span class="down">4주 -1.4%</span><br><span class="down">12주 -0.4%</span></td>
-        <td>11.6%</td>
+        <td class="down">34%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-1.7"><span class="down">4주 -2.7%</span><br><span class="down">12주 -1.7%</span></td>
+        <td>11.9%</td>
       </tr>
       <tr>
         <td class="name">달바글로벌 <span class="code">(483650)</span></td>
-        <td>167,400</td><td class="down">-2.62%</td>
+        <td>164,000</td><td class="down">-4.60%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
-        <td class="down">9%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-24.2"><span class="down">4주 -8.1%</span><br><span class="down">12주 -24.2%</span></td>
-        <td>17.4%</td>
+        <td class="down">7%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-25.8"><span class="down">4주 -9.9%</span><br><span class="down">12주 -25.8%</span></td>
+        <td>17.8%</td>
       </tr>
       <tr class="sector"><td colspan="7">방산 · 전자부품</td></tr>
       <tr>
         <td class="name">웨이비스 <span class="code">(289930)</span></td>
-        <td>7,300</td><td class="up">+1.53%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="up">51%<br><span class="vr">12주 range</span></td>
-        <td data-sort="11.4"><span class="down">4주 -10.1%</span><br><span class="up">12주 +11.4%</span></td>
-        <td>21.7%</td>
+        <td>7,030</td><td class="down">-2.23%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
+        <td class="down">43%<br><span class="vr">12주 range</span></td>
+        <td data-sort="7.3"><span class="down">4주 -13.4%</span><br><span class="up">12주 +7.3%</span></td>
+        <td>22.5%</td>
       </tr>
       <tr class="sector"><td colspan="7">패션 · 기타</td></tr>
       <tr>
         <td class="name">배럴 <span class="code">(267790)</span></td>
-        <td>2,790</td><td class="down">-0.36%</td>
+        <td>2,760</td><td class="down">-1.43%</td>
         <td><span class="badge down">하락</span><br><span class="vr">4주 연속 하락</span></td>
-        <td class="down">10%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-10.0"><span class="down">4주 -10.9%</span><br><span class="down">12주 -10.0%</span></td>
-        <td>11.0%</td>
+        <td class="down">6%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-11.0"><span class="down">4주 -11.8%</span><br><span class="down">12주 -11.0%</span></td>
+        <td>11.1%</td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-08-22 증설)</td></tr>
       <tr>
         <td class="name">재영솔루텍 <span class="code">(049630)</span></td>
-        <td>6,030</td><td class="down">-2.90%</td>
+        <td>5,820</td><td class="down">-6.28%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
-        <td class="down">26%<br><span class="vr">12주 range</span></td>
-        <td data-sort="12.9"><span class="down">4주 -13.4%</span><br><span class="up">12주 +12.9%</span></td>
-        <td>69.2%</td>
+        <td class="down">22%<br><span class="vr">12주 range</span></td>
+        <td data-sort="9.0"><span class="down">4주 -16.4%</span><br><span class="up">12주 +9.0%</span></td>
+        <td>71.8%</td>
       </tr>
       <tr>
         <td class="name">KCC <span class="code">(002380)</span></td>
-        <td>393,000</td><td class="down">-8.18%</td>
+        <td>384,500</td><td class="down">-10.16%</td>
         <td><span class="badge down">하락</span><br><span class="vr">4주 연속 하락</span></td>
-        <td class="down">32%<br><span class="vr">12주 range</span></td>
-        <td data-sort="1.3"><span class="down">4주 -17.4%</span><br><span class="up">12주 +1.3%</span></td>
-        <td>13.2%</td>
+        <td class="down">27%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-0.9"><span class="down">4주 -19.2%</span><br><span class="down">12주 -0.9%</span></td>
+        <td>13.6%</td>
       </tr>
       <tr>
         <td class="name">알테오젠 <span class="code">(196170)</span></td>
-        <td>240,000</td><td class="up">+2.56%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="down">23%<br><span class="vr">12주 range</span></td>
-        <td data-sort="1.1"><span class="down">4주 -4.0%</span><br><span class="up">12주 +1.1%</span></td>
-        <td>14.9%</td>
+        <td>231,000</td><td class="down">-1.28%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
+        <td class="down">17%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-2.7"><span class="down">4주 -7.6%</span><br><span class="down">12주 -2.7%</span></td>
+        <td>15.4%</td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-08-27 증설)</td></tr>
       <tr>
         <td class="name">현대코퍼레이션 <span class="code">(011760)</span></td>
-        <td>23,700</td><td class="down">-0.84%</td>
-        <td><span class="badge down">하락</span><br><span class="vr">6주 연속 하락</span></td>
-        <td class="down">36%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-7.4"><span class="down">4주 -5.6%</span><br><span class="down">12주 -7.4%</span></td>
-        <td>8.0%</td>
+        <td>24,150</td><td class="up">+1.05%</td>
+        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
+        <td class="down">42%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-5.7"><span class="down">4주 -3.8%</span><br><span class="down">12주 -5.7%</span></td>
+        <td>8.1%</td>
       </tr>
       <tr>
         <td class="name">남해화학 <span class="code">(025860)</span></td>
-        <td>5,780</td><td class="down">-1.87%</td>
+        <td>5,700</td><td class="down">-3.23%</td>
         <td><span class="badge down">하락</span><br><span class="vr">5주 연속 하락</span></td>
-        <td class="down">37%<br><span class="vr">12주 range</span></td>
-        <td data-sort="6.2"><span class="down">4주 -4.8%</span><br><span class="up">12주 +6.2%</span></td>
-        <td>10.0%</td>
+        <td class="down">31%<br><span class="vr">12주 range</span></td>
+        <td data-sort="4.8"><span class="down">4주 -6.1%</span><br><span class="up">12주 +4.8%</span></td>
+        <td>10.2%</td>
       </tr>
       <tr>
         <td class="name">풍산 <span class="code">(103140)</span></td>
-        <td>61,000</td><td class="down">-1.77%</td>
+        <td>60,500</td><td class="down">-2.58%</td>
         <td><span class="badge down">하락</span><br><span class="vr">3주 연속 하락</span></td>
-        <td class="down">16%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-14.3"><span class="down">4주 -20.5%</span><br><span class="down">12주 -14.3%</span></td>
-        <td>15.2%</td>
+        <td class="down">15%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-15.0"><span class="down">4주 -21.1%</span><br><span class="down">12주 -15.0%</span></td>
+        <td>15.3%</td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-09-21 증설)</td></tr>
       <tr>
         <td class="name">삼성SDI <span class="code">(006400)</span></td>
-        <td>554,000</td><td class="up">+4.53%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="up">82%<br><span class="vr">12주 range</span></td>
-        <td data-sort="39.5"><span class="up">4주 +6.3%</span><br><span class="up">12주 +39.5%</span></td>
-        <td>12.6%</td>
+        <td>512,000</td><td class="down">-3.40%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">2주 연속 하락</span></td>
+        <td class="up">66%<br><span class="vr">12주 range</span></td>
+        <td data-sort="29.0"><span class="down">4주 -1.7%</span><br><span class="up">12주 +29.0%</span></td>
+        <td>13.7%</td>
       </tr>
       <tr class="sector"><td colspan="7">신규 편입(2026-10-01 증설)</td></tr>
       <tr>
         <td class="name">포스코인터내셔널 <span class="code">(047050)</span></td>
-        <td>53,900</td><td class="down">-3.75%</td>
+        <td>53,000</td><td class="down">-5.36%</td>
         <td><span class="badge down">하락</span><br><span class="vr">2주 연속 하락</span></td>
-        <td class="up">56%<br><span class="vr">12주 range</span></td>
-        <td data-sort="3.3"><span class="down">4주 -2.5%</span><br><span class="up">12주 +3.3%</span></td>
-        <td>11.2%</td>
+        <td class="down">48%<br><span class="vr">12주 range</span></td>
+        <td data-sort="1.5"><span class="down">4주 -4.2%</span><br><span class="up">12주 +1.5%</span></td>
+        <td>11.5%</td>
       </tr>
       <tr>
         <td class="name">우리금융지주 <span class="code">(316140)</span></td>
-        <td>31,500</td><td class="up">+0.48%</td>
-        <td><span class="badge up">상승</span><br><span class="vr">1주 연속 상승</span></td>
-        <td class="down">18%<br><span class="vr">12주 range</span></td>
-        <td data-sort="-6.2"><span class="down">4주 -10.9%</span><br><span class="down">12주 -6.2%</span></td>
-        <td>7.9%</td>
+        <td>31,250</td><td class="down">-0.32%</td>
+        <td><span class="badge down">하락</span><br><span class="vr">5주 연속 하락</span></td>
+        <td class="down">15%<br><span class="vr">12주 range</span></td>
+        <td data-sort="-7.0"><span class="down">4주 -11.6%</span><br><span class="down">12주 -7.0%</span></td>
+        <td>8.0%</td>
       </tr>
     </tbody>
   </table>
