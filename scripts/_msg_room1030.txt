@@ -1,0 +1,3 @@
+「위쪽 여유」 표본에 2026-10-30 회차를 더한다 — 44회차, h=1 상위 3분위 -0.278%/회차 · 음성 대조군 상위 49.5%
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
