@@ -48,12 +48,15 @@ def main():
     went['items'] += wadd
     d['open_calls']['active'] += ocadd
     d['weekly_calls']['active'] += wcadd
-    ent['roster_change'] = ('8/21과 같은 22종목에 HPSP·파마리서치·코스메카코리아·알테오젠·'
-                            '키움증권·삼양식품·KCC·코스맥스 8종목 추가 — 총 30종목.')
-    went['roster_change'] = ent['roster_change']
+    # 2026-10-30: 8/21 증설 문구가 하드코딩돼 있어 --roster-change 로 받는다(없으면 기존 값을 건드리지 않는다).
+    if '--roster-change' in sys.argv:
+        ent['roster_change'] = sys.argv[sys.argv.index('--roster-change') + 1]
+    if ent.get('roster_change'):
+        went['roster_change'] = ent['roster_change']
 
     # 등록 누락 검증 — 레벨 콜 수와 원장 등록 수가 같아야 한다
-    n_lv = sum(len(i.get('p_touch') or {}) for i in add)
+    # 대체 레벨(p_alt)도 원장에 올라간다(SPLIT_LEVELS_FROM 2026-09-10 이후)
+    n_lv = sum(len(i.get('p_touch') or {}) + len(i.get('p_alt') or {}) for i in add)
     n_wlv = sum(len(i.get('p_touch') or {}) for i in wadd)
     assert n_lv == len(ocadd), '일봉 레벨콜 %d 인데 원장 %d' % (n_lv, len(ocadd))
     assert n_wlv == len(wcadd), '주봉 레벨콜 %d 인데 원장 %d' % (n_wlv, len(wcadd))

@@ -46473,7 +46473,7 @@
     "KOSDAQ": 724
    },
    "scored": null,
-   "roster_change": null,
+   "roster_change": "직전 24종목에 신세계(004170)·루닛(328130) 2종목을 더해 26종목이 됐다. 사용자가 10/30 종가 이후·다음 세션(11/2) 전에 요청해 편입했으므로 룩어헤드는 없다. 신세계는 코스피, 오늘 -1.21%(거래량 0.71배, 중립 배지)이고 루닛은 코스닥, 오늘 +4.74%(거래량 2.60배, 강세 배지 · 초과 +7.93%p)다 — 오른 종목이 편입됐다는 편향이 있으니 이 종목들의 과거 성과는 리포트의 누적 판정에 넣지 않는다. 사용자 목록에 없는 NAVER·에코프로는 제외 확정 전이라 로스터에 그대로 둔다.",
    "_note": "로스터·수집·확률 전 과정 v6.2. 주봉 확률은 금요일에만 낸다(오늘은 금요일).",
    "items": [
         {"code": "000660", "name": "SK하이닉스", "market": "KOSPI", "close": 1418000, "atr": 102067, "chg": -7.08, "line_provenance": "fresh", "resist": 1486000, "support": 1329000, "src": "line", "sigma": [0.666, 0.872], "call": "up_test", "distance_sigma": 0.666, "horizon": "2~3세션", "prior": 55.5, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -2.26%p(β1.55) · 배지 중립(-0.31σ) · 거래량 1.08배 · 저항 1,486,000(0.67σ·라인·53.3%) / 지지 1,329,000(0.87σ·라인·37.1%)", "model_inputs": {"volx": 1.08, "rngatr": 0.67, "atrpct": 7.2, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 53.3, "p_base": 55.5, "dist_sigma": 0.666, "dir": "up", "horizon_sessions": 3, "level": 1486000, "src": "line"}, "dn": {"p": 37.1, "p_base": 39.2, "dist_sigma": 0.872, "dir": "dn", "horizon_sessions": 3, "level": 1329000, "src": "line"}}, "p_alt": {}, "p_probe": {"0p5": {"up": 38.8, "dn": 35.0, "up_base": 43.0, "dn_base": 39.1, "up_level": 1469034, "dn_level": 1366966}, "1p0": {"up": 14.5, "dn": 10.2, "up_base": 16.8, "dn_base": 11.9, "up_level": 1520067, "dn_level": 1315933}}, "excess": -2.26, "badge": "중립", "badge_sigma": -0.31, "clsloc": 0.54, "volx": 1.08, "streak": -1, "hi": 1449000, "lo": 1381000, "vol": 3859903},
@@ -46499,7 +46499,9 @@
         {"code": "316140", "name": "우리금융지주", "market": "KOSPI", "close": 30800, "atr": 1185, "chg": 0, "line_provenance": "fresh", "resist": 31450, "support": 30000, "src": "line", "sigma": [0.549, 0.675], "call": "up_test", "distance_sigma": 0.549, "horizon": "2~3세션", "prior": 62.1, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +1.31%p(β0.11) · 배지 중립(0.34σ) · 거래량 0.71배 · 저항 31,450(0.55σ·라인·61.5%) / 지지 30,000(0.68σ·라인·49.1%) · 대체 — 지지 27,500(2.79σ·존·2.8%)", "model_inputs": {"volx": 0.71, "rngatr": 0.89, "atrpct": 3.85, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 61.5, "p_base": 62.1, "dist_sigma": 0.549, "dir": "up", "horizon_sessions": 3, "level": 31450, "src": "line"}, "dn": {"p": 49.1, "p_base": 49.8, "dist_sigma": 0.675, "dir": "dn", "horizon_sessions": 3, "level": 30000, "src": "line"}}, "p_alt": {"dn": {"p": 2.8, "p_base": 2.9, "dist_sigma": 2.785, "dir": "dn", "horizon_sessions": 3, "level": 27500, "src": "zone"}}, "p_probe": {"0p5": {"up": 41.7, "dn": 37.8, "up_base": 43.0, "dn_base": 39.1, "up_level": 31392, "dn_level": 30208}, "1p0": {"up": 16.1, "dn": 11.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 31985, "dn_level": 29615}}, "excess": 1.312, "badge": "중립", "badge_sigma": 0.34, "clsloc": 0.76, "volx": 0.71, "streak": -1, "hi": 31050, "lo": 30000, "vol": 2350838},
         {"code": "348210", "name": "넥스틴", "market": "KOSDAQ", "close": 26250, "atr": 2214, "chg": -3.14, "line_provenance": "fresh", "resist": 27633, "support": 25033, "src": "line", "sigma": [0.625, 0.55], "call": "down_test", "distance_sigma": 0.55, "horizon": "2~3세션", "prior": 57.6, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +1.71%p(β1.38) · 배지 중립(0.20σ) · 거래량 0.68배 · 저항 27,633(0.62σ·라인·54.3%) / 지지 25,033(0.55σ·라인·54.2%)", "model_inputs": {"volx": 0.68, "rngatr": 0.68, "atrpct": 8.43, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 54.3, "p_base": 57.7, "dist_sigma": 0.625, "dir": "up", "horizon_sessions": 3, "level": 27633, "src": "line"}, "dn": {"p": 54.2, "p_base": 57.6, "dist_sigma": 0.55, "dir": "dn", "horizon_sessions": 3, "level": 25033, "src": "line"}}, "p_alt": {}, "p_probe": {"0p5": {"up": 36.4, "dn": 32.7, "up_base": 43.0, "dn_base": 39.1, "up_level": 27357, "dn_level": 25143}, "1p0": {"up": 13.3, "dn": 9.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 28464, "dn_level": 24036}}, "excess": 1.709, "badge": "중립", "badge_sigma": 0.2, "clsloc": 0.7, "volx": 0.68, "streak": -2, "hi": 26700, "lo": 25200, "vol": 52469},
         {"code": "456040", "name": "OCI", "market": "KOSPI", "close": 56000, "atr": 3056, "chg": -3.61, "line_provenance": "fresh", "resist": 58000, "support": 54300, "src": "line", "sigma": [0.654, 0.556], "call": "down_test", "distance_sigma": 0.556, "horizon": "2~3세션", "prior": 57.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 -1.40%p(β0.48) · 배지 중립(-0.26σ) · 거래량 1.13배 · 저항 58,000(0.65σ·라인·54.5%) / 지지 54,300(0.56σ·라인·55.6%)", "model_inputs": {"volx": 1.13, "rngatr": 0.65, "atrpct": 5.46, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 54.5, "p_base": 56.1, "dist_sigma": 0.654, "dir": "up", "horizon_sessions": 3, "level": 58000, "src": "line"}, "dn": {"p": 55.6, "p_base": 57.2, "dist_sigma": 0.556, "dir": "dn", "horizon_sessions": 3, "level": 54300, "src": "line"}}, "p_alt": {}, "p_probe": {"0p5": {"up": 39.9, "dn": 36.1, "up_base": 43.0, "dn_base": 39.1, "up_level": 57528, "dn_level": 54472}, "1p0": {"up": 15.1, "dn": 10.6, "up_base": 16.8, "dn_base": 11.9, "up_level": 59056, "dn_level": 52944}}, "excess": -1.397, "badge": "중립", "badge_sigma": -0.26, "clsloc": 0.35, "volx": 1.13, "streak": -2, "hi": 57300, "lo": 55300, "vol": 31513},
-        {"code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 144100, "atr": 9497, "chg": -0.28, "line_provenance": "fresh", "resist": 149900, "support": 138700, "src": "line", "sigma": [0.611, 0.569], "call": "down_test", "distance_sigma": 0.569, "horizon": "2~3세션", "prior": 56.3, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.89%p(β0.05) · 배지 중립(0.13σ) · 거래량 1.07배 · 저항 149,900(0.61σ·라인·58.9%) / 지지 138,700(0.57σ·라인·56.7%) · 대체 — 지지 130,300(1.45σ·존·17.4%) / 저항 160,200(1.70σ·존·19.1%)", "model_inputs": {"volx": 1.07, "rngatr": 1.19, "atrpct": 6.59, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 58.9, "p_base": 58.5, "dist_sigma": 0.611, "dir": "up", "horizon_sessions": 3, "level": 149900, "src": "line"}, "dn": {"p": 56.7, "p_base": 56.3, "dist_sigma": 0.569, "dir": "dn", "horizon_sessions": 3, "level": 138700, "src": "line"}}, "p_alt": {"up": {"p": 19.1, "p_base": 18.8, "dist_sigma": 1.695, "dir": "up", "horizon_sessions": 3, "level": 160200, "src": "zone"}, "dn": {"p": 17.4, "p_base": 17.1, "dist_sigma": 1.453, "dir": "dn", "horizon_sessions": 3, "level": 130300, "src": "zone"}}, "p_probe": {"0p5": {"up": 43.9, "dn": 40.0, "up_base": 43.0, "dn_base": 39.1, "up_level": 148848, "dn_level": 139352}, "1p0": {"up": 17.3, "dn": 12.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 153597, "dn_level": 134603}}, "excess": 0.886, "badge": "중립", "badge_sigma": 0.13, "clsloc": 0.47, "volx": 1.07, "streak": -2, "hi": 150100, "lo": 138800, "vol": 111179}
+        {"code": "483650", "name": "달바글로벌", "market": "KOSPI", "close": 144100, "atr": 9497, "chg": -0.28, "line_provenance": "fresh", "resist": 149900, "support": 138700, "src": "line", "sigma": [0.611, 0.569], "call": "down_test", "distance_sigma": 0.569, "horizon": "2~3세션", "prior": 56.3, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음(60종목 확장 유니버스) — 무정보 기본값", "conf": "mid", "note": "초과 +0.89%p(β0.05) · 배지 중립(0.13σ) · 거래량 1.07배 · 저항 149,900(0.61σ·라인·58.9%) / 지지 138,700(0.57σ·라인·56.7%) · 대체 — 지지 130,300(1.45σ·존·17.4%) / 저항 160,200(1.70σ·존·19.1%)", "model_inputs": {"volx": 1.07, "rngatr": 1.19, "atrpct": 6.59, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 58.9, "p_base": 58.5, "dist_sigma": 0.611, "dir": "up", "horizon_sessions": 3, "level": 149900, "src": "line"}, "dn": {"p": 56.7, "p_base": 56.3, "dist_sigma": 0.569, "dir": "dn", "horizon_sessions": 3, "level": 138700, "src": "line"}}, "p_alt": {"up": {"p": 19.1, "p_base": 18.8, "dist_sigma": 1.695, "dir": "up", "horizon_sessions": 3, "level": 160200, "src": "zone"}, "dn": {"p": 17.4, "p_base": 17.1, "dist_sigma": 1.453, "dir": "dn", "horizon_sessions": 3, "level": 130300, "src": "zone"}}, "p_probe": {"0p5": {"up": 43.9, "dn": 40.0, "up_base": 43.0, "dn_base": 39.1, "up_level": 148848, "dn_level": 139352}, "1p0": {"up": 17.3, "dn": 12.3, "up_base": 16.8, "dn_base": 11.9, "up_level": 153597, "dn_level": 134603}}, "excess": 0.886, "badge": "중립", "badge_sigma": 0.13, "clsloc": 0.47, "volx": 1.07, "streak": -2, "hi": 150100, "lo": 138800, "vol": 111179},
+        {"code": "004170", "name": "신세계", "market": "KOSPI", "close": 245000, "atr": 16037, "chg": -1.21, "line_provenance": "fresh", "resist": 253500, "support": 236500, "src": "line", "sigma": [0.53, 0.53], "call": "up_test", "distance_sigma": 0.53, "horizon": "2~3세션", "prior": 63.2, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 +1.49%p(β0.68) · 배지 중립(0.23σ) · 거래량 0.71배", "model_inputs": {"volx": 0.71, "rngatr": 0.44, "atrpct": 6.55, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 59.4, "p_base": 63.2, "dist_sigma": 0.53, "dir": "up", "horizon_sessions": 3, "level": 253500, "src": "line"}, "dn": {"p": 55.0, "p_base": 58.9, "dist_sigma": 0.53, "dir": "dn", "horizon_sessions": 3, "level": 236500, "src": "line"}}, "p_alt": {"dn": {"p": 48.9, "p_base": 52.9, "dist_sigma": 0.624, "dir": "dn", "horizon_sessions": 3, "level": 235000, "src": "zone"}}, "p_probe": {"0p5": {"up": 35.5, "dn": 31.9, "up_base": 43.0, "dn_base": 39.1, "up_level": 253018, "dn_level": 236982}, "1p0": {"up": 12.8, "dn": 9.0, "up_base": 16.8, "dn_base": 11.9, "up_level": 261037, "dn_level": 228963}}, "excess": 1.49, "badge": "중립", "badge_sigma": 0.23, "clsloc": 0.93, "volx": 0.71, "streak": -2, "hi": 245500, "lo": 238500, "vol": 48638},
+        {"code": "328130", "name": "루닛", "market": "KOSDAQ", "close": 15690, "atr": 1250, "chg": 4.74, "line_provenance": "fresh", "resist": 16390, "support": 14778, "src": "line", "sigma": [0.56, 0.73], "call": "up_test", "distance_sigma": 0.56, "horizon": "2~3세션", "prior": 61.5, "direction_prob": 0.5, "expected_fret": 0.0, "prob_reason": "검정 통과 신호 없음 — 무정보 기본값", "conf": "mid", "note": "신규 편입. 초과 +7.93%p(β0.76) · 배지 강세(0.99σ) · 거래량 2.60배", "model_inputs": {"volx": 2.6, "rngatr": 1.23, "atrpct": 7.97, "atr_bars": 200, "atr_method": "wilder14"}, "p_touch": {"up": {"p": 63.5, "p_base": 61.5, "dist_sigma": 0.56, "dir": "up", "horizon_sessions": 3, "level": 16390, "src": "line"}, "dn": {"p": 48.6, "p_base": 46.5, "dist_sigma": 0.73, "dir": "dn", "horizon_sessions": 3, "level": 14778, "src": "line"}}, "p_alt": {}, "p_probe": {"0p5": {"up": 47.2, "dn": 43.2, "up_base": 43.0, "dn_base": 39.1, "up_level": 16315, "dn_level": 15065}, "1p0": {"up": 19.3, "dn": 13.8, "up_base": 16.8, "dn_base": 11.9, "up_level": 16940, "dn_level": 14440}}, "excess": 7.927, "badge": "강세", "badge_sigma": 0.99, "clsloc": 0.7, "volx": 2.6, "streak": 2, "hi": 16150, "lo": 14610, "vol": 4108233}
       ]
   }
  ],
@@ -49374,6 +49376,121 @@
      "atr_bars": 200,
      "atr_method": "wilder14"
     }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "004170",
+    "name": "신세계",
+    "dir": "up",
+    "level": 253500,
+    "dist_sigma": 0.53,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 59.4,
+    "p_base": 63.2,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "src": "line",
+    "slot": "near",
+    "model_inputs": {
+     "volx": 0.71,
+     "rngatr": 0.44,
+     "atrpct": 6.55,
+     "atr_bars": 200,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "004170",
+    "name": "신세계",
+    "dir": "dn",
+    "level": 236500,
+    "dist_sigma": 0.53,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 55.0,
+    "p_base": 58.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "src": "line",
+    "slot": "near",
+    "model_inputs": {
+     "volx": 0.71,
+     "rngatr": 0.44,
+     "atrpct": 6.55,
+     "atr_bars": 200,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "004170",
+    "name": "신세계",
+    "dir": "dn",
+    "level": 235000,
+    "dist_sigma": 0.624,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 48.9,
+    "p_base": 52.9,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "src": "zone",
+    "slot": "alt",
+    "model_inputs": {
+     "volx": 0.71,
+     "rngatr": 0.44,
+     "atrpct": 6.55,
+     "atr_bars": 200,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "328130",
+    "name": "루닛",
+    "dir": "up",
+    "level": 16390,
+    "dist_sigma": 0.56,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 63.5,
+    "p_base": 61.5,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "src": "line",
+    "slot": "near",
+    "model_inputs": {
+     "volx": 2.6,
+     "rngatr": 1.23,
+     "atrpct": 7.97,
+     "atr_bars": 200,
+     "atr_method": "wilder14"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "328130",
+    "name": "루닛",
+    "dir": "dn",
+    "level": 14778,
+    "dist_sigma": 0.73,
+    "horizon_sessions": 3,
+    "expiry_after_sessions": 3,
+    "p": 48.6,
+    "p_base": 46.5,
+    "sessions_elapsed": 0,
+    "status": "open",
+    "src": "line",
+    "slot": "near",
+    "model_inputs": {
+     "volx": 2.6,
+     "rngatr": 1.23,
+     "atrpct": 7.97,
+     "atr_bars": 200,
+     "atr_method": "wilder14"
+    }
    }
   ],
   "_expiry_rule": "sessions_elapsed 가 horizon_sessions 에 도달하면 종결한다. 중간에 레벨에 닿으면 즉시 touched 로 종결. scripts/score_touch.py 가 매 회차 자동 처리한다."
@@ -51727,6 +51844,86 @@
      "wrngatr": 0.56,
      "watrpct": 18.49,
      "watr_bars": 179,
+     "atr_method": "wilder14_1W"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "004170",
+    "name": "신세계",
+    "dir": "up",
+    "level": 276000,
+    "dist_sigma": 0.508,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 58.2,
+    "p_base": 67.2,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.39,
+     "watrpct": 24.93,
+     "watr_bars": 200,
+     "atr_method": "wilder14_1W"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "004170",
+    "name": "신세계",
+    "dir": "dn",
+    "level": 213500,
+    "dist_sigma": 0.516,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 51.0,
+    "p_base": 60.5,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 0.39,
+     "watrpct": 24.93,
+     "watr_bars": 200,
+     "atr_method": "wilder14_1W"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "328130",
+    "name": "루닛",
+    "dir": "up",
+    "level": 16785,
+    "dist_sigma": 0.502,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 72.8,
+    "p_base": 67.5,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.9,
+     "watrpct": 13.9,
+     "watr_bars": 200,
+     "atr_method": "wilder14_1W"
+    }
+   },
+   {
+    "opened": "2026-10-30",
+    "code": "328130",
+    "name": "루닛",
+    "dir": "dn",
+    "level": 14494,
+    "dist_sigma": 0.548,
+    "horizon_weeks": 3,
+    "expiry_after_weeks": 3,
+    "p": 64.4,
+    "p_base": 58.4,
+    "weeks_elapsed": 0,
+    "status": "open",
+    "model_inputs": {
+     "wrngatr": 1.9,
+     "watrpct": 13.9,
+     "watr_bars": 200,
      "atr_method": "wilder14_1W"
     }
    }
@@ -77831,7 +78028,7 @@
     "KOSDAQ_wchg": -3.63
    },
    "scored": null,
-   "roster_change": null,
+   "roster_change": "직전 24종목에 신세계(004170)·루닛(328130) 2종목을 더해 26종목이 됐다. 사용자가 10/30 종가 이후·다음 세션(11/2) 전에 요청해 편입했으므로 룩어헤드는 없다. 신세계는 코스피, 오늘 -1.21%(거래량 0.71배, 중립 배지)이고 루닛은 코스닥, 오늘 +4.74%(거래량 2.60배, 강세 배지 · 초과 +7.93%p)다 — 오른 종목이 편입됐다는 편향이 있으니 이 종목들의 과거 성과는 리포트의 누적 판정에 넣지 않는다. 사용자 목록에 없는 NAVER·에코프로는 제외 확정 전이라 로스터에 그대로 둔다.",
    "_note": "",
    "items": [
     {
@@ -79579,6 +79776,160 @@
      "wstreak": -4,
      "watrpct": 19.96,
      "note": "ATR 창 76주로 120주 미달 — 레벨만 표시하고 확률은 내지 않았다. 주간 -4.95% · 12주 위치 4%"
+    },
+    {
+     "code": "004170",
+     "name": "신세계",
+     "market": "KOSPI",
+     "timeframe": "1W",
+     "close": 245000,
+     "atr": 61074,
+     "wchg": -3.92,
+     "resist": 276000,
+     "support": 213500,
+     "src": "line",
+     "sigma": [
+      0.508,
+      0.516
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.508,
+     "horizon": "2~3주",
+     "prior": 67.2,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "low",
+     "atr_insufficient": null,
+     "note": "신규 편입. 주간 -3.92% · 4주 -26.2% · 12주 -41.7% · 12주위치 3% · 연속 -9주",
+     "model_inputs": {
+      "wrngatr": 0.39,
+      "watrpct": 24.93,
+      "watr_bars": 200,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 58.2,
+       "p_base": 67.2,
+       "dist_sigma": 0.508,
+       "dir": "up",
+       "horizon_weeks": 3,
+       "level": 276000,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 51.0,
+       "p_base": 60.5,
+       "dist_sigma": 0.516,
+       "dir": "dn",
+       "horizon_weeks": 3,
+       "level": 213500,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 32.2,
+       "dn": 27.1,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 275537,
+       "dn_level": 214463
+      },
+      "1p0": {
+       "up": 11.9,
+       "dn": 7.4,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 306074,
+       "dn_level": 183926
+      }
+     },
+     "m4": -26.2,
+     "m12": -41.67,
+     "pos12": 3,
+     "wstreak": -9,
+     "watrpct": 24.93
+    },
+    {
+     "code": "328130",
+     "name": "루닛",
+     "market": "KOSDAQ",
+     "timeframe": "1W",
+     "close": 15690,
+     "atr": 2181,
+     "wchg": 38.85,
+     "resist": 16785,
+     "support": 14494,
+     "src": "line",
+     "sigma": [
+      0.502,
+      0.548
+     ],
+     "call": "up_test",
+     "distance_sigma": 0.502,
+     "horizon": "2~3주",
+     "prior": 67.5,
+     "direction_prob": 0.5,
+     "expected_fret": 0.0,
+     "prob_reason": "검정 통과 신호 없음 — 무정보 기본값",
+     "conf": "low",
+     "atr_insufficient": null,
+     "note": "신규 편입. 주간 +38.85% · 4주 +48.4% · 12주 +44.5% · 12주위치 93% · 연속 1주",
+     "model_inputs": {
+      "wrngatr": 1.9,
+      "watrpct": 13.9,
+      "watr_bars": 200,
+      "atr_method": "wilder14_1W"
+     },
+     "p_touch": {
+      "up": {
+       "p": 72.8,
+       "p_base": 67.5,
+       "dist_sigma": 0.502,
+       "dir": "up",
+       "horizon_weeks": 3,
+       "level": 16785,
+       "src": "line",
+       "lap": 1
+      },
+      "dn": {
+       "p": 64.4,
+       "p_base": 58.4,
+       "dist_sigma": 0.548,
+       "dir": "dn",
+       "horizon_weeks": 3,
+       "level": 14494,
+       "src": "line",
+       "lap": 1
+      }
+     },
+     "p_probe": {
+      "0p5": {
+       "up": 53.6,
+       "dn": 47.4,
+       "up_base": 44.9,
+       "dn_base": 38.9,
+       "up_level": 16780,
+       "dn_level": 14600
+      },
+      "1p0": {
+       "up": 24.7,
+       "dn": 16.2,
+       "up_base": 18.8,
+       "dn_base": 12.0,
+       "up_level": 17871,
+       "dn_level": 13509
+      }
+     },
+     "m4": 48.44,
+     "m12": 44.48,
+     "pos12": 93,
+     "wstreak": 1,
+     "watrpct": 13.9
     }
    ]
   }

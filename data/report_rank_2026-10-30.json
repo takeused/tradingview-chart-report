@@ -10,9 +10,9 @@
    "near_dn": 0.754,
    "close": 225000,
    "chg": -3.02,
-   "p_sig": 60.9,
-   "p_volx": 65.2,
-   "p_room_up": 95.7
+   "p_sig": 56.0,
+   "p_volx": 64.0,
+   "p_room_up": 96.0
   },
   {
    "name": "SK하이닉스",
@@ -24,9 +24,9 @@
    "near_dn": 0.872,
    "close": 1418000,
    "chg": -7.08,
-   "p_sig": 8.7,
-   "p_volx": 56.5,
-   "p_room_up": 78.3
+   "p_sig": 8.0,
+   "p_volx": 56.0,
+   "p_room_up": 80.0
   },
   {
    "name": "넥스틴",
@@ -38,9 +38,9 @@
    "near_dn": 0.55,
    "close": 26250,
    "chg": -3.14,
-   "p_sig": 60.9,
-   "p_volx": 13.0,
-   "p_room_up": 69.6
+   "p_sig": 56.0,
+   "p_volx": 12.0,
+   "p_room_up": 72.0
   },
   {
    "name": "SK텔레콤",
@@ -52,9 +52,9 @@
    "near_dn": 0.519,
    "close": 75400,
    "chg": -1.57,
-   "p_sig": 26.1,
-   "p_volx": 4.3,
-   "p_room_up": 21.7
+   "p_sig": 24.0,
+   "p_volx": 4.0,
+   "p_room_up": 20.0
   },
   {
    "name": "NAVER",
@@ -66,9 +66,9 @@
    "near_dn": 0.559,
    "close": 172300,
    "chg": -1.49,
-   "p_sig": 43.5,
-   "p_volx": 39.1,
-   "p_room_up": 13.0
+   "p_sig": 40.0,
+   "p_volx": 40.0,
+   "p_room_up": 12.0
   },
   {
    "name": "KB금융",
@@ -80,9 +80,9 @@
    "near_dn": 0.428,
    "close": 155500,
    "chg": -0.83,
-   "p_sig": 56.5,
-   "p_volx": 78.3,
-   "p_room_up": 56.5
+   "p_sig": 52.0,
+   "p_volx": 76.0,
+   "p_room_up": 60.0
   },
   {
    "name": "에코프로",
@@ -94,9 +94,9 @@
    "near_dn": 0.759,
    "close": 72200,
    "chg": -1.5,
-   "p_sig": 82.6,
-   "p_volx": 13.0,
-   "p_room_up": 47.8
+   "p_sig": 80.0,
+   "p_volx": 12.0,
+   "p_room_up": 48.0
   },
   {
    "name": "OCI",
@@ -108,9 +108,9 @@
    "near_dn": 0.556,
    "close": 56000,
    "chg": -3.61,
-   "p_sig": 13.0,
-   "p_volx": 69.6,
-   "p_room_up": 73.9
+   "p_sig": 12.0,
+   "p_volx": 68.0,
+   "p_room_up": 76.0
   },
   {
    "name": "삼성중공업",
@@ -122,8 +122,8 @@
    "near_dn": 0.784,
    "close": 15880,
    "chg": 1.02,
-   "p_sig": 95.7,
-   "p_volx": 91.3,
+   "p_sig": 92.0,
+   "p_volx": 88.0,
    "p_room_up": 100.0
   },
   {
@@ -136,9 +136,9 @@
    "near_dn": 0.671,
    "close": 334000,
    "chg": -5.38,
-   "p_sig": 4.3,
-   "p_volx": 34.8,
-   "p_room_up": 47.8
+   "p_sig": 4.0,
+   "p_volx": 36.0,
+   "p_room_up": 48.0
   },
   {
    "name": "에스티팜",
@@ -150,9 +150,9 @@
    "near_dn": 0.532,
    "close": 72500,
    "chg": -2.03,
-   "p_sig": 43.5,
-   "p_volx": 47.8,
-   "p_room_up": 17.4
+   "p_sig": 40.0,
+   "p_volx": 48.0,
+   "p_room_up": 16.0
   },
   {
    "name": "휴메딕스",
@@ -164,9 +164,9 @@
    "near_dn": 0.554,
    "close": 22650,
    "chg": -1.52,
-   "p_sig": 69.6,
-   "p_volx": 69.6,
-   "p_room_up": 43.5
+   "p_sig": 68.0,
+   "p_volx": 68.0,
+   "p_room_up": 44.0
   },
   {
    "name": "달바글로벌",
@@ -178,9 +178,9 @@
    "near_dn": 0.569,
    "close": 144100,
    "chg": -0.28,
-   "p_sig": 34.8,
-   "p_volx": 47.8,
-   "p_room_up": 60.9
+   "p_sig": 32.0,
+   "p_volx": 48.0,
+   "p_room_up": 64.0
   },
   {
    "name": "웨이비스",
@@ -192,9 +192,9 @@
    "near_dn": 0.503,
    "close": 6950,
    "chg": -0.57,
-   "p_sig": 87.0,
-   "p_volx": 87.0,
-   "p_room_up": 91.3
+   "p_sig": 84.0,
+   "p_volx": 84.0,
+   "p_room_up": 92.0
   },
   {
    "name": "배럴",
@@ -206,9 +206,37 @@
    "near_dn": 0.923,
    "close": 2870,
    "chg": 1.59,
+   "p_sig": 96.0,
+   "p_volx": 96.0,
+   "p_room_up": 68.0
+  },
+  {
+   "name": "신세계",
+   "code": "004170",
+   "badge": "중립",
+   "sig": 0.23,
+   "volx": 0.71,
+   "room_up": 0.53,
+   "near_dn": 0.53,
+   "close": 245000,
+   "chg": -1.21,
+   "p_sig": 64.0,
+   "p_volx": 20.0,
+   "p_room_up": 36.0
+  },
+  {
+   "name": "루닛",
+   "code": "328130",
+   "badge": "강세",
+   "sig": 0.99,
+   "volx": 2.6,
+   "room_up": 0.56,
+   "near_dn": 0.73,
+   "close": 15690,
+   "chg": 4.74,
    "p_sig": 100.0,
    "p_volx": 100.0,
-   "p_room_up": 65.2
+   "p_room_up": 56.0
   },
   {
    "name": "재영솔루텍",
@@ -220,9 +248,9 @@
    "near_dn": 0.56,
    "close": 5480,
    "chg": -3.01,
-   "p_sig": 39.1,
-   "p_volx": 43.5,
-   "p_room_up": 87.0
+   "p_sig": 36.0,
+   "p_volx": 44.0,
+   "p_room_up": 88.0
   },
   {
    "name": "KCC",
@@ -234,9 +262,9 @@
    "near_dn": 0.545,
    "close": 389500,
    "chg": -2.14,
-   "p_sig": 43.5,
-   "p_volx": 8.7,
-   "p_room_up": 21.7
+   "p_sig": 40.0,
+   "p_volx": 8.0,
+   "p_room_up": 20.0
   },
   {
    "name": "알테오젠",
@@ -248,9 +276,9 @@
    "near_dn": 0.517,
    "close": 211500,
    "chg": -3.86,
-   "p_sig": 17.4,
-   "p_volx": 60.9,
-   "p_room_up": 30.4
+   "p_sig": 16.0,
+   "p_volx": 60.0,
+   "p_room_up": 28.0
   },
   {
    "name": "현대코퍼레이션",
@@ -263,8 +291,8 @@
    "close": 22400,
    "chg": -3.45,
    "p_sig": 0.0,
-   "p_volx": 95.7,
-   "p_room_up": 30.4
+   "p_volx": 92.0,
+   "p_room_up": 28.0
   },
   {
    "name": "남해화학",
@@ -276,9 +304,9 @@
    "near_dn": 1.316,
    "close": 5450,
    "chg": -0.18,
-   "p_sig": 78.3,
-   "p_volx": 30.4,
-   "p_room_up": 82.6
+   "p_sig": 76.0,
+   "p_volx": 32.0,
+   "p_room_up": 84.0
   },
   {
    "name": "풍산",
@@ -290,9 +318,9 @@
    "near_dn": 0.572,
    "close": 57500,
    "chg": -1.54,
-   "p_sig": 30.4,
+   "p_sig": 28.0,
    "p_volx": 0.0,
-   "p_room_up": 8.7
+   "p_room_up": 8.0
   },
   {
    "name": "삼성SDI",
@@ -304,9 +332,9 @@
    "near_dn": 0.513,
    "close": 543000,
    "chg": 0.93,
-   "p_sig": 91.3,
-   "p_volx": 82.6,
-   "p_room_up": 4.3
+   "p_sig": 88.0,
+   "p_volx": 80.0,
+   "p_room_up": 4.0
   },
   {
    "name": "포스코인터내셔널",
@@ -318,8 +346,8 @@
    "near_dn": 0.513,
    "close": 48650,
    "chg": -1.22,
-   "p_sig": 21.7,
-   "p_volx": 21.7,
+   "p_sig": 20.0,
+   "p_volx": 20.0,
    "p_room_up": 0.0
   },
   {
@@ -332,14 +360,14 @@
    "near_dn": 0.675,
    "close": 30800,
    "chg": 0,
-   "p_sig": 69.6,
-   "p_volx": 21.7,
-   "p_room_up": 39.1
+   "p_sig": 68.0,
+   "p_volx": 20.0,
+   "p_room_up": 40.0
   }
  ],
- "n_up": 4,
- "n_mid": 18,
+ "n_up": 5,
+ "n_mid": 19,
  "n_dn": 2,
- "n_kp": 16,
- "n_kq": 8
+ "n_kp": 17,
+ "n_kq": 9
 }

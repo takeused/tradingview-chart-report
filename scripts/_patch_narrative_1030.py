@@ -41,7 +41,7 @@ flat = [i for i in ITEMS if i['chg'] == 0]
 down = [i for i in ITEMS if i['chg'] < 0]
 bad = {b: [i['name'] for i in ITEMS if i['badge'] == b] for b in ('강세', '중립', '약세')}
 pbad = Counter(i['badge'] for i in P['items'])
-flips = [i for i in ITEMS if i['chg'] != 0 and PC[i['code']]['chg'] != 0 and (i['chg'] > 0) != (PC[i['code']]['chg'] > 0)]
+flips = [i for i in ITEMS if i['code'] in PC and i['chg'] != 0 and PC[i['code']]['chg'] != 0 and (i['chg'] > 0) != (PC[i['code']]['chg'] > 0)]
 volmed = st.median(i['volx'] for i in ITEMS); pvolmed = st.median(i['volx'] for i in P['items'])
 over1 = sorted([i for i in ITEMS if i['volx'] > 1], key=lambda i: -i['volx'])
 srt = sorted(ITEMS, key=lambda i: i['chg'])
@@ -68,10 +68,12 @@ print('up', len(up), 'flat', len(flat), 'down', len(down), 'flips', len(flips), 
       'inside', inside, 'zone', nzone, 'near', len(near), 'alt', nalt, 'wcalls', wcalls)
 
 # 전제 고정 — 어긋나면 서술이 거짓이 된다
-assert (len(up), len(flat), len(down)) == (3, 1, 20)
-assert wcalls == 41 and len(near) + nalt == 69
+assert (len(up), len(flat), len(down)) == (4, 1, 21) and len(ITEMS) == 26
+assert wcalls == 45 and len(near) + nalt == 74
+NEW = [i for i in ITEMS if i['code'] not in PC]
+assert [i['name'] for i in NEW] == ['신세계', '루닛']
 
-two_dn = sum(1 for i in ITEMS if i['close'] < PC[i['code']]['close'])   # 10/28 종가 대비 이틀치
+two_dn = sum(1 for i in ITEMS if i['code'] in PC and i['close'] < PC[i['code']]['close'])   # 10/28 종가 대비 이틀치
 
 
 def sub(t, start, end, new, inclusive_end=False):
@@ -99,6 +101,20 @@ market = '''<h3>📊 오늘 시장</h3>
              volmed=volmed, pvolmed=pvolmed, nover=len(over1),
              over=(' · '.join('%s %.2f배' % (i['name'], i['volx']) for i in over1[:4]) + (' 등' if len(over1) > 4 else '')) if over1 else '없음')
 t = sub(t, '<h3>📊 오늘 시장</h3>', '</div>', market)
+nw = {i['name']: i for i in NEW}
+notice = '''<div class="secsum" style="border-color:rgba(255,180,60,.5);">
+    <h3>📌 로스터 변경 — <span class="flip">신세계·루닛 2종목을 오늘 회차에 편입했습니다</span></h3>
+    <p style="margin:0;font-size:13px;">직전 24종목에 <b>신세계(코스피) %(a)s · 루닛(코스닥) %(b)s</b>를 더해 <b>%(n)d종목</b>이 됐습니다. 사용자 요청으로 10/30 종가 이후·다음 세션 전에 편입했으므로 룩어헤드는 없습니다. 다만 <b>루닛은 오늘 거래량 %(vb).2f배로 강세 배지</b>였던 종목이라 오른 종목이 편입됐다는 편향이 있어, 두 종목의 과거 성과는 누적 판정에 넣지 않습니다. 두 종목은 직전 회차 콜이 없어 채점 대상이 아니며 오늘 회차부터 콜이 열렸습니다.</p>
+  </div>
+  ''' % dict(a=f2(nw['신세계']['chg']), b=f2(nw['루닛']['chg']), n=len(ITEMS), vb=nw['루닛']['volx'])
+if '📌 로스터 변경 —' in t:
+    j0 = t.rindex('<div', 0, t.index('📌 로스터 변경 —'))
+    j1 = t.index('</div>', j0) + len('</div>')
+    t = t[:j0] + notice.rstrip() + t[j1:]
+else:
+    i = t.index('<h3>📊 오늘 시장</h3>')
+    i = t.rindex('<div', 0, i)
+    t = t[:i] + notice + t[i:]
 
 # ---- B. 지난 회차 채점 (금요일 — 일봉 두 세션 + 주봉)
 relp = ' · '.join('%s(%d건) 예측 %.1f%%→실제 %.1f%%' % (r['bin'], r['n'], r['pred'], r['actual']) for r in PR['reliability'] if not r.get('noisy'))
@@ -160,9 +176,9 @@ t = sub(t, '<div class="secsum" style="border-color:rgba(0,200,120,.45);">', '\n
 note = '''<div class="note">※ 등락률은 직전 거래일(10/29) 종가 대비 <b>10/30 종가</b> 기준이며, 초과수익은 <b>β<sub>adj</sub> = 1 + 0.7 × (β<sub>120일</sub> − 1)</b>로 지수를 걷어낸 값입니다(코스피 종목은 KOSPI, 코스닥 종목은 KOSDAQ에 대고 잽니다). β는 <b>매 회차 다시</b> 계산합니다. σ·존/라인·배지·도달확률을 읽는 법은 맨 위 <a href="#howto">「표 읽는 법」</a>에 있습니다.<br>
   ※ 표에 실린 것은 <b>"가까운 쪽" %(near)d개</b>입니다. 같은 방향의 <b>다른 출처 레벨(대체 %(alt)d개)</b>도 원장에 함께 올리지만, <b>표·관전 포인트가 쓰는 값은 가까운 쪽</b>입니다. <b>레벨이 아예 없는 방향은 오늘 %(nolv)d개</b>입니다.<br>
   ※ 존은 매 회차 새로 읽습니다. 오늘 잡힌 존은 <b>%(nz)d개</b>이고, 종가가 <b>존 안</b>인 종목은 %(inside)s입니다. 대체 레벨이 없는 방향은 <b>%(noalt)d개</b>입니다.<br>
-  ※ 라인도 24종목 전부 새로 읽었습니다(<b>종목당 평균 %(nl)d개</b>). 오늘 가까운 쪽 %(near)d개의 출처는 <b>라인 %(nline)d · 존 %(nzone)d</b>으로, 직전 회차(라인 %(pline)d · 존 %(pzone)d)와 비교됩니다.<br>
+  ※ 라인도 %(nall)d종목 전부 새로 읽었습니다(<b>종목당 평균 %(nl)d개</b>). 오늘 가까운 쪽 %(near)d개의 출처는 <b>라인 %(nline)d · 존 %(nzone)d</b>으로, 직전 회차(라인 %(pline)d · 존 %(pzone)d)와 비교됩니다.<br>
   ※ 10/29(목) 회차는 만들지 않았습니다. 표의 등락은 하루치이고 지수 수치는 이틀치를 반영합니다. 다음 회차는 <b>11/2(월)</b>이며, 주봉 도달확률 표는 오늘(10/30) 종가 기준을 다음 금요일(11/6)까지 씁니다.</div>''' % dict(
-    near=len(near), alt=nalt, nz=nz, noalt=noalt, nl=nl_avg, nline=len(near) - nzone, nzone=nzone,
+    nall=len(ITEMS), near=len(near), alt=nalt, nz=nz, noalt=noalt, nl=nl_avg, nline=len(near) - nzone, nzone=nzone,
     pline=pnear - pzone, pzone=pzone, nolv=sum(1 for i in ITEMS for k in ('up', 'dn') if k not in i['p_touch']),
     inside=('<b>%d개</b>' % len(inside)) if not inside else ' · '.join(inside))
 t = sub(t, '<div class="note">※ 등락률은', '</div>', note, inclusive_end=True)
@@ -170,12 +186,12 @@ t = sub(t, '<div class="note">※ 등락률은', '</div>', note, inclusive_end=T
 # ---- D. 섹터별 한 줄 요약 — 표에서 읽히지 않는 것(존 출처·존 안 종목·가장 가깝고 먼 자리)만
 zl = ' · '.join('%s %s %s(%.2fσ)' % (n, '위' if k == 'up' else '아래', fmt(v['level']), v['dist_sigma']) for n, k, v in zsrc)
 sector = '''<h3>섹터별 한 줄 요약 (일봉)</h3>
-    <p style="margin:0 0 8px;font-size:12px;color:var(--muted);">종목별 숫자는 위 표에 있습니다. 여기에는 <b>표에서 읽히지 않는 것</b>(존 출처·종가가 존 안인 종목·가까운 자리와 먼 자리)만 적습니다. 오늘은 24종목 중 %(ndn)d종목이 내려 섹터별로 가를 이야기가 없습니다.</p>
+    <p style="margin:0 0 8px;font-size:12px;color:var(--muted);">종목별 숫자는 위 표에 있습니다. 여기에는 <b>표에서 읽히지 않는 것</b>(존 출처·종가가 존 안인 종목·가까운 자리와 먼 자리)만 적습니다. 오늘은 %(nall)d종목 중 %(ndn)d종목이 내려 섹터별로 가를 이야기가 없습니다.</p>
 <p style="margin:0 0 8px;font-size:13px;"><b>가까운 쪽이 존인 자리 %(nzone)d개</b> — %(zl)s. 직전 회차에는 %(pzone)d개였습니다.</p>
 <p style="margin:0 0 8px;font-size:13px;"><b>종가가 존 안인 종목</b> — %(inside)s. 존 안에 있으면 존의 위·아래 경계가 각각 0.3σ 하한을 넘는지에 따라 레벨이 정해집니다.</p>
 <p style="margin:0 0 8px;font-size:13px;"><b>약세 배지</b>는 <b>%(weak)s</b>입니다. 강세 배지는 %(nb)d종목이고 목록은 위 시장 요약에 있습니다.</p>
 <p style="margin:0;font-size:13px;"><b>가까운 자리와 먼 자리</b> — 가장 가까운 자리는 <b>%(nearest)s</b>이고 가장 먼 자리는 <b>%(farthest)s</b>입니다.</p></div>
-''' % dict(pzone=pzone, nzone=nzone, zl=zl, inside=' · '.join(inside) if inside else '없음', ndn=len(down),
+''' % dict(pzone=pzone, nzone=nzone, zl=zl, inside=' · '.join(inside) if inside else '없음', ndn=len(down), nall=len(ITEMS),
            nb=len(bad['강세']), weak=' · '.join(bad['약세']),
            nearest='%.3fσ(%s %s %s)' % (ds[0][2]['dist_sigma'], ds[0][0], '위' if ds[0][1] == 'up' else '아래', fmt(ds[0][2]['level'])),
            farthest='%.3fσ(%s %s %s)' % (ds[-1][2]['dist_sigma'], ds[-1][0], '위' if ds[-1][1] == 'up' else '아래', fmt(ds[-1][2]['level'])))
@@ -184,11 +200,12 @@ t = sub(t, '<h3>섹터별 한 줄 요약 (일봉)</h3>', '\n\n  <div class="secs
 # ---- E. 관전 포인트
 top = ' · '.join('%s %s %s(%.3fσ · %s · %.1f%%)' % (n, '위' if k == 'up' else '아래', fmt(x['level']), x['dist_sigma'],
                  '라인' if x['src'] == 'line' else '존', x['p']) for n, k, x in srtp[:3])
+NALL = len(ITEMS)
 watch = '''<h3>오늘의 시장 관전 포인트</h3>
-<p style="margin:0 0 10px;font-size:13px;"><b>코스피·코스닥이 이틀 연속 내린 날, 로스터 24종목 중 %(nup)d종목만 올랐고 %(ndn)d종목이 내렸습니다.</b> 배지는 강세 %(nb)d · 중립 %(nn)d · 약세 %(ns)d입니다 — 배지는 상승 종목 수가 아니라 <b>지수 대비 얼마나 달랐는가</b>를 보여 줍니다.</p>
+<p style="margin:0 0 10px;font-size:13px;"><b>코스피·코스닥이 이틀 연속 내린 날, 로스터 %(nall)d종목 중 %(nup)d종목만 올랐고 %(ndn)d종목이 내렸습니다.</b> 배지는 강세 %(nb)d · 중립 %(nn)d · 약세 %(ns)d입니다 — 배지는 상승 종목 수가 아니라 <b>지수 대비 얼마나 달랐는가</b>를 보여 줍니다.</p>
 <p style="margin:0 0 10px;font-size:13px;"><b>방향 확률은 0.5로 둡니다.</b> 다음 날 방향은 이 리포트가 검정으로 확인한 신호가 아닙니다. 다음 회차 채점이 보는 것은 방향이 아니라 <b>레벨 도달 확률이 보정됐는가</b>입니다.</p>
 <p style="margin:0;font-size:13px;">가까운 쪽 %(near)d개의 출처는 <b>라인 %(nline)d · 존 %(nzone)d</b>이고, 확률 상위는 <b>%(top)s</b>입니다. 가장 가까운 자리는 <b>%(nearest)s</b>이고 가장 먼 자리는 <b>%(farthest)s</b>입니다. 확률이 높은 자리는 방향을 맞힌 것이 아니라 가까운 거리의 확률이 구조적으로 높게 나오는 것입니다.</p>
-  ''' % dict(ndn=len(down), nup=len(up), nn=len(bad['중립']), ns=len(bad['약세']), nb=len(bad['강세']),
+  ''' % dict(nall=NALL, ndn=len(down), nup=len(up), nn=len(bad['중립']), ns=len(bad['약세']), nb=len(bad['강세']),
              near=len(near), nline=len(near) - nzone, nzone=nzone, top=top,
              nearest='%.3fσ(%s %s %s)' % (ds[0][2]['dist_sigma'], ds[0][0], '위' if ds[0][1] == 'up' else '아래', fmt(ds[0][2]['level'])),
              farthest='%.3fσ(%s %s %s)' % (ds[-1][2]['dist_sigma'], ds[-1][0], '위' if ds[-1][1] == 'up' else '아래', fmt(ds[-1][2]['level'])))
@@ -209,8 +226,8 @@ wk = '''<div class="wkhead"></div>
   <div class="secsum" style="border-color:rgba(120,200,255,.45);">
     <h3>📆 주봉으로 보면 — <span class="flip">이번 주 봉이 오늘 완성됐습니다</span></h3>
 <p style="margin:0 0 10px;font-size:13px;"><b>이번 주(10/26~10/30)는 닷새가 모두 열린 주</b>이고 코스피 %(wk_kp)s·코스닥 %(wk_kq)s로 마감했습니다. 직전 주(10/19~10/23)도 닷새 정상 주여서 그 주 콜의 채점은 보정표 그대로 읽힙니다. 아래 서술 표도, 그 아래 주봉 도달확률 표도 <b>오늘 종가로 완성된 봉</b> 기준입니다.</p>
-<p style="margin:0;font-size:13px;">완성된 주봉으로 <b>24종목 중 %(pos)d종목이 플러스</b>입니다. 주간 낙폭이 큰 종목은 <b>%(wd)s</b> 순입니다. 12주 위치는 <b>%(p12u)s</b>가 상단권, <b>%(p12d)s</b>가 하단권입니다. 12주 모멘텀은 <b>%(mu)s</b>가 상위, <b>%(md)s</b>가 하위입니다. 주간 ATR%%가 가장 큰 종목은 <b>%(atr)s</b>입니다 — 같은 1σ라도 종목마다 폭이 이만큼 다릅니다.</p></div>
-''' % dict(wk_kp=f2(WE['index']['KOSPI_wchg']), wk_kq=f2(WE['index']['KOSDAQ_wchg']), pos=pos,
+<p style="margin:0;font-size:13px;">완성된 주봉으로 <b>%(nall)d종목 중 %(pos)d종목이 플러스</b>입니다. 주간 낙폭이 큰 종목은 <b>%(wd)s</b> 순입니다. 12주 위치는 <b>%(p12u)s</b>가 상단권, <b>%(p12d)s</b>가 하단권입니다. 12주 모멘텀은 <b>%(mu)s</b>가 상위, <b>%(md)s</b>가 하위입니다. 주간 ATR%%가 가장 큰 종목은 <b>%(atr)s</b>입니다 — 같은 1σ라도 종목마다 폭이 이만큼 다릅니다.</p></div>
+''' % dict(nall=len(ITEMS), wk_kp=f2(WE['index']['KOSPI_wchg']), wk_kq=f2(WE['index']['KOSDAQ_wchg']), pos=pos,
            wd=' · '.join('%s %s' % (names[cd], f2(v['wchg'])) for cd, v in twc[::-1][:4]),
            p12u=' · '.join('%s %d%%' % (names[cd], v['pos12']) for cd, v in top12p[:4]),
            p12d=' · '.join('%s %d%%' % (names[cd], v['pos12']) for cd, v in top12p[::-1][:4]),
